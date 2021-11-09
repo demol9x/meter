@@ -192,7 +192,7 @@ class SiteController extends CController
             die();
         }
 
-        $this->layout = 'home';
+        $this->layout = 'main';
         $siteinfo = \common\components\ClaLid::getSiteinfo();
         // add title for view
         Yii::$app->view->title = isset($siteinfo->title) ? $siteinfo->title : 'Trang chủ';
