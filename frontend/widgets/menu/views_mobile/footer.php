@@ -1,13 +1,9 @@
 <?php if (isset($data) && $data) { ?>
-    <h2><?= $menu_group['name'] ?></h2>
+    <div class="text_content"><?= $menu_group['name'] ?></div>
     <ul>
         <?php
-            foreach ($data as $menu) { ?>
-                <li>
-                    <a href="<?= $menu['link'] ?>" title="<?= $menu['name'] ?>">
-                        <?= $menu['name'] ?>
-                    </a>
-                </li>
+        foreach ($data as $menu) { ?>
+            <li><a href="<?= $menu['link'] ?>"><?= $menu['name'] ?></a></li>
         <?php } ?>
     </ul>
 <?php } ?>
