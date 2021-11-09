@@ -1,4 +1,5 @@
 <?php
+
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 
 if (isset($_GET['t'])) {
