@@ -1,0 +1,3 @@
+# Robots.txt
+User-agent: *
+Sitemap: http://gcaeco.vn/sitemap.xml

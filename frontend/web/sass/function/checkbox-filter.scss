@@ -1,0 +1,96 @@
+// Checkbox radiobox filter
+
+.awe-check .checkbox{padding-left:20px;color: #888;margin-bottom: 15px;}
+.awe-check .checkbox label{display:inline-block;vertical-align:middle;position:relative;padding-left:10px;font-family: 'Roboto'; font-size: 14px;}
+.awe-check .checkbox label::before{content:"";display:inline-block;position:absolute;width: 17px;height:17px;left:0;margin-left:-20px;border:1px solid #ccc;border-radius:0px;background-color:#fff;-webkit-transition:border .15s ease-in-out,color .15s ease-in-out;transition:border .15s ease-in-out,color .15s ease-in-out;}
+.awe-check .checkbox label::after{content:"";display:inline-block;position:absolute;width:16px;height:16px;left:0;top:0;margin-left:-15px;padding-left:3px;padding-top:3px;font-size:11px;color:#777}
+.awe-check .checkbox input[type=checkbox]:focus+label::before,.awe-check .checkbox input[type=radio]:focus+label::before{outline:thin dotted #555;outline:5px auto -webkit-focus-ring-color;outline-offset:-2px}
+.awe-check .checkbox input[type=checkbox]:checked+label::after,.awe-check .checkbox input[type=radio]:checked+label::after{font-family:FontAwesome;content:"\f00c";}
+.awe-check .checkbox input[type=checkbox]:disabled+label,.awe-check .checkbox input[type=radio]:disabled+label{opacity:.65}
+.awe-check .checkbox input[type=checkbox]:disabled+label::before,.awe-check .checkbox input[type=radio]:disabled+label::before{background-color:#e6e6e6;cursor:not-allowed}
+.awe-check .checkbox.checkbox-circle label::before{border-radius:50%}
+.awe-check .checkbox.checkbox-inline{margin-top:0}
+.awe-check .checkbox-primary input[type=checkbox]:checked+label::before,.awe-check .checkbox-primary input[type=radio]:checked+label::before{background-color:#fff;border-color:#f7941d}
+.awe-check .checkbox-primary input[type=checkbox]:checked+label::after,.awe-check .checkbox-primary input[type=radio]:checked+label::after{color:#f7941d}
+.awe-check .checkbox-danger input[type=checkbox]:checked+label::before,.awe-check .checkbox-danger input[type=radio]:checked+label::before{background-color:#fff;border-color:#ef474f}
+.awe-check .checkbox-danger input[type=checkbox]:checked+label::after,.awe-check .checkbox-danger input[type=radio]:checked+label::after{color:#ef474f}
+.awe-check .checkbox-info input[type=checkbox]:checked+label::before,.awe-check .checkbox-info input[type=radio]:checked+label::before{background-color:#fff;border-color:#00b9f2}
+.awe-check .checkbox-info input[type=checkbox]:checked+label::after,.awe-check .checkbox-info input[type=radio]:checked+label::after{color:#00b9f2}
+.awe-check .checkbox-warning input[type=checkbox]:checked+label::before,.awe-check .checkbox-warning input[type=radio]:checked+label::before{background-color:#fff;border-color:#f0ad4e}
+.awe-check .checkbox-warning input[type=checkbox]:checked+label::after,.awe-check .checkbox-warning input[type=radio]:checked+label::after{color:#f0ad4e}
+.awe-check .checkbox-success input[type=checkbox]:checked+label::before,.awe-check .checkbox-success input[type=radio]:checked+label::before{background-color:#fff;border-color:#5cb85c}
+.awe-check .checkbox-success input[type=checkbox]:checked+label::after,.awe-check .checkbox-success input[type=radio]:checked+label::after{color:#5cb85c}
+.awe-check .checkbox input[type=checkbox], .awe-check .checkbox input[type=radio] {
+    opacity: 0;
+    z-index: 1;
+    width: 100%;
+    height: 17px;
+    margin-top: 0px;
+    float: left;
+    cursor: pointer;
+}
+.awe-check .radio{
+    padding-left: 20px;
+    color: #888;
+    margin-bottom: 15px;
+}
+
+.awe-check .radio label{display:inline-block;vertical-align:middle;position:relative;padding-left:5px}
+.awe-check .radio label::before{outline:none;content:"";display:inline-block;position:absolute;width:17px;height:17px;left:0;margin-left:-20px;border:1px solid #ddd;border-radius:50%;background-color:#fff;-webkit-transition:border .15s ease-in-out;transition:border .15s ease-in-out}
+.awe-check .radio label::after{display:inline-block;position:absolute;content:" ";width:11px;height:11px;left:3px;top:3px;margin-left:-20px;border-radius:50%;background-color:#777;-webkit-transform:scale(0,0);-ms-transform:scale(0,0);transform:scale(0,0);-webkit-transition:-webkit-transform .1s cubic-bezier(.8,-.33,.2,1.33);-moz-transition:-moz-transform .1s cubic-bezier(.8,-.33,.2,1.33);-o-transition:-o-transform .1s cubic-bezier(.8,-.33,.2,1.33);transition:transform .1s cubic-bezier(.8,-.33,.2,1.33)}
+.awe-check .radio input[type=radio]{opacity:0;z-index:1;width: 100%;
+    height: 17px;
+    margin-top: 0px;
+    float: left;
+    cursor: pointer;}
+.awe-check .radio input[type=radio]:checked+label::after{-webkit-transform:scale(1,1);-ms-transform:scale(1,1);transform:scale(1,1)}
+.awe-check .radio input[type=radio]:disabled+label{opacity:.65}
+.awe-check .radio input[type=radio]:disabled+label::before{cursor:not-allowed}
+.awe-check .radio.radio-inline{margin-top:0}
+.awe-check .radio-primary input[type=radio]+label::after{background-color:#f7941d}
+.awe-check .radio-primary input[type=radio]:checked+label::before{border-color:#f7941d}
+.awe-check .radio-primary input[type=radio]:checked+label::after{background-color:#f7941d}
+.awe-check .radio-danger input[type=radio]+label::after{background-color:#ef474f}
+.awe-check .radio-danger input[type=radio]:checked+label::before{border-color:#ef474f}
+.awe-check .radio-danger input[type=radio]:checked+label::after{background-color:#ef474f}
+.awe-check .radio-info input[type=radio]+label::after{background-color:#00b9f2}
+.awe-check .radio-info input[type=radio]:checked+label::before{border-color:#00b9f2}
+.awe-check .radio-info input[type=radio]:checked+label::after{background-color:#00b9f2}
+.awe-check .radio-warning input[type=radio]+label::after{background-color:#f0ad4e}
+.awe-check .radio-warning input[type=radio]:checked+label::before{border-color:#f0ad4e}
+.awe-check .radio-warning input[type=radio]:checked+label::after{background-color:#f0ad4e}
+.awe-check .radio-success input[type=radio]+label::after{background-color:#5cb85c}
+.awe-check .radio-success input[type=radio]:checked+label::before{border-color:#5cb85c}
+.awe-check .radio-success input[type=radio]:checked+label::after{background-color:#5cb85c}
+.awe-check input[type=checkbox].styled:checked+label:after,.awe-check input[type=radio].styled:checked+label:after{font-family:FontAwesome;content:"\f00c"}
+.awe-check input[type=checkbox] .styled:checked+label::before,.awe-check input[type=radio] .styled:checked+label::before{color:#fff}
+.awe-check input[type=checkbox] .styled:checked+label::after,.awe-check input[type=radio] .styled:checked+label::after{color:#fff}
+.awe-check .radio input[type=radio]:focus{
+    outline: none;
+}
+.awe-check .radio:hover label, .awe-check .checkbox:hover label{
+    color: #ff6a00;
+}
+.box-filter h2 {
+    font-size: 15px;
+    font-family: 'Roboto';
+    text-transform: uppercase;
+    padding-bottom: 10px;
+    margin-bottom: 5px;
+    border-bottom: 1px solid #ebebeb;
+}
+.group-check-box{
+    width: 100%;
+    float: left;
+    transition: all 0.5s ease-in-out 0s;
+    -moz-transition: all 0.5s ease-in-out 0s;
+    -o-transition: all 0.5s ease-in-out 0s;
+    -webkit-transition: all 0.5s ease-in-out 0s;
+    -ms-transition: all 0.5s ease-in-out 0s;
+}
+
+.left-filter .awe-check .checkbox label::after {
+    margin-left: -20px;
+    padding-left: 3px;
+    padding-top: 1px;
+}

@@ -1,0 +1,568 @@
+// Đơn hàng
+.donhang-page{
+
+}
+.nav-donhang{
+    float: left;
+    width: 100%;
+    overflow-x: auto;
+    @media(max-width:767px){
+        .tab-menu{
+            width: 800px;
+        }
+    }
+    li{
+        display: inline-block;
+        position: relative;
+        float: left;
+        width: 20%;
+        &.active{
+            &:after{
+                content:"";
+                position: absolute;
+                bottom: 0px;
+                left: 0px;
+                width: 100%;
+                height: 2px;
+                background: #17a349;
+            }
+            a{
+                color: #17a349; 
+                background: #ebebeb69;
+            }
+        }
+        a{
+            color: #4f4f4f;
+            font-weight: 600;
+            text-transform: uppercase;
+            float: left;
+            padding: 15px 0px 10px 0px;
+            text-align: center;
+            width: 100%;;
+            @media(max-width:767px){
+                padding: 15px 8px 10px 8px;
+                float: left;
+                width: 100%;
+                text-align: center;
+
+            }
+        }
+        @media(max-width:992px){
+            min-width: 100px;
+        }
+        @media(max-width:450px){
+            width: initial;
+            min-width: initial;
+            a{
+                padding: 15px 20px 10px 20px;
+            }
+        }
+    }
+}
+
+.ctn-donhang{
+    float: left;
+    width: 100%;
+}
+.item-info-donhang{
+    float: left;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0px 1px 6px #ccc;
+    margin-bottom: 15px;
+    .title{
+        float: left;
+        width: 100%;
+        padding: 10px 15px;
+        border-bottom: 1px solid #ebebeb;
+        .img{
+            float: left;
+            margin-right: 30px;
+            a{
+                color: #000;
+                font-weight:500;
+            }
+            img{
+                width: 31px;
+                height: 31px;
+                margin-right: 10px;
+            }
+        }
+    }
+    .btn-view-shop{
+        float: left;
+        height: 31px;
+        line-height: 31px;
+        color: #17a349;
+        font-weight:500;
+        a{
+            color: #17a349;
+            i{
+                margin-right: 6px;
+            }
+        }
+    }
+    .code-donhang{
+        float: right;
+        line-height: 31px;
+        font-size: 13px;
+        p{
+            display: inline-block;
+            margin-bottom: 0px;
+        }
+        span{
+            margin:0px 5px;
+            display: inline-block;
+        }
+    }
+}
+
+.table-donhang{
+    float: left;
+    width: 100%;
+    .img{
+        width:100px;
+    }
+    h2{
+        margin: 10px 0px 10px 0px;
+        font-size: 16px;
+        color: #000;
+        a{
+            font-size: 15px !important;
+            color: #4a4a4a !important;
+            font-weight:600 !important;
+        }
+    }
+    p{
+        font-size: 13px;
+        b{
+           color: #17a349; 
+        }
+    }
+    .quantity{
+        float: left;
+        width: 100%;
+        color: #17a349;
+        margin-bottom: 6px;
+    }
+    .price-donhang{
+        color: #17a349;
+        font-weight: 600;
+    }
+    
+}
+.btn-table-donhang{
+    a{
+        line-height: 36px;
+        height: 35px;
+        text-transform: uppercase;
+        font-weight: 500;
+        -webkit-background-clip: padding-box;
+        -moz-background-clip: padding;
+        background-clip: padding-box;
+        -webkit-border-radius: 12px;
+        -moz-border-radius: 12px;
+        border-radius: 3px;
+        background-color: #17a349;
+        -webkit-box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.25);
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+        color: #fff !important;
+        font-size: 13px;
+        display: inline-block;
+        padding: 0px 20px;
+        white-space: nowrap;
+        font-family: "Roboto", Arial, sans-serif;
+        border: none;
+        margin-bottom: 11px;
+        border:1px solid #17a349;
+        @include transition (.4s);
+        &.no-background{
+            background: transparent;
+            border:1px solid #17a349;
+            color: #17a349 !important;
+        }
+        &:hover{
+            border:1px solid #17a349;
+            background: #17a349;
+            color: #fff !important;
+        }
+    }
+    span{
+        font-size: 14px;
+        color: #b3a8a8;
+        float: right;
+    }
+}
+.txt-right .price-donhang{
+    font-size: 19px;
+    margin-top: 10px;
+}
+
+.bottom-info-donhang{
+    float: left;
+    width: 100%;
+    padding: 15px;
+    border-top: 1px solid #ebebeb;
+    .btn-table-donhang{
+        float: left;
+        a{
+            margin-bottom: 0px;
+            margin-right: 10px;
+            @media(max-width:480px){
+                margin-bottom: 5px;
+            }
+        }
+    }
+    b.price{
+        float: right;
+        color: #17a349;
+        font-weight: 600;
+        font-size: 16px;
+        margin-top: 10px;
+    }
+}
+
+.success-order{
+    color: #17a349;
+}
+.delete-order{
+    color: red;
+}
+.box-detail-order{
+    font-size: 14px;
+    h2{
+        margin:0px 0px 10px 0px;
+        color: #4a4a4a;
+        font-size: 14px;
+        i{
+            color: #17a349;
+            margin-right: 6px;
+        }
+    }
+    .table-shop table {
+        width: 100%;
+        border: 1px solid #ebebeb;
+        margin: 10px 0 30px 0;
+        b{
+            color: #17a349;
+        }
+    }
+    .infor-nguoigiao{
+        float: left;
+        width: 100%;
+        ul{
+            margin:0px;
+            padding: 0px;
+            list-style: none;
+            float: left;
+            width: 100%;
+            li{
+                padding-left: 20px;
+                position: relative;
+                float: left;
+                width: 100%;
+                border-left: 1px solid #ebebeb;
+                line-height: 27px;
+                p{
+                    margin-bottom: 0px;
+                }
+                span{
+                    margin-right: 15px;
+                    color: #ada5a5;
+                }
+                &:after{
+                    content:"";
+                    position: absolute;
+                    left: -4px;
+                    top: 10px;
+                    width: 7px;
+                    height: 7px;
+                    border-radius:50%;
+                    background: #dadada;
+                }
+                &.active{
+                    border-left: 1px solid #17a34a;
+                    :after{
+                        background: #17a34a;
+                    }
+                }
+            }
+        }
+    }
+}
+.bg-eb{
+    background: #ebebeb29;
+}
+
+#donhang-chuanbi1 {
+    .btn-table-donhang{
+        margin:0px -15px;
+        a{
+            width: 100%;
+            text-align: center;
+            height: 50px;
+            line-height: 50px;
+            font-size: 17px;
+            margin:15px 0px 0px 0px;
+        }
+    } 
+}
+
+.change-password{
+    float: left;
+    width: 100%;
+    .width-change-password{
+        max-width:560px;
+        margin:20px auto;
+        padding: 0px 15px;
+        .item-change-password{
+            float: left;
+            width: 100%;
+            padding-left: 170px;
+            position: relative;
+            margin-bottom: 12px;
+            label{
+                position: absolute;
+                left: 0px;
+                top: 11px;
+                font-size: 14px;
+                font-weight: 500;
+            }
+            input{
+                float: left;
+                width: 100%;
+                height: 40px;
+                border: 1px solid #c8c8c8;
+                border-radius: 4px;
+                font-size: 13px;
+                padding: 0px 15px;
+            }
+            @media(max-width:560px){
+                padding-left: 0px;
+                margin-bottom: 20px;
+                label{
+                    position: relative;
+                    top: 0px;
+                    float: left;
+                    width: 100%;
+                }
+            }
+        }
+    }
+}
+
+@media(max-width:480px){
+    .ctn-donhang table{
+        width: 520px !important;
+    }
+}
+
+// popup danh gia
+.ctn-review-popup{
+    float: left;
+    width: 100%;
+    padding: 40px 30px;
+    .info-product{
+        float: left;
+        width: 100%;
+        .img{
+            float: left;
+            width: 130px;
+            height: 130px;
+            margin-right: 15px;
+            a{
+                float: left;
+                width: 100%;
+                height: 100%;
+               img{
+                    object-fit: cover;
+                    height: 100%;
+                    object-position: center;
+                } 
+            }
+            
+        }
+        .title{
+            h2{
+                margin: 0px;
+                line-height: 22px;
+                font-size: 19px;
+                a{
+                    color: #000;
+                }
+            }
+            .price{
+                margin-top: 10px;
+                color: #17a349;
+                font-size: 16px;
+                font-weight: 600;
+            }
+        }
+    }
+    textarea{
+        float: left;
+        width: 100%;
+        border-radius:4px;
+        border:1px solid #ccc;
+        margin: 20px 0;
+    }
+    button{
+        background: #17a349;
+        border: none;
+        text-align: center;
+        width: 100%;
+        height: 41px;
+        color: #fff;
+        font-size: 16px;
+        border-radius: 4px;
+        font-weight: 500;
+    }
+    .star-area{
+        float: left;
+        width: 100%;
+        text-align: center;
+        font-size: 64px;
+        color:#ffde00;
+        font-weight:700;
+        line-height: 50px;
+        margin: 15px 0;
+        span{
+            float: left;
+            width: 100%;
+        }
+        i{
+            font-size: 30px;
+        }
+    }
+}
+
+.add-address-pay{
+    line-height: 30px;
+    height: 30px;
+    float: right;
+    margin-top: -6px;
+    font-weight: 500;
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 4px;
+    background-color: #17a349;
+    -webkit-box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 2px 3px 6px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.25);
+    color: #fff !important;
+    font-size: 13px;
+    display: inline-block;
+    padding: 0px 20px;
+    white-space: nowrap;
+    font-family: "Roboto", Arial, sans-serif;
+    border: none;
+}
+
+.list-address-pay{
+    float: left;
+    width: 100%;
+    padding: 15px;
+    .item-address-pay{
+        float: left;
+        width: 100%;
+        margin-bottom: 15px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #ebebeb;
+        h2{
+            margin:0px 0px 2px 0px;
+            font-size: 14px;
+            float: left;
+            width: 100%;
+        }
+        p{
+            margin-bottom: 2px;
+            float: left;
+            width: 100%;
+        }
+    }
+    .btn-default-pay{
+        float: left;
+        width: 100%;
+        margin-top: 15px;
+        a{
+            float: left;
+            @extend .add-address-pay;
+        }
+        span{
+            margin-left: 15px;
+            color: #17a349;
+            i{
+                margin-right: 5px;
+            }
+        }
+    }
+}
+.tool-box{
+    float: right;
+    a{
+        color: #847676;
+        float: right;
+        margin-left: 16px;
+        i{
+            margin-right: 5px;
+        }
+    }
+}
+.btn-set-default{
+    float: right;
+    width: 100%;
+    max-width: 186px;
+    border: 1px solid #17a349;
+    background: transparent;
+    line-height: 31px;
+    color: #17a349;
+    margin-top: 15px;
+    border-radius: 4px;
+    font-weight: 500;
+    &:hover{
+        background: #17a349;
+        color:#fff;
+    }
+    &.active{
+        border: 1px solid #ebebeb;
+        color:#ebebeb;
+    }
+}
+
+.input-fixed{
+    display: none;
+    line-height: 29px;
+    padding: 0px 15px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    width: 100%;
+    margin-bottom: 15px;
+    margin-top: 10px;
+    margin-left: 0px;
+    background: #fff;
+    position: relative;
+    
+    &.open{
+        display: block;
+    }
+}
+
+.btn-save.input-fixed{
+    height: initial;
+    float: left;
+    width: initial;
+    padding: 0px;
+    border-radius: 4px;
+    a{
+        line-height: 35px;
+        height: 35px;
+        margin: 0px;
+        min-width:70px;
+        text-align: center;
+        
+    }
+}

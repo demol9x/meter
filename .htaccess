@@ -1,0 +1,43 @@
+Options +FollowSymlinks
+RewriteEngine On
+RewriteRule ^.well-known/pki-validation/gsdv.txt - [L]
+RewriteRule ^phpinfo.php - [L]
+RewriteRule ^nanoloader.php - [L]
+
+RewriteRule ^.well-known/pki-validation/F1D41C286F32204DA679D8A92987DCFE.txt - [L]
+
+RewriteRule ^.well-known/acme-challenge/E05my40iqk81zs_5Owvjjo_C9niBy8HJUAm1VBZxuY0 - [L]
+
+RewriteRule ^robots.txt - [L]
+RewriteRule ^sitemap.xml - [L]
+RewriteRule ^google8dc3326402af9efd.html - [L]
+
+# deal with admin first
+RewriteCond %{REQUEST_URI} ^/(admin) 
+RewriteRule ^admin/assets/(.*)$ backend/web/assets/$1 [L]
+RewriteRule ^admin/css/(.*)$ backend/web/css/$1 [L]
+RewriteRule ^admin/gentelella/(.*)$ backend/web/gentelella/$1 [L]
+RewriteRule ^admin/js/(.*)$ backend/web/js/$1 [L]
+RewriteRule ^admin/images/(.*)$ backend/web/images/$1 [L]
+RewriteRule ^gii/$ backend/web/gii [L]
+
+RewriteCond %{REQUEST_URI} !^/backend/web/(assets|css|gentelella|js)/  
+RewriteCond %{REQUEST_URI} ^/(admin)  
+RewriteRule ^.*$ backend/web/index.php [L]
+# API
+RewriteCond %{REQUEST_URI} ^/(api) 
+RewriteRule ^.*$ api/web/index.php [L]
+#
+RewriteCond %{REQUEST_URI} ^/(assets|css|fonts|images|gentelella)  
+RewriteRule ^assets/(.*)$ frontend/web/assets/$1 [L]
+RewriteRule ^css/(.*)$ frontend/web/css/$1 [L]
+RewriteRule ^js/(.*)$ frontend/web/js/$1 [L]
+RewriteRule ^fonts/(.*)$ frontend/web/fonts/$1 [L]
+RewriteRule ^images/(.*)$ frontend/web/images/$1 [L]
+RewriteRule ^gentelella/(.*)$ frontend/web/gentelella/$1 [L]
+
+RewriteCond %{REQUEST_URI} !^/(frontend|backend)/web/(assets|css|gentelella|js|fonts|images)/  
+RewriteCond %{REQUEST_URI} !index.php
+RewriteCond %{REQUEST_FILENAME} !-f [OR]
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^.*$ frontend/web/index.php
