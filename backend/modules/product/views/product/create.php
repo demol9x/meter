@@ -18,8 +18,6 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'images' => $images,
         'attributes_changeprice' => $attributes_changeprice,
-        'certificates' => $certificates,
-        'certificate_items' => $certificate_items,
         'shop_transports' => $shop_transports,
         'product_transports' => $product_transports,
     ]) ?>
