@@ -1,0 +1,163 @@
+@font-face {
+  font-family: "Helvetica Neue light";
+  src: url("../font/helvetica-neue-light.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue bold";
+  src: url("../font/helvetica-neue-bold.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("../font/helvetica-neue-regular.ttf");
+  font-display: swap;
+}
+@font-face {
+  font-family: "SVN-Poppins";
+  src: url("../font/SVN-Poppins-Regular.ttf");
+  font-display: swap;
+}
+body {
+  font-family: "Helvetica Neue";
+  color: #4f4f4f;
+}
+
+h2.title_30 {
+  position: relative;
+  margin-left: 28px;
+}
+h2.title_30::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: -28px;
+  background: url(../img/icon-title.png);
+  width: 23px;
+  height: 21px;
+}
+
+.title_60 {
+  font-family: "Helvetica Neue bold";
+  font-weight: bold;
+  font-size: 60px;
+  line-height: 130.19%;
+  color: #289300;
+}
+.title_48 {
+  font-family: "Helvetica Neue bold";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 48px;
+  line-height: 59px;
+}
+.title_30 {
+  font-family: "Helvetica Neue bold";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 30px;
+  line-height: 37px;
+  text-transform: uppercase;
+  color: #333333;
+}
+.title_26 {
+  font-family: "Helvetica Neue bold";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 26px;
+  line-height: 150.19%;
+}
+.title_28 {
+  font-family: "Helvetica Neue bold";
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 150.8%;
+}
+.title_24 {
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 138.3%;
+}
+.title_18 {
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+}
+.title_21 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 21px;
+  line-height: 26px;
+  text-align: justify;
+}
+.title_20 {
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 150.63%;
+}
+
+.content_16 {
+  font-family: "Helvetica Neue";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 150%;
+}
+.content_16_b {
+  font-family: Helvetica Neue;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 150.63%;
+}
+.content_14 {
+  font-family: "Helvetica Neue";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 150.19%;
+}
+
+@media (max-width: 1200px) {
+  .title_60 {
+    font-size: 40px;
+  }
+  .title_28 {
+    font-size: 24px;
+  }
+  .title_26 {
+    font-size: 22px;
+  }
+
+  .content_16 {
+    font-size: 14px;
+  }
+  .content_16_b {
+    font-size: 14px;
+  }
+  .content_14 {
+    font-size: 13px;
+  }
+}
+@media (max-width: 768px) {
+  .title_26 {
+    font-size: 20px;
+  }
+}
+@media (max-width: 500px) {
+  .title_60 {
+    font-size: 36px;
+  }
+  .title_28 {
+    font-size: 18px;
+  }
+  .title_26 {
+    font-size: 19px;
+  }
+}

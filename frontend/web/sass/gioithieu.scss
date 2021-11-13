@@ -1,0 +1,443 @@
+
+.site51_html_col0_gioithieu {
+    .gioithieu {
+        display: flex;
+        align-items: center;
+        margin: 61px 0 101px 0;
+        &__left {
+            width: 44%;
+            padding-right: 15px;
+            h2 {
+                margin-bottom: 30px;
+            }
+            ul {
+                li {
+                    text-align: justify;
+                    margin-bottom: 20px;
+                }
+            }
+            .btn-gioithieu {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 138px;
+                height: 50px;
+                border: 1px solid #289300;
+                box-sizing: border-box;
+                border-radius: 29px;
+                color: #289300;
+                &:hover {
+                    background: #289300;
+                    color: #fff;
+                }
+            }
+            .btn-animation2 {
+                &::after {
+                    border-radius: 29px;
+                }
+            }
+        }
+        &__right {
+            width: 52%;
+            &--img {
+                position: relative;
+                height: 540px;
+                overflow: hidden;
+                .item-video {
+                    width: 470px;
+                    height: 286px;
+                    border-radius: 10px;
+                    position: absolute;
+                    top: calc(100% / 2 - 286px / 2);
+                    left: calc(100% / 2 - 470px / 2);
+                    .video {
+                        position: relative;
+                        .play-video {
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            top: 0;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            span {
+                                display: inline-block;
+                                width: 52.59px;
+                                height: 52.59px;
+                                background: #289300;
+                                border-radius: 50%;
+                                text-align: center;
+                                padding-top: 16px;
+                                position: relative;
+                                color: #fff;
+                                i {
+                                    font-size: 20px;
+                                }
+                                @keyframes amoniPlay {
+                                    0% {
+                                        transform: scale(1);
+                                        opacity: 1;
+                                    }
+                                    100% {
+                                        transform: scale(1.4);
+                                        opacity: 0;
+                                    }
+                                }
+                                &::before {
+                                    content: "";
+                                    position: absolute;
+                                    top: 0;
+                                    left: 0;
+                                    width: 100%;
+                                    height: 100%;
+                                    border-radius: 50%;
+                                    border: 1px solid #289300;
+                                    animation: infinite 1s amoniPlay linear;
+                                }
+                            }
+                        }
+                    }
+                    .modal__container {
+                        position: fixed;
+                        top: 0;
+                        left: 0;
+                        background-color: rgba(0, 0, 0, 0.377);
+                        width: 100%;
+                        height: 100%;
+                        display: grid;
+                        align-items: center;
+                        overflow: hidden;
+                        transition: all 0.3s;
+                        z-index: 1000;
+                        visibility: hidden;
+                        opacity: 0;
+                    }
+                    .modal__content {
+                        width: 70%;
+                        height: 70%;
+                        margin: auto;
+                        position: relative;
+                        background-color: #fff;
+                        text-align: center;
+                        // padding: 3rem 2rem 2rem;
+                        border-radius: 1rem 1rem 1rem 1rem;
+                        transition: all 0.3s;
+                        transform: translateY(10%);
+                        overflow: hidden;
+                        iframe {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                    .modal__close {
+                        display: inline-flex;
+                        border-radius: 0.25rem;
+                        color: #289300;
+                        font-size: 1.5rem;
+                        position: absolute;
+                        top: 2rem;
+                        right: 2rem;
+                        cursor: pointer;
+                    }
+                    .show-modal {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+                    .show-modal .modal__content {
+                        transform: translateY(0);
+                    }
+                }
+                .item-img {
+                    border-radius: 5px;
+                    position: absolute;
+                    overflow: hidden;
+                    img {
+                        max-width: 100%;
+                    }
+                    &:first-child {
+                        top: 0;
+                        left: 0;
+                        width: 254px;
+                        height: 155px;
+                    }
+                    &:nth-child(2) {
+                        top: -1rem;
+                        right: 2rem;
+                        width: 157px;
+                        height: 97px;
+                    }
+                    &:nth-child(3) {
+                        bottom: 0;
+                        left: 1rem;
+                        width: 152px;
+                        height: 95px;
+                    }
+                    &:nth-child(4) {
+                        bottom: 0;
+                        right: 0;
+                        width: 140px;
+                        height: 157px;
+                        z-index: 1;
+                    }
+                }
+            }
+        }
+    }
+    .tienich {
+        background-color: #289300;
+
+        &__row {
+            display: flex;
+            &--item {
+                margin: 50px 0;
+                width: 25%;
+                text-align: center;
+                .item--img {
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    margin: auto;
+                    background: #fff;
+                    margin-bottom: 47px;
+                }
+                p {
+                    color: #fff;
+                }
+            }
+        }
+    }
+    .giatri {
+        background-position: center;
+        background-size: cover;
+        float: left;
+        width: 100%;
+        padding: 110px 0;
+        &__content {
+            max-width: 564px;
+            width: 100%;
+            float: right;
+            &-item {
+                margin-top: 35px;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                &__icon {
+                    width: 95px;
+                    height: 95px;
+                    background: #ffffff;
+                    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.08);
+                    border-radius: 5px;
+                    padding: 20px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    img {
+                        max-width: 100%;
+                    }
+                }
+                &__text {
+                    max-width: 434px;
+                    width: 100%;
+                    margin-left: 35px;
+                    text-align: justify;
+                    h4 {
+                        color: #424242;
+                    }
+                    p {
+                        margin-top: 10px;
+                        line-height: 135.02%;
+                        color: #424242;
+                        span {
+                            font-weight: bold;
+                            color: #289300;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .slogan {
+        float: left;
+        width: 100%;
+        padding: 50px 0px 60px 0px;
+        .content_40 {
+            position: relative;
+            span {
+                display: inline-block;
+                &:first-child {
+                    transform: translateY(-20px);
+                }
+                &:last-child {
+                    transform: translateY(5px);
+                }
+            }
+        }
+    }
+}
+@media (max-width: 1200px) {
+    .site51_html_col0_gioithieu {
+        .gioithieu {
+            justify-content: space-between;
+            &__left {
+            }
+            &__right {
+                &--img {
+                    .item-video {
+                        width: 400px;
+                        height: 244px;
+                        top: calc(100% / 2 - 244px / 2);
+                        left: calc(100% / 2 - 400px / 2);
+                    }
+                    .item-img {
+                        &:first-child {
+                            top: 38px;
+                            left: -36px;
+                            width: 215px;
+                            height: 131px;
+                        }
+                        &:nth-child(2) {
+                            top: 2rem;
+                            right: 1rem;
+                            width: 140px;
+                            height: 86px;
+                        }
+                        &:nth-child(3) {
+                            bottom: 25px;
+                            left: -2rem;
+                        }
+                        &:nth-child(4) {
+                            bottom: 19px;
+                            right: 0px;
+                            width: 133px;
+                            height: 150px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 1000px) {
+    .site51_html_col0_gioithieu {
+        .gioithieu {
+            flex-direction: column;
+            &__left {
+                width: 100%;
+            }
+            &__right {
+                width: 100%;
+                &--img {
+                    .item-video {
+                        width:  78%;
+                        height: 50%;
+                        top: calc(100% / 2 - 50% / 2);
+                        left: calc(100% / 2 -  78% / 2);
+                        .video {
+                            img {
+                                width: 100%;
+                                height: 100%;
+                                object-fit: cover;
+                            }
+                        }
+                        .modal__content {
+                            width: 95%;
+                            height: 40%;
+                        }
+                    }
+                    .item-img {
+                        img {
+                            width: 100%;
+                            height: 100%;
+                            object-fit: cover;
+                        }
+                        &:first-child {
+                            top: 38px;
+                            left: 0px;
+                            width: 30%;
+                            height: 20%;
+                        }
+                        &:nth-child(2) {
+                            top: 2rem;
+                            right: 1rem;
+                            width: 27%;
+                            height: 17%;
+                        }
+                        &:nth-child(3) {
+                            left: 0rem;
+                            bottom: 25px;
+                            width: 26%;
+                            height: 17%;
+                        }
+                        &:nth-child(4) {
+                            bottom: 19px;
+                            right: 0px;
+                            width: 25%;
+                            height: 27%;
+                        }
+                    }
+                }
+            }
+        }
+        .tienich {
+            &__row {
+                &--item {
+                    .item--img {
+                        margin-bottom: 27px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 500px) {
+    .site51_html_col0_gioithieu {
+        .gioithieu {
+            &__right {
+                &--img {
+                    height: 454px;
+                }
+            }
+        }
+        .giatri {
+            &__content {
+                &-item {
+                    &__icon {
+                        width: 80px;
+                        height: 80px;
+                        padding: 10px;
+                    }
+                    &__text {
+                        margin-left: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 415px) {
+    .site51_html_col0_gioithieu {
+        .gioithieu {
+            &__right {
+                &--img {
+                    height: 342px;
+                }
+            }
+        }
+        .tienich {
+            &__row {
+                flex-wrap: wrap;
+                &--item {
+                    margin: 28px 0px 20px 0px;
+                    width: 50%;
+                    .item--img {
+                        margin-bottom: 27px;
+                    }
+                }
+            }
+        }
+    }
+}

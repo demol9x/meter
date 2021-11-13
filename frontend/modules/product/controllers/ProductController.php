@@ -2,6 +2,7 @@
 
 namespace frontend\modules\product\controllers;
 
+use common\models\Province;
 use Yii;
 use frontend\controllers\CController;
 use common\models\product\ProductCategory;
@@ -146,7 +147,7 @@ class ProductController extends CController
 
     public function actionIndex()
     {
-        // $this->layout = 'category';
+        $this->layout = 'brand';
         Yii::$app->view->title = Yii::t('app', 'product');
         $productdes = Yii::t('app', 'product');
         // add meta description
@@ -165,11 +166,15 @@ class ProductController extends CController
         ];
         Yii::$app->params['breadcrumbs'][Yii::t('app', 'product')] = Url::to(['/product/product/index']);
         //
-        $pagesize = isset($_GET['per-page']) ? $_GET['per-page'] : ClaLid::DEFAULT_LIMIT;
-        $page = Yii::$app->request->get('page', 1);
+        $pagesize = 24;
 
+        $page = Yii::$app->request->get('page', 1);
+        $province_id = Yii::$app->request->get('p', 0);
+        $keyword = Yii::$app->request->get('k', '');
         $data = Product::getProduct(array_merge($_GET, [
             // 'category_id' => $category->id,
+            'keyword'=>$keyword,
+            'province_id'=>$province_id,
             'limit' => $pagesize,
             'page' => $page,
         ]));
@@ -448,10 +453,8 @@ class ProductController extends CController
     public function actionDetail($id, $t = 0)
     {
         $_SESSION['url_back_login'] = 'http://' . \common\components\ClaSite::getServerName() . "$_SERVER[REQUEST_URI]";
-        $this->layout = 'detail';
-        Yii::$app->view->dynamicPlaceholders = [
-            'asset' => 'AppAssetDetailProduct'
-        ];
+        $this->layout = 'brand';
+
         //
         $model = $this->addView($id);
         // $model = $this->findModel($id);
@@ -506,112 +509,37 @@ class ProductController extends CController
         ]);
         Yii::$app->view->registerMetaTag([
             'property' => 'og:site_name',
-            'content' => 'ocopmart.org'
+            'content' => 'meter'
         ]);
         Yii::$app->view->registerMetaTag([
             'property' => 'og:type',
             'content' => 'website'
         ]);
-        Yii::$app->view->registerMetaTag([
-            'property' => 'fb:app_id',
-            'content' => '723791141343722'
-        ]);
+
         //
         Yii::$app->params['breadcrumbs'] = [
             Yii::t('app', 'home') => Url::home(),
+            $model->name => Url::to(['/product/product/detail','alias' => $model->alias, 'id' => $model->id])
         ];
 
         //
-        $affiliate_id = Yii::$app->request->get('affiliate_id', 0);
-        if (isset($affiliate_id) && $affiliate_id) {
-            $ckname_aff = AffiliateLink::AFFILIATE_NAME . $model->id;
-            $affiliate = AffiliateLink::findOne($affiliate_id);
-            if ($affiliate) {
-                ClaLid::setCookie($ckname_aff, $affiliate_id, 30);
-                $click = AffiliateClick::getModel([
-                    'affiliate_id' => $affiliate_id,
-                    'affiliate_user_id' => $affiliate->user_id,
-                    'object_id' => $model->id,
-                    'object_type' => 1,
-                ]);
-                $click->updated_at = time();
-                if ($click->save()) {
-                    ClaLid::setCookie(AffiliateClick::AFFILIATE_CLICK, $click->id, 30);
-                }
-            }
-        }
-        //
 
-        if ($category) {
-            $categoryClass = new ClaCategory(['type' => ClaCategory::CATEGORY_PRODUCT, 'create' => true]);
-            $tracks = $categoryClass->getTrackCategory($category['id']);
-            foreach ($tracks as $tr) {
-                Yii::$app->params['breadcrumbs'][$tr['name']] = $tr['link'];
-            }
-        }
 
-        // Set product viewed
-        $product_viewed = ClaLid::getCookie(Product::PRODUCT_VIEWED);
-        $data_viewed = [];
-        if ($product_viewed == '') {
-            $data_viewed = json_encode([$id]);
-            ClaLid::setCookie(Product::PRODUCT_VIEWED, $data_viewed, ClaLid::DEFAULT_EXPIRE_COOKIE);
-        } else {
-            $data_viewed = json_decode($product_viewed);
-            if (!in_array($id, $data_viewed)) {
-                $data_viewed[] = $id;
-                $data_viewed = json_encode($data_viewed);
-                ClaLid::setCookie(Product::PRODUCT_VIEWED, $data_viewed, ClaLid::DEFAULT_EXPIRE_COOKIE);
-            }
-        }
-        //
+
+
+
         //
         $is_add_wish = Yii::$app->user->getId() ? ProductWish::find()->Where(['user_id' => Yii::$app->user->getId(), 'product_id' => $id])->count() : 0;
 
-        $shop = Shop::findOne($model->shop_id);
-        $shopadd = \common\models\shop\ShopAddress::find()->where(['shop_id' => $model->shop_id, 'isdefault' => 0])->all();
-        $user = User::findOne($model->shop_id);
-        $certificates = CertificateProduct::find()->all();
-        $certificate_imgs = CertificateProductItem::getUpdateProduct($model->id);
 
-        //QRcode
-        $tranport_type = ($product_tran = \common\models\transport\ProductTransport::getDefault($model->id)) ? $product_tran->transport_id : 0;
-        if (!$tranport_type) {
-            $quantity = $model->getQuatityOrder(1);
-            $shipfee = 0;
-            $location = \common\components\ClaLid::getLocaltionDefault();
-            $src = \common\components\ClaOrderQr::getImgQR([
-                'type' => 'product',
-                'product_id' => $model->id,
-                'price' => $model->getPrice($quantity) * $quantity,
-                // 'price' =>$model->getPrice($quantity)*$quantity + $shipfee,
-                'quantity' => $quantity,
-                'tranport_type' => $tranport_type,
-                'shipfee' => $shipfee,
-                'province' => $location['province_id'],
-                'district' => $location['district_id'],
-                'address_id_from' => ($item = \common\models\shop\ShopAddress::getDefautByShop($shop['id'])) ? $item['id'] : 0
-            ]);
-        } else {
-            $src = '';
-        }
-        // ClaQrCode::CheckPayment($qrcode);
-        // echo $src; die();
-        $view = 'detail';
-        if ($model->category_id == ProductCategory::CATEGORY_SALE) {
-            $view = 'detail_sale';
-        }
-        return $this->render($view, [
+
+        return $this->render('detail', [
             't' => $t,
             'model' => $model,
             'category' => $category,
             'is_add_wish' => $is_add_wish,
-            'shop' => $shop,
-            'user' => $user,
-            'shopadd' => $shopadd,
-            'certificates' => $certificates,
-            'certificate_imgs' => $certificate_imgs,
-            'src' => $src
+
+
         ]);
     }
 

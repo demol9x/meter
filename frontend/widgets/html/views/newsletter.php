@@ -1,10 +1,15 @@
-<h2><?= Yii::t('app', 'register_to_recive_news') ?></h2>
-<div class="forms">
-    <input class="input-email" id="input-mail-contact" type="email" placeholder="<?= Yii::t('app','enter_email') ?>">
-    <input  id="submit-mail-contact" class="footer-form-input-submit footer-btn" type="submit" value="<?= Yii::t('app','signup') ?>">
-    </br>
-    <i id="error-mail-contact" style="color: red"></i>
+<div class="footer_3">
+    <div class="text_content">ĐĂNG KÍ NHẬN TIN</div>
+    <p>Vui lòng nhập email của bạn để được hỗ trợ nhanh nhất!</p>
+    <form>
+        <div class="flex_foot">
+            <input id="input-mail-contact" type="email" placeholder="Email của bạn...">
+            <button id="submit-mail-contact" type="submit"><img src="<?= Yii::$app->homeUrl ?>images/form_foot.png"></button>
+        </div>
+        <i id="error-mail-contact" style="color: red"></i>
+    </form>
 </div>
+
 <script type="text/javascript">
     function validateEmail(email) {
       var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
@@ -12,7 +17,6 @@
     }
     $(document).ready(function () {
         $('#submit-mail-contact').click( function() {
-            $('#submit-mail-contact').css('display', 'none');
             var email = $('#input-mail-contact').val();
             $('#error-mail-contact').html('');
             if(email && validateEmail(email)) {

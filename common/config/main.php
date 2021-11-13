@@ -1,9 +1,15 @@
 <?php
+//die();
 const MAX_QUANTITY_PRODUCT = 1000000000000;
-const __SERVER_NAME = 'http://ocopmart-dev.vn';
-const __VOUCHER = 'V';
-const __VOUCHER_RED = 'Vr';
-const __VOUCHER_SALE = 'Vs';
+const __SERVER_NAME = 'http://meter.nanoweb.vn';
+const __NAME = 'meter.nanoweb.vn';
+const __NAME_SITE = 'meter';
+const __VOUCHER = 'OV';
+const __VOUCHER_RED = 'OVr';
+const __VOUCHER_SALE = 'E.OV';
+const __TOKEN_BLOCKCHECK = 'vzoneland-123X11@!@#2d$$';
+const __API_GETPRODUCT_BLOCKCHECK = 'https://blockcheck.vn/api/products/check-all-vzoneland'; //Lấy dữ liệu sản phẩm trên blockcheck
+const __API_BUSSINES_BLOCKCHECK = 'https://blockcheck.vn/api/eCommercePlatforms/submit-vzonelane'; //Lấy trạng thái đăng ký doanh nghiệp trên blockcheck
 
 function __removeDF($string)
 {
@@ -37,14 +43,14 @@ $config =  [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=127.0.0.1;dbname=meter',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=150.95.108.45;dbname=meter',
+            'username' => 'user_meter',
+            'password' => 'xXLGTMrQ5rdZMBTMuqNP',
             'charset' => 'utf8',
         ],
         'cache' => [
-            'useMemcached' => false,
-            'keyPrefix' => 'ocmain',
+            'useMemcached' => true,
+            'keyPrefix' => __NAME_SITE,
             'class' => 'yii\caching\MemCache',
         ],
         'authManager' => [

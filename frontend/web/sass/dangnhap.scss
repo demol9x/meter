@@ -1,0 +1,183 @@
+.site51_form_col10_dangnhap {
+    z-index: 2;
+    position: relative;
+    background: linear-gradient(124.38deg, #30b418 -6.66%, #161861 72.47%);
+    .bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 100%;
+        height: 100%;
+        background-position: left;
+        background-repeat: no-repeat;
+        background-size: cover;
+        z-index: -1;
+        // mix-blend-mode: screen;
+        opacity: 0.3;
+    }
+    .container_fix {
+        padding-top: 131px;
+        padding-bottom: 131px;
+    }
+    .main {
+        display: flex;
+        align-items: stretch;
+        justify-content: space-between;
+        background: #fff;
+        max-width: 1032px;
+        margin: auto;
+        &__left {
+            width: 50%;
+            padding: 0 40px;
+            .title {
+                margin-top: 80px;
+                margin-bottom: 15px;
+                h2 {
+                    color: #289300;
+                }
+            }
+            form {
+                margin-top: 32px;
+            }
+            &--login {
+                label {
+                    width: 100%;
+                    height: 60px;
+                    position: relative;
+                    i {
+                        position: absolute;
+                        top: 16%;
+                        left: 15px;
+                        color: #bdbdbd;
+                    }
+                    input {
+                        width: 100%;
+                        height: 60px;
+                        border: 0.5px solid #289300;
+                        padding-left: 40px;
+                        &:focus-visible {
+                            outline: none;
+                            border-left: 5px solid #289300;
+                        }
+                        &::placeholder {
+                            color: #bdbdbd;
+                        }
+                    }
+                    &:first-child {
+                        input {
+                            border-bottom: none;
+                        }
+                    }
+                }
+            }
+            &--check {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                margin-top: 15px;
+                span {
+                    display: flex;
+                    align-items: center;
+                    color: #000;
+                    font-weight: bold;
+                    input {
+                        margin-right: 10px;
+                    }
+                }
+                a {
+                    font-style: italic;
+                    font-weight: normal;
+                    line-height: 210%;
+                    color: #289300;
+                    text-decoration: none;
+                    &:hover {
+                        color: #0257b2;
+                    }
+                }
+            }
+            &--btn {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 30px;
+                .btn-1 {
+                    width: 203px;
+                    height: 60px;
+                    box-sizing: border-box;
+                }
+                button {
+                    color: #fff;
+                    background: linear-gradient(90deg, #33b90f 0%, #0257b2 67.97%);
+                }
+                a {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border: 1px solid #bdbdbd;
+                    color: #4f4f4f;
+                    &:hover {
+                        border: none;
+                        color: #fff;
+                        background: linear-gradient(90deg, #33b90f 0%, #0257b2 67.97%);
+                    }
+                }
+            }
+        }
+        &__right {
+            width: 50%;
+            img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+    }
+}
+@media (max-width: 1200px) {
+    .site51_form_col10_dangnhap {
+        .main {
+            &__left {
+                .title {
+                    text-align: center;
+                }
+                &--login {
+                    label {
+                        height: 50px;
+                        input {
+                            height: 50px;
+                        }
+                    }
+                }
+                &--btn {
+                    .btn-1 {
+                        width: 175px;
+                        height: 50px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media (max-width: 1000px) {
+    .site51_form_col10_dangnhap {
+        .main {
+            flex-direction: column;
+            &__left {
+                width: 100%;
+                text-align: center;
+                &--btn {
+                    .btn-1 {
+                        width: 125px;
+                        height: 45px;
+                    }
+                }
+            }
+            &__right {
+                margin-top: 20px;
+                width: 100%;
+            }
+        }
+    }
+}

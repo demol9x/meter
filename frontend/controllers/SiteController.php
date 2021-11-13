@@ -192,7 +192,7 @@ class SiteController extends CController
             die();
         }
 
-        $this->layout = 'home';
+        $this->layout = 'main';
         $siteinfo = \common\components\ClaLid::getSiteinfo();
         // add title for view
         Yii::$app->view->title = isset($siteinfo->title) ? $siteinfo->title : 'Trang chủ';
@@ -253,7 +253,7 @@ class SiteController extends CController
     public function actionContact()
     {
         //
-        $this->layout = '@frontend/views/layouts/content_page';
+        $this->layout = 'main';
         $siteinfo = \common\components\ClaLid::getSiteinfo();
         // add meta description
         Yii::$app->view->registerMetaTag([
@@ -276,11 +276,9 @@ class SiteController extends CController
             }
             return $this->refresh();
         }
-        $info  = \common\models\SiteIntroduce::findOne(1);
         $infoAdd  = \common\models\Siteinfo::findOne(1);
         return $this->render('contact', [
             'model' => $model,
-            'info' => $info,
             'infoAdd' => $infoAdd,
         ]);
     }
@@ -293,7 +291,7 @@ class SiteController extends CController
     public function actionAbout()
     {
         //
-        $this->layout = '@frontend/views/layouts/content_page';
+        $this->layout = 'main';
         $siteinfo = \common\components\ClaLid::getSiteinfo();
         // add meta description
         Yii::$app->view->registerMetaTag([
@@ -306,6 +304,10 @@ class SiteController extends CController
             'content' => $siteinfo->meta_keywords
         ]);
         //
+        Yii::$app->params['breadcrumbs'] = [
+           'Trang chủ' => Url::home(),
+        ];
+        Yii::$app->params['breadcrumbs']['Giới thiệu'] = Url::to(['/site/about']);
         $model = ClaLid::getSiteIntroduce();
         return $this->render('about', [
             'model' => $model,
@@ -341,7 +343,7 @@ class SiteController extends CController
     public function actionRequestPasswordReset()
     {
         //
-        $this->layout = '@frontend/views/layouts/contact';
+        $this->layout = 'main';
         //
         $model = new PasswordResetRequestForm();
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {

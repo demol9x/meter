@@ -35,7 +35,11 @@ class ShopController extends Controller {
         Yii::$app->session->open();
         return parent::beforeAction($event);
     }
- 
+    public function  actionIndex(){
+        $_SESSION['url_back_login'] = 'http://'.\common\components\ClaSite::getServerName()."$_SERVER[REQUEST_URI]";
+
+        return $this->render('index',[]);
+    }
     public function actionDetail($id) {
         //
         $_SESSION['url_back_login'] = 'http://'.\common\components\ClaSite::getServerName()."$_SERVER[REQUEST_URI]";
