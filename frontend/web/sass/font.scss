@@ -19,11 +19,14 @@
     src: url("../font/SVN-Poppins-Regular.ttf");
     font-display: swap;
 }
+<<<<<<< HEAD
 @font-face {
     font-family: "MTD Geraldyne";
     src: url("../font/MTD Geraldyne.otf");
     font-display: swap;
 }
+=======
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
 body {
     font-family: "Helvetica Neue";
     color: #4f4f4f;
@@ -56,6 +59,7 @@ h2.title_30 {
         font-size: 48px;
         line-height: 59px;
     }
+<<<<<<< HEAD
     //huy
     &_36 {
         font-family: "Helvetica Neue bold";
@@ -64,6 +68,8 @@ h2.title_30 {
         font-size: 36px;
         line-height: 140.19%;
     }
+=======
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
     &_30 {
         font-family: "Helvetica Neue bold";
         font-style: normal;
@@ -94,6 +100,16 @@ h2.title_30 {
         font-size: 24px;
         line-height: 138.3%;
     }
+<<<<<<< HEAD
+=======
+    &_18{
+        font-family: Helvetica Neue;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 21px;
+    }
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
     &_21 {
         font-style: normal;
         font-weight: bold;
@@ -107,6 +123,7 @@ h2.title_30 {
         font-size: 20px;
         line-height: 150.63%;
     }
+<<<<<<< HEAD
     //huy
     &_18 {
         font-family: Helvetica Neue;
@@ -126,6 +143,10 @@ h2.title_30 {
         text-align: center;
         color: #4f4f4f;
     }
+=======
+}
+.content {
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
     &_16 {
         font-family: "Helvetica Neue";
         font-style: normal;
@@ -154,10 +175,13 @@ h2.title_30 {
         &_60 {
             font-size: 40px;
         }
+<<<<<<< HEAD
         //huy
         &_36 {
             font-size: 30px;
         }
+=======
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
         &_28 {
             font-size: 24px;
         }
@@ -165,9 +189,12 @@ h2.title_30 {
         &_26 {
             font-size: 22px;
         }
+<<<<<<< HEAD
         &_18 {
             font-size: 17px;
         }
+=======
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
     }
     .content {
         &_16 {
@@ -184,6 +211,7 @@ h2.title_30 {
 @media (max-width: 768px) {
     //huy
     .title {
+<<<<<<< HEAD
         //huy
         &_36 {
             font-size: 26px;
@@ -194,6 +222,11 @@ h2.title_30 {
         &_18 {
             font-size: 16px;
         }
+=======
+        &_26 {
+            font-size: 20px;
+        }
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
     }
 }
 @media (max-width: 500px) {
@@ -201,19 +234,26 @@ h2.title_30 {
         &_60 {
             font-size: 36px;
         }
+<<<<<<< HEAD
         //huy
         &_36 {
             font-size: 22px;
         }
+=======
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
         &_28 {
             font-size: 18px;
         }
         //huy
         &_26 {
+<<<<<<< HEAD
             font-size: 16px;
         }
         &_18 {
             font-size: 15px;
+=======
+            font-size: 19px;
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
         }
     }
     .content {
