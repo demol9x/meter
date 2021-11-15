@@ -49,7 +49,7 @@ $config =  [
             'charset' => 'utf8',
         ],
         'cache' => [
-            'useMemcached' => true,
+            'useMemcached' => false,
             'keyPrefix' => __NAME_SITE,
             'class' => 'yii\caching\MemCache',
         ],

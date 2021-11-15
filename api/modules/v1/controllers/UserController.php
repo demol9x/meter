@@ -43,14 +43,29 @@ class UserController extends RestController
     /**
      * Đăng ký
      */
-    public function actionSignup(){
+    public function actionSignup()
+    {
         $params = Yii::$app->getRequest()->getBodyParams();
+        $params['type'] = isset($params['type']) && $params['type'] ? $params['type'] : 1;
         $model = new SignupForm();
-        if ($model->load($params)) {
-            if ($user = $model->signup()) {
-
+        if ($model->load($params, '')) {
+            $response = $model->signupApi();
+            if($response['success']){
+                return $this->responseData([
+                    'success' => true,
+                    'data' => $response['data']
+                ]);
             }
+            return $this->responseData([
+                'success' => false,
+                'errors' => $response['errors']
+            ]);
         }
+        return $this->responseData([
+            'success' => false,
+            'errors' => [],
+            'message' => 'Lỗi dữ liệu'
+        ]);
     }
 
     /**
@@ -61,7 +76,7 @@ class UserController extends RestController
     {
         return [
             'login' => ['POST'],
-            'social-login' => ['POST'],
+            'signup' => ['POST'],
             'update-device' => ['POST'],
             'get-user-info' => ['GET'],
         ];
