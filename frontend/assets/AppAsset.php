@@ -18,12 +18,12 @@ class AppAsset extends FrontendAsset
         'css/footer.css?v='.self::version,
         'css/index.css?v='.self::version,
         'css/reset.css?v='.self::version,
-        'https://kit-pro.fontawesome.com/releases/v5.12.0/css/pro.min.css',
         'css/slick/slick.css',
         'css/slick/slick-theme.css',
         'css/pwsTab/jquery.pwstabs.css',
         'css/fancybox/jquery.fancybox.css',
-        'css/view.css?v='.self::version
+        'css/view.css?v='.self::version,
+        'css/font-awesome/css/fontawesome.pro.min.css'
     ];
     public $js = [
         'js/slick.min.js',
@@ -31,6 +31,7 @@ class AppAsset extends FrontendAsset
         'js/wow.min.js',
         'js/jquery.pwstabs.js',
         'js/jquery.fancybox.js',
+        'js/backend_js.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

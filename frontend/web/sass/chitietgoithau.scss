@@ -34,6 +34,37 @@
         }
     }
 }
+.date_time {
+    justify-content: space-between;
+
+    span {
+        display: flex;
+        align-items: center;
+
+        i {
+            color: #FEB650;
+            font-size: 14px;
+            margin-right: 7px;
+        }
+    }
+}
+
+a {
+    cursor: pointer;
+}
+
+.pro_flex {
+    .pro_card {
+        margin: 0 7px;
+
+        .card_img {
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
 .site51_prodel_col12_chitietgoithai {
     padding-top: 30px;
     padding-bottom: 50px;
@@ -282,9 +313,26 @@
                     transition: 0.5s;
                     &.active{
                         max-height: none;
-
                     }
-                    p {}
+
+                    p {
+                        margin-bottom: 22px;
+
+                        &.center {
+                            text-align: center;
+                            margin-bottom: 25px;
+                        }
+                    }
+
+                    h4 {
+                        color: #4F4F4F;
+                        margin-bottom: 15px;
+                    }
+
+                    img {
+                        margin-bottom: 15px;
+                    }
+
                     .button_position_view {
                         position: absolute;
                         display: flex;
@@ -359,99 +407,44 @@
 
                         .pro_flex {
                             table {
+                                width: 100%;
+
                                 tr {
-                                    height: 74px;
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                    &:nth-child(2){
-                                        td{
-                                        
+                                    width: 100%;
+
+                                    &:nth-child(2),
+                                    &:nth-child(4),
+                                    &:nth-child(6),
+                                    &:nth-child(8),
+                                    &:nth-child(10),
+                                    &:nth-child(12),
+                                    &:nth-child(14) {
+                                        td {
                                             &:first-child {
-                                               
-                                               
                                                 background: #FAFAFA;
                                             }
+
                                             &:last-child {
-                                                
                                                 background: #FFFFFF;
-                                            
-                                            }
-                                        }
-                                    }
-                                    &:nth-child(4){
-                                        td{
-                                        
-                                            &:first-child {
-                                               
-                                               
-                                                background: #FAFAFA;
-                                            }
-                                            &:last-child {
-                                                
-                                                background: #FFFFFF;
-                                            
-                                            }
-                                        }
-                                    }
-                                    &:nth-child(6){
-                                        td{
-                                        
-                                            &:first-child {
-                                               
-                                               
-                                                background: #FAFAFA;
-                                            }
-                                            &:last-child {
-                                                
-                                                background: #FFFFFF;
-                                            
-                                            }
-                                        }
-                                    }
-                                    &:nth-child(8){
-                                        td{
-                                        
-                                            &:first-child {
-                                               
-                                               
-                                                background: #FAFAFA;
-                                            }
-                                            &:last-child {
-                                                
-                                                background: #FFFFFF;
-                                            
-                                            }
-                                        }
-                                    }
-                                    &:nth-child(10){
-                                        td{
-                                        
-                                            &:first-child {
-                                               
-                                               
-                                                background: #FAFAFA;
-                                            }
-                                            &:last-child {
-                                                
-                                                background: #FFFFFF;
-                                            
                                             }
                                         }
                                     }
 
-                                    td{
-                                        display: flex;
-                                        justify-content: center;
-                                        align-items: center;
+                                    td {
+                                        line-height: 22px;
+                                        padding-top: 15px;
+                                        padding-bottom: 15px;
+                                        color: #4F4F4F;
+
                                         &:first-child {
-                                            width: 30%;
+                                            width: 25%;
                                             height: 100%;
                                             background: #F0F0F0;
                                             padding-left: 21px;
                                         }
+
                                         &:last-child {
-                                            width:70%;
+                                            width: 75%;
                                             height: 100%;
                                             background: #FAFAFA;
                                             padding-left: 31px;
@@ -550,431 +543,6 @@
     }
 }
 
-
-@media (max-width:1200px) {
-    .contact_info {
-        padding-top: 15px;
-    
-        .content_16_b {
-            margin-bottom: 15px;
-        }
-    
-        .contact_row {
-            margin-bottom: 13px;
-    
-            a {
-                
-            }
-    
-            i {
-                
-                font-size: 17px;
-            }
-    
-            img {
-                margin-right: 13px;
-            }
-    
-            .contact_flex {
-                .flex {
-                    &:nth-child(1) {
-                        margin-right: 35px;
-                    }
-                }
-            }
-        }
-    }
-    .site51_prodel_col12_chitietgoithai {
-        padding-top: 30px;
-        padding-bottom: 30px;
-        
-        .detail_button {
-            width: 336px;
-            height: 50px;
-            img {
-                margin-right: 15px;
-            }
-            span {
-                color: #FFFFFF;
-            }
-        }
-        .btn-animation {
-            &::after {
-               
-            }
-    
-        }
-        .container_fix {
-            .pro_detail {
-                padding-top: 20px;
-                .detail_left {
-                    width: 450px;
-                    margin-right: 35px;
-    
-                    .left_env {
-                        .slide_detail_on {
-                            margin-bottom: 17px;
-    
-                            &::before {
-                                
-                            }
-    
-                            &::after {
-                               
-                            }
-    
-                            .img_detail {
-                                width: 494px;
-                                img {
-                                    max-width: 100%;
-                                    max-height: 100%;
-                                }
-                            }
-                        }
-    
-                        .slide_detail_in {
-                            margin: 0 -8px;
-    
-                            .slick-list {
-                                padding: 0 !important;
-                            }
-    
-                            .img_detail_1 {
-                                width: 70px;
-                                height: 70px;
-                                margin: 0 8px;
-                                img {
-                                   
-                                }
-                            }
-                        }
-                    }
-                }
-    
-                .detail_right {
-                    width: calc(100% - (450px + 35px));
-    
-                    .content {
-                        padding-bottom: 15px;
-    
-                        .title { 
-                            padding-bottom: 15px;
-                        }
-    
-                        .description {
-                            i {
-                                margin-right: 13px;
-                                font-size: 17px;
-                            }
-    
-                            span {}
-                        }
-                    }
-    
-                    .detail_des {
-                        padding: 20px 0;
-                        margin-bottom: 20px;
-                    }
-    
-                    .detail_upload {
-                        margin-bottom: 18px;
-    
-                        i {
-                            
-                            font-size: 18px;
-                        }
-    
-                        a {
-                            
-                        }
-                    }
-    
-                    
-    
-                    
-                }
-            }
-    
-            .pro_similar {
-                margin-top: 25px;
-                padding-top: 25px;
-                padding-bottom: 25px;
-                margin-bottom: 25px;
-               
-            }
-    
-            .pro_main {
-                padding-bottom: 30px;
-                .pro_flex_left {
-                    width: 100%;
-                    .nav_menu {
-                        margin-bottom: 40px;
-    
-                        .nav_list {
-                            width: 50%;
-                            height: 50px;
-                            &:hover{
-                                color: #FFFFFF;
-                                background: #289300;
-                            }
-                            &.active {
-                                color: #FFFFFF;
-                                background: #289300;
-                            }
-    
-                        }
-                    }
-    
-                    .pro_description {
-                        width: 100%;
-                        max-height: 2600px;
-                        
-                        &.active{
-                            max-height: none;
-    
-                        }
-                        p {}
-                        .button_position_view {
-                         
-                            width: 100%;
-                            padding-bottom: 21px;
-                      
-                            &.active{
-                                
-                            }
-                            a{
-                               
-                                width: 137px;
-                                height: 45px;
-                                i{
-                                    font-size: 13px;
-                                    margin-left: 10px;
-                                }
-                            }
-                        }
-                        .button_position{
-                           
-                            width: 100%;
-                            padding-bottom: 21px;
-                            height: 287px;
-                            &.active{
-                                
-                            }
-                            a{
-                                
-                                width: 137px;
-                                height: 45px;
-                               
-                                
-                                i{
-                                    font-size: 14px;
-                                    color: #FFFFFF;
-                                    margin-left: 12px;
-                                }
-                            }
-                        }
-                    }
-    
-                    .pro_description_1 {
-                        margin-top: 30px;
-                        .pro_package {
-                            .pro_content {
-                                .content_text {}
-                            }
-    
-                            .pro_flex {
-                                table {
-                                    tr {
-                                        height: 74px;
-                                        display: flex;
-                                        justify-content: center;
-                                        align-items: center;
-                                        &:nth-child(2){
-                                            td{
-                                            
-                                                &:first-child {
-                                                   
-                                                   
-                                                    background: #FAFAFA;
-                                                }
-                                                &:last-child {
-                                                    
-                                                    background: #FFFFFF;
-                                                
-                                                }
-                                            }
-                                        }
-                                        &:nth-child(4){
-                                            td{
-                                            
-                                                &:first-child {
-                                                   
-                                                   
-                                                    background: #FAFAFA;
-                                                }
-                                                &:last-child {
-                                                    
-                                                    background: #FFFFFF;
-                                                
-                                                }
-                                            }
-                                        }
-                                        &:nth-child(6){
-                                            td{
-                                            
-                                                &:first-child {
-                                                   
-                                                   
-                                                    background: #FAFAFA;
-                                                }
-                                                &:last-child {
-                                                    
-                                                    background: #FFFFFF;
-                                                
-                                                }
-                                            }
-                                        }
-                                        &:nth-child(8){
-                                            td{
-                                            
-                                                &:first-child {
-                                                   
-                                                   
-                                                    background: #FAFAFA;
-                                                }
-                                                &:last-child {
-                                                    
-                                                    background: #FFFFFF;
-                                                
-                                                }
-                                            }
-                                        }
-                                        &:nth-child(10){
-                                            td{
-                                            
-                                                &:first-child {
-                                                   
-                                                   
-                                                    background: #FAFAFA;
-                                                }
-                                                &:last-child {
-                                                    
-                                                    background: #FFFFFF;
-                                                
-                                                }
-                                            }
-                                        }
-    
-                                        td{
-                                            display: flex;
-                                            justify-content: center;
-                                            align-items: center;
-                                            &:first-child {
-                                                width: 30%;
-                                                height: 100%;
-                                                background: #F0F0F0;
-                                                padding-left: 21px;
-                                            }
-                                            &:last-child {
-                                                width:70%;
-                                                height: 100%;
-                                                background: #FAFAFA;
-                                                padding-left: 31px;
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                    .button_pro_detail{
-                        display: flex;
-                        justify-content: center;
-                        align-items: center;
-                        padding-top: 30px;
-                    }
-                }
-    
-                .pro_flex_right {
-                    width: 100%;
-                    margin-left: 0;
-                    .pro_package{
-                        .pro_content{
-                            .content_text{
-                                h3{}
-                            }
-                        }
-                        .pro_flex{
-                            .pro_card{
-                                border: 1px solid #F2F2F2;
-                                box-sizing: border-box;
-                                &:hover{
-                                    border: 1px solid #289300;
-                                }
-                                a{
-                                    .card_img{
-                                        width: auto;
-                                        height: auto;
-                                        img{
-    
-                                        }
-                                    }
-                                    .card_text{
-                                        padding: 15px;
-                                        .title{}
-                                        .adress{}
-                                        .date_time{
-                                            img{}
-                                            span{}
-                                        }
-                                    }
-                                }
-                                .heart{}
-                                .hot_product{}
-                            }
-                        }
-                    }
-                }   
-            }
-            .pro_slide{
-                padding-top: 30px;
-                .slide_pro_active{
-                    margin: 0 -8px;
-                    .slick-next{
-                        right: 10px;
-                        top: -30px;
-                        background: url(./../img/bg_slide.png);
-                        width: 32px;
-                        height: 21px;
-                        &::before{
-                            content: url(./../img/arrow_slide.png);
-                            opacity: 1;
-                            line-height: inherit;
-                        }
-                    }
-                    .slick-prev{
-                        right: 42px;
-                        top: -40px;
-                        background: url(./../img/bg_slide.png);
-                        width: 32px;
-                        height: 21px;
-                        left: auto;
-                        transform: rotate(180deg);
-                        &::before{
-                            content: url(./../img/arrow_slide.png);
-                            opacity: 1;
-                            line-height: inherit;
-                        }
-                    }
-                    .slick-slide{
-                        margin: 0 9px;
-                    }
-                }
-            }
-            
-        }
-    }
-}
 .site51_popup_col12_popupgoithau{
    display: none;
     &.active{
@@ -1001,21 +569,41 @@
                 width: 897px;
                 height: 87%;
                 background: #FFFFFF;
-                .popup_goithau--title{
-                    position: relative;
-                    left: 22%;
-                    right: auto;
-                    top: 0;
-                    width: 537px;
-                    height: 68px;
-                    background: #289300;
-                    border-bottom-left-radius: 500px 1000px;
-                    border-bottom-right-radius: 500px 1000px;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    .title_26{
-                        color: #FFFFFF;
+                padding: 0 40px;
+                overflow-y: auto;
+                &::-webkit-scrollbar {
+                    display: none;
+                }
+                .item-title-popup {
+                    margin-bottom: 45px;
+
+                    .title-popup-donhang {
+                        width: 537px;
+                        height: 68px;
+                        margin: auto;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        position: relative;
+                        z-index: 1;
+
+                        .Rectangle {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            z-index: -1;
+                        }
+
+                        h3 {
+                            font-family: Helvetica Neue;
+                            font-style: normal;
+                            font-weight: bold;
+                            line-height: 140.19%;
+                            text-transform: uppercase;
+                            color: #FFFFFF;
+                        }
                     }
                 }
                 .popup_close{
@@ -1030,6 +618,7 @@
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    cursor: pointer;
                     i{
                         font-size: 19px;
                         color: #ffffff;
@@ -1037,18 +626,870 @@
                 }
                 .popup_goithau--env{
                     .popup_content{
+                        display: flex;
+                        align-items: flex-start;
+                        justify-content: space-between;
+                        padding-bottom: 25px;
+                        margin-bottom: 25px;
+                        border-bottom: 0.3px solid #BDBDBD;
+
                         .popup_img{
                             width: 187px;
+                            min-width: 187px;
                             height: 187px;
                             display: flex;
                             justify-content: center;
                             align-items: center;
                             img{
+                                width: 100%;
                                 max-height: 100%;
+                                overflow: hidden;
+                                object-fit: cover;
                             }
-                            
+                        }
+
+                        .detaile {
+                            width: 100%;
+                            padding-left: 25px;
+
+                            .contact_info {
+                                padding-top: 15px;
+
+                                .content_16_b {
+                                    margin-bottom: 15px;
+                                }
+
+                                .contact_row {
+                                    margin-bottom: 12px;
+
+                                    &:last-child {
+                                        margin-bottom: 0;
+                                    }
+
+                                    .far {
+                                        font-size: 16px;
+                                    }
+
+                                    .contact_flex {
+                                        .flex {
+                                            .far {
+                                                font-size: 16px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
                         }
                     }
+
+                    .pro_content {
+                        margin-bottom: 25px;
+                        .content_text {
+                            h3 {
+                                font-size: 18px;
+                                line-height: 23px;
+
+                                &::before {
+                                    overflow: hidden;
+                                    height: 20px;
+                                }
+
+                                &::after {
+                                    overflow: hidden;
+                                    height: 20px;
+                                }
+                            }
+                        }
+                    }
+
+                    form {
+                        .form-group.form-row {
+                            display: flex;
+                            align-items: center;
+                            justify-content: space-between;
+                            flex-wrap: nowrap;
+                            margin-bottom: 15px;
+
+                            label {
+                                font-size: 16px;
+                                line-height: 135%;
+                                margin-bottom: 5px;
+
+                                .require {
+                                    color: #f30;
+                                }
+                            }
+
+                            .form-field {
+                                width: 80%;
+
+                                input {
+                                    margin-bottom: 5px;
+                                }
+
+                                small {
+                                    display: none;
+                                }
+
+                                input[type="text"],
+                                input[type="date"],
+                                input[type="file"],
+                                input[type="email"] {
+
+                                    &:active,
+                                    &:focus {
+                                        outline: none;
+                                        box-shadow: none;
+
+                                        +small {
+                                            display: block;
+                                        }
+                                    }
+
+                                    width: 100%;
+                                    padding: 16px 8px 16px 57px;
+                                    border: 1px solid #e0e0e0;
+                                    border-radius: 3px;
+                                    font-size: 16px;
+                                    line-height: 135%;
+                                    color: #BDBDBD;
+                                    outline: none;
+
+                                    &::placeholder {
+                                        color: #BDBDBD;
+                                    }
+                                }
+
+                                input[type="file"] {
+                                    display: none;
+                                }
+
+                                .error-message {
+                                    color: #f30000;
+                                    font-size: 12px;
+                                }
+                            }
+
+                            &:nth-child(1) {
+                                label {
+                                    margin-bottom: 20px;
+                                }
+
+                                .form-field {
+                                    input {
+                                        background-image: url('../img/icon_dk/building.png');
+                                        background-repeat: no-repeat;
+                                        background-position: 15px 13px;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(2) {
+                                .form-field {
+                                    input {
+                                        background-image: url('../img/icon_dk/calendar.png');
+                                        background-repeat: no-repeat;
+                                        background-position: 15px 15px;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(3) {
+                                .form-field {
+                                    input {
+                                        background-image: url('../img/icon_dk/Frame.png');
+                                        background-repeat: no-repeat;
+                                        background-position: 15px 15px;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(4) {
+                                .form-field {
+                                    input {
+                                        background-image: url('../img/icon_dk/Group.png');
+                                        background-repeat: no-repeat;
+                                        background-position: 15px 16px;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(5) {
+                                .form-field {
+                                    input {
+                                        background-image: url('../img/icon_dk/phone_outline.png');
+                                        background-repeat: no-repeat;
+                                        background-position: 15px 16px;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(6) {
+                                .form-field {
+                                    input {
+                                        background-image: url('../img/icon_dk/mail.png');
+                                        background-repeat: no-repeat;
+                                        background-position: 15px 16px;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(7) {
+                                .form-field {
+                                    input {
+                                        background-image: url('../img/icon_dk/dribbble.png');
+                                        background-repeat: no-repeat;
+                                        background-position: 15px 16px;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(8) {
+                                .form-field {
+                                    input {
+                                        background-image: url('../img/icon_dk/location_outline.png');
+                                        background-repeat: no-repeat;
+                                        background-position: 15px 16px;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(9) {
+                                .form-field {
+                                    input {
+                                        background-image: url('../img/icon_dk/data.png');
+                                        background-repeat: no-repeat;
+                                        background-position: 15px 16px;
+                                    }
+                                }
+                            }
+
+                            &:nth-child(10) {
+                                .form-field {
+                                    label {
+                                        p {
+                                            position: relative;
+                                            padding-left: 50px;
+                                            color: #006EF2;
+
+                                            &::before {
+                                                position: absolute;
+                                                content: url('../img/icon_dk/paperclip.png');
+                                                top: 2px;
+                                                left: 18px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        textarea {
+                            width: 100%;
+                            padding: 13px;
+                            padding-left: 22px;
+                            outline: 0;
+                            border: 0;
+                            color: #000000;
+                            margin-bottom: 32px;
+                            background: #FFFFFF;
+                            border: 1px solid #E0E0E0;
+                            box-sizing: border-box;
+                            border-radius: 5px;
+                            padding-bottom: 90px;
+                        }
+                    }
+
+                    .click_send {
+                        width: 336px;
+                        height: 50px;
+                        margin: auto;
+                        background: #289300;
+                        border-radius: 50px;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: #FFFFFF;
+                        font-family: Helvetica Neue bold;
+                        font-weight: bold;
+                        margin-bottom: 50px;
+                        transition: all 0.3s;
+
+                        svg {
+                            margin-left: 12px;
+                        }
+
+                        &:hover {
+                            transition: all 0.3s;
+                            transform: scale(1.02);
+                            box-shadow: 0px 3px 17px rgba(0, 0, 0, 0.13);
+                        }
+                    }
+
+                    .btn-animation {
+                        &::after {
+                            border-radius: 50px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+@media (max-width:1200px) {
+    .contact_info {
+        padding-top: 15px;
+
+        .content_16_b {
+            margin-bottom: 15px;
+        }
+
+        .contact_row {
+            margin-bottom: 13px;
+
+            a {}
+
+            i {
+
+                font-size: 17px;
+            }
+
+            img {
+                margin-right: 13px;
+            }
+
+            .contact_flex {
+                .flex {
+                    &:nth-child(1) {
+                        margin-right: 35px;
+                    }
+                }
+            }
+        }
+    }
+
+    .pro_flex {
+        .pro_card {
+            width: 230px;
+        }
+    }
+
+    .site51_prodel_col12_chitietgoithai {
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+        .detail_button {
+            width: 336px;
+            height: 50px;
+
+            img {
+                margin-right: 15px;
+            }
+
+            span {
+                color: #FFFFFF;
+            }
+        }
+
+        .btn-animation {
+            &::after {}
+
+        }
+
+        .container_fix {
+            .pro_detail {
+                padding-top: 20px;
+
+                .detail_left {
+                    width: 450px;
+                    margin-right: 35px;
+
+                    .left_env {
+                        .slide_detail_on {
+                            margin-bottom: 17px;
+
+                            &::before {}
+
+                            &::after {}
+
+                            .img_detail {
+                                width: 494px;
+
+                                img {
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                }
+                            }
+                        }
+
+                        .slide_detail_in {
+                            margin: 0 -8px;
+
+                            .slick-list {
+                                padding: 0 !important;
+                            }
+
+                            .img_detail_1 {
+                                width: 70px;
+                                height: 70px;
+                                margin: 0 8px;
+
+                                img {}
+                            }
+                        }
+                    }
+                }
+
+                .detail_right {
+                    width: calc(100% - (450px + 35px));
+
+                    .content {
+                        padding-bottom: 15px;
+
+                        .title {
+                            padding-bottom: 15px;
+                        }
+
+                        .description {
+                            i {
+                                margin-right: 13px;
+                                font-size: 17px;
+                            }
+
+                            span {}
+                        }
+                    }
+
+                    .detail_des {
+                        padding: 20px 0;
+                        margin-bottom: 20px;
+                    }
+
+                    .detail_upload {
+                        margin-bottom: 18px;
+
+                        i {
+
+                            font-size: 18px;
+                        }
+
+                        a {}
+                    }
+
+
+
+
+                }
+            }
+
+            .pro_similar {
+                margin-top: 25px;
+                padding-top: 25px;
+                padding-bottom: 25px;
+                margin-bottom: 25px;
+
+            }
+
+            .pro_main {
+                padding-bottom: 30px;
+
+                .pro_flex_left {
+                    width: 100%;
+
+                    .nav_menu {
+                        margin-bottom: 40px;
+
+                        .nav_list {
+                            width: 50%;
+                            height: 50px;
+
+                            &:hover {
+                                color: #FFFFFF;
+                                background: #289300;
+                            }
+
+                            &.active {
+                                color: #FFFFFF;
+                                background: #289300;
+                            }
+
+                        }
+                    }
+
+                    .pro_description {
+                        width: 100%;
+                        max-height: 2600px;
+
+                        &.active {
+                            max-height: none;
+
+                        }
+
+                        p {}
+
+                        .button_position_view {
+
+                            width: 100%;
+                            padding-bottom: 21px;
+
+                            &.active {}
+
+                            a {
+
+                                width: 137px;
+                                height: 45px;
+
+                                i {
+                                    font-size: 13px;
+                                    margin-left: 10px;
+                                }
+                            }
+                        }
+
+                        .button_position {
+
+                            width: 100%;
+                            padding-bottom: 21px;
+                            height: 287px;
+
+                            &.active {}
+
+                            a {
+
+                                width: 137px;
+                                height: 45px;
+
+
+                                i {
+                                    font-size: 14px;
+                                    color: #FFFFFF;
+                                    margin-left: 12px;
+                                }
+                            }
+                        }
+                    }
+
+                    .pro_description_1 {
+                        margin-top: 30px;
+
+                        .pro_package {
+                            .pro_content {
+                                .content_text {}
+                            }
+                        }
+                    }
+
+                    .button_pro_detail {
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        padding-top: 30px;
+                    }
+                }
+
+                .pro_flex_right {
+                    width: 100%;
+                    margin-left: 0;
+
+                    .pro_package {
+                        .pro_content {
+                            .content_text {
+                                h3 {}
+                            }
+                        }
+
+                        .pro_flex {
+                            .pro_card {
+                                border: 1px solid #F2F2F2;
+                                box-sizing: border-box;
+
+                                &:hover {
+                                    border: 1px solid #289300;
+                                }
+
+                                a {
+                                    .card_img {
+                                        width: auto;
+                                        height: auto;
+
+                                        img {}
+                                    }
+
+                                    .card_text {
+                                        padding: 15px;
+
+                                        .title {}
+
+                                        .adress {}
+
+                                        .date_time {
+                                            img {}
+
+                                            span {}
+                                        }
+                                    }
+                                }
+
+                                .heart {}
+
+                                .hot_product {}
+                            }
+                        }
+                    }
+                }
+            }
+
+            .pro_slide {
+                padding-top: 30px;
+
+                .slide_pro_active {
+                    margin: 0 -8px;
+
+                    .slick-next {
+                        right: 10px;
+                        top: -30px;
+                        background: url(./../img/bg_slide.png);
+                        width: 32px;
+                        height: 21px;
+
+                        &::before {
+                            content: url(./../img/arrow_slide.png);
+                            opacity: 1;
+                            line-height: inherit;
+                        }
+                    }
+
+                    .slick-prev {
+                        right: 42px;
+                        top: -40px;
+                        background: url(./../img/bg_slide.png);
+                        width: 32px;
+                        height: 21px;
+                        left: auto;
+                        transform: rotate(180deg);
+
+                        &::before {
+                            content: url(./../img/arrow_slide.png);
+                            opacity: 1;
+                            line-height: inherit;
+                        }
+                    }
+
+                    .slick-slide {
+                        margin: 0 9px;
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+
+@media (max-width:991px) {
+    .site51_prodel_col12_chitietgoithai {
+        .container_fix {
+            .pro_detail {
+                .detail_left {
+                    margin: auto;
+                    margin-bottom: 35px;
+                }
+
+                .detail_right {
+                    width: 100%;
+                }
+            }
+
+            .pro_main {
+                .pro_flex_left {
+                    width: 100%;
+                }
+
+                .pro_flex_right {
+                    width: 100%;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:931px) {
+    .site51_popup_col12_popupgoithau.active {
+        .popup_goithau {
+            .popup_flex {
+                width: 95%;
+            }
+        }
+    }
+}
+
+@media (max-width:876px) {
+    .site51_popup_col12_popupgoithau.active {
+        .popup_goithau {
+            .popup_flex {
+                .popup_goithau--env form {
+                    .form-group.form-row {
+                        .form-field {
+                            width: 75%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:768px) {
+    .site51_popup_col12_popupgoithau.active {
+        .popup_goithau {
+            .popup_flex {
+                .popup_goithau--env form {
+                    .form-group.form-row {
+                        flex-wrap: wrap;
+
+                        .form-field {
+                            width: 100%;
+                        }
+                    }
+                }
+
+                .item-title-popup {
+                    .title-popup-donhang {
+                        width: 80%;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:600px) {
+    .site51_prodel_col12_chitietgoithai {
+        .container_fix {
+            .pro_detail {
+                .detail_left {
+                    width: 400px;
+                }
+            }
+        }
+    }
+
+    .site51_popup_col12_popupgoithau.active {
+        .popup_goithau {
+            .popup_flex {
+                padding: 0 20px;
+
+                .item-title-popup {
+                    margin-bottom: 30px;
+                }
+
+                .popup_goithau--env {
+                    .popup_content {
+                        flex-wrap: wrap;
+
+                         .popup_img {
+                             margin: auto;
+                             margin-bottom: 20px;
+                         }
+
+                         .detaile {
+                             padding-left: 0;
+                         }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:576px) {
+    .site51_prodel_col12_chitietgoithai {
+        .container_fix {
+            .pro_description_2 {
+                .item-comment {
+                    .item-chat {
+                        padding-left: 30px;
+                    }
+                }
+            }
+
+            .pro_main {
+                .pro_flex_left {
+                    .nav_menu {
+                        .nav_list {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .pro_flex {
+        .pro_card {
+            width: 230px;
+        }
+    }
+}
+
+@media (max-width:500px) {
+    .site51_popup_col12_popupgoithau.active {
+        .popup_goithau {
+            .popup_flex {
+                .item-title-popup {
+                    .title-popup-donhang {
+                        height: 50px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:460px) {
+    .site51_prodel_col12_chitietgoithai {
+        .container_fix {
+            .pro_detail {
+                .detail_left {
+                    width: 260px;
+                }
+            }
+        }
+    }
+
+    .site51_popup_col12_popupgoithau.active {
+        .popup_goithau {
+            .popup_flex {
+                .popup_goithau--env {
+                    .click_send {
+                        width: 100%;
+                        margin-bottom: 25px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:370px) {
+    .site51_prodel_col12_chitietgoithai {
+        .detail_button {
+            width: 270px;
+        }
+    }
+
+    .site51_popup_col12_popupgoithau.active {
+        .popup_goithau {
+            .popup_flex {
+                padding: 0 10px;
+
+                .popup_close {
+                    top: 10px;
+                    right: 10px;
                 }
             }
         }

@@ -14,16 +14,12 @@
                 <li class="list app"><a href="">App Metter</a></li>
             </ul>
         </div>
-        <div class="search">
-            <img class="search_icon" src="<?= Yii::$app->homeUrl ?>images/search.png" alt="" >
-            <div class="toggle_search">
-                <form action="">
-                    <input type="text" placeholder="Tìm kiếm">
-                    <button><img src="<?= Yii::$app->homeUrl ?>images/search.png" alt="" ></button>
-                </form>
-            </div>
-        </div>
 
+        <?php //Menu main
+        echo frontend\widgets\productSearch\ProductSearchWidget::widget([
+            'view' => 'view',
+        ])
+        ?>
         <div class="link_app"><a href="">App Metter</a></div>
         <div class="login_singin">
             <a href="dangnhap.php">Tài khoản<i class="fas fa-user"></i></a>

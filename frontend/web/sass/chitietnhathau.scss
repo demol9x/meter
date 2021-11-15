@@ -1,3 +1,18 @@
+.date_time {
+    justify-content: space-between;
+
+    span {
+        display: flex;
+        align-items: center;
+
+        i {
+            color: #FEB650;
+            font-size: 14px;
+            margin-right: 7px;
+        }
+    }
+}
+
 .site51_prodel_col12_chitietnhathau {
     padding-top: 30px;
     padding-bottom: 50px;
@@ -221,6 +236,17 @@
                             display: flex;
                             align-items: center;
                             margin-right: 40px;
+                            position: relative;
+
+                            &::before {
+                                position: absolute;
+                                content: "";
+                                background: #828282;
+                                width: 1px;
+                                height: 11px;
+                                top: 4px;
+                                right: -20px;
+                            }
 
                             .icon {
                                 margin-right: 12px;
@@ -364,6 +390,7 @@
                     text-transform: uppercase;
                     transition: all 0.3s;
                     cursor: pointer;
+                    text-align: center;
                     font-family: Helvetica Neue;
                     font-style: normal;
                     font-weight: normal;
@@ -409,6 +436,7 @@
                         background: #FAFAFA;
                         text-transform: uppercase;
                         color: #333333;
+                        text-align: center;
                         display: flex;
                         justify-content: center;
                         align-items: center;
@@ -642,32 +670,40 @@
                         }
                     }
                     .pro_flex{
-                        .pro_card{
+                        .pro_card {
                             border: 1px solid #F2F2F2;
                             box-sizing: border-box;
-                            &:hover{
+                            margin-bottom: 20px;
+
+                            &:hover {
                                 border: 1px solid #289300;
                             }
-                            a{
-                                .card_img{
-                                    width: 197px;
-                                    height: 197px;
-                                    img{
 
-                                    }
+                            a {
+                                .card_img {
+                                    height: 196px;
+
+                                    img {}
                                 }
-                                .card_text{
+
+                                .card_text {
                                     padding: 15px;
-                                    .title{}
-                                    .adress{}
-                                    .date_time{
-                                        img{}
-                                        span{}
+
+                                    .title {}
+
+                                    .adress {}
+
+                                    .date_time {
+                                        img {}
+
+                                        span {}
                                     }
                                 }
                             }
-                            .heart{}
-                            .hot_product{}
+
+                            .heart {}
+
+                            .hot_product {}
                         }
                     }
                 }
@@ -1411,24 +1447,30 @@ span.messages__dot {
     bottom: 0;
 }
 
+.pro_flex {
+    .pro_card {
+        margin: 0 7px;
+
+        .card_img {
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
+
 
 @media (max-width:1700px) {}
 
-@media (max-width:1251px) {
-    .pro_flex .pro_card {
-        width: 237px;
+@media (max-width:1200px) {
+    .pro_flex {
+        .pro_card {
+            width: 230px;
+        }
     }
 }
 
 @media (max-width:1199px) {
-    .pro_flex .pro_card {
-        width: 220px;
-
-        &:nth-child(5) {
-            display: none;
-        }
-    }
-
     .site51_prodel_col12_chitietnhathau {
         .container_fix {
             .pro_description_2 {
@@ -1455,6 +1497,37 @@ span.messages__dot {
                     .item-chat {
                         padding-left: 100px;
                     }
+                }
+            }
+
+            .pro_main {
+                .pro_flex_left {
+                    width: 100%;
+                }
+
+                .pro_flex_right {
+                    width: 100%;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    .pro_flex {
+        .pro_card {
+            margin: 0 7px;
+
+            .card_text {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .card_img {
+                img {
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    object-fit: cover;
                 }
             }
         }
@@ -1486,20 +1559,6 @@ span.messages__dot {
             }
         }
     }
-
-    .pro_flex .pro_card {
-        width: 30%;
-
-        &:nth-child(4),
-        &:nth-child(5),
-        &:nth-child(6),
-        &:nth-child(7),
-        &:nth-child(8),
-        &:nth-child(9),
-        &:nth-child(10) {
-            display: none;
-        }
-    }
 }
 
 @media (max-width:876px) {}
@@ -1528,6 +1587,22 @@ span.messages__dot {
                     }
                 }
             }
+
+            .pro_main {
+                .pro_flex_left {
+                    .nav_menu {
+                        .nav_list {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .pro_flex {
+        .pro_card {
+            width: 230px;
         }
     }
 }

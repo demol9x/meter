@@ -2,10 +2,12 @@
 
 namespace common\models\product;
 
+use common\models\Province;
 use Yii;
 use yii\db\Query;
 use common\components\ClaLid;
 use common\models\rating\Rating;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "product".
@@ -309,7 +311,38 @@ class Product extends \common\models\ActiveRecordC
             ->all();
         return $data;
     }
-
+    public static function getProvince($options = [])
+    {
+        $condition = 'status=:status';
+        $params = [
+            ':status' => ClaLid::STATUS_ACTIVED
+        ];
+        // search theo keywords
+        if (isset($options['keyword']) && $options['keyword']) {
+            $condition .= " AND MATCH (title) AGAINST (:title IN BOOLEAN MODE)";
+            $params[':title'] = $options['keyword'];
+        }
+        $skills_temp = ArrayHelper::map(Province::find()->asArray()->all(), 'id', 'name');
+        $results = [];
+        $province = (new Query())->select('province_id')
+            ->from('product')
+            ->where($condition, $params)
+            ->column();
+        if (isset($province) && $province) {
+            foreach ($province as $skill) {
+                $skill_explode = explode(' ', $skill);
+                foreach ($skill_explode as $skill_id) {
+                    if (isset($results[$skill_id]['count_job'])) {
+                        $results[$skill_id]['count_job']++;
+                    } else {
+                        $results[$skill_id]['count_job'] = 1;
+                        $results[$skill_id]['name'] = $skills_temp[$skill_id];
+                    }
+                }
+            }
+        }
+        return $results;
+    }
     /**
      * @param array $options
      * @return array
@@ -335,7 +368,7 @@ class Product extends \common\models\ActiveRecordC
             $cats = is_array($options['category_id']) ? implode(' ', $options['category_id']) : $options['category_id'];
             $condition .= " AND MATCH (t.category_track) AGAINST ('" . __removeDF($cats) . "' IN BOOLEAN MODE)";
         }
-        
+
         if (isset($options['status_quantity'])) {
             $condition .= " AND t.status_quantity = :status_quantity";
             $params[':status_quantity'] = $options['status_quantity'];
@@ -352,14 +385,6 @@ class Product extends \common\models\ActiveRecordC
         if (isset($options['shop_id']) && $options['shop_id']) {
             $condition .= " AND t.shop_id = :shop_id";
             $params[':shop_id'] = $options['shop_id'];
-        }
-        if (isset($options['province_id']) && $options['province_id']) {
-            $condition .= " AND t.province_id = :province_id";
-            $params[':province_id'] = $options['province_id'];
-        }
-        if (isset($options['status_affiliate']) && $options['status_affiliate']) {
-            $condition .= " AND t.status_affiliate = :status_affiliate";
-            $params[':status_affiliate'] = $options['status_affiliate'];
         }
         if (isset($options['price_min']) && $options['price_min']) {
             $condition .= " AND t.price >= :price_min";
@@ -383,15 +408,7 @@ class Product extends \common\models\ActiveRecordC
             $condition .= ' AND t.isnew=:isnew';
             $params[':isnew'] = $options['isnew'];
         }
-        if (isset($options['shop_status_affiliate']) && $options['shop_status_affiliate']) {
-            $condition .= ' AND r.status_affiliate=:shop_status_affiliate';
-            $params[':shop_status_affiliate'] = $options['shop_status_affiliate'];
-        }
 
-        if (isset($options['status_affiliate']) && $options['status_affiliate']) {
-            $condition .= ' AND t.status_affiliate=:status_affiliate';
-            $params[':status_affiliate'] = $options['status_affiliate'];
-        }
 
         //
         $limit = ClaLid::DEFAULT_LIMIT;
@@ -405,9 +422,11 @@ class Product extends \common\models\ActiveRecordC
             $offset = 0;
         }
         $order = Product::DEFAULT_ORDER;
-        if (isset($options['order']) && $options['order']) {
+        if (isset($options['order']) && $options['order']  ) {
             $order = __removeDF($options['order']);
         }
+
+
         if (isset($options['level']) && $options['level']) {
             $condition .= ' AND r.level=:level';
             $params[':level'] = $options['level'];
@@ -436,18 +455,15 @@ class Product extends \common\models\ActiveRecordC
             ->rightJoin('shop AS r', 'r.id = t.shop_id')
             ->rightJoin('product_category pc', "pc.id = t.category_id")
             ->where($condition, $params);
-
-        if (isset($options['keyword']) && $options['keyword']) {
-            $tag = $options['keyword'];
-            $tag = str_replace(',', ' ', $tag);
-            if ($tag) {
-                $query->select($select . ", ((1.8 * (MATCH(t.name) AGAINST (:tag IN BOOLEAN MODE)))) as score ");
-                $query->andWhere("(MATCH(t.name) AGAINST (:tag IN BOOLEAN MODE))", [':tag' => $tag]);
-                $query->having('score > 1');
-                $order = 'score DESC, ' . $order;
-            }
+        if (isset($options['province_id']) && $options['province_id']) {
+            $query->andWhere("(MATCH (t.province_id) AGAINST ('" . $options['province_id'] . "' IN BOOLEAN MODE))");
         }
-
+        if (isset($options['keyword']) && $options['keyword']) {
+            $query->andWhere("(MATCH (t.name) AGAINST ('" . $options['keyword'] . "' IN BOOLEAN MODE))");
+        }
+        if (isset($options['sort_desc']) && $options['sort_desc']) {
+            $order='t.name ASC';
+        }
         if (isset($options['count'])) {
             $total = $query->count();
             return $total;

@@ -6,9 +6,9 @@
 @import 'lienhe.scss';
 @import 'gioithieu.scss';
 @import 'tintuc.scss';
-@import 'dangnhap.scss';
 @import 'pagination.scss';
 @import 'chitietgoithau.scss';
+@import 'thanhtoan.scss';
 
 .site51_profil_col3_locsanpham {
     width: 248px;
@@ -47,7 +47,7 @@
                 //    height: 283px !important;
                 //    background: #F0F0F0;
                 // }
-                div{
+                &>div{
                     margin-bottom: 15px;
                 }
                 .fitler_flex{
