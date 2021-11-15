@@ -69,8 +69,6 @@ use common\components\ClaLid;
                     </div>
                     <?php } ?>
                 </div>
-
-
                     <?=
                     yii\widgets\LinkPager::widget([
                         'pagination' => new yii\data\Pagination([
