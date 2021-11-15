@@ -181,6 +181,10 @@ class ProductController extends CController
 
         $totalitem = Product::getProduct(array_merge($_GET, [
             'count' => 1,
+            'keyword'=>$keyword,
+            'province_id'=>$province_id,
+            'limit' => $pagesize,
+            'page' => $page,
         ]));
 
         return $this->render('index', [
@@ -453,7 +457,7 @@ class ProductController extends CController
     public function actionDetail($id, $t = 0)
     {
         $_SESSION['url_back_login'] = 'http://' . \common\components\ClaSite::getServerName() . "$_SERVER[REQUEST_URI]";
-        $this->layout = 'brand';
+        $this->layout = 'detail';
 
         //
         $model = $this->addView($id);
@@ -475,6 +479,11 @@ class ProductController extends CController
             } else {
                 return $this->goHome();
             }
+        }
+        $shop= Shop::findOne($model->shop_id);
+        if (!$shop) {
+            $this->layout = '@frontend/views/layouts/error_layout';
+            return $this->render('error');
         }
         //
         Yii::$app->view->title = $model->meta_title ? $model->meta_title : $model->name;
@@ -538,8 +547,7 @@ class ProductController extends CController
             'model' => $model,
             'category' => $category,
             'is_add_wish' => $is_add_wish,
-
-
+            'shop'=>$shop,
         ]);
     }
 

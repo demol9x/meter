@@ -1,4 +1,10 @@
-<link rel="stylesheet" href="<?= yii::$app->homeUrl?>css/chitietgoithau.css">
+<?php
+use  common\components\ClaHost;
+//echo '<pre>';
+//print_r($model);
+//echo '</pre>';
+//die();
+?>
 <div class="site51_prodel_col12_chitietgoithai">
     <div class="container_fix">
         <?php //Menu main
@@ -10,87 +16,19 @@
                 <div class="left_env">
                     <div class="slide_detail_on">
                         <div class="img_detail">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detail.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detail.png" alt="">
+                            <a data-fancybox="gallery" href="<?= ClaHost::getImageHost(), $model['avatar_path'], $model['avatar_name'] ?>">
+                                <img src="<?= ClaHost::getImageHost(), $model['avatar_path'], $model['avatar_name'] ?>" alt="">
                             </a>
                         </div>
-                        <div class="img_detail">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detail.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detail.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detail.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detail.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detail.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detail.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detail.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detail.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detail.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detail.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detail.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detail.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detail.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detail.png" alt="">
-                            </a>
-                        </div>
+
                     </div>
                     <div class="slide_detail_in">
                         <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detai_1.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detai_1.png" alt="">
+                            <a data-fancybox="gallery" href="<?= ClaHost::getImageHost(), $model['avatar_path'], $model['avatar_name'] ?>">
+                                <img src="<?= ClaHost::getImageHost(), $model['avatar_path'], $model['avatar_name'] ?>" alt="">
                             </a>
                         </div>
-                        <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detai_1.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detai_1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detai_1.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detai_1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detai_1.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detai_1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detai_1.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detai_1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detai_1.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detai_1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detai_1.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detai_1.png" alt="">
-                            </a>
-                        </div>
-                        <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl?>images/img_detai_1.png">
-                                <img src="<?= yii::$app->homeUrl?>images/img_detai_1.png" alt="">
-                            </a>
-                        </div>
+
                     </div>
                 </div>
             </div>
@@ -98,7 +36,7 @@
                  style="visibility: visible; animation-duration: 3s;">
                 <div class="content">
                     <div class="title title_28">
-                        Công trình nhà hàng Sen Lý Thái Tổ
+                       <?= $model->name ?>
                     </div>
                     <div class="description">
                         <i class="far fa-sticky-note"></i><span class="content_16">Đăng ký dự
@@ -108,31 +46,28 @@
                     <div class="content_16_b">Thông tin liên lạc:</div>
                     <div class="contact_row">
                         <img src="<?= yii::$app->homeUrl?>images/img_detail_home.png" alt="">
-                        <a href="" class="content_16">Công ty Cổ phần ABC</a>
+                        <a href="" class="content_16"><?= $shop->name?></a>
                     </div>
                     <div class="contact_row">
                         <i class="far fa-map-marker-alt"></i>
-                        <span class="content_16">60 Phố Lý Thái Tổ, Tràng Tiền, Hoàn Kiếm, Hà Nội</span>
+                        <span class="content_16"><?= $shop->address ?></span>
                     </div>
                     <div class="contact_row">
                         <div class="contact_flex">
                             <div class="flex">
                                 <i class="far fa-phone-alt"></i>
-                                <a href="" class="content_16">0123.456.789</a>
+                                <a href="tel:<?= $shop->phone ?>" class="content_16"><?= $shop->phone ?></a>
                             </div>
                             <div class="flex">
                                 <i class="far fa-envelope"></i>
-                                <a href="" class="content_16">abcgroup@gmail.com</a>
+                                <a href="mailto:<?= $shop->email ?>" class="content_16"> <?= $shop->email ?></a>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="detail_des">
                     <span class="content_16_b">Giới thiệu:</span>
-                    <span class="content_16">Nằm giữa trung tâm thành phố Buffet Sen 60 Lý Thái Tổ nổi bật với không
-                            gian sang trọng. Nằm bên quảng trường cách mạng tháng 8 (đối diện Nhà Hát Lớn), với vị trí
-                            ngồi trên tầng cao, thực khách có thể phóng tầm mắt ra khoảng không thoáng đãng, tận hưởng
-                            cảm giác thư thái, rời xa những ồn ào của góc phố sầm uất ngay dưới chân mình.</span>
+                    <span class="content_16"><?= isset($model->short_description) && $model->short_description ? $model->short_description : 'Đang cập nhật' ?></span>
                 </div>
                 <div class="detail_upload">
                     <i class="far fa-paperclip"></i>
@@ -252,34 +187,7 @@
                     <a id="scroll_load_2" href="#" class="nav_list title_18">hồ sơ dự thầu</a>
                 </div>
                 <div id="pro_desc_list" class="pro_description">
-                    <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
-                        đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
-                        những thực khách khó tính nhất.</p>
-                    <img src="<?= yii::$app->homeUrl?>images/img_description.png" alt="">
-                    <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
-                        đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
-                        những thực khách khó tính nhất.</p>
-                    <img src="<?= yii::$app->homeUrl?>images/img_description.png" alt="">
-                    <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
-                        đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
-                        những thực khách khó tính nhất.</p>
-                    <img src="<?= yii::$app->homeUrl?>images/img_description.png" alt="">
-                    <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
-                        đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
-                        những thực khách khó tính nhất.</p>
-                    <img src="<?= yii::$app->homeUrl?>images/img_description.png" alt="">
-                    <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
-                        đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
-                        những thực khách khó tính nhất.</p>
-                    <img src="<?= yii::$app->homeUrl?>images/img_description.png" alt="">
-                    <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
-                        đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
-                        những thực khách khó tính nhất.</p>
-                    <img src="<?= yii::$app->homeUrl?>images/img_description.png" alt="">
-                    <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
-                        đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
-                        những thực khách khó tính nhất.</p>
-                    <img src="<?= yii::$app->homeUrl?>images/img_description.png" alt="">
+                   <?= $model->description ?>
                     <div class="button_position">
                         <a class="content_16 btn-animation">Xem thêm <i class="fas fa-chevron-down"></i></a>
                     </div>
