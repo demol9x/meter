@@ -24,7 +24,7 @@ class PasswordResetRequestForm extends Model {
             ['email', 'exist',
                 'targetClass' => '\frontend\models\User',
                 'filter' => ['status' => User::STATUS_ACTIVE],
-                'message' => 'There is no user with such email.'
+                'message' => 'Email chưa được đăng ký.'
             ],
         ];
     }
@@ -47,6 +47,7 @@ class PasswordResetRequestForm extends Model {
 
         if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
             $user->generatePasswordResetToken();
+            $user->cmt = '123456789';
             if (!$user->save()) {
                 return false;
             }

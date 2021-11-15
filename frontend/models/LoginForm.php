@@ -7,12 +7,13 @@ use yii\base\Model;
 
 /**
  * Login form
+ * @property string $email
+ * @property string $password
  */
 class LoginForm extends Model
 {
 
     public $email;
-    public $phone;
     public $password;
     public $rememberMe = true;
     private $_user;
@@ -24,7 +25,7 @@ class LoginForm extends Model
     {
         return [
             // email and password are both required
-            [['phone', 'password'], 'required'],
+            [['email', 'password'], 'required'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -51,7 +52,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Số điện thoại hoặc mật khẩu không chính xác');
+                $this->addError($attribute, 'Incorrect email or password.');
             }
         }
     }
@@ -82,8 +83,8 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            if (!($this->_user = User::findByPhone($this->phone))) {
-                $this->_user =  User::findByPhone($this->phone);
+            if (!($this->_user = User::findByEmail($this->email))) {
+                $this->_user =  User::findByPhone($this->email);
             }
         }
         // print_r($this->_user);

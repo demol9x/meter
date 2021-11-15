@@ -84,8 +84,8 @@ return [
         'notifications' => [
             'class' => 'backend\modules\notifications\Notifications',
         ],
-        'affiliate' => [
-            'class' => 'backend\modules\affiliate\Affiliate',
+        'package' => [
+            'class' => 'backend\modules\package\Package',
         ],
     ],
     'components' => [
