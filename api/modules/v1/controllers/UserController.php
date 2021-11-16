@@ -74,6 +74,32 @@ class UserController extends RestController
         ]);
     }
 
+    public function actionActive()
+    {
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $user_id = isset($params['user_id']) && $params['user_id'] ? $params['user_id'] : '';
+        $auth_key = isset($params['auth_key']) && $params['auth_key'] ? $params['auth_key'] : '';
+        $user = User::findOne($user_id);
+        $message = '';
+        $errors = [];
+        if ($user && $user->auth_key == $auth_key) {
+            $user->status = User::STATUS_ACTIVE;
+            $user->save();
+            return $this->responseData([
+                'success' => true,
+                'errors' => $errors,
+                'message' => $message
+            ]);
+        }else {
+            $message = 'Thông tin tài khoản không hợp lệ';
+        }
+        return $this->responseData([
+            'success' => false,
+            'errors' => $errors,
+            'message' => $message
+        ]);
+    }
+
     /**
      * Đăng ký thợ
      */
