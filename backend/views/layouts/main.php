@@ -114,6 +114,11 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                                     <a href="<?= Url::to(['/user/shop/index']) ?>"><?= Yii::t('app', 'shop') ?></a>
                                                 </li>
                                             <?php } ?>
+                                            <?php if (Helper::checkRoute('/user/tho/index')) { ?>
+                                                <li>
+                                                    <a href="<?= Url::to(['/user/tho/index']) ?>">Thợ</a>
+                                                </li>
+                                            <?php } ?>
                                         </ul>
                                     </li>
                                 <?php } ?>
