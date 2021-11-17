@@ -9,23 +9,23 @@ body {
 
 @media (min-width: 768px) {
     .container_fix {
-        width: 750px;
+        max-width: 750px;
     }
 }
 
 @media (min-width: 992px) {
     .container_fix {
-        width: 970px;
+        max-width: 970px;
     }
 }
 
 @media (min-width: 1200px) {
     .container_fix {
-        width: 1251px;
+        max-width: 1251px;
     }
 }
 
-@media (max-width:1200px) {
+@media (max-width:1270px) {
     .container_fix {
         padding: 0 15px;
     }
@@ -33,18 +33,36 @@ body {
 
 .icon_menu {
     display: none;
-    width: 20px;
+    width: 26px;
     cursor: pointer;
     z-index: 15;
+    position: absolute;
+    top: 18px;
+    right: 15px;
 }
 
 .icon_menu span {
     margin-bottom: 6px;
     display: block;
     width: 100%;
-    height: 2px;
+    height: 3px;
     background: #000000;
     z-index: 15;
+}
+
+.icon_menu span:nth-child(4) {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+    margin-top: 0;
+    background: #FFFFFF;
+    margin-top: -18px;
+    margin-left: 5px;
+    width: 120%;
+    height: 2.5px;
+}
+
+.icon_menu.active {
+    margin-top: 9px;
 }
 
 .icon_menu.active span {
@@ -55,6 +73,7 @@ body {
 .icon_menu.active span:nth-child(1) {
     -webkit-transform: rotateZ(45deg);
     transform: rotateZ(45deg);
+    margin-bottom: -3px;
 }
 
 .icon_menu.active span:nth-child(2) {
@@ -66,6 +85,68 @@ body {
     transform: rotateZ(-45deg);
     margin-top: -1px;
 }
+
+.icon_menu.active span:nth-child(4) {
+    display: none;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+}
+
+.buttons div {
+    margin: 0px 10px;
+    cursor: pointer;
+}
+
+.buttons div>* {
+    pointer-events: none;
+}
+
+.buttons .grid {
+    opacity: 0.3;
+}
+
+.buttons .list {
+    opacity: 0.3;
+}
+
+.buttons .active {
+    opacity: 1;
+}
+
+#wrapper.grid {
+    display: grid;
+    justify-content: normal;
+}
+
+#wrapper.grid .pro_card {
+    width: 100%;
+    margin-bottom: 25px;
+}
+
+#wrapper.grid .pro_card a {
+    display: flex;
+}
+
+#wrapper.grid .pro_card a .card_img {
+    min-width: 237px;
+}
+
+#wrapper.grid .pro_card a .card_text {
+    width: 100%;
+    display: grid;
+}
+
+#wrapper.grid .pro_card a .card_text .title {
+    margin-bottom: 100px;
+}
+
+#wrapper.grid .pro_card a .card_text .title p {
+    margin-top: 20px;
+}
+
 
 @media (max-width:1200px) {
     .icon_menu {
@@ -105,12 +186,6 @@ body {
     align-items: center;
     margin-right: 15px;
 }
-
-.pro_content .pro_select_env .sapxep_1 {
-    margin-right: 20px;
-}
-
-.pro_content .pro_select_env .sapxep_2 {}
 
 .pro_content .pro_select span {
     font-family: Helvetica Neue;
@@ -214,7 +289,7 @@ body {
     border: 1px solid #ffffff00;
     box-sizing: border-box;
     margin-bottom: 15px;     
-    overflow: hidden;
+   overflow: hidden;
 }
 
 .pro_flex .pro_card:hover {
@@ -303,6 +378,7 @@ body {
 
 .date_time {
     display: flex;
+    align-items: center;
 }
 
 .date_time img {
@@ -328,33 +404,37 @@ body {
     right: auto;
 }
 
-.pro_flex .pro_card .heart .add_tim {
+.pro_flex .pro_card .heart .check:hover .iuthik1 {
     display: none;
 }
 
-.pro_flex .pro_card .heart .add_tim.active {
+.pro_flex .pro_card .heart .check:hover .iuthik2 {
     display: block;
 }
 
-.pro_flex .pro_card .heart .add_tim_1 {
-    display: none;
-}
-
-.pro_flex .pro_card .heart:hover .add_tim {
-    display: none;
-}
-
-.pro_flex .pro_card .heart:hover .add_tim_1 {
-    display: block;
-}
-
-.pro_flex .pro_card .heart .add_tim_1 i {
+.pro_flex .pro_card .heart .check .iuthik2 i {
     color: #289300;
     font-size: 21px;
 }
 
-.pro_flex .pro_card .heart .add_tim_1.active {
+.pro_flex .pro_card .heart .check .iuthik2 {
+    display: none;
+}
+
+.pro_flex .pro_card .heart input {
+    display: none;
+}
+
+.pro_flex .pro_card .heart .check .iuthik2 {
+    display: none;
+}
+
+.pro_flex .pro_card .heart input[type=checkbox]:checked+.check>.iuthik2 {
     display: block;
+}
+
+.pro_flex .pro_card .heart input[type=checkbox]:checked+.check>.iuthik1 {
+    display: none;
 }
 
 .pro_flex .pro_card .hot_product {
@@ -396,6 +476,7 @@ body {
 .pro_flex .pro_card .card_text .pro_exchange {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
 }
 
 .pro_flex .pro_card .card_text .pro_exchange span {}
@@ -435,6 +516,16 @@ body {
         line-height: 27px;
         padding-left: 28px;
     }
+    .pro_content .content_text h3::after {
+        top: 2px;
+        height: 20px;
+        overflow: hidden;
+    }
+    .pro_content .content_text h3::before {
+        top: 2px;
+        height: 20px;
+        overflow: hidden;
+    }
     .pro_content .content_viewall span {
         font-size: 15px;
     }
@@ -444,6 +535,16 @@ body {
     .pro_flex .pro_card .card_img img {
         max-width: 100%;
     }
+    #wrapper.grid .pro_card a .card_img {
+        min-width: 201px;
+        height: 201px;
+    }
+}
+
+@media (max-width: 991px) {
+    .buttons {
+        flex-wrap: wrap;
+    }
 }
 
 @media (max-width:576px) {
@@ -451,6 +552,16 @@ body {
         font-size: 18px;
         line-height: 27px;
         padding-left: 28px;
+    }
+    .pro_content .content_text h3::after {
+        top: 4px;
+        height: 18px;
+        overflow: hidden;
+    }
+    .pro_content .content_text h3::before {
+        top: 4px;
+        height: 18px;
+        overflow: hidden;
     }
     .pro_content .content_viewall span {
         font-size: 14px;
@@ -475,7 +586,32 @@ body {
         font-size: 14px;
         line-height: 14px;
     }
+    #wrapper.grid .pro_card a .card_img {
+        min-width: 150px;
+        height: 150px;
+    }
+    #wrapper.grid .pro_card a .card_text .title {
+        margin-bottom: 35px;
+    }
     .date_time span {
         font-size: 14px;
+    }
+}
+
+@media (max-width:460px) {
+    .pro_content .content_text h3 {
+        font-size: 16px;
+        line-height: 18px;
+    }
+    .pro_content .content_text h3::after {
+        top: 0;
+        height: 17px;
+        overflow: hidden;
+    }
+
+    .pro_content .content_text h3::before {
+        top: 0;
+        height: 17px;
+        overflow: hidden;
     }
 }

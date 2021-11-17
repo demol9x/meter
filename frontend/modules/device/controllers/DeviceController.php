@@ -26,13 +26,12 @@ class DeviceController extends CController
     public function actionIndex()
     {
         return $this->render('index', [
-
         ]);
     }
 
 
 
-    public function actionDetail($id, $t = 0)
+    public function actionDetail()
     {
         return $this->render('detail', [
         ]);

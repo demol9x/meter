@@ -7,11 +7,7 @@ use common\components\ClaLid;
 <div class="site52_pro_col12_nhathau">
     <div class="container_fix">
         <div class="pro_flex">
-            <?php //Menu main
-            echo frontend\widgets\productFilter\ProductFilterWidget::widget([
-                    'view'=>'view',
-            ]);
-            ?>
+
 
             <div class="site52_pro_col10_nhathau">
                 <div class="pro_package">
@@ -21,11 +17,6 @@ use common\components\ClaLid;
                         </div>
                         <div class="pro_select_env">
 
-                            <?php //Menu main
-                            echo frontend\widgets\productFilter\ProductFilterWidget::widget([
-                                    'view'=>'view_sort'
-                            ]);
-                            ?>
 
                             <a href="" class="sapxep_1">
                                 <img src="<?= yii::$app->homeUrl?>images/img_sapxep_1.png" alt="">

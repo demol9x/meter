@@ -1,13 +1,13 @@
 <?php
 
-namespace frontend\widgets\productFilter;
+namespace frontend\widgets\packageFilter;
 
 use common\models\Province;
 use Yii;
 use yii\base\Widget;
-use common\models\product\Product;
+use  common\models\package\Package;
 
-class ProductFilterWidget extends \frontend\components\CustomWidget {
+class PackageFilterWidget extends \frontend\components\CustomWidget {
 
     public $view = 'view';
     public $data = [];
@@ -26,9 +26,8 @@ class ProductFilterWidget extends \frontend\components\CustomWidget {
         // location
         $params = [
             'province_id'=> $this->province_id,
-
         ];
-        $this->province_id = Product::getProvince($params);
+        $this->province_id = Package::getProvince($params);
         uasort($this->province_id, function ($a, $b) {
             if ($a['count_job'] == $b['count_job']) {
                 return 0;

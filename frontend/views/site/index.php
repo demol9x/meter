@@ -13,7 +13,7 @@ echo frontend\widgets\banner\BannerWidget::widget([
     <div class="product_index">
         <div class="container_fix">
             <?php //product all
-            echo frontend\widgets\product\ProductWidget::widget([
+            echo frontend\widgets\package\PackageWidget::Widget([
                 'view' => 'view_hot',
                 'limit' => 10,
             ])

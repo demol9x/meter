@@ -20,6 +20,12 @@ return [
     'bootstrap' => ['log'],
     'controllerNamespace' => 'frontend\controllers',
     'modules' => [
+        'profile' => [
+            'class' => 'frontend\modules\profile\Profile',
+        ],
+        'package' => [
+            'class' => 'frontend\modules\package\Package',
+        ],
         'user' => [
             'class' => 'frontend\modules\user\User',
         ],

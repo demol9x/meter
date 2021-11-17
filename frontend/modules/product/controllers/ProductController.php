@@ -171,15 +171,14 @@ class ProductController extends CController
         $page = Yii::$app->request->get('page', 1);
         $province_id = Yii::$app->request->get('p', 0);
         $keyword = Yii::$app->request->get('k', '');
-        $data = Product::getProduct(array_merge($_GET, [
-            // 'category_id' => $category->id,
+        $data = Product::getProduct(array_merge($_GET,[
             'keyword'=>$keyword,
             'province_id'=>$province_id,
             'limit' => $pagesize,
             'page' => $page,
         ]));
 
-        $totalitem = Product::getProduct(array_merge($_GET, [
+        $totalitem = Product::getProduct(array_merge($_GET,[
             'count' => 1,
             'keyword'=>$keyword,
             'province_id'=>$province_id,

@@ -27,21 +27,21 @@ class ProfileController extends CController {
      * @return string
      */
     public function actionIndex() {
-        $user = User::findIdentity(Yii::$app->user->getId());
-        //
-        $user_info = $this->findModelInfo();
-        // Học vấn và bằng cấp
-        $user_education = new UserEducation();
-        $educations = $this->findEducations();
-        // file cv
-        $file = UserFile::find()->where('user_id=:user_id', [':user_id' => Yii::$app->user->getId()])->one();
+//        $user = User::findIdentity(Yii::$app->user->getId());
+//        //
+//        $user_info = $this->findModelInfo();
+//        // Học vấn và bằng cấp
+//        $user_education = new UserEducation();
+//        $educations = $this->findEducations();
+//        // file cv
+//        $file = UserFile::find()->where('user_id=:user_id', [':user_id' => Yii::$app->user->getId()])->one();
         //
         return $this->render('index', [
-                    'user' => $user,
-                    'user_info' => $user_info,
-                    'user_education' => $user_education,
-                    'educations' => $educations,
-                    'file' => $file
+//                    'user' => $user,
+//                    'user_info' => $user_info,
+//                    'user_education' => $user_education,
+//                    'educations' => $educations,
+//                    'file' => $file
         ]);
     }
 

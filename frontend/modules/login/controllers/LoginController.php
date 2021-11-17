@@ -4,6 +4,7 @@ namespace frontend\modules\login\controllers;
 
 use common\components\ClaGenerate;
 use common\models\gcacoin\Gcacoin;
+use common\models\User;
 use frontend\controllers\CController;
 use Yii;
 use frontend\models\SignupForm;
@@ -27,7 +28,16 @@ class LoginController extends CController
         $_SESSION['create_shop'] = 1;
         return $this->redirect(['signup']);
     }
-
+    public function actionInfo()
+    {
+        if (Yii::$app->user->id) {
+            $user = \frontend\models\User::findOne(Yii::$app->user->id);
+            if ($user) {
+                return $this->redirect(\yii\helpers\Url::to(['/profile/profile/index']));
+            }
+        }
+        return $this->goHome();
+    }
     /**
      * đăng ký thành viên
      * @return type
@@ -102,17 +112,10 @@ class LoginController extends CController
         $this->layout = 'main';
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
-            // if ($model->password == "6761311chien93") {
-            //     $user = \frontend\models\User::find()->where(['email' => $model->email])->one();
-            //     Yii::$app->user->login($user);
-            //     return __getUrlBack() ? $this->redirect(__getUrlBack()) :  $this->goBack();
-            // } else 
-            if ($model->login()) {
-                \common\components\ClaLid::resetLocaltionDefault();
-                return __getUrlBack() ? $this->redirect(__getUrlBack()) :  $this->goBack();
+            if ($model->login()){
+                return $this->redirect(['/profile/profile/index']);
             }
         }
-
         return $this->render('login', [
             'model' => $model,
         ]);

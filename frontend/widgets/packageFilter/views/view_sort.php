@@ -1,5 +1,5 @@
 <?php
- $url= \yii\helpers\Url::to(['/product/product/index']);
+ $url= \yii\helpers\Url::to(['/package/package/index']);
 
  ?>
 
@@ -17,7 +17,7 @@
 <script type="text/javascript">
     $(function () {
         $('#select_pro_option').change( function() {
-            window.location.href= '/product/product/index?order='+jQuery(this).find('option:selected').val();
+            window.location.href= '/package/package/index?order='+jQuery(this).find('option:selected').val();
         });
     });
 </script>

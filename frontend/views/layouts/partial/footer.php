@@ -1,3 +1,9 @@
+<?php //Menu main
+echo frontend\widgets\menu\MenuWidget::widget([
+    'view' => 'social_bt',
+    'group_id' => 10,
+])
+?>
 <div class="site51_foot_col0_meter" >
     <div class="container_fix">
         <div class="fluild">
@@ -21,7 +27,7 @@
                         </div>
                         <div class="flex_foot">
                             <div class="img_foot">
-                                <img src="<?= Yii::$app->homeUrl ?>images/phone_foot.png" alt="" >
+                                <img src="<?= yii::$app->homeUrl ?>images/phone_foot.png" alt="" >
                             </div>
                             <div class="text_foot">
                                 <a href="tel:<?= $siteinfo->phone ?>"><?= $siteinfo->phone ?> - <?= $siteinfo->hotline ?></a>
@@ -29,7 +35,7 @@
                         </div>
                         <div class="flex_foot">
                             <div class="img_foot">
-                                <img src="<?= Yii::$app->homeUrl ?>images/mail_foot.png" alt="" >
+                                <img src="<?= yii::$app->homeUrl ?>images/mail_foot.png" alt="" >
                             </div>
                             <div class="text_foot">
                                 <a href="mailto:<?= $siteinfo->email ?>"><?= $siteinfo->email ?></a>
@@ -38,71 +44,58 @@
                     </div>
                 </div>
                 <div class="footer_2">
-
                     <?php //Menu main
                     echo frontend\widgets\menu\MenuWidget::widget([
                         'view' => 'footer',
                         'group_id' => 4,
                     ])
                     ?>
-
                 </div>
                 <?=
                 frontend\widgets\html\HtmlWidget::widget([
                     'view' => 'newsletter'
                 ]);
                 ?>
-
             </div>
         </div>
         <div class="fluild_2">
             <div class="rows">
-                <div class="service_1 service">
-                    <a href="">
-                        <img src="<?= Yii::$app->homeUrl ?>images/dau_foot.png" alt="">
-                    </a>
-                </div>
+                <div class="service_1 service"><a href=""><img src="<?= yii::$app->homeUrl ?>images/dau_foot.png" alt=""></a></div>
                 <div class="service_2 service">
                     <a href="">
-                        <img src="<?= Yii::$app->homeUrl ?>images/vnpay_foot.png" alt="">
+                        <img src="<?= yii::$app->homeUrl ?>images/vnpay_foot.png" alt="">
                     </a>
                     <a href="">
-                        <img src="<?= Yii::$app->homeUrl ?>images/visa_foot.png" alt="">
+                        <img src="<?= yii::$app->homeUrl ?>images/visa_foot.png" alt="">
                     </a>
                     <a href="">
-                        <img src="<?= Yii::$app->homeUrl ?>images/banking_foot.png" alt="">
+                        <img src="<?= yii::$app->homeUrl ?>images/banking_foot.png" alt="">
                     </a>
                     <a href="">
-                        <img src="<?= Yii::$app->homeUrl ?>images/visa_foot.png" alt="">
+                        <img src="<?= yii::$app->homeUrl ?>images/visa_foot.png" alt="">
                     </a>
                     <a href="">
-                        <img src="<?= Yii::$app->homeUrl ?>images/installment_foot.png" alt="">
+                        <img src="<?= yii::$app->homeUrl ?>images/installment_foot.png" alt="">
                     </a>
                     <a href="">
-                        <img src="<?= Yii::$app->homeUrl ?>images/the_foot.png" alt="">
+                        <img src="<?= yii::$app->homeUrl ?>images/the_foot.png" alt="">
                     </a>
                     <a href="">
-                        <img src="<?= Yii::$app->homeUrl ?>images/monney_foot.png" alt="">
+                        <img src="<?= yii::$app->homeUrl ?>images/monney_foot.png" alt="">
                     </a>
                 </div>
                 <div class="service_3 service">
                     <span>LIÊN KẾT:</span>
-                    <a href="">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-                    <a href="">
-                        <i class="fab fa-skype"></i>
-                    </a>
+                    <div class="flex-icon">
+                        <a href=""><i class="fab fa-facebook-f"></i></a>
+                        <a href=""><i class="fab fa-instagram"></i></a>
+                        <a href=""><i class="fab fa-twitter"></i></a>
+                        <a href=""><i class="fab fa-skype"></i></a>
+                    </div>
                 </div>
                 <div class="service_4">
                     <a href="">
-                        <span><?= $siteinfo->copyright ?></span>
+                        <span> <span><?= $siteinfo->copyright ?></span></span>
                     </a>
                 </div>
             </div>
