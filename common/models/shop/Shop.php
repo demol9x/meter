@@ -93,29 +93,23 @@ class Shop extends \common\models\ActiveRecordC
     public function rules()
     {
         return [
-            ['email', 'required'],
-            ['email', 'email'],
-            // ['email', 'unique', 'targetClass' => '\frontend\models\User', 'message' => 'Email đã tồn tại.'],
-            [['name', 'type', 'province_id', 'district_id', 'ward_id', 'name_contact', 'phone', 'cmt', 'address'], 'required'],
-            [['user_id', 'allow_number_cat', 'avatar_id', 'time_open', 'time_close', 'day_open', 'day_close', 'type_sell', 'like', 'cmt', 'shop_acount_type'], 'integer'],
-            [['description', 'policy', 'contact', 'payment_transfer'], 'string'],
-            [['name', 'address', 'image_name', 'avatar_path', 'avatar_name', 'email', 'yahoo', 'skype', 'website', 'facebook', 'instagram', 'pinterest', 'twitter', 'field_business', 'meta_keywords', 'meta_description', 'meta_title', 'latlng', 'category_track', 'address_auth'], 'string', 'max' => 255],
-            // [['province_id', 'district_id'], 'string', 'max' => 10],
+            [['name', 'user_id', 'phone', 'email','number_auth'], 'required'],
+            [['id', 'user_id', 'status', 'created_time', 'modified_time', 'site_id', 'avatar_id', 'time_open', 'time_close', 'day_open', 'day_close', 'like', 'rate_count', 'viewed'], 'integer'],
+            [['description'], 'string'],
+            [['rate'], 'number'],
+            [['name', 'alias', 'address', 'image_name', 'avatar_path', 'avatar_name', 'email', 'yahoo', 'skype', 'website', 'facebook', 'instagram', 'pinterest', 'twitter', 'field_business', 'meta_keywords', 'meta_description', 'meta_title'], 'string', 'max' => 250],
+            [['province_id', 'district_id'], 'string', 'max' => 4],
             [['province_name', 'district_name', 'ward_name'], 'string', 'max' => 100],
-            [['number_auth', 'number_paper_auth'], 'string', 'max' => 20],
-            [['phone'], 'integer'],
-            [['cmt', 'status_affiliate_waitting', 'affiliate_admin_waitting', 'affiliate_gt_shop_waitting', 'affilliate_status_service_waitting'], 'integer'],
-            [['phone'], 'string', 'min' => 9, 'max' => 13],
-            [['cmt'], 'string', 'min' => 9, 'max' => 20],
+            [['ward_id', 'number_auth'], 'string', 'max' => 20],
             [['image_path'], 'string', 'max' => 200],
-            [['hotline', 'name_contact'], 'string', 'max' => 50],
+            [['phone'], 'string', 'max' => 15],
+            [['hotline'], 'string', 'max' => 50],
             [['short_description'], 'string', 'max' => 1000],
-            [['date_auth'], 'string', 'max' => 12],
-            [['avatar1', 'avatar2', 'scale', 'latlng', 'lat', 'lng', 'type', 'level', 'time_limit_type_term', 'zalo'], 'safe'],
-            [['status', 'account_status', 'status_discount_code'], 'integer', 'on' => 'backend']
+            [['latlng'], 'string', 'max' => 255],
+            [['lat', 'lng'], 'string', 'max' => 30],
+            [['business'], 'string', 'max' => 500],
         ];
     }
-
     /**
      * @inheritdoc
      */
@@ -123,76 +117,54 @@ class Shop extends \common\models\ActiveRecordC
     {
         return [
             'id' => 'ID',
-            'name' => Yii::t('app', 'shop_name'),
-            'name_contact' => Yii::t('app', 'name_contact'),
+            'name' => 'Name',
             'alias' => 'Alias',
-            'type' => Yii::t('app', 'shop_type'),
             'user_id' => 'User ID',
-            'address' => Yii::t('app', 'address'),
-            'province_id' => Yii::t('app', 'province_name'),
-            'province_name' => Yii::t('app', 'province_name'),
-            'district_id' => Yii::t('app', 'district_name'),
-            'district_name' => Yii::t('app', 'district_name'),
-            'ward_id' => Yii::t('app', 'ward_name'),
-            'ward_name' => Yii::t('app', 'ward_name'),
-            'image_path' => Yii::t('app', 'image_path'),
-            'image_name' => Yii::t('app', 'image_name'),
-            'avatar_path' => Yii::t('app', 'avatar_path'),
-            'avatar_name' => Yii::t('app', 'avatar_name'),
-            'phone' => Yii::t('app', 'phone'),
-            'hotline' => Yii::t('app', 'hotline'),
-            'email' => Yii::t('app', 'email'),
-            'yahoo' => Yii::t('app', 'yahoo'),
-            'skype' => Yii::t('app', 'skype'),
-            'website' => Yii::t('app', 'website'),
-            'facebook' => Yii::t('app', 'facebook'),
-            'instagram' => Yii::t('app', 'instagram'),
-            'pinterest' => Yii::t('app', 'pinterest'),
-            'twitter' => Yii::t('app', 'twitter'),
-            'field_business' => Yii::t('app', 'field_business'),
-            'status' => Yii::t('app', 'status'),
-            'created_time' => Yii::t('app', 'created_time'),
-            'modified_time' => Yii::t('app', 'modified_time'),
-            'site_id' => Yii::t('app', 'site_id'),
-            'allow_number_cat' => Yii::t('app', 'allow_number_cat'),
-            'short_description' => Yii::t('app', 'short_description'),
-            'description' => Yii::t('app', 'description'),
-            'meta_keywords' => Yii::t('app', 'meta_keywords'),
-            'meta_description' => Yii::t('app', 'meta_description'),
-            'meta_title' => Yii::t('app', 'meta_title'),
+            'address' => 'Address',
+            'province_id' => 'Province ID',
+            'province_name' => 'Province Name',
+            'district_id' => 'District ID',
+            'district_name' => 'District Name',
+            'ward_id' => 'Ward ID',
+            'ward_name' => 'Ward Name',
+            'image_path' => 'Image Path',
+            'image_name' => 'Image Name',
+            'avatar_path' => 'Avatar Path',
+            'avatar_name' => 'Avatar Name',
+            'phone' => 'Phone',
+            'hotline' => 'Hotline',
+            'email' => 'Email',
+            'yahoo' => 'Yahoo',
+            'skype' => 'Skype',
+            'website' => 'Website',
+            'facebook' => 'Facebook',
+            'instagram' => 'Instagram',
+            'pinterest' => 'Pinterest',
+            'twitter' => 'Twitter',
+            'field_business' => 'Field Business',
+            'status' => 'Status',
+            'created_time' => 'Created Time',
+            'modified_time' => 'Modified Time',
+            'site_id' => 'Site ID',
+            'short_description' => 'Short Description',
+            'description' => 'Description',
+            'meta_keywords' => 'Meta Keywords',
+            'meta_description' => 'Meta Description',
+            'meta_title' => 'Meta Title',
             'avatar_id' => 'Avatar ID',
-            'time_open' => Yii::t('app', 'time_open'),
-            'time_close' => Yii::t('app', 'time_close'),
-            'day_open' => Yii::t('app', 'day_open'),
-            'day_close' => Yii::t('app', 'day_close'),
-            'type_sell' => Yii::t('app', 'type_sell'),
-            'like' => Yii::t('app', 'like'),
-            'policy' => Yii::t('app', 'policy'),
-            'contact' => Yii::t('app', 'contact'),
-            'latlng' => Yii::t('app', 'latlng'),
-            'payment_transfer' => Yii::t('app', 'payment_transfer'),
-            'category_track' => Yii::t('app', 'category_track'),
-            'number_auth' => Yii::t('app', 'number_auth'),
-            'date_auth' => Yii::t('app', 'date_auth'),
-            'address_auth' => Yii::t('app', 'address_auth'),
-            'number_paper_auth' => Yii::t('app', 'number_paper_auth'),
-            'avatar1' => Yii::t('app', 'avatar1'),
-            'avatar2' => Yii::t('app', 'avatar2'),
-            'cmt' => Yii::t('app', 'cmt'),
-            'level' => Yii::t('app', 'shop_level'),
-            'scale' => Yii::t('app', 'shop_scale'),
-            'status_affiliate' => 'Tham gia Affiliate',
-            'affiliate' => 'Chiết khấu:(0-100%)',
-            'shop_acount_type' => 'Loại tài khoản gian hàng',
-            'account_status' => 'Xác thực gian hàng',
-            'status_affiliate_waitting' => 'Tham gia affiliate',
-            'affiliate_admin_waitting' => '% thưởng cho OCOP PARTNER',
-            'affiliate_gt_shop_waitting' => '% thưởng cho người giới thiệu DN của bạn',
-            'time_limit_type_term' => 'Thời hạn doanh nghiệp',
-            'status_discount_code' => 'Tạo mã giảm giá',
-            'affilliate_status_service' => 'Kích hoạt QR-CODE dịch vụ',
-            'affiliate_admin' => '% thưởng cho OCOP PARTNER',
-            'affiliate_gt_shop' => '% thưởng cho người giới thiệu DN của bạn',
+            'time_open' => 'Time Open',
+            'time_close' => 'Time Close',
+            'day_open' => 'Day Open',
+            'day_close' => 'Day Close',
+            'like' => 'Like',
+            'latlng' => 'Latlng',
+            'number_auth' => 'Number Auth',
+            'rate' => 'Rate',
+            'rate_count' => 'Rate Count',
+            'lat' => 'Lat',
+            'lng' => 'Lng',
+            'viewed' => 'Viewed',
+            'business' => 'Business',
         ];
     }
 
@@ -211,19 +183,8 @@ class Shop extends \common\models\ActiveRecordC
                 }
                 \common\models\NotificationAdmin::addNotifcation('shop');
             }
-            if (!$this->latlng) {
-                $ward = \common\models\Ward::findOne($this->ward_id);
-                $this->latlng = $ward ? $ward->latlng : $this->latlng;
-            }
-
-            $latlng = explode(',', $this->latlng);
-            $this->lat = isset($latlng[0]) ? $latlng[0] : 0;
-            $this->lng = isset($latlng[1]) ? $latlng[1] : 0;
             $this->modified_time = time();
             $this->alias = \common\components\HtmlFormat::parseToAlias($this->name);
-            if (!$this->checkUpdateAffialite()) {
-                return false;
-            }
             return true;
         } else {
             return false;
@@ -233,76 +194,6 @@ class Shop extends \common\models\ActiveRecordC
     function user()
     {
         return \frontend\models\User::findOne($this->user_id);
-    }
-
-    function checkUpdateAffialite()
-    {
-        if ($this->status_affiliate_waitting != 1) {
-            return true;
-        }
-        $max = (new \yii\db\Query())->select('(affiliate_gt_product + affiliate_m_v + affiliate_m_ov +affiliate_safe) as tf')->from('product')->where("shop_id = " . $this->id . " and status_affiliate = 1")->orderBy('tf DESC')->limit(1)->all();
-        $gt_max = $max ? $max[0]['tf'] : 0;
-        if (($gt_max + $this->affiliate_admin_waitting + $this->affiliate_gt_shop_waitting) <= 100) {
-            return true;
-        }
-        $this->addError('status_affiliate_waitting', 'Tổng % affiliate vượt quá 100% vui lòng kiểm tra lại.');
-        return false;
-    }
-
-    static function getOptionsTypeAcount()
-    {
-        return [
-            1 => 'Nhà sản xuất',
-            2 => 'Nhà phân phối'
-        ];
-    }
-
-    function getNameTypeAcount()
-    {
-        $ls = self::getOptionsTypeAcount();
-        return isset($ls[$this->shop_acount_type]) ? $ls[$this->shop_acount_type] : 'Chưa phân loại';
-    }
-
-    public static function getLimitType()
-    {
-        $types = [
-            1 => 'Gói miễn phí 12 tháng đầu',
-            0 => 'Gói vô thời hạn',
-        ];
-        return $types;
-    }
-
-    public static function getType($id = null)
-    {
-        $types = [
-            '' => Yii::t('app', 'select_shop_type'),
-            1 => Yii::t('app', 'shop_type_1'),
-            2 => Yii::t('app', 'shop_type_2'),
-            3 => Yii::t('app', 'shop_type_3'),
-            4 => Yii::t('app', 'shop_type_4')
-        ];
-
-        if ($id) {
-            $list = explode(' ', $id);
-            $html = '';
-            foreach ($types as $key => $value) {
-                $html .= in_array($key, $list) ? $value . ', ' : '';
-            }
-            return $html;
-        }
-        return $types;
-    }
-
-    public static function getScale($id = null)
-    {
-        $types = [
-            Yii::t('app', 'small') => Yii::t('app', 'small'),
-            Yii::t('app', 'median') => Yii::t('app', 'median'),
-            Yii::t('app', 'large ') => Yii::t('app', 'large'),
-            Yii::t('app', 'vrlarge') => Yii::t('app', 'vrlarge'),
-        ];
-        if ($id && isset($types[$id])) return $types[$id];
-        return $types;
     }
 
     public static function updateAddress($address)
@@ -464,11 +355,6 @@ class Shop extends \common\models\ActiveRecordC
         return $data;
     }
 
-    public function getListLevel()
-    {
-        return $this->level ? \common\models\shop\ShopLevel::find()->where(['id' => explode(' ', $this->level)])->all() : [];
-    }
-
     public static function updateRating($id)
     {
         $shop = self::findOne($id);
@@ -485,11 +371,6 @@ class Shop extends \common\models\ActiveRecordC
                 $shop->save(false);
             }
         }
-    }
-
-    public static function getAfterAffiliate($user_id)
-    {
-        return self::find()->leftJoin('user', 'user.id = shop.id')->where(['user_before' => $user_id])->all();
     }
 
     public function afterSave($insert, $changedAttributes)
@@ -512,131 +393,5 @@ class Shop extends \common\models\ActiveRecordC
             return true;
         }
         return false;
-    }
-
-    function getSumAffCheck()
-    {
-        $v1 = 0;
-        if ($this->status_affiliate == 1) {
-            $v1 = $this->affiliate_admin + $this->affiliate_gt_shop;
-        }
-        $v2 = 0;
-        if ($this->status_affiliate_waitting == 1) {
-            $v2 = $this->affiliate_admin_waitting + $this->affiliate_gt_shop_waitting;
-        }
-        return $v1 > $v2 ? $v1 : $v2;
-    }
-
-    function getSumAffBuy()
-    {
-        $v1 = 0;
-        if ($this->status_affiliate == 1) {
-            $v1 = $this->affiliate_admin + $this->affiliate_gt_shop;
-        }
-        return $v1;
-    }
-
-    function changeAffilliateServiceUser($coin)
-    {
-        if ($this->affilliate_status_service == 1 && $this->status_affiliate) {
-            // if ($product = \common\models\product\Product::getProductService($this->id)) {
-            //     $re = $coin - ($product->affiliate_safe * $coin / 100);
-            return $coin;
-            // }
-        }
-        $siteif = \common\models\gcacoin\Config::getConfig();
-        return $siteif->getCoinTransferFee($coin);
-    }
-
-    function changeAffilliateService($coin)
-    {
-        if ($this->affilliate_status_service == 1 && $this->status_affiliate) {
-            if ($product = \common\models\product\Product::getProductService($this->id)) {
-                $re = $coin - ($product->affiliate_safe * $coin / 100);
-            }
-            return $re;
-        }
-        return $coin;
-    }
-
-    function affilliateService($coin_pay, $user)
-    {
-        if ($this->affilliate_status_service == 1 && $this->status_affiliate) {
-            $order = new \common\models\order\Order();
-            $order->payment_method = \common\components\payments\ClaPayment::PAYMENT_METHOD_CKQR;
-            $order->payment_method_child = 'CHUYENKHOANQR';
-            $order->order_total_all = $order->order_total = \common\models\gcacoin\Gcacoin::getMoneyToCoin($coin_pay);
-            $order->user_id = $user->id;
-            $order->shop_id = $this->id;
-            $order->payment_status = \common\components\payments\ClaPayment::PAYMENT_STATUS_SUCCESS;
-            $order->status = \common\models\order\Order::ORDER_DELIVERING;
-            $order->getAddress();
-            $order->key = strtoupper(md5(time()));
-            $product = \common\models\product\Product::getProductService($this->id);
-            if (!$product) {
-                $order->type_payment = \common\components\payments\ClaPayment::TYPE_PAYMENT;
-            }
-            $order->save(false);
-            if ($product) {
-                $oitem =  new \common\models\order\OrderItem();
-                $oitem->product_id = $product->id;
-                $oitem->order_id = $order->id;
-                $oitem->shop_id = $order->shop_id;
-                $oitem->code = $product->code;
-                $oitem->price = $product->getPrice(1);
-                $tg = $product->getPriceC1(1);
-                $tg = $product->getPriceC1(1) > 0 ? $tg : 1000;
-                $oitem->quantity = \common\models\gcacoin\Gcacoin::getMoneyToCoin($coin_pay) / $tg;
-                $oitem->avatar_path = $product->avatar_path;
-                $oitem->avatar_name = $product->avatar_name;
-                $oitem->getAffiliate();
-                $oitem->name = '[QR dịch vụ]' . $product->name;
-                // echo $oitem->quantity; die();
-                if (!$oitem->save()) {
-                    print_r($oitem->getErrors());
-                    die;
-                }
-                if ($order->costAffiliateService([$oitem])) {
-                    if ($oitem->sale > 0) {
-                        $user_id = $order->user_id;
-                        $gca_coin = \common\models\gcacoin\Gcacoin::getModel($user_id);
-                        $first_coin = $gca_coin->getCoin();
-                        $coin = $oitem->sale;
-                        if ($gca_coin->addCoin($coin) && $gca_coin->save(false)) {
-                            $history = new \common\models\gcacoin\GcaCoinHistory();
-                            $history->user_id = $user_id;
-                            $history->type = 'RESALE_AFFILIATE';
-                            $history->data = 'Hoàn ' . __VOUCHER . ' khuyến mãi sản phẩm dịch vụ.';
-                            $history->gca_coin = $coin;
-                            $history->first_coin = $first_coin;
-                            $history->last_coin = $gca_coin->getCoin();
-                            $history->save(false);
-                        } else {
-                            $siteinfo = \common\components\ClaLid::getSiteinfo();
-                            $email_manager = $siteinfo->email;
-                            if ($email_manager) {
-                                \common\models\mail\SendEmail::sendMail([
-                                    'email' => $email_manager,
-                                    'title' => 'Thêm tiền lỗi',
-                                    'content' => json_encode([$user_id => $it])
-                                ]);
-                            }
-                        }
-                    }
-                    $order->addAffiliate();
-                    $notify['title'] = 'Thanh toán QR dịch vụ thành công.';
-                    $notify['description'] = 'Mã đơn hàng QR dịch vụ ' . $order->getOrderLabelId() . ' giá trị ' . formatCoin($coin_pay) . ' ' . __VOUCHER . ' đã được thanh toán thành công.';
-                    $notify['link'] = \common\components\ClaUrl::to(['/management/order/index']);
-                    $notify['type'] = \common\models\notifications\Notifications::ORDER;
-                    $notify['recipient_id'] = $product['shop_id'];
-                    \common\models\notifications\Notifications::pushMessage($notify);
-                } else {
-                    $order->status_check_cancer = \common\components\ClaLid::STATUS_ACTIVED;
-                    $order->time_check_cancer = time();
-                    $order->save(false);
-                }
-            }
-        }
-        return true;
     }
 }

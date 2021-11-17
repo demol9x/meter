@@ -38,7 +38,7 @@ class UserSearch extends User {
      * @return ActiveDataProvider
      */
     public function search($params) {
-        $query = User::find();
+        $query = User::find()->where(['type' => User::TYPE_CA_NHAN]);
 
         // add conditions that should always apply here
 

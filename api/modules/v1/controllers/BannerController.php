@@ -22,17 +22,8 @@ class BannerController extends RestController
 
     public function actionIndex(){
         $request = Yii::$app->getRequest()->get();
-        $type = (isset($request['type']) && $request['type']) ? $request['type'] : '';
         $limit = (isset($request['limit']) && $request['limit']) ? $request['limit'] : 5;
-        $group_id = 0;
-        switch ($type){
-            case 'slide_home':
-                $group_id = 1;
-                break;
-            case 'after_slide_home':
-                $group_id = 2;
-                break;
-        }
+        $group_id = (isset($request['group_id']) && $request['group_id']) ? $request['group_id'] : '';
         $group = BannerGroup::findOne(['id' => $group_id]);
         if ($group) {
             $data = Banner::getBannerFromGroupId($group_id, ['limit' => $limit]);

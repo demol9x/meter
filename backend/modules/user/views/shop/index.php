@@ -10,7 +10,7 @@ use common\models\User;
 /* @var $searchModel frontend\models\search\ShopSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Quản lý gian hàng';
+$this->title = 'Quản lý nhà thầu';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
@@ -69,13 +69,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                         }
                                     },
                                     'filter' => Html::activeDropDownList($searchModel, 'status', [2 => Yii::t('app', 'waiting'), 1 => Yii::t('app', 'status_1'), 0 => Yii::t('app', 'non_active')], ['class' => 'form-control', 'prompt' => Yii::t('app', 'selects')])
-                                ],
-                                [
-                                    'attribute' => 'shop_acount_type',
-                                    'content' => function ($model) {
-                                        return $model->getNameTypeAcount();
-                                    },
-                                    'filter' => Html::activeDropDownList($searchModel, 'shop_acount_type', \common\models\shop\Shop::getOptionsTypeAcount() , ['class' => 'form-control', 'prompt' => Yii::t('app', 'selects')])
                                 ],
                                 'phone',
                                 'email:email',

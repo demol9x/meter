@@ -7,14 +7,14 @@ use yii\base\Model;
 
 /**
  * Login form
- * @property string $phone
  * @property string $email
  * @property string $password
  */
 class LoginForm extends Model
 {
-    public $phone;
+
     public $email;
+    public $phone;
     public $password;
     public $rememberMe = true;
     private $_user;
@@ -53,7 +53,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
             if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect email or password.');
+                $this->addError($attribute, 'Số điện thoại hoặc mật khẩu không chính xác');
             }
         }
     }
@@ -67,6 +67,8 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             if (Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0)) {
+                // $connection = Yii::$app->db;
+                // $connection->createCommand()->update('user', ['last_time_online' => time()], 'email ="'.$this->email.'"')->execute();
                 return true;
             }
         } else {
@@ -82,10 +84,11 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            if (!($this->_user = User::findByEmail($this->email))) {
+            if (!($this->_user = User::findByPhone($this->phone))) {
                 $this->_user =  User::findByPhone($this->phone);
             }
         }
+        // print_r($this->_user);
         return $this->_user;
     }
 }
