@@ -38,11 +38,12 @@ class NewsController extends CController
             'Trang chủ' => Url::home(),
             'tin-tuc' => Url::to(['/news/news/index']),
         ];
+        
         //
         $pagesize = ClaLid::DEFAULT_LIMIT;
 
         $page = Yii::$app->request->get('page', 1);
-
+        
         $data = News::getNews([
             'limit' => $pagesize,
             'page' => $page,

@@ -1,5 +1,4 @@
 <?php
-
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 //const MAX_QUANTITY_PRODUCT = 1000000000000;
 // echo "bảo trì"; die();

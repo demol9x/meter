@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fdd94df3-f8aa-4e35-835c-34afe15853cf" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/config/main.php" beforeDir="false" afterPath="$PROJECT_DIR$/common/config/main.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/modules/news/controllers/NewsController.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/modules/news/controllers/NewsController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/web/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/web/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -12,7 +15,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ComposerSettings">
+  <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
   </component>
@@ -142,6 +145,9 @@
       <updated>1636452298352</updated>
       <workItem from="1636452300971" duration="1892000" />
       <workItem from="1636455649211" duration="4000" />
+      <workItem from="1636508803726" duration="271000" />
+      <workItem from="1636625701864" duration="1742000" />
+      <workItem from="1636777255429" duration="1730000" />
     </task>
     <servers />
   </component>
