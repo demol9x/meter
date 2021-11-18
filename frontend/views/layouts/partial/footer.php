@@ -47,16 +47,12 @@
                     ?>
 
                 </div>
-                <div class="footer_3">
-                    <div class="text_content">ĐĂNG KÍ NHẬN TIN</div>
-                    <p>Vui lòng nhập email của bạn để được hỗ trợ nhanh nhất!</p>
-                    <form>
-                        <div class="flex_foot">
-                            <input type="text" placeholder="Email của bạn...">
-                            <button><img src="<?= Yii::$app->homeUrl ?>images/form_foot.png"></button>
-                        </div>
-                    </form>
-                </div>
+                <?=
+                frontend\widgets\html\HtmlWidget::widget([
+                    'view' => 'newsletter'
+                ]);
+                ?>
+
             </div>
         </div>
         <div class="fluild_2">

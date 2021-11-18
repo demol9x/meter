@@ -100,58 +100,54 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                             <ul class="nav side-menu">
                                 <?php if (Helper::checkRoute('/user/user/index') || Helper::checkRoute('/user/shop/index')) { ?>
                                     <li>
-                                        <?php $shop_aff = \common\models\shop\Shop::find()->where(['affiliate_waitting' => 1])->count(); ?>
                                         <a>
                                             <i class="fa fa-users"></i> <?= Yii::t('app', 'account_management') ?> <span class="fa fa-chevron-down"></span>
-                                            <?= ($notification['account'] + $notification['shop'] + $shop_aff) ? '<span class="index">' . ($notification['account'] + $notification['shop'] + $shop_aff) . '</span>' : '' ?>
                                         </a>
                                         <ul class="nav child_menu">
                                             <?php if (Helper::checkRoute('/user/user/index')) { ?>
                                                 <li>
                                                     <a href="<?= Url::to(['/user/user/index']) ?>"><?= Yii::t('app', 'account') ?></a>
-                                                    <?= $notification['account'] ? '<span class="index">' . $notification['account'] . '</span>' : '' ?>
                                                 </li>
                                             <?php } ?>
                                             <?php if (Helper::checkRoute('/user/shop/index')) { ?>
                                                 <li>
                                                     <a href="<?= Url::to(['/user/shop/index']) ?>"><?= Yii::t('app', 'shop') ?></a>
-                                                    <?= $notification['shop'] ? '<span class="index">' . $notification['shop'] . '</span>' : '' ?>
                                                 </li>
                                             <?php } ?>
-                                            <?php if (Helper::checkRoute('/user/shop/affiliate')) { ?>
+                                            <?php if (Helper::checkRoute('/user/tho/index')) { ?>
                                                 <li>
-                                                    <a href="<?= Url::to(['/user/shop/affiliate']) ?>">Affiliate chờ duyệt</a>
-                                                    <?= $shop_aff ? '<span class="index">' . $shop_aff . '</span>' : '' ?>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/user/shop/affiliate')) { ?>
-                                                <li>
-                                                    <a href="<?= Url::to(['/user/shop/list-affiliate']) ?>">Quản lý DN Affiliate</a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/user/shop-level/index')) { ?>
-                                                <li>
-                                                    <a href="<?= Url::to(['/user/shop-level/index']) ?>">Danh hiệu DN</a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/user/user-in-group/index')) { ?>
-                                                <li>
-                                                    <a href="<?= Url::to(['/user/user-in-group/index']) ?>">Xác nhận người dùng</a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/user/user-group/index')) { ?>
-                                                <li>
-                                                    <a href="<?= Url::to(['/user/user-group/index']) ?>">Nhóm người dùng</a>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/gcacoin/shop-package/index')) { ?>
-                                                <li>
-                                                    <a href="<?= Url::to(['/gcacoin/shop-package/index']) ?>">Gói gia hạn doanh nghiệp</a>
+                                                    <a href="<?= Url::to(['/user/tho/index']) ?>">Thợ</a>
                                                 </li>
                                             <?php } ?>
                                         </ul>
                                     </li>
                                 <?php } ?>
+
+                                <!-- Quản lý sản phẩm, gói thầu -->
+                                <?php if (Helper::checkRoute('/package/package/index') || Helper::checkRoute('/product/product-category/index') || Helper::checkRoute('/product/product/index')) { ?>
+                                    <li>
+                                        <a>
+                                            <i class="fa fa-product-hunt"></i> <?= Yii::t('app', 'product_management') ?>
+                                            <span class="fa fa-chevron-down"></span>
+                                        </a>
+                                        <ul class="nav child_menu">
+                                            <?php if (Helper::checkRoute('/product/product-category/index')) { ?>
+                                                <li><?= Html::a('Danh mục sản phẩm', ['/product/product-category/index']) ?></li>
+                                            <?php } ?>
+
+                                            <?php if (Helper::checkRoute('/product/product/index')) { ?>
+                                                <li>
+                                                    <a href="<?= Url::to(['/product/product/index']) ?>"><?= Yii::t('app', 'product') ?></a>
+                                                </li>
+                                            <?php } ?>
+
+                                            <?php if (Helper::checkRoute('/package/package/index')) { ?>
+                                                <li><?= Html::a('Gói thầu', ['/package/package/index']) ?></li>
+                                            <?php } ?>
+                                        </ul>
+                                    </li>
+                                <?php } ?>
+
                                 <!-- rating -->
                                 <?php if (Helper::checkRoute('/rating/rating/index') || Helper::checkRoute('/filter-char/index')) { ?>
                                     <li>
@@ -173,32 +169,7 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                         </ul>
                                     </li>
                                 <?php } ?>
-                                <!-- rating -->
-                                <?php if (Helper::checkRoute('/product/product-category/index') || Helper::checkRoute('/product/product/index')) { ?>
-                                    <li>
-                                        <a>
-                                            <i class="fa fa-product-hunt"></i> <?= Yii::t('app', 'product_management') ?>
-                                            <span class="fa fa-chevron-down"></span>
-                                            <?= $notification['product'] ? '<span class="index">' . $notification['product'] . '</span>' : '' ?>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <?php if (Helper::checkRoute('/product/product-category/index')) { ?>
-                                                <li><?= Html::a('Danh mục sản phẩm', ['/product/product-category/index']) ?></li>
-                                            <?php } ?>
 
-                                            <?php if (Helper::checkRoute('/product/product/index')) { ?>
-                                                <li data="<?= Url::to(['/site/notification-update', 'attr' => 'product']) ?>">
-                                                    <a href="<?= Url::to(['/product/product/index']) ?>"><?= Yii::t('app', 'product') ?></a>
-                                                    <?= $notification['product'] ? '<span class="index">' . $notification['product'] . '</span>' : '' ?>
-                                                </li>
-                                            <?php } ?>
-
-                                            <?php if (Helper::checkRoute('/product/certificate-product/index')) { ?>
-                                                <li><?= Html::a('Chứng chỉ', ['/product/certificate-product/index']) ?></li>
-                                            <?php } ?>
-                                        </ul>
-                                    </li>
-                                <?php } ?>
                                 <?php if (Helper::checkRoute('/product/discount-code/index')) { ?>
                                     <li>
                                         <a>

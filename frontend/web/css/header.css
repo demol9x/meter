@@ -9,18 +9,26 @@
 }
 .site51_head_col12_meter .container_fix {
   display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .site51_head_col12_meter .container_fix .logo {
   width: 150px;
-  height: 54px;
-  margin-right: 105px;
 }
-.site51_head_col12_meter .container_fix .menu {
+.site51_head_col12_meter .container_fix .main-menu {
+  max-width: 982px;
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
+.site51_head_col12_meter .container_fix .menu {
+  max-width: 687px;
+  width: 100%;
+  margin-right: 25px;
+}
 .site51_head_col12_meter .container_fix .menu .menu_list {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   list-style: none;
@@ -29,9 +37,6 @@
 }
 .site51_head_col12_meter .container_fix .menu .menu_list .logo_list {
   display: none;
-}
-.site51_head_col12_meter .container_fix .menu .menu_list .list {
-  padding-right: 25px;
 }
 .site51_head_col12_meter .container_fix .menu .menu_list .list a {
   font-family: Helvetica Neue;
@@ -142,11 +147,6 @@
   }
   .site51_head_col12_meter .container_fix {
     justify-content: space-between;
-  }
-  .site51_head_col12_meter .container_fix .logo {
-    width: 130px;
-    height: 45px;
-    margin-right: 30px;
   }
   .site51_head_col12_meter .container_fix .logo img {
     width: 100%;

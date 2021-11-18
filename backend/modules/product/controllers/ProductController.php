@@ -190,28 +190,6 @@ class ProductController extends Controller
                     $model->avatar_id = $avatar['id'];
                     $model->save();
                 }
-                //
-                $certificates = Yii::$app->request->post('certificate');
-                if (count($certificates)) {
-                    for ($i = 0; $i < count($certificates); $i++) {
-                        $cer = Yii::$app->request->post('certificate' . $certificates[$i]);
-                        if ($cer) {
-                            $img = Yii::$app->session[$cer];
-                            if ($img) {
-                                $cer_item = new CertificateProductItem();
-                                $cer_item->avatar_path = $img['baseUrl'];
-                                $cer_item->avatar_name = $img['name'];
-                                $cer_item->product_id = $model->id;
-                                $cer_item->certificate_product_id = $certificates[$i];
-                                if ($certificates[$i] == 4) {
-                                    $cer_item->link_certificate = (isset($_POST['link_certificate'])) ? $_POST['link_certificate'] : '';
-                                    $cer_item->code = (isset($_POST['code_certificate'])) ? $_POST['code_certificate'] : '';
-                                }
-                                $cer_item->save();
-                            }
-                        }
-                    }
-                }
 
                 ProductTransport::updateAll(
                     ['status' => 1, 'product_id' => $model->id],
@@ -232,8 +210,6 @@ class ProductController extends Controller
             'model' => $model,
             'images' => $images,
             'attributes_changeprice' => $attributes_changeprice,
-            'certificates' => CertificateProduct::find()->all(),
-            'certificate_items' => [],
             'shop_transports' => [],
             'product_transports' => [],
         ]);

@@ -19,6 +19,11 @@
     src: url("../font/SVN-Poppins-Regular.ttf");
     font-display: swap;
 }
+@font-face {
+    font-family: "MTD Geraldyne";
+    src: url("../font/MTD Geraldyne.otf");
+    font-display: swap;
+}
 body {
     font-family: "Helvetica Neue";
     color: #4f4f4f;
@@ -51,6 +56,14 @@ h2.title_30 {
         font-size: 48px;
         line-height: 59px;
     }
+    //huy
+    &_36 {
+        font-family: "Helvetica Neue bold";
+        font-style: normal;
+        font-weight: bold;
+        font-size: 36px;
+        line-height: 140.19%;
+    }
     &_30 {
         font-family: "Helvetica Neue bold";
         font-style: normal;
@@ -81,13 +94,6 @@ h2.title_30 {
         font-size: 24px;
         line-height: 138.3%;
     }
-    &_18{
-        font-family: Helvetica Neue;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 18px;
-        line-height: 21px;
-    }
     &_21 {
         font-style: normal;
         font-weight: bold;
@@ -101,8 +107,25 @@ h2.title_30 {
         font-size: 20px;
         line-height: 150.63%;
     }
+    //huy
+    &_18 {
+        font-family: Helvetica Neue;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 18px;
+        line-height: 21px;
+    }
 }
 .content {
+    &_40 {
+        font-family: "MTD Geraldyne";
+        font-style: normal;
+        font-weight: normal;
+        font-size: 40px;
+        line-height: 104.52%;
+        text-align: center;
+        color: #4f4f4f;
+    }
     &_16 {
         font-family: "Helvetica Neue";
         font-style: normal;
@@ -131,12 +154,19 @@ h2.title_30 {
         &_60 {
             font-size: 40px;
         }
+        //huy
+        &_36 {
+            font-size: 30px;
+        }
         &_28 {
             font-size: 24px;
         }
         //huy
         &_26 {
             font-size: 22px;
+        }
+        &_18 {
+            font-size: 17px;
         }
     }
     .content {
@@ -154,8 +184,15 @@ h2.title_30 {
 @media (max-width: 768px) {
     //huy
     .title {
+        //huy
+        &_36 {
+            font-size: 26px;
+        }
         &_26 {
             font-size: 20px;
+        }
+        &_18 {
+            font-size: 16px;
         }
     }
 }
@@ -164,12 +201,19 @@ h2.title_30 {
         &_60 {
             font-size: 36px;
         }
+        //huy
+        &_36 {
+            font-size: 22px;
+        }
         &_28 {
             font-size: 18px;
         }
         //huy
         &_26 {
-            font-size: 19px;
+            font-size: 16px;
+        }
+        &_18 {
+            font-size: 15px;
         }
     }
     .content {

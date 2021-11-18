@@ -77,26 +77,6 @@ use yii\widgets\ActiveForm;
                                     <?= Yii::t('app', 'product_image') ?>
                                 </a>
                             </li>
-                            <li role="presentation">
-                                <a href="#tab_content3"  onclick="loadTranport()" data="<?= $model->shop_id ? $model->shop_id : '-1' ?>" id="thre-tab-3" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <?= Yii::t('app', 'transport') ?>
-                                </a>
-                            </li>
-                            <li role="presentation">
-                                <a href="#tab_content5" id="five-tab" role="tab" data-toggle="tab" aria-expanded="true">
-                                    <?= Yii::t('app', 'certificate') ?>
-                                </a>
-                            </li>
-                            <!-- <li role="presentation">
-                                <a href="#tab_content6" id="six-tab" role="tab" data-toggle="tab" aria-expanded="true">
-                                    Sản phẩm mua cùng
-                                </a>
-                            </li> -->
-                            <li role="presentation">
-                                <a href="#tab_content7" role="tab" id="sev-tab" data-toggle="tab" aria-expanded="false">
-                                    SEO
-                                </a>
-                            </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="one-tab">
@@ -104,60 +84,6 @@ use yii\widgets\ActiveForm;
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="two-tab">
                                 <?= $this->render('partial/image', ['form' => $form, 'model' => $model, 'images' => $images]); ?>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="two-tab">
-                                <?php  
-                                    if(isset($shop_transports) && $shop_transports) {
-                                        echo $this->render('partial/transport', [
-                                                'model' => $model,
-                                                'form' => $form,
-                                                'shop_transports' => $shop_transports,
-                                                'product_transports' => isset($product_transports) ? $product_transports : '',
-                                            ]);
-                                        } else {  ?>
-                                        <div class="item-input-form">
-                                            <label class="bold" for=""><?= Yii::t('app', 'transport') ?></label>
-                                            <div class="group-input">
-                                                <p>
-                                                    <?= Yii::t('app', 'create_product_1') ?>
-                                                    <?php if($model->shop_id) { ?>
-                                                        <a class="btn btn-primary" target="_bank" href="<?= Url::to(['/user/shop/update', 'id' => $model->shop_id]) ?>"><?= Yii::t('app', 'click_here') ?></a>
-                                                    <?php } ?>
-                                                    <a class="btn btn-primary" target="_bank" onclick="loadTranport(1)"><?= Yii::t('app', 'reload') ?></a>'
-                                                </p>
-                                            </div>
-                                        </div>
-                                <?php } ?>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="four-tab">
-                                <?=
-                                $this->render('partial/attributes', [
-                                    'form' => $form,
-                                    'model' => $model,
-                                    'attributes_changeprice' => $attributes_changeprice
-                                ]);
-                                ?>
-                            </div>
-                            <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="four-tab">
-                                <?= 
-                                    $this->render('partial/certificate', [
-                                        'model' => $model,
-                                        'form' => $form,
-                                        'certificates' => $certificates,
-                                        'certificate_items' => $certificate_items
-                                    ]) 
-                                ?>
-                            </div>
-                            <!-- <div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="four-tab">
-                                <?=
-                                $this->render('partial/products', [
-                                    'form' => $form,
-                                    'model' => $model,
-                                ]);
-                                ?>
-                            </div> -->
-                            <div role="tabpanel" class="tab-pane fade" id="tab_content7" aria-labelledby="sev-tab">
-                                <?= $this->render('partial/seo', ['form' => $form, 'model' => $model]); ?>
                             </div>
                         </div>
                     </div>

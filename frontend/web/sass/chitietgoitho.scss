@@ -1,4 +1,20 @@
-.site51_prodel_col12_chitietnhathau {
+.date_time {
+    justify-content: space-between;
+
+    span {
+        display: flex;
+        align-items: center;
+
+        i {
+            color: #FEB650;
+            font-size: 14px;
+            margin-right: 7px;
+        }
+    }
+}
+
+
+.site51_prodel_col12_chitietgoithau {
     padding-top: 30px;
     padding-bottom: 50px;
     .detail_button {
@@ -224,6 +240,20 @@
                             display: flex;
                             align-items: center;
                             margin-right: 40px;
+<<<<<<< HEAD
+                            position: relative;
+
+                            &::before {
+                                position: absolute;
+                                content: "";
+                                background: #828282;
+                                width: 1px;
+                                height: 11px;
+                                top: 4px;
+                                right: -20px;
+                            }
+=======
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
 
                             .icon {
                                 margin-right: 12px;
@@ -544,6 +574,10 @@
             .pro_flex_right {
                 width: 197px;
                 margin-left: 40px;
+<<<<<<< HEAD
+                max-height: 1200px;
+=======
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
                 .pro_package{
                     .pro_content{
                         .content_text{
@@ -557,6 +591,14 @@
                             &:hover{
                                 border: 1px solid #289300;
                             }
+<<<<<<< HEAD
+                            &:nth-child(4),
+                            &:nth-child(5),
+                            &:nth-child(6) {
+                                display: none;
+                            }
+=======
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948
                             a{
                                 .card_img{
                                     width: 197px;
@@ -1326,3 +1368,168 @@ span.messages__dot {
     position: sticky;
     bottom: 0;
 }
+<<<<<<< HEAD
+
+
+
+@media (max-width:1700px) {}
+
+@media (max-width:1200px) {
+    .pro_flex {
+        .pro_card {
+            width: 230px;
+        }
+    }
+}
+
+@media (max-width:1199px) {
+    .site51_prodel_col12_chitietgoithau {
+        .container_fix {
+            .pro_description_2 {
+                .item-top-sdps {
+                    flex-wrap: wrap;
+                }
+
+                .tongthongso {
+                    margin: auto;
+                    margin-bottom: 35px;
+                }
+
+                .list-item-images {
+                    width: 100%;
+                }
+
+                .item-comment {
+                    flex-wrap: wrap;
+
+                    .avt-main {
+                        margin-bottom: 20px;
+                    }
+
+                    .item-chat {
+                        padding-left: 100px;
+                    }
+                }
+            }
+
+            .pro_main {
+                .pro_flex_left {
+                    width: 100%;
+                }
+
+                .pro_flex_right {
+                    width: 100%;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+
+    .pro_flex {
+        .pro_card {
+            margin: 0 7px;
+
+            .card_text {
+                padding-left: 10px;
+                padding-right: 10px;
+            }
+
+            .card_img {
+                img {
+                    width: 100%;
+                    height: 100%;
+                    overflow: hidden;
+                    object-fit: cover;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:991px) {
+    .site51_prodel_col12_chitietgoithau {
+        .container_fix {
+            .pro_detail {
+                .detail_left {
+                    margin: auto;
+                    margin-bottom: 35px;
+                }
+
+                .detail_right {
+                    width: 100%;
+                }
+            }
+
+            .pro_main {
+                .pro_flex_left {
+                    width: 100%;
+                }
+
+                .pro_flex_right {
+                    width: 100%;
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:876px) {}
+
+@media (max-width:768px) {}
+
+@media (max-width:600px) {
+    .site51_prodel_col12_chitietgoithau {
+        .container_fix {
+            .pro_detail {
+                .detail_left {
+                    width: 400px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width:576px) {
+    .site51_prodel_col12_chitietgoithau {
+        .container_fix {
+            .pro_description_2 {
+                .item-comment {
+                    .item-chat {
+                        padding-left: 30px;
+                    }
+                }
+            }
+
+            .pro_main {
+                .pro_flex_left {
+                    .nav_menu {
+                        .nav_list {
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .pro_flex {
+        .pro_card {
+            width: 230px;
+        }
+    }
+}
+
+@media (max-width:460px) {
+    .site51_prodel_col12_chitietgoithau {
+        .container_fix {
+            .pro_detail {
+                .detail_left {
+                    width: 260px;
+                }
+            }
+        }
+    }
+}
+=======
+>>>>>>> b388e27f6f1ed7798447ba2908fb3cdeff64e948

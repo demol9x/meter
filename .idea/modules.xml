@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/meter.iml" filepath="$PROJECT_DIR$/.idea/meter.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../nha_khoa/.idea/nha_khoa.iml" filepath="$PROJECT_DIR$/../nha_khoa/.idea/nha_khoa.iml" />
     </modules>
   </component>
 </project>

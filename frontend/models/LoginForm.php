@@ -7,6 +7,8 @@ use yii\base\Model;
 
 /**
  * Login form
+ * @property string $email
+ * @property string $password
  */
 class LoginForm extends Model
 {
