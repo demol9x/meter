@@ -144,4 +144,13 @@ class UserAddress extends \yii\db\ActiveRecord
         $this->latlng = $this->latlng ? $this->latlng : ($tg ? $tg->latlng : '');
         return parent::beforeSave($insert);
     }
+    public function getUnsetDefaul($id){
+        $data = Self::find()
+            ->select('card_id')
+            ->where('is')
+            ->column();
+        
+
+    }
 }
+

@@ -18,11 +18,9 @@ class Profile extends \yii\base\Module {
      * @inheritdoc
      */
     public function init() {
-        if (\common\components\ClaSite::isMobile()) {
-            $this->controllerNamespace = 'frontend\mobile\modules\profile\controllers';
-            $this->setViewPath(Yii::getAlias('@root') . '/frontend/mobile/modules/profile/views');
-        }
-        $this->layout = 'main';
+
+            $this->setViewPath(Yii::getAlias('@root') . '/frontend/modules/profile/views');
+
 
         parent::init();
 

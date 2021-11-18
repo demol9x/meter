@@ -1,5 +1,5 @@
 <?php
-$url = '/product/product/index';
+$url = '/package/package/index';
 $get = $_GET;
 ?>
 <div class="site51_profil_col3_locsanpham">
@@ -10,23 +10,23 @@ $get = $_GET;
             </div>
             <?php
             if(isset($province) && $province){
-            ?>
-            <div class="fitler">
-                <?php
+                ?>
+                <div class="fitler">
+                    <?php
                     foreach ($province as $key => $value){
                         $arr_p = [];
                         if (isset($_GET['p']) && $_GET['p']) {
                             $arr_p = explode(',',$_GET['p']);
                         }
-                ?>
-                <div>
-                    <a class="p_provin" href="javascript:void(0)" data-param="p">
-                        <input type="checkbox" id="<?= $value['id']  ?>" name="<?= $value['id']  ?>" value="<?= $value['id']  ?>" <?=(in_array($value['id'],$arr_p)) ? 'checked' : ''?>>
-                        <label for="<?= $value['id']  ?>"> <?= $value['name']?></label>
-                    </a>
+                        ?>
+                        <div>
+                            <a class="p_provin" href="javascript:void(0)" data-param="p">
+                                <input type="checkbox" id="<?= $value['id']  ?>" name="<?= $value['id']  ?>" value="<?= $value['id']  ?>" <?=(in_array($value['id'],$arr_p)) ? 'checked' : ''?>>
+                                <label for="<?= $value['id']  ?>"> <?= $value['name']?></label>
+                            </a>
+                        </div>
+                    <?php }?>
                 </div>
-                <?php }?>
-            </div>
             <?php }?>
         </div>
         <div class="pro_fitler">

@@ -27,10 +27,13 @@ if (isset($shop) && $shop) {?>
 
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                <input class="Dashboard" name="" type="checkbox">
+                <div class="check">
+                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                </div>
+            </label>
             <?php if(isset($shopt['ishot']) && $shopt['ishot']==1){?>
                 <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
             <?php }?>

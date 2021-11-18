@@ -5,11 +5,11 @@ use yii\helpers\Url;
 ?>
 
 <div class="search">
-    <img class="search_icon" src="<?= Yii::$app->homeUrl ?>images/search.png" alt="" >
+    <i class="far fa-search search_icon"></i>
     <div class="toggle_search">
         <?php $form = ActiveForm::begin([
             'id' => 'search-form',
-            'action' => Url::to(['/product/product/index']),
+            'action' => Url::to(['/package/package/index']),
             'method' => 'GET',
             'options' => [
                 'class' => 'search-box'
@@ -23,7 +23,7 @@ use yii\helpers\Url;
         ]);
         ?>
 
-            <button><img src="<?= Yii::$app->homeUrl ?>images/search.png" alt="" ></button>
+            <button><i class="far fa-search"></i></button>
         <?php ActiveForm::end(); ?>
     </div>
 </div>

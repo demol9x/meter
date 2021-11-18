@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="<?= yii::$app->homeUrl ?>css/chitietnhathau.css">
 <div class="site51_prodel_col12_chitietnhathau">
     <div class="container_fix">
         <?php //Menu main
@@ -9,87 +10,87 @@
                 <div class="left_env">
                     <div class="slide_detail_on">
                         <div class="img_detail">
-                            <a data-fancybox="gallery" href="asset/img/img_detail.png">
-                                <img src="asset/img/img_detail.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detail.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detail.png" alt="">
                                 <div class="play-video"><i class="fas fa-play"></i></div>
                             </a>
                         </div>
                         <div class="img_detail">
-                            <a data-fancybox="gallery" href="asset/img/img_detail.png">
-                                <img src="asset/img/img_detail.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detail.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detail.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail">
-                            <a data-fancybox="gallery" href="asset/img/img_detail.png">
-                                <img src="asset/img/img_detail.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detail.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detail.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail">
-                            <a data-fancybox="gallery" href="asset/img/img_detail.png">
-                                <img src="asset/img/img_detail.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detail.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detail.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail">
-                            <a data-fancybox="gallery" href="asset/img/img_detail.png">
-                                <img src="asset/img/img_detail.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detail.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detail.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail">
-                            <a data-fancybox="gallery" href="asset/img/img_detail.png">
-                                <img src="asset/img/img_detail.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detail.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detail.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail">
-                            <a data-fancybox="gallery" href="asset/img/img_detail.png">
-                                <img src="asset/img/img_detail.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detail.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detail.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail">
-                            <a data-fancybox="gallery" href="asset/img/img_detail.png">
-                                <img src="asset/img/img_detail.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detail.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detail.png" alt="">
                             </a>
                         </div>
                     </div>
                     <div class="slide_detail_in">
                         <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="asset/img/img_detai_1.png">
-                                <img src="asset/img/img_detai_1.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detai_1.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detai_1.png" alt="">
                                 <div class="play-video"><i class="fas fa-play"></i></div>
                             </a>
                         </div>
                         <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="asset/img/img_detai_1.png">
-                                <img src="asset/img/img_detai_1.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detai_1.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detai_1.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="asset/img/img_detai_1.png">
-                                <img src="asset/img/img_detai_1.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detai_1.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detai_1.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="asset/img/img_detai_1.png">
-                                <img src="asset/img/img_detai_1.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detai_1.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detai_1.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="asset/img/img_detai_1.png">
-                                <img src="asset/img/img_detai_1.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detai_1.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detai_1.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="asset/img/img_detai_1.png">
-                                <img src="asset/img/img_detai_1.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detai_1.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detai_1.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="asset/img/img_detai_1.png">
-                                <img src="asset/img/img_detai_1.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detai_1.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detai_1.png" alt="">
                             </a>
                         </div>
                         <div class="img_detail_1">
-                            <a data-fancybox="gallery" href="asset/img/img_detai_1.png">
-                                <img src="asset/img/img_detai_1.png" alt="">
+                            <a data-fancybox="gallery" href="<?= yii::$app->homeUrl ?>images/img_detai_1.png">
+                                <img src="<?= yii::$app->homeUrl ?>images/img_detai_1.png" alt="">
                             </a>
                         </div>
                     </div>
@@ -121,7 +122,7 @@
                 <div class="contact_info">
                     <div class="content_16_b">Thông tin liên lạc:</div>
                     <div class="contact_row">
-                        <img src="asset/img/img_detail_home.png" alt="">
+                        <img src="<?= yii::$app->homeUrl ?>images/img_detail_home.png" alt="">
                         <a href="" class="content_16">Công ty Cổ phần ABC</a>
                     </div>
                     <div class="contact_row">
@@ -149,7 +150,7 @@
                             cảm giác thư thái, rời xa những ồn ào của góc phố sầm uất ngay dưới chân mình.</span>
                 </div>
                 <a id="chat-circle" class="detail_button btn-animation chatbox__button">
-                    <img src="asset/img/chat_alt.png" alt=""><span class="content_16_b">Chat với nhà thầu</span>
+                    <img src="<?= yii::$app->homeUrl ?>images/chat_alt.png" alt=""><span class="content_16_b">Chat với nhà thầu</span>
                 </a>
             </div>
         </div>
@@ -165,128 +166,128 @@
                     <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                         <a href="chitietgoithau.php">
                             <div class="card_img">
-                                <img src="asset/img/product_card.png" alt="">
+                                <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                             </div>
                             <div class="card_text">
                                 <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                 <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                 <div class="date_time">
-                                    <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                    <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                     <span><i class="fas fa-star"></i>4/5</span>
                                 </div>
                             </div>
                         </a>
                         <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
+                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl ?>images/tim.png"
                                                                    alt=""></a>
                             <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
                         </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                     </div>
                     <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                         <a href="chitietgoithau.php">
                             <div class="card_img">
-                                <img src="asset/img/product_card.png" alt="">
+                                <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                             </div>
                             <div class="card_text">
                                 <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                 <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                 <div class="date_time">
-                                    <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                    <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                     <span><i class="fas fa-star"></i>4/5</span>
                                 </div>
                             </div>
                         </a>
                         <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
+                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl ?>images/tim.png"
                                                                    alt=""></a>
                             <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
                         </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                     </div>
                     <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                         <a href="chitietgoithau.php">
                             <div class="card_img">
-                                <img src="asset/img/product_card.png" alt="">
+                                <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                             </div>
                             <div class="card_text">
                                 <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                 <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                 <div class="date_time">
-                                    <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                    <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                     <span><i class="fas fa-star"></i>4/5</span>
                                 </div>
                             </div>
                         </a>
                         <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
+                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl ?>images/tim.png"
                                                                    alt=""></a>
                             <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
                         </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                     </div>
                     <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                         <a href="chitietgoithau.php">
                             <div class="card_img">
-                                <img src="asset/img/product_card.png" alt="">
+                                <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                             </div>
                             <div class="card_text">
                                 <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                 <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                 <div class="date_time">
-                                    <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                    <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                     <span><i class="fas fa-star"></i>4/5</span>
                                 </div>
                             </div>
                         </a>
                         <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
+                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl ?>images/tim.png"
                                                                    alt=""></a>
                             <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
                         </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                     </div>
                     <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                         <a href="chitietgoithau.php">
                             <div class="card_img">
-                                <img src="asset/img/product_card.png" alt="">
+                                <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                             </div>
                             <div class="card_text">
                                 <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                 <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                 <div class="date_time">
-                                    <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                    <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                     <span><i class="fas fa-star"></i>4/5</span>
                                 </div>
                             </div>
                         </a>
                         <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
+                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl ?>images/tim.png"
                                                                    alt=""></a>
                             <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
                         </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                     </div>
                     <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                         <a href="chitietgoithau.php">
                             <div class="card_img">
-                                <img src="asset/img/product_card.png" alt="">
+                                <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                             </div>
                             <div class="card_text">
                                 <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                 <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                 <div class="date_time">
-                                    <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                    <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                     <span><i class="fas fa-star"></i>4/5</span>
                                 </div>
                             </div>
                         </a>
                         <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
+                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl ?>images/tim.png"
                                                                    alt=""></a>
                             <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
                         </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                     </div>
 
                 </div>
@@ -303,13 +304,13 @@
                     <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
                         đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
                         những thực khách khó tính nhất.</p>
-                    <img src="asset/img/img_description.png" alt="">
+                    <img src="<?= yii::$app->homeUrl ?>images/img_description.png" alt="">
                     <p class="content_16 center">Dự án trung tâm thương mại HCCI đầu tư xây dựng</p>
                     <h4 class="title_28">Không gian sang trọng, đẳng cấp</h4>
                     <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
                         đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
                         những thực khách khó tính nhất.</p>
-                    <img src="asset/img/img_description.png" alt="">
+                    <img src="<?= yii::$app->homeUrl ?>images/img_description.png" alt="">
                     <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
                         đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
                         những thực khách khó tính nhất.</p>
@@ -320,15 +321,15 @@
                     <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
                         đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
                         những thực khách khó tính nhất.</p>
-                    <img src="asset/img/img_description.png" alt="">
+                    <img src="<?= yii::$app->homeUrl ?>images/img_description.png" alt="">
                     <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
                         đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
                         những thực khách khó tính nhất.</p>
-                    <img src="asset/img/img_description.png" alt="">
+                    <img src="<?= yii::$app->homeUrl ?>images/img_description.png" alt="">
                     <p class="content_16">Sen 60 Lý Thái Tổ hội tụ đầy đủ những yếu tố của một nhà hàng đẳng cấp với
                         đồ ăn ngon – không gian đẹp – đội ngũ nhân viên tận tâm, chu đáo, hứa hẹn sẽ chiều lòng được
                         những thực khách khó tính nhất.</p>
-                    <img src="asset/img/img_description.png" alt="">
+                    <img src="<?= yii::$app->homeUrl ?>images/img_description.png" alt="">
                     <div class="button_position">
                         <a class="content_16 btn-animation">Xem thêm <i class="fas fa-chevron-down"></i></a>
                     </div>
@@ -411,7 +412,7 @@
 
                     <div class="button_pro_detail">
                         <a id="chat-circle" class="detail_button btn-animation chatbox__button">
-                            <img src="asset/img/chat_alt.png" alt=""><span class="content_16_b">Chat với nhà thầu
+                            <img src="<?= yii::$app->homeUrl ?>images/chat_alt.png" alt=""><span class="content_16_b">Chat với nhà thầu
                         </a>
                     </div>
                 </div>
@@ -424,173 +425,166 @@
                         </div>
                     </div>
                     <div class="pro_flex item-list-hot-deal">
+
                         <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                             <a href="chitietgoithau.php">
                                 <div class="card_img">
-                                    <img src="asset/img/product_card.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                                 </div>
                                 <div class="card_text">
                                     <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                     <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                     <div class="date_time">
-                                        <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                        <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                         <span><i class="fas fa-star"></i>4/5</span>
                                     </div>
                                 </div>
                             </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
+                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                         </div>
                         <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                             <a href="chitietgoithau.php">
                                 <div class="card_img">
-                                    <img src="asset/img/product_card.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                                 </div>
                                 <div class="card_text">
                                     <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                     <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                     <div class="date_time">
-                                        <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                        <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                         <span><i class="fas fa-star"></i>4/5</span>
                                     </div>
                                 </div>
                             </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
+                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                        </div><div class="pro_card wow fadeIn" data-wow-delay="0.3s">
+                            <a href="chitietgoithau.php">
+                                <div class="card_img">
+                                    <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
+                                </div>
+                                <div class="card_text">
+                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
+                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
+                                    <div class="date_time">
+                                        <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
+                                        <span><i class="fas fa-star"></i>4/5</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
+                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                         </div>
                         <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                             <a href="chitietgoithau.php">
                                 <div class="card_img">
-                                    <img src="asset/img/product_card.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                                 </div>
                                 <div class="card_text">
                                     <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                     <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                     <div class="date_time">
-                                        <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                        <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                         <span><i class="fas fa-star"></i>4/5</span>
                                     </div>
                                 </div>
                             </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
+                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                        </div><div class="pro_card wow fadeIn" data-wow-delay="0.3s">
+                            <a href="chitietgoithau.php">
+                                <div class="card_img">
+                                    <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
+                                </div>
+                                <div class="card_text">
+                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
+                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
+                                    <div class="date_time">
+                                        <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
+                                        <span><i class="fas fa-star"></i>4/5</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
+                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                        </div>
+
+                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
+                            <a href="chitietgoithau.php">
+                                <div class="card_img">
+                                    <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
+                                </div>
+                                <div class="card_text">
+                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
+                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
+                                    <div class="date_time">
+                                        <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
+                                        <span><i class="fas fa-star"></i>4/5</span>
+                                    </div>
+                                </div>
+                            </a>
+                            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
+                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                         </div>
                         <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                             <a href="chitietgoithau.php">
                                 <div class="card_img">
-                                    <img src="asset/img/product_card.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt="">
                                 </div>
                                 <div class="card_text">
                                     <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                     <div class="adress"><span>Hà Nội</span><span>60km</span></div>
                                     <div class="date_time">
-                                        <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
+                                        <span><img src="<?= yii::$app->homeUrl ?>images/time_pro.png" alt="">22-11-21</span>
                                         <span><i class="fas fa-star"></i>4/5</span>
                                     </div>
                                 </div>
                             </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="asset/img/product_card.png" alt="">
+                            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
                                 </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="asset/img/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="asset/img/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="asset/img/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="asset/img/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                            </label>
+                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                         </div>
                     </div>
                 </div>
@@ -667,12 +661,12 @@
                                 <p class="content_14">Tất cả hình ảnh (88)</p>
 
                                 <div class="item-images">
-                                    <div class="image"><img src="asset/img/product_card.png" alt=""></div>
-                                    <div class="image"><img src="asset/img/product_card.png" alt=""></div>
-                                    <div class="image"><img src="asset/img/product_card.png" alt=""></div>
-                                    <div class="image"><img src="asset/img/product_card.png" alt=""></div>
-                                    <div class="image"><img src="asset/img/product_card.png" alt=""></div>
-                                    <div class="image"><img src="asset/img/product_card.png" alt=""></div>
+                                    <div class="image"><img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt=""></div>
+                                    <div class="image"><img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt=""></div>
+                                    <div class="image"><img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt=""></div>
+                                    <div class="image"><img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt=""></div>
+                                    <div class="image"><img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt=""></div>
+                                    <div class="image"><img src="<?= yii::$app->homeUrl ?>images/product_card.png" alt=""></div>
                                 </div>
 
                                 <div class="item-loccomt">
@@ -703,7 +697,7 @@
                         <div class="item-comment">
                             <div class="avt-main">
                                 <div class="image-avt">
-                                    <img src="asset/img/avt.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/avt.png" alt="">
                                 </div>
 
                                 <div class="textch">
@@ -725,7 +719,7 @@
                                 </div>
 
                                 <div class="check-muahang content_14">
-                                    <img src="asset/img/circle_check.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/circle_check.png" alt="">
                                     Đã mua hàng
                                 </div>
                                 <p class="content_14">Thùng loa cao cấp phù hợp với các không gian phòng khách, phòng nghe nhạc hiện đại cỡ vừa và nhỏ. Hệ thống khung giằng ma trận cao cấp giúp tăng độ cứng, loại bỏ rung động không mong muốn.</p>
@@ -735,13 +729,13 @@
                                         <input type="text" name="rep" placeholder="Trả lời">
                                     </div>
                                     <button>
-                                        <img src="asset/img/thumbs-up.png" alt=""> Thích 200
+                                        <img src="<?= yii::$app->homeUrl ?>images/thumbs-up.png" alt=""> Thích 200
                                     </button>
                                 </div>
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -754,7 +748,7 @@
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -769,7 +763,7 @@
                         <div class="item-comment">
                             <div class="avt-main">
                                 <div class="image-avt">
-                                    <img src="asset/img/avt.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/avt.png" alt="">
                                 </div>
 
                                 <div class="textch">
@@ -791,7 +785,7 @@
                                 </div>
 
                                 <div class="check-muahang content_14">
-                                    <img src="asset/img/circle_check.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/circle_check.png" alt="">
                                     Đã mua hàng
                                 </div>
                                 <p class="content_14">Thùng loa cao cấp phù hợp với các không gian phòng khách, phòng nghe nhạc hiện đại cỡ vừa và nhỏ. Hệ thống khung giằng ma trận cao cấp giúp tăng độ cứng, loại bỏ rung động không mong muốn.</p>
@@ -801,13 +795,13 @@
                                         <input type="text" name="rep" placeholder="Trả lời">
                                     </div>
                                     <button>
-                                        <img src="asset/img/thumbs-up.png" alt=""> Thích 200
+                                        <img src="<?= yii::$app->homeUrl ?>images/thumbs-up.png" alt=""> Thích 200
                                     </button>
                                 </div>
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -820,7 +814,7 @@
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -835,7 +829,7 @@
                         <div class="item-comment">
                             <div class="avt-main">
                                 <div class="image-avt">
-                                    <img src="asset/img/avt.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/avt.png" alt="">
                                 </div>
 
                                 <div class="textch">
@@ -857,7 +851,7 @@
                                 </div>
 
                                 <div class="check-muahang content_14">
-                                    <img src="asset/img/circle_check.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/circle_check.png" alt="">
                                     Đã mua hàng
                                 </div>
                                 <p class="content_14">Thùng loa cao cấp phù hợp với các không gian phòng khách, phòng nghe nhạc hiện đại cỡ vừa và nhỏ. Hệ thống khung giằng ma trận cao cấp giúp tăng độ cứng, loại bỏ rung động không mong muốn.</p>
@@ -867,13 +861,13 @@
                                         <input type="text" name="rep" placeholder="Trả lời">
                                     </div>
                                     <button>
-                                        <img src="asset/img/thumbs-up.png" alt=""> Thích 200
+                                        <img src="<?= yii::$app->homeUrl ?>images/thumbs-up.png" alt=""> Thích 200
                                     </button>
                                 </div>
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -886,7 +880,7 @@
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -901,7 +895,7 @@
                         <div class="item-comment">
                             <div class="avt-main">
                                 <div class="image-avt">
-                                    <img src="asset/img/avt.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/avt.png" alt="">
                                 </div>
 
                                 <div class="textch">
@@ -923,7 +917,7 @@
                                 </div>
 
                                 <div class="check-muahang content_14">
-                                    <img src="asset/img/circle_check.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/circle_check.png" alt="">
                                     Đã mua hàng
                                 </div>
                                 <p class="content_14">Thùng loa cao cấp phù hợp với các không gian phòng khách, phòng nghe nhạc hiện đại cỡ vừa và nhỏ. Hệ thống khung giằng ma trận cao cấp giúp tăng độ cứng, loại bỏ rung động không mong muốn.</p>
@@ -933,13 +927,13 @@
                                         <input type="text" name="rep" placeholder="Trả lời">
                                     </div>
                                     <button>
-                                        <img src="asset/img/thumbs-up.png" alt=""> Thích 200
+                                        <img src="<?= yii::$app->homeUrl ?>images/thumbs-up.png" alt=""> Thích 200
                                     </button>
                                 </div>
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -952,7 +946,7 @@
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -967,7 +961,7 @@
                         <div class="item-comment">
                             <div class="avt-main">
                                 <div class="image-avt">
-                                    <img src="asset/img/avt.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/avt.png" alt="">
                                 </div>
 
                                 <div class="textch">
@@ -989,7 +983,7 @@
                                 </div>
 
                                 <div class="check-muahang content_14">
-                                    <img src="asset/img/circle_check.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/circle_check.png" alt="">
                                     Đã mua hàng
                                 </div>
                                 <p class="content_14">Thùng loa cao cấp phù hợp với các không gian phòng khách, phòng nghe nhạc hiện đại cỡ vừa và nhỏ. Hệ thống khung giằng ma trận cao cấp giúp tăng độ cứng, loại bỏ rung động không mong muốn.</p>
@@ -999,13 +993,13 @@
                                         <input type="text" name="rep" placeholder="Trả lời">
                                     </div>
                                     <button>
-                                        <img src="asset/img/thumbs-up.png" alt=""> Thích 200
+                                        <img src="<?= yii::$app->homeUrl ?>images/thumbs-up.png" alt=""> Thích 200
                                     </button>
                                 </div>
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -1018,7 +1012,7 @@
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -1033,7 +1027,7 @@
                         <div class="item-comment">
                             <div class="avt-main">
                                 <div class="image-avt">
-                                    <img src="asset/img/avt.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/avt.png" alt="">
                                 </div>
 
                                 <div class="textch">
@@ -1055,7 +1049,7 @@
                                 </div>
 
                                 <div class="check-muahang content_14">
-                                    <img src="asset/img/circle_check.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/circle_check.png" alt="">
                                     Đã mua hàng
                                 </div>
                                 <p class="content_14">Thùng loa cao cấp phù hợp với các không gian phòng khách, phòng nghe nhạc hiện đại cỡ vừa và nhỏ. Hệ thống khung giằng ma trận cao cấp giúp tăng độ cứng, loại bỏ rung động không mong muốn.</p>
@@ -1065,13 +1059,13 @@
                                         <input type="text" name="rep" placeholder="Trả lời">
                                     </div>
                                     <button>
-                                        <img src="asset/img/thumbs-up.png" alt=""> Thích 200
+                                        <img src="<?= yii::$app->homeUrl ?>images/thumbs-up.png" alt=""> Thích 200
                                     </button>
                                 </div>
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -1084,7 +1078,7 @@
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -1099,7 +1093,7 @@
                         <div class="item-comment">
                             <div class="avt-main">
                                 <div class="image-avt">
-                                    <img src="asset/img/avt.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/avt.png" alt="">
                                 </div>
 
                                 <div class="textch">
@@ -1121,7 +1115,7 @@
                                 </div>
 
                                 <div class="check-muahang content_14">
-                                    <img src="asset/img/circle_check.png" alt="">
+                                    <img src="<?= yii::$app->homeUrl ?>images/circle_check.png" alt="">
                                     Đã mua hàng
                                 </div>
                                 <p class="content_14">Thùng loa cao cấp phù hợp với các không gian phòng khách, phòng nghe nhạc hiện đại cỡ vừa và nhỏ. Hệ thống khung giằng ma trận cao cấp giúp tăng độ cứng, loại bỏ rung động không mong muốn.</p>
@@ -1131,13 +1125,13 @@
                                         <input type="text" name="rep" placeholder="Trả lời">
                                     </div>
                                     <button>
-                                        <img src="asset/img/thumbs-up.png" alt=""> Thích 200
+                                        <img src="<?= yii::$app->homeUrl ?>images/thumbs-up.png" alt=""> Thích 200
                                     </button>
                                 </div>
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -1150,7 +1144,7 @@
 
                                 <div class="phanhoi-item">
                                     <div class="avt-phanhoi">
-                                        <img src="asset/img/avt-1.png" alt="">
+                                        <img src="<?= yii::$app->homeUrl ?>images/avt-1.png" alt="">
                                     </div>
                                     <div class="comment-phanhoi">
                                         <div class="name-date">
@@ -1168,7 +1162,17 @@
                     <a class="content_14 btn-animation">Xem thêm (90 bình luận)<i class="fas fa-chevron-down"></i></a>
                 </div>
             </div>
-            <?php include 'pagination.php'; ?>
+            <div class="pagination">
+                <ul>
+                    <li><a href="" title="">‹</a></li>
+                    <li class="active"><a href="" title="">1</a></li>
+                    <li><a href="" title="">2</a></li>
+                    <li><a href="" title="">3</a></li>
+                    <li class=""><span>...</span></li>
+                    <li><a href="" title="">15</a></li>
+                    <li><a href="" title="">›</a></li>
+                </ul>
+            </div>
         </div>
         <div class="pro_slide">
             <div class="pro_package">
@@ -1181,121 +1185,154 @@
                     <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                         <a href="chitietgoithau.php">
                             <div class="card_img">
-                                <img src="asset/img/image.png" alt="">
+                                <img src="<?= yii::$app->homeUrl ?>images/image2.png" alt="">
                             </div>
                             <div class="card_text">
                                 <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                 <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
                             </div>
                         </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                        <label class="heart">
+                            <input class="Dashboard" name="" type="checkbox">
+                            <div class="check">
+                                <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                            </div>
+                        </label>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                    </div><div class="pro_card wow fadeIn" data-wow-delay="0.3s">
+                        <a href="chitietgoithau.php">
+                            <div class="card_img">
+                                <img src="<?= yii::$app->homeUrl ?>images/image2.png" alt="">
+                            </div>
+                            <div class="card_text">
+                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
+                                <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
+                            </div>
+                        </a>
+                        <label class="heart">
+                            <input class="Dashboard" name="" type="checkbox">
+                            <div class="check">
+                                <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                            </div>
+                        </label>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                    </div><div class="pro_card wow fadeIn" data-wow-delay="0.3s">
+                        <a href="chitietgoithau.php">
+                            <div class="card_img">
+                                <img src="<?= yii::$app->homeUrl ?>images/image2.png" alt="">
+                            </div>
+                            <div class="card_text">
+                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
+                                <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
+                            </div>
+                        </a>
+                        <label class="heart">
+                            <input class="Dashboard" name="" type="checkbox">
+                            <div class="check">
+                                <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                            </div>
+                        </label>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                    </div><div class="pro_card wow fadeIn" data-wow-delay="0.3s">
+                        <a href="chitietgoithau.php">
+                            <div class="card_img">
+                                <img src="<?= yii::$app->homeUrl ?>images/image2.png" alt="">
+                            </div>
+                            <div class="card_text">
+                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
+                                <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
+                            </div>
+                        </a>
+                        <label class="heart">
+                            <input class="Dashboard" name="" type="checkbox">
+                            <div class="check">
+                                <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                            </div>
+                        </label>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                    </div><div class="pro_card wow fadeIn" data-wow-delay="0.3s">
+                        <a href="chitietgoithau.php">
+                            <div class="card_img">
+                                <img src="<?= yii::$app->homeUrl ?>images/image2.png" alt="">
+                            </div>
+                            <div class="card_text">
+                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
+                                <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
+                            </div>
+                        </a>
+                        <label class="heart">
+                            <input class="Dashboard" name="" type="checkbox">
+                            <div class="check">
+                                <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                            </div>
+                        </label>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                    </div>
+                    
+                    
+                    
+                    
+                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
+                        <a href="chitietgoithau.php">
+                            <div class="card_img">
+                                <img src="<?= yii::$app->homeUrl ?>images/image2.png" alt="">
+                            </div>
+                            <div class="card_text">
+                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
+                                <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
+                            </div>
+                        </a>
+                        <label class="heart">
+                            <input class="Dashboard" name="" type="checkbox">
+                            <div class="check">
+                                <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                            </div>
+                        </label>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                     </div>
                     <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                         <a href="chitietgoithau.php">
                             <div class="card_img">
-                                <img src="asset/img/image2.png" alt="">
+                                <img src="<?= yii::$app->homeUrl ?>images/image3..png" alt="">
                             </div>
                             <div class="card_text">
                                 <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                 <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
                             </div>
                         </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                        <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                     </div>
                     <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
                         <a href="chitietgoithau.php">
                             <div class="card_img">
-                                <img src="asset/img/image3..png" alt="">
+                                <img src="<?= yii::$app->homeUrl ?>images/image2.png" alt="">
                             </div>
                             <div class="card_text">
                                 <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
                                 <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
                             </div>
                         </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="asset/img/image.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="asset/img/image2.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="asset/img/image3..png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="asset/img/image2.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="asset/img/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="asset/img/hot_product.png" alt=""></div>
+                        <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
+                        <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
                     </div>
                 </div>
             </div>
@@ -1307,7 +1344,7 @@
     <div class="chat-box-header">
         <div class="title_chat-box">
             <div class="image">
-                <img src="asset/img/img_detail.png" alt="">
+                <img src="<?= yii::$app->homeUrl ?>images/img_detail.png" alt="">
             </div>
             <h4 class="content_14">CÔNG TRÌNH SEN LÝ THÁI TỔ</h4>
         </div>
@@ -1321,7 +1358,7 @@
     <div class="chat-box-body">
         <div class="tt-cty">
             <div class="image">
-                <img src="asset/img/image10.png" alt="">
+                <img src="<?= yii::$app->homeUrl ?>images/image10.png" alt="">
             </div>
             <div class="detaile">
                 <div class="chat_title">
@@ -1329,7 +1366,7 @@
                 </div>
                 <div class="contact_info">
                     <div class="contact_row">
-                        <img src="asset/img/img_detail_home.png" alt="">
+                        <img src="<?= yii::$app->homeUrl ?>images/img_detail_home.png" alt="">
                         <a href="" title="">Công ty Cổ phần ABC</a>
                     </div>
                     <div class="contact_row">

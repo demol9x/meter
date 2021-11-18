@@ -1,73 +1,106 @@
+<?php $this->beginContent('@frontend/views/layouts/main.php'); ?>
+<link rel="stylesheet" href="<?= yii::$app->homeUrl ?>css/thongtincanhan.css">
 <?php
-/* @var $this \yii\web\View */
-/* @var $content string */
-
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use frontend\assets\AppAssetProfile;
-use common\widgets\Alert;
-
-AppAssetProfile::register($this);
+use common\components\ClaHost;
+use frontend\models\User;
+use yii\helpers\Url;
+$user = User::findIdentity(Yii::$app->user->getId());
 ?>
-<?php $this->beginPage() ?>
-<!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
-    <head>
-        <meta charset="<?= Yii::$app->charset ?>">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&subset=latin-ext,vietnamese" rel="stylesheet">
-        <?= Html::csrfMetaTags() ?>
-        <title><?= Html::encode($this->title) ?></title>
-        <?php $this->head() ?>
-    </head>
-    <body class="home">
-        <?php $this->beginBody() ?>
-        <div class="add-fix visible-xs visible-sm hidden-lg">
-            <div class="menu-wrap">
-                <nav class="menu">
-                    <div class="icon-list">
-                        <a href="#"><span>Tất cả việc làm</span></a>
-                        <a href="#"><span>Giới thiệu</span></a>
-                        <a href="#"><span>Phúc lợi</span></a>
-                        <a href="#"><span>Liên hệ</span></a>
+
+<?php if(Yii::$app->session->getFlash('cusses') ){ ?>
+<div class="set-flash">
+    <div class="flash-set-flex content_14">
+        <?php echo Yii::$app->session->getFlash('cusses'); ?>
+        <div class="flash-ok">
+            Xác nhận
+        </div>
+    </div>
+</div>
+<?php } ?>
+
+<div class="profile_pro_item">
+    <div class="container_fix">
+        <div class="item_left">
+            <div class="menu-my-store">
+                <div class="banner-store" id="avatar_img_avatar1">
+                    <img id="bgr-shop" src="<?= ClaHost::getImageHost(), $user['image_path'], $user['image_name'] ?>" alt="<?= $user['username']?>">
+                    <a class="fix-img-bg content_13"><i class="fa fa-camera" aria-hidden="true"></i>Thay đổi ảnh bìa</a>
+                </div>
+                <div class="img-store">
+                    <div class="img" id="avatar_img_avatar2">
+                        <img id="avatar-shop" src="<?= ClaHost::getImageHost(), $user['avatar_path'], $user['avatar_name'] ?>" alt="<?= $user['username']?>">
                     </div>
-                </nav>
-                <button class="close-button" id="close-button">Close Menu</button>
-                <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
-                    <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
-                    </svg>
+                    <h2 class="content_15"><?= $user['username']?></h2>
+                    <a class="fix-img-avatar content_13">Thay đổi ảnh đại diện</a>
+                </div>
+                <div class="menu-bar-store" tabindex="-1">
+                    <div class="menu-bar-lv-1">
+                        <a class="a-lv-1 content_14" href="">
+                            <img src="<?= yii::$app->homeUrl?>images/icon-menu3.png" alt="">
+                            Kiểm tra đơn hàng<i class="count-notinfycation content_14">(45)</i>
+                        </a>
+                    </div>
+                    <div class="menu-bar-lv-1">
+                        <a class="a-lv-1 content_14" href="">
+                            <img src="<?= yii::$app->homeUrl?>images/bell-notify.png" alt="">
+                            Thông báo<i class="count-notinfycation content_14">(165)</i>
+                        </a>
+                    </div>
+
+                    <?php if(isset($user) && $user->type==2){?>
+                    <div class="menu-bar-lv-1">
+                        <a class="a-lv-1 content_14" href="">
+                            <img src="<?= yii::$app->homeUrl?>images/ico-menu7.png" alt="">
+                            Sản phẩm
+                        </a>
+                        <div class="menu-bar-lv-2">
+                            <a class="a-lv-2 content_14" href="">Danh sách sản phẩm</a>
+                        </div>
+                        <span class="span-lv-1 fa fa-angle-down"></span>
+                    </div>
+                    <?php }?>
+                    <div class="menu-bar-lv-1">
+                        <a class="a-lv-1 content_14" href="#"><img src="<?= yii::$app->homeUrl?>images/icon-menu2.png" alt="">Hồ sơ cá nhân</a>
+                        <div class="menu-bar-lv-2">
+                            <a class="a-lv-2 content_14" href="<?= Url::to(['/profile/profile/index'])?>">Thông tin cá nhân</a>
+                        </div>
+                        <div class="menu-bar-lv-2">
+                            <a class="a-lv-2 content_14" href="<?= Url::to(['/profile/profile/box-address'])?>">Địa chỉ</a>
+                        </div>
+                        <!--                    <div class="menu-bar-lv-2"><a class="a-lv-2 content_14" href="">Tài khoản, thẻ ngân hàng</a></div>-->
+                        <div class="menu-bar-lv-2"> <a class="a-lv-2 content_14" href="<?= Url::to(['/profile/profile/update-password'])?>">Đổi mật khẩu</a></div>
+                        <!--                     <div class="menu-bar-lv-2"> <a class="a-lv-2 content_14" href="">Đổi mật khẩu cấp 2</a></div>-->
+                        <span class="span-lv-1 fa fa-angle-down"></span>
+                    </div>
+                    <div class="menu-bar-lv-1">
+                        <?php
+                            if(isset($user->type) && $user->type==1 ){
+                        ?>
+                        <a class="content_14" href=""><img src="<?= yii::$app->homeUrl?>images/ico-menu7.png" alt="">Đăng ký làm thợ</a>
+                        <a class="content_14" href=""><img src="<?= yii::$app->homeUrl?>images/ico-menu7.png" alt="">Đăng ký làm doanh nghiệp</a>
+                        <?php
+                            }
+                            else if($user->type==2 ) {
+                            ?>
+                        <a class="content_14" href=""><img src="<?= yii::$app->homeUrl?>images/ico-menu7.png" alt="">Quản trị  doanh nghiệp</a>
+                        <?php }
+                            else if ($user->type==3){
+                            ?>
+                            <a class="content_14" href=""><img src="<?= yii::$app->homeUrl?>images/ico-menu7.png" alt="">Thiết lập thông tin thợ</a>
+                        <?php }?>
+                    </div>
+                    <div class="menu-bar-lv-1">
+                        <a class="content_14" href="<?= Url::to(['/login/login/logout'])?>" >
+                            <i class="fas fa-sign-out-alt" style="font-size: 23px; color: dimgrey; margin-right: 18px;"></i>Đăng xuất
+                        </a>
+                    </div>
+
                 </div>
             </div>
-            <div class="container rev-styl">
-                <button class="menu-button" id="open-button">Open Menu</button>
-            </div>
         </div>
-        <div class="content-wrap">
-            <div class="content">
-                <?= $this->render('@frontend/views/layouts/partial/header_not_filter'); ?>
-                <?= $content ?>
-                <?= $this->render('@frontend/views/layouts/partial/footer'); ?>
-            </div>
-        </div>
+        <?= $content ?>
+    </div>
 
-        <?php $this->endBody() ?>
-    </body>
-    <script type="text/javascript">
-        new WOW().init();
-    </script>
-</html>
-<?php $this->endPage() ?>
+</div>
 
-
-
-
-
-
-
-
-
-
-
+<?php $this->endContent(); ?>
