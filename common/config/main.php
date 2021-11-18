@@ -1,8 +1,8 @@
 <?php
 //die();
 const MAX_QUANTITY_PRODUCT = 1000000000000;
-const __SERVER_NAME = 'http://meter-dev.vn/';
-const __NAME = 'meter-dev.vn';
+const __SERVER_NAME = 'http://p-metter.com/';
+const __NAME = 'p-metter.com';
 const __NAME_SITE = 'meter';
 const __VOUCHER = 'OV';
 const __VOUCHER_RED = 'OVr';
@@ -43,9 +43,9 @@ $config =  [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=localhost;dbname=meter',
-            'username' => 'root',
-            'password' => '',
+            'dsn' => 'mysql:host=150.95.108.45;dbname=meter',
+            'username' => 'user_meter',
+            'password' => 'xXLGTMrQ5rdZMBTMuqNP',
             'charset' => 'utf8',
         ],
         'cache' => [

@@ -23,7 +23,8 @@ class AppAsset extends FrontendAsset
         'css/pwsTab/jquery.pwstabs.css',
         'css/fancybox/jquery.fancybox.css',
         'css/view.css?v='.self::version,
-        'css/font-awesome/css/fontawesome.pro.min.css'
+        'css/font-awesome/css/fontawesome.pro.min.css',
+        'css/fix.css',
     ];
     public $js = [
         'js/slick.min.js',

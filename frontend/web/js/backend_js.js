@@ -95,4 +95,6 @@ $('.lv_contact_sc').click(function () {
         location.href = url;
     }
 });
-
+$('.flash-ok').click(function () {
+    $('.set-flash').addClass('active');
+});
