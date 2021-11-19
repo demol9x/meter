@@ -35,9 +35,6 @@ class UserController extends CController
         Yii::$app->session->open();
         return parent::beforeAction($event);
     }
-
-
-
     public function actionIndex()
     {
         return $this->render('index', [
@@ -54,7 +51,6 @@ class UserController extends CController
 
         ]);
     }
-
 
     protected function addView($id)
     {

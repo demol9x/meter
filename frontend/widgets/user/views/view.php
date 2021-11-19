@@ -16,10 +16,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
         <div class="pro_card wow fadeIn"  data-wow-delay="0.9s">
@@ -34,10 +37,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
         <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
@@ -52,10 +58,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
         <div class="pro_card wow fadeIn"  data-wow-delay="0.5s">
@@ -70,10 +79,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
         <div class="pro_card wow fadeIn"  data-wow-delay="0.7s">
@@ -88,10 +100,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
         <div class="pro_card wow fadeIn"  data-wow-delay="0.9s">
@@ -106,10 +121,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
         <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
@@ -124,10 +142,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
         <div class="pro_card wow fadeIn"  data-wow-delay="0.5s">
@@ -142,10 +163,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
         <div class="pro_card wow fadeIn"  data-wow-delay="0.7s">
@@ -160,10 +184,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
         <div class="pro_card wow fadeIn"  data-wow-delay="0.9s">
@@ -178,10 +205,13 @@
                     <div class="adress"><span>Hà Nội</span><span>5 năm</span></div>
                 </div>
             </a>
-            <div class="heart">
-                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></a>
-                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-            </div>
+            <label class="heart">
+                                <input class="Dashboard" name="" type="checkbox">
+                                <div class="check">
+                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
+                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
+                                </div>
+                            </label>
             <div class="hot_product"><img src="<?= Yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
         </div>
     </div>

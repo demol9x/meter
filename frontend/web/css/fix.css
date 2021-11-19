@@ -1,0 +1,43 @@
+.set-flash{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.set-flash.active{
+    display: none;
+}
+.set-flash .flash-set-flex{
+    width: 50%;
+    height: 131px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #5cce6a9e;
+    color: #ffffff;
+    font-size: 20px;
+    border-radius: 20px;
+    padding: 15px;
+    flex-direction: column;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.set-flash .flash-set-flex .flash-ok{
+    margin-top: 30px;
+    width: 130px;
+    padding: 5px;
+    background: #ffffff;
+    color: #0DA600;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

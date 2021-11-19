@@ -7,7 +7,7 @@ use Yii;
 /**
  * product module definition class
  */
-class User extends \yii\base\Module {
+class Device extends \yii\base\Module {
 
     /**
      * @inheritdoc

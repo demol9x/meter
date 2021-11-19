@@ -1,9 +1,5 @@
-
 <?php $this->beginContent('@frontend/views/layouts/main.php'); ?>
 
-
-    <?= $content ?>
-    
-</div>
+<?= $content ?>
 
 <?php $this->endContent(); ?>

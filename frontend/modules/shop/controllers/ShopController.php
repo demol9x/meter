@@ -40,39 +40,20 @@ class ShopController extends Controller {
 
         return $this->render('index',[]);
     }
-    public function actionDetail($id) {
+    public function actionDetail() {
         //
-        $_SESSION['url_back_login'] = 'http://'.\common\components\ClaSite::getServerName()."$_SERVER[REQUEST_URI]";
-        $model = $this->findModel($id);
-        if(!$model) {
-            return $this->goHome();
-        }
-        $user  = User::findOne($id);
-        $pagesize = 20;
-
-        $products = Product::getProduct(array_merge($_GET, [
-                    'shop_id' => $id,
-                    'limit' => $pagesize,
-        ]));
-        
-        $totalitem = Product::getProduct(array_merge($_GET, [
-                    'shop_id' => $id,
-                    'count' => 1,
-                    'limit' => $pagesize,
-        ]));
-        $shopadd = \common\models\shop\ShopAddress::find()->where(['shop_id'=>$model->id, 'isdefault' => 0])->all();
-        //
-        $img_auth = ShopImages::find()->where(['shop_id' => $model->id, 'type' => 2])->all();
-        $img_shop = ShopImages::find()->where(['shop_id' => $model->id, 'type' => 1])->all();
+//        $_SESSION['url_back_login'] = 'http://'.\common\components\ClaSite::getServerName()."$_SERVER[REQUEST_URI]";
+//        $model = $this->findModel($id);
+//        if(!$model) {
+//            return $this->goHome();
+//        }
+//        Yii::$app->params['breadcrumbs'] = [
+//            Yii::t('app', 'home') => Url::home(),
+//            $model->name => Url::to(['/shop/shop/detail','alias' => $model->alias, 'id' => $model->id])
+//        ];
         return $this->render('detail', [
-            'model' => $model,
-            'user' => $user,
-            'totalitem' => $totalitem,
-            'limit' => $pagesize,
-            'products' => $products,
-            'shopadd' => $shopadd,
-            'img_auth' => $img_auth,
-            'img_shop' => $img_shop,
+//            't'=>$t,
+//            'model' => $model,
         ]);
     }
 

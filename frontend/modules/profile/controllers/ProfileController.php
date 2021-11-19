@@ -16,6 +16,7 @@ use common\components\ClaGenerate;
 use common\components\UploadLib;
 use common\components\HtmlFormat;
 use common\components\ClaHost;
+use common\models\user\UserAddress;
 
 /**
  * News controller for the `login` module
@@ -27,24 +28,77 @@ class ProfileController extends CController {
      * @return string
      */
     public function actionIndex() {
+        $this->layout = 'main';
         $user = User::findIdentity(Yii::$app->user->getId());
+//        //
+//        $user_info = $this->findModelInfo();
+//        // Học vấn và bằng cấp
+//        $user_education = new UserEducation();
+//        $educations = $this->findEducations();
+//        // file cv
+//        $file = UserFile::find()->where('user_id=:user_id', [':user_id' => Yii::$app->user->getId()])->one();
         //
-        $user_info = $this->findModelInfo();
-        // Học vấn và bằng cấp
-        $user_education = new UserEducation();
-        $educations = $this->findEducations();
-        // file cv
-        $file = UserFile::find()->where('user_id=:user_id', [':user_id' => Yii::$app->user->getId()])->one();
-        //
+
         return $this->render('index', [
                     'user' => $user,
-                    'user_info' => $user_info,
-                    'user_education' => $user_education,
-                    'educations' => $educations,
-                    'file' => $file
+//                    'user_info' => $user_info,
+//                    'user_education' => $user_education,
+//                    'educations' => $educations,
+//                    'file' => $file
         ]);
     }
+    public function actionBoxAddress(){
+        $this->layout = 'main';
+        $id=Yii::$app->user->getId();
+        $model = UserAddress::find()->where(['user_id'=>$id])->all();
+        return $this->render('partial/box_address',[
+            'model'=>$model,
+        ]);
+    }
+    public function actionUpdateAddress($id=0){
+        $this->layout = 'main';
+        if ($id){
+            $model = UserAddress::findOne($id);
+        }
+        else
+        $model = new UserAddress();
+        if($model->load(\Yii::$app->request->post())){
+            $model->user_id = Yii::$app->user->getId();
+            if($model->save())
+            {
+                \Yii::$app->getSession()->setFlash('cusses', 'Cập nhật thông tin thành công');
+                return $this->redirect(['/profile/profile/box-address']);
+            }
+        }
+        return $this->render('partial/update-address',[
+            'model'=>$model,
+        ]);
+    }
+    public function actionUpdatePassword(){
+        $this->layout='main';
+        return $this->render('partial/update-password',[
 
+        ]);
+    }
+    public function actionDeleteAddress($id){
+        $model = UserAddress::findOne($id);
+        if($model){
+            if ($model->delete()){
+                \Yii::$app->getSession()->setFlash('cusses', 'Xóa địa chỉ thông tin thành công');
+                return $this->redirect(['/profile/profile/box-address']);
+            }
+        }
+    }
+    public  function actionUpdateDefau($id){
+        $model = UserAddress::findOne($id);
+        $data= UserAddress::find()->all();
+        if($id) {
+            $data['isdefault']=0;
+            $data->save();
+        }
+
+
+    }
     /**
      * Cập nhật thông tin cá nhân cơ bản của user
      * @return type

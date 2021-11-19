@@ -1,0 +1,60 @@
+.profile_pro_item .row {
+  margin: 0 -15px;
+}
+.profile_pro_item .item_right .form-create-store .ctn-form {
+  float: left;
+  width: 100%;
+  padding: 25px;
+}
+.profile_pro_item .item_right .form-create-store .ctn-form form .item-input-form {
+  display: inline-block;
+  width: 100%;
+}
+.profile_pro_item .item_right .form-create-store .ctn-form form .item-input-form > label {
+  float: left;
+  width: 170px;
+}
+.profile_pro_item .item_right .form-create-store .ctn-form form .group-input {
+  float: left;
+  width: calc(100% - 170px);
+  max-width: 550px;
+}
+.profile_pro_item .item_right .form-create-store .ctn-form form .form-group {
+  margin-bottom: unset;
+}
+
+@media (max-width: 1199px) {
+  .profile_pro_item .item_left {
+    width: 27%;
+  }
+  .profile_pro_item .item_right {
+    width: 73%;
+  }
+}
+@media (max-width: 991px) {
+  .profile_pro_item .item_left {
+    width: 100%;
+  }
+  .profile_pro_item .item_left .menu-my-store .banner-store {
+    max-height: 250px;
+    overflow: hidden;
+  }
+  .profile_pro_item .item_right {
+    width: 100%;
+  }
+  .profile_pro_item .item_right .form-create-store form .change-password .width-change-password .item-change-password {
+    padding-left: 140px;
+  }
+}
+@media (max-width: 460px) {
+  .profile_pro_item .item_right .form-create-store form .change-password .width-change-password .item-change-password {
+    padding-left: 0;
+  }
+  .profile_pro_item .item_right .form-create-store form .change-password .width-change-password .item-change-password label {
+    position: relative;
+    top: 0;
+  }
+  .profile_pro_item .item_right .form-create-store form .change-password .width-change-password .item-change-password input {
+    margin-top: 10px;
+  }
+}

@@ -133,6 +133,18 @@
 .site51_html_col0_taiappmeter {
   height: 461px;
   padding-top: 142px;
+  position: relative;
+  overflow: hidden;
+}
+.site51_html_col0_taiappmeter::before {
+  position: absolute;
+  width: 790px;
+  height: 390px;
+  content: "";
+  background-image: url("../images/bg-phone.png");
+  background-size: 100% 100%;
+  bottom: -5px;
+  right: 15%;
 }
 .site51_html_col0_taiappmeter h2 {
   margin-bottom: 30px;
@@ -200,6 +212,18 @@
     font-size: 18px;
     margin-bottom: 30px;
   }
+  .site51_html_col0_taiappmeter::before {
+    right: 10%;
+  }
+}
+@media (max-width: 1251px) {
+  .site51_pro_col12_goithau .product_index .container_fix .pro_package .pro_flex .pro_card {
+    width: 19%;
+  }
+
+  .site51_html_col0_taiappmeter::before {
+    right: 8%;
+  }
 }
 @media (max-width: 1200px) {
   .site51_bann_col0_slide .container_fix .bann_text {
@@ -225,10 +249,21 @@
   .site51_pro_col12_goithau .product_index .container_fix .pro_package .pro_flex .pro_card {
     width: 23%;
   }
+
+  .site51_html_col0_taiappmeter::before {
+    right: 5%;
+    width: 600px;
+    height: 295px;
+  }
 }
 @media (max-width: 991px) {
   .site51_pro_col12_goithau .product_index .container_fix .pro_package .pro_flex .pro_card {
     width: 30%;
+  }
+
+  .site51_html_col0_taiappmeter::before {
+    width: 500px;
+    height: 250px;
   }
 }
 @media (max-width: 876px) {
@@ -272,6 +307,18 @@
     width: 85px;
     height: 30px;
   }
+  .site51_html_col0_taiappmeter {
+    padding-top: 50px;
+  }
+  .site51_html_col0_taiappmeter h2 {
+    margin-bottom: 15px;
+  }
+  .site51_html_col0_taiappmeter .link_app {
+    margin-top: 20px;
+  }
+  .site51_html_col0_taiappmeter::before {
+    right: 0%;
+  }
 }
 @media (max-width: 576px) {
   .site51_bann_col0_slide .container_fix .bann_text {
@@ -297,9 +344,14 @@
   .site51_pro_col12_goithau .product_index .container_fix .pro_package .pro_flex .pro_card {
     width: 49%;
   }
+
+  .site51_html_col0_taiappmeter::before {
+    width: 100%;
+    right: 0%;
+  }
 }
 .site51_pro_col12_goithau {
-  background: url(../img/bg_product.png);
+  background: url(../images/bg_product.png);
   background-position: top center;
   background-repeat: no-repeat;
   background-size: contain;
@@ -410,7 +462,7 @@
   width: 100%;
 }
 
-@media (max-width: 1251px) {
+@media (max-width: 1199px) {
   .site51_new_col12_tintuc {
     padding-bottom: 30px;
   }
@@ -441,6 +493,9 @@
   }
   .site51_new_col12_tintuc .container_fix .news_flex .new_hot_column {
     width: 49%;
+  }
+  .site51_new_col12_tintuc .container_fix .news_flex .new_hot_column:last-child {
+    display: none;
   }
   .site51_new_col12_tintuc .container_fix .news_flex .new_hot_column .news_hot {
     margin-bottom: 15px;
@@ -572,5 +627,24 @@
     width: 240px;
     color: #5A5A5A;
     width: 100%;
+  }
+}
+@media (max-width: 460px) {
+  .site51_html_col0_taiappmeter::before {
+    height: 220px;
+  }
+
+  .site51_new_col12_tintuc .container_fix .news_flex .news_hot {
+    display: none;
+  }
+}
+@media (max-width: 400px) {
+  .site51_html_col0_taiappmeter::before {
+    height: 190px;
+  }
+}
+@media (max-width: 350px) {
+  .site51_html_col0_taiappmeter::before {
+    height: 170px;
   }
 }

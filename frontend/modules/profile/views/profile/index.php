@@ -1,113 +1,175 @@
 <?php
-
+use  common\components\ClaHost;
 use yii\helpers\Url;
 ?>
-<style type="text/css">
-    .required label:after{
-        content: '*';
-        color: red;
-        margin-left: 5px;
-    }
-    .edit-info-education{
-        display: none;
-    }
-</style>
-<div class="site-account-info">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
-                <div class="box-info-user">
 
-                    <?=
-                    $this->render('partial/box_basic_info', [
-                        'user' => $user,
-                        'user_info' => $user_info
-                    ])
-                    ?>
+<div class="item_right">
+    <style>
+        .table-shop {
+            overflow-x: unset;
+        }
 
-                    <?=
-                    $this->render('partial/box_basic_description', [
-                        'user' => $user,
-                        'user_info' => $user_info
-                    ])
-                    ?>
+        .form-fixed .row {
+            padding: 15px 0px;
+            border-bottom: 1px solid #ebebeb;
+        }
 
-                    <?=
-                    $this->render('partial/box_skill', [
-                        'user' => $user,
-                        'user_info' => $user_info
-                    ])
-                    ?>
+        .form-fixed select {
+            height: 34px;
+            width: 100%;
+        }
 
-                    <?=
-                    $this->render('partial/box_education', [
-                        'user' => $user,
-                        'user_education' => $user_education,
-                        'educations' => $educations
-                    ])
-                    ?>
+        .btn {
+            background: #dbbf6d;
+            padding: 7px 20px;
+            border: 0px;
+            border-radius: 2px;
+            display: inline-block;
+            color: #fff;
+        }
 
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12">
-                <div class="box-tool-user">
-                    <div class="tool-1">
-                        <h2>Hồ sơ của bạn</h2>
-                        <div class="ctn-tool-top">
-                            <ul>
-                                <li><a href="">+ Thông Tin Chung</a></li>
-                                <li><a href="">+ Kỹ năng</a></li>
-                                <li><a href="">+ Kinh nghiệm làm việc</a></li>
-                            </ul>
+        .delete-selfish {
+            background: red;
+        }
+
+        .form-fixed .note {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+    <div class="form-create-store">
+        <div class="title-form">
+            <h2 class="content_15"><img src="<?= yii::$app->homeUrl?>images/ico-hoso.png" alt=""> Hồ sơ của tôi</h2>
+        </div>
+        <div class="table-buyer table-shop">
+            <table>
+                <tbody>
+                <tr>
+                    <td>
+                        <label for="">Tên</label>
+                    </td>
+                    <td>
+                        <p><?= $user['username']?></p>
+                        <div class="form-fixed" id="username">
+                            <input type="text" class="input_text" name="username" placeholder="Nhập tên mới">
                         </div>
-                    </div>
-                    <div class="tool-1">
-                        <h2>Cài đặt</h2>
-                        <div class="ctn-tool">
-                            <p>Hồ sơ đính kèm</p>
-                            <div id="wrap-file-info">
-                                <?php if (isset($file) && $file) { ?>
-                                    <table class="table table-bordered" style="margin: 15px 0 5px 0; color: #888888">
-                                        <tr><td><?= $file->display_name ?></td></tr>
-                                        <tr><td>Cập nhật: <?= date('d-m-Y', $file->updated_at) ?></td></tr>
-                                        <tr>
-                                            <td style="text-align: center">
-                                                <a style="background: none; text-decoration: underline" href="<?= Url::to(['/profile/profile/download-file-cv', 'id' => $file->id]) ?>">Download</a>
-                                            </td>
-                                        </tr>
-                                    </table>
-                                <?php } ?>
-                            </div>
-                            <div class="box-upload-hs">
-                                <a href="javascript:void(0)" onclick="uploadcv()">Tải hồ sơ</a>
-                                <i>Định dạng file chỉ có thể là .doc, .docx và pdf, files phải nhỏ hơn 2MB.</i>
-                                <input style="display: none" id="user_job_files" type="file" />
+                    </td>
+                    <td width="170" class="txt-right">
+                        <a href="javascript:void(0);" class="open-fixed" data="#username"><i class="fa fa-pencil"></i>Thay đổi</a>
+                        <div class="form-fixed">
+                            <a class="save-user"><i class="fa fa-check"></i>Lưu</a>
+                            <a class="cance" href="javascript:void(0);"><i class="fa fa-times"></i>Hủy</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vertical-top">
+                        <label for="">Email</label>
+                    </td>
+                    <td>
+                        <p><?= $user['email']?></p>
+                        <div class="form-fixed" id="useremail">
+                            <input type="text" class="input_text" name="email" placeholder="Nhập email mới">
+                        </div>
+                    </td>
+                    <td width="170" class="txt-right">
+                        <a class="open-fixed" data="#useremail"><i class="fa fa-pencil"></i>Thay đổi</a>
+                        <div class="form-fixed">
+                            <a class="save-user-otp"><i class="fa fa-check"></i>Lưu</a>
+                            <a class="cance" href="javascript:void(0);"><i class="fa fa-times"></i>Hủy</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vertical-top">
+                        <label for="">Điện thoại</label>
+                    </td>
+                    <td>
+                        <p><?= $user['phone']?></p>
+                        <div class="form-fixed" id="userphone">
+                            <input type="text" name="phone" class="input_text" placeholder="NHập số điện thoại mới">
+                        </div>
+                    </td>
+                    <td width="170" class="txt-right">
+                        <a class="open-fixed" data="#userphone"><i class="fa fa-pencil"></i>Thay đổi</a>
+                        <div class="form-fixed">
+                            <a class="save-user-otp"><i class="fa fa-check"></i>Lưu</a>
+                            <a class="cance" href="javascript:void(0);"><i class="fa fa-times"></i>Hủy</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vertical-top">
+                        <label for="">Giới tính</label>
+                    </td>
+                    <td>
+                        <p><?= $user->sex ?></p>
+                        <div class="form-fixed" id="usersex">
+                            <input type="hidden" class="input_text" name="sex">
+                            <div class="awe-check">
+                                <div class="group-check-box active">
+                                    <label class="radio">
+                                        <input type="radio" class="radio-change" name="radiobox" value="1">
+                                        <div class="label"><span class="text-clip" title="radio">Nam</span></div>
+                                    </label>
+                                    <label class="radio">
+                                        <input type="radio" class="radio-change" name="radiobox" value="0">
+                                        <div class="label"><span class="text-clip" title="radio">Nữ</span></div>
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+                    </td>
+                    <td width="170" class="txt-right">
+                        <a class="open-fixed" data="#usersex"><i class="fa fa-pencil"></i>Thay đổi</a>
+                        <div class="form-fixed">
+                            <a class="save-user"><i class="fa fa-check"></i>Lưu</a>
+                            <a class="cance" href="javascript:void(0);"><i class="fa fa-times"></i>Hủy</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vertical-top">
+                        <label for="">Ngày sinh</label>
+                    </td>
+                    <td>
+                        <p><?= date('d/m/Y',$user->birthday) ?></p>
+                        <div class="form-fixed" id="userbirthday">
+                            <input type="hidden" class="input_text" name="birthday">
+                            <div class="row userbirthday">
+                                <div class="col-xs-4">
+                                    <input type="number" id="birthday-day" min="0" max="31" placeholder="Ngày">
+                                </div>
+                                <div class="col-xs-4">
+                                    <input type="number" id="birthday-month" min="0" max="12" placeholder="Tháng">
+                                </div>
+                                <div class="col-xs-4">
+                                    <input type="number" id="birthday-year" min="1890" max="2019" placeholder="năm">
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td width="170" class="txt-right">
+                        <a class="open-fixed" data="#userbirthday"><i class="fa fa-pencil"></i>Thay đổi</a>
+                        <div class="form-fixed">
+                            <a class="save-user-b"><i class="fa fa-check"></i>Lưu</a>
+                            <a class="cance" href="javascript:void(0);"><i class="fa fa-times"></i>Hủy</a>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="vertical-top">
+                        <label for="">Địa chỉ</label>
+                    </td>
+                    <td>
+                        <p><?= $user->address ?></p>
+                    </td>
+                    <td width="170" class="txt-right">
+                        <a href="<?= Url::to(['/profile/profile/box-address'])?>"><i class="fa fa-pencil"></i>Thay đổi</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
-<script type="text/javascript">
-
-    function uploadcv() {
-        $('#user_job_files').trigger('click');
-        jQuery('#user_job_files').change(function (event) {
-            var formData = new FormData();
-            formData.append('file', event.target.files[0]);
-            $.ajax({
-                url: '<?= Url::to(['/profile/profile/upload-cv']) ?>',
-                type: 'POST',
-                data: formData,
-                processData: false, // tell jQuery not to process the data
-                contentType: false, // tell jQuery not to set contentType
-                success: function (result) {
-                    jQuery('#wrap-file-info').html(result.html);
-                }
-            });
-        });
-    }
-
-</script>
