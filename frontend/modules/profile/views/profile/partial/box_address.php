@@ -1,6 +1,5 @@
 <?php
 use yii\helpers\Url;
-
 ?>
 <link rel="stylesheet" href="<?= yii::$app->homeUrl ?>css/diachicanhan.css">
 <div class="item_right">
@@ -46,7 +45,6 @@ use yii\helpers\Url;
                             <a class="cance" onclick="return confirm('Bạn có chắn chắn xóa??');" href="<?= Url::to(['/profile/profile/delete-address','id'=>$key['id']])?>"><i class="fa fa-times"></i>Xóa</a>
                             <a class="btn-set-default active" href='#'">Chọn làm mặc định</a>
                             <?php } ?>
-
                         </div>
                     </div>
                 </div>

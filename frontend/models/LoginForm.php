@@ -7,18 +7,17 @@ use yii\base\Model;
 
 /**
  * Login form
+ * @property int $phone
  * @property string $email
  * @property string $password
  */
 class LoginForm extends Model
 {
-
     public $email;
     public $phone;
     public $password;
     public $rememberMe = true;
     private $_user;
-
     /**
      * @inheritdoc
      */
@@ -27,6 +26,7 @@ class LoginForm extends Model
         return [
             // email and password are both required
             [['phone', 'password'], 'required'],
+            ['phone','integer'],
             // rememberMe must be a boolean value
             ['rememberMe', 'boolean'],
             // password is validated by validatePassword()
@@ -37,7 +37,9 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'rememberMe' => 'Nhớ đăng nhập'
+            'rememberMe' => 'Nhớ đăng nhập',
+            'phone'=>'Số điện thoại',
+            'password'=>'Mật khẩu'
         ];
     }
 
@@ -67,8 +69,8 @@ class LoginForm extends Model
     {
         if ($this->validate()) {
             if (Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0)) {
-                // $connection = Yii::$app->db;
-                // $connection->createCommand()->update('user', ['last_time_online' => time()], 'email ="'.$this->email.'"')->execute();
+//                 $connection = Yii::$app->db;
+//                 $connection->createCommand()->update('user', 'phone ="'.$this->phone.'"')->execute();
                 return true;
             }
         } else {
@@ -84,9 +86,11 @@ class LoginForm extends Model
     protected function getUser()
     {
         if ($this->_user === null) {
-            if (!($this->_user = User::findByPhone($this->phone))) {
+            if (($this->_user = User::findByPhone($this->phone))) {
                 $this->_user =  User::findByPhone($this->phone);
             }
+            else
+            { $this->_user =  User::findByEmail($this->email);}
         }
         // print_r($this->_user);
         return $this->_user;

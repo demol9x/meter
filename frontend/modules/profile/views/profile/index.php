@@ -4,39 +4,39 @@ use yii\helpers\Url;
 ?>
 
 <div class="item_right">
-    <style>
-        .table-shop {
-            overflow-x: unset;
-        }
-
-        .form-fixed .row {
-            padding: 15px 0px;
-            border-bottom: 1px solid #ebebeb;
-        }
-
-        .form-fixed select {
-            height: 34px;
-            width: 100%;
-        }
-
-        .btn {
-            background: #dbbf6d;
-            padding: 7px 20px;
-            border: 0px;
-            border-radius: 2px;
-            display: inline-block;
-            color: #fff;
-        }
-
-        .delete-selfish {
-            background: red;
-        }
-
-        .form-fixed .note {
-            color: red;
-            font-size: 12px;
-        }
-    </style>
+<!--    <style>-->
+<!--        .table-shop {-->
+<!--            overflow-x: unset;-->
+<!--        }-->
+<!---->
+<!--        .form-fixed .row {-->
+<!--            padding: 15px 0px;-->
+<!--            border-bottom: 1px solid #ebebeb;-->
+<!--        }-->
+<!---->
+<!--        .form-fixed select {-->
+<!--            height: 34px;-->
+<!--            width: 100%;-->
+<!--        }-->
+<!---->
+<!--        .btn {-->
+<!--            background: #dbbf6d;-->
+<!--            padding: 7px 20px;-->
+<!--            border: 0px;-->
+<!--            border-radius: 2px;-->
+<!--            display: inline-block;-->
+<!--            color: #fff;-->
+<!--        }-->
+<!---->
+<!--        .delete-selfish {-->
+<!--            background: red;-->
+<!--        }-->
+<!---->
+<!--        .form-fixed .note {-->
+<!--            color: red;-->
+<!--            font-size: 12px;-->
+<!--        }-->
+<!--    </style>-->
     <div class="form-create-store">
         <div class="title-form">
             <h2 class="content_15"><img src="<?= yii::$app->homeUrl?>images/ico-hoso.png" alt=""> Hồ sơ của tôi</h2>

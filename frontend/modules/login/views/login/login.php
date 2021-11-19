@@ -43,8 +43,7 @@ $authAuthChoice = AuthChoice::begin([
                     <?=
                     $form->field($model, 'password', [
                         'template' => '<label for=""> <i class="far fa-lock"></i>{input}</label>{error}'
-                    ])->textInput([
-                        ' type'=>'password',
+                    ])->passwordInput([
                         'class' => 'content_16',
                         'placeholder' => 'Nhập mật khẩu'
                     ]);

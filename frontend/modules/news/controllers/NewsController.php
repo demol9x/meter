@@ -21,7 +21,7 @@ class NewsController extends CController
      */
     public function actionIndex()
     {
-        $this->layout = 'index';
+        $this->layout = 'main';
         //
         Yii::$app->view->title = Yii::t('app', 'news');
         // add meta description
@@ -39,21 +39,29 @@ class NewsController extends CController
             'tin-tuc' => Url::to(['/news/news/index']),
         ];
         //
-        $pagesize = ClaLid::DEFAULT_LIMIT;
+        $pagesize = 8;
 
         $page = Yii::$app->request->get('page', 1);
+        $category_id=Yii::$app->request->get('cate', 0);
 
         $data = News::getNews([
             'limit' => $pagesize,
             'page' => $page,
+            'category_id'=>$category_id,
         ]);
 
-        $totalitem = News::countAllNews();
+        $category_news= NewsCategory::find()->All();
+        $ishot= News::find()->where(['ishot'=>'1'])->limit(5)->all();
+        $totalitem = News::getNews([
+            'countOnly'=>1,
+        ]);
 
         return $this->render('index', [
             'data' => $data,
             'totalitem' => $totalitem,
-            'limit' => $pagesize
+            'limit' => $pagesize,
+            'category_news'=>$category_news,
+            'ishot'=>$ishot,
         ]);
     }
 
@@ -77,10 +85,10 @@ class NewsController extends CController
             'name' => 'keywords',
             'content' => $category->meta_keywords ? $category->meta_keywords : $category->name
         ]);
-        // Yii::$app->params['breadcrumbs'] = [
-        //     'Trang chủ' => Url::home(),
-        //     $category->name => Url::current()
-        // ];
+         Yii::$app->params['breadcrumbs'] = [
+             'Trang chủ' => Url::home(),
+             $category->name => Url::current()
+         ];
         // //
         $pagesize = 12;
         $page = Yii::$app->request->get('page', 1);
@@ -102,7 +110,7 @@ class NewsController extends CController
 
     public function actionDetail($id)
     {
-        $this->layout = 'detail';
+        $this->layout = 'main';
         //
         $model = $this->findModel($id);
         //
@@ -132,7 +140,7 @@ class NewsController extends CController
         ]);
         Yii::$app->view->registerMetaTag([
             'property' => 'og:description',
-            'content' => $meta_description
+//            'content' => $meta_description
         ]);
         Yii::$app->view->registerMetaTag([
             'property' => 'og:image',
@@ -160,9 +168,33 @@ class NewsController extends CController
             // $model->title => Url::current()
         ];
         //
+        $pagesize = ClaLid::DEFAULT_LIMIT;
+
+        $page = Yii::$app->request->get('page', 1);
+        $category_id=Yii::$app->request->get('cate', 0);
+
+        $data = News::getNews([
+            'limit' => $pagesize,
+            'page' => $page,
+            'category_id'=>$category_id,
+        ]);
+
+        $category_news= NewsCategory::find()->All();
+        $ishot= News::find()->where(['ishot'=>'1'])->limit(5)->all();
+
+        $like = News::find()->where(['category_id'=>$model['category_id']])->limit(3)->all();
+//        print_r('<pre/>');
+//        print_r($like);
+//        die();
+
+
         return $this->render('detail', [
             'model' => $model,
             'category' => $category,
+            'ishot'=> $ishot,
+            'like'=> $like,
+            'category_id'=>$category_id,
+            'category_news'=>$category_news,
         ]);
     }
 

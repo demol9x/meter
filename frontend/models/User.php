@@ -45,6 +45,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     public $_error_opt;
     public $_shop = 0;
+    public $cover;
+    public $avatar;
 
     /**
      * @inheritdoc
@@ -82,7 +84,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_DELETED],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['email', 'address', 'facebook', 'link_facebook', 'id_social'], 'string', 'max' => 255],
-            [['type_social', 'image_path', 'image_name', 'avatar_path', 'avatar_name'], 'safe'],
+            [['type_social', 'image_path', 'image_name', 'avatar_path', 'avatar_name', 'avatar', 'cover'], 'safe'],
             ['type', 'integer'],
         ];
     }

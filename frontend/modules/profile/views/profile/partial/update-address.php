@@ -10,7 +10,8 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="ctn-form">
             <style type="text/css">
-                .error {
+                .error,
+                .help-block {
                     color: red;
                 }
                 .col-50 {
@@ -38,9 +39,9 @@ use yii\widgets\ActiveForm;
             $form->field($model, 'name_contact', [
                 'template' => '<div class="item-input-form">{label}<div class="group-input"><div class="full-input">{input}{error}</div></div></div>{hint}'
             ])->textInput([
-                'class' => 'content_14',
+                'class' => '',
                 'placeholder' => 'Tên người liên hệ',
-            ])->label('Tên người liên hệ');
+            ])->label('Tên người liên hệ',['class'=>'content_14']);
             ?>
             <?=
             $form->field($model, 'phone', [
@@ -48,7 +49,7 @@ use yii\widgets\ActiveForm;
             ])->textInput([
                 'class' => 'content_14',
                 'placeholder' => 'Điện thoại',
-            ])->label('Điện thoại');
+            ])->label('Điện thoại',['class'=>'content_14']);
             ?>
             <?=
             $form->field($model, 'email', [
@@ -56,22 +57,22 @@ use yii\widgets\ActiveForm;
             ])->textInput([
                 'class' => 'content_14',
                 'placeholder' => 'Nhập email',
-            ])->label('Email');
+            ])->label('Email',['class'=>'content_14']);
             ?>
             <?=
             $form->field($model, 'province_id', [
                 'template' => '<div class="item-input-form">{label}<div class="group-input"><div class="full-input">{input}{error}</div></div></div>{hint}'
-            ])->dropDownList(\common\models\Province::optionsProvince(),['class'=>'select-province-id','prompt'=>'Tỉnh/Thành'])->label('Tỉnh/thành');
+            ])->dropDownList(\common\models\Province::optionsProvince(),['class'=>'select-province-id','prompt'=>'Tỉnh/Thành'])->label('Tỉnh/thành',['class'=>'content_14']);
             ?>
             <?=
             $form->field($model, 'district_id', [
                 'template' => '<div class="item-input-form">{label}<div class="group-input"><div class="full-input">{input}{error}</div></div></div>{hint}'
-            ])->dropDownList( \common\models\District::dataFromProvinceId($model->province_id),['prompt'=>'Quận/ Huyện', 'class'=>'select-district-id'])->label('Quận/ Huyện');
+            ])->dropDownList( \common\models\District::dataFromProvinceId($model->province_id),['prompt'=>'Quận/ Huyện', 'class'=>'select-district-id'])->label('Quận/ Huyện',['class'=>'content_14']);
             ?>
             <?=
             $form->field($model, 'ward_id', [
                 'template' => '<div class="item-input-form">{label}<div class="group-input"><div class="full-input">{input}{error}</div></div></div>{hint}'
-            ])->dropDownList( \common\models\Ward::dataFromDistrictId($model->district_id),['prompt'=>'Phường/Xã', 'class' => 'select-ward-id'])->label('Phường/Xã');
+            ])->dropDownList( \common\models\Ward::dataFromDistrictId($model->district_id),['prompt'=>'Phường/Xã', 'class' => 'select-ward-id'])->label('Phường/Xã',['class'=>'content_14']);
             ?>
             <?=
             $form->field($model, 'address', [
@@ -79,12 +80,12 @@ use yii\widgets\ActiveForm;
             ])->textInput([
                 'class' => 'content_14',
                 'placeholder' => 'Nhập địa chỉ ',
-            ])->label('Địa chỉ');
+            ])->label('Địa chỉ',['class'=>'content_14']);
             ?>
             <?=
             $form->field($model, 'isdefault', [
                 'template' => '<div class="item-input-form">{label}<div class="group-input"><div class="full-input">{input}{error}</div></div></div>{hint}'
-            ])->dropDownList([0 =>'Không chọn',1=>'Mặc định'],[ ])->label('Mặc định');
+            ])->dropDownList([0 =>'Không chọn',1=>'Mặc định'],[ ])->label('Mặc định',['class'=>'content_14']);
             ?>
             <div class="btn-submit-form">
                 <input type="submit" id="user-form" value="Tạo mới">
@@ -96,7 +97,12 @@ use yii\widgets\ActiveForm;
         </div>
     </div>
 </div>
-
+<script>
+    function submit_user_form() {
+        document.getElementById("user-form").submit();
+        return false;
+    }
+</script>
 
 <script type="text/javascript">
     $(document).ready(function () {

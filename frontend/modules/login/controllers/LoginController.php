@@ -95,7 +95,6 @@ class LoginController extends CController
      */
     public function actionLogin()
     {
-
         if (Yii::$app->user->id) {
             return __getUrlBack() ? $this->redirect(__getUrlBack()) :  $this->goBack();
         }

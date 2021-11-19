@@ -1,10 +1,4 @@
-<?php $this->beginContent('@frontend/views/layouts/main_news.php'); ?>
-
-
-<div id="main">
-    <?= \frontend\widgets\breadcrumbs\BreadcrumbsWidget::widget(); ?>
+<?php $this->beginContent('@frontend/views/layouts/main.php'); ?>
     <?= $content ?>
-    
-</div>
 
 <?php $this->endContent(); ?>
