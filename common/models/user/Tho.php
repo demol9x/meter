@@ -72,9 +72,9 @@ class Tho extends \yii\db\ActiveRecord
     static function numberKn(){
         return [
             1 => 'Dưới 1 năm',
-            2 => '2 năm',
-            3 => '3 năm',
-            4 => '4 năm',
+            2 => '1-2 năm',
+            3 => '2-3 năm',
+            4 => '3-4 năm',
             5 => 'Trên 5 năm',
         ];
     }

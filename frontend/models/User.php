@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\user\Tho;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -45,6 +46,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     public $_error_opt;
     public $_shop = 0;
+    public $cover;
+    public $avatar;
 
     /**
      * @inheritdoc
@@ -82,7 +85,7 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'default', 'value' => self::STATUS_DELETED],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['email', 'address', 'facebook', 'link_facebook', 'id_social'], 'string', 'max' => 255],
-            [['type_social', 'image_path', 'image_name', 'avatar_path', 'avatar_name'], 'safe'],
+            [['type_social', 'image_path', 'image_name', 'avatar_path', 'avatar_name', 'avatar', 'cover'], 'safe'],
             ['type', 'integer'],
         ];
     }
@@ -472,5 +475,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         $shop = self::find()->where(['type' => self::TYPE_DOANH_NGHIEP,'status' => self::STATUS_ACTIVE])->asArray()->all();
         return array_column($shop,'username','id');
+    }
+
+    public function getTho(){
+        return $this->hasOne(Tho::className(),['user_id' => 'id']);
     }
 }
