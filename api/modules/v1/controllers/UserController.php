@@ -21,6 +21,38 @@ class UserController extends RestController
     /**
      * Đăng nhập
      */
+    public function actionIndex()
+    {
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $user_id = isset($params['user_id']) && $params['user_id'] ? $params['user_id'] : '';
+        $auth_key = isset($params['auth_key']) && $params['auth_key'] ? $params['auth_key'] : '';
+        $user = User::find()->where(['id' => $user_id])->joinWith(['tho'])->asArray()->one();
+        $message = '';
+        $errors = [];
+        if ($user && $user['auth_key'] == $auth_key) {
+            if($user['tho']){
+                $images = UserImage::find()->where(['user_id' => $user_id])->asArray()->all();
+                $user['tho']['images'] = $images;
+            }
+            return $this->responseData([
+                'success' => true,
+                'data' => $user,
+                'errors' => $errors,
+                'message' => $message
+            ]);
+        }else {
+            $message = 'Thông tin tài khoản không hợp lệ';
+        }
+        return $this->responseData([
+            'success' => false,
+            'errors' => $errors,
+            'message' => $message
+        ]);
+    }
+
+    /**
+     * Đăng nhập
+     */
     public function actionLogin()
     {
         $model = new LoginForm();
@@ -118,7 +150,6 @@ class UserController extends RestController
                     $tho = new Tho();
                 }
                 if ($tho->load($params, '')) {
-
                     $uploads = UploadedFile::getInstancesByName("file");
                     if (empty($uploads)) {
                     } else {
@@ -260,6 +291,7 @@ class UserController extends RestController
     protected function verbs()
     {
         return [
+            'index' => ['POST'],
             'login' => ['POST'],
             'signup' => ['POST'],
             'tho' => ['POST'],

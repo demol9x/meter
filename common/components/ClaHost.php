@@ -1,6 +1,7 @@
 <?php
 
 namespace common\components;
+define('DS', '/');
 
 /**
  * @author hungtm <hungtm.0712@gmail.com>
@@ -14,7 +15,7 @@ class ClaHost
      */
     static function getUploadHost()
     {
-        return __SERVER_NAME . '/mediacenter';
+        return __SERVER_NAME . '/static';
     }
 
     /**
@@ -22,6 +23,7 @@ class ClaHost
      */
     static function getImageHost()
     {
+	//Yii::$app->cache->flush();
         $servername = \common\components\ClaSite::getServerName();
         return __SERVER_NAME . '/static';
     }
@@ -46,5 +48,18 @@ class ClaHost
         }
         $type = isset($options['type']) ? $options['type'] . '/' : 'default/';
         return self::getImageHost() . '/media/images/default/'  . $type . $size . 'default.png';
+    }
+    static function formatImage($file = '', $width=0,$height=0) {
+        if (!$width || !$height) {
+            return '';
+        }
+        if ($file) {
+            $path = explode(DS, $file);
+            $file_name = $path[count($path) - 1];
+            unset($path[count($path) - 1]);
+            $dir = implode(DS, $path) . DS . 's' . $width . '_' . $height.DS;
+            return $dir.$file_name;
+        }
+
     }
 }

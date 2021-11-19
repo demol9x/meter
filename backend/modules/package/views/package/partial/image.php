@@ -1,22 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: trung
- * Date: 11/11/2021
- * Time: 9:36 AM
- */
 
 use common\components\ClaHost;
+
 ?>
 <link href="<?= Yii::$app->homeUrl ?>css/crop/cropper.css" rel="stylesheet">
 <link href="<?= Yii::$app->homeUrl ?>css/crop/crop.css" rel="stylesheet">
 <script type="text/javascript" src="<?= Yii::$app->homeUrl ?>js/crop/cropper.js"></script>
 <script type="text/javascript" src="<?= Yii::$app->homeUrl ?>js/crop/crop.js"></script>
 <style type="text/css">
-    .thumbnail{
+    .thumbnail {
         margin-bottom: 0px;
     }
-    .thumbnail img{
+
+    .thumbnail img {
         max-width: 100%;
         display: block;
         max-height: 100%;
@@ -58,25 +54,28 @@ use common\components\ClaHost;
             <div class="col-md-55">
                 <div class="thumbnail">
                     <div class="image view view-first">
-                        <img  id="img-up-<?= $image['id'] ?>" style="display: block;" src="<?= ClaHost::getImageHost(), $image['path'], 's200_200/', $image['name'] ?>" />
-                        <input type="hidden" value="<?= $image['id'] ?>" name="newimage[]" class="newimage" />
+                        <img id="img-up-<?= $image['id'] ?>" style="display: block;"
+                             src="<?= ClaHost::getImageHost(), $image['path'], 's200_200/', $image['name'] ?>"/>
+                        <input type="hidden" value="<?= $image['id'] ?>" name="newimage[]" class="newimage"/>
                         <div class="mask">
                             <p>&nbsp;</p>
                             <div class="tools tools-bottom">
-                                <a onclick="cropimages(this, '<?= ClaHost::getImageHost(), $image['path'], 's200_200/', $image['name'] ?>',<?= $image['id'] ?>)" href="javascript:void(0)" title="Chỉnh sửa ảnh này"><i class="fa fa-crop"></i></a>
-                                <a onclick="deleteOldImage(this, 'col-md-55', <?= $image['id'] ?>)" href="javascript:void(0)"><i class="fa fa-times"></i></a>
+                                <a onclick="cropimages(this, '<?= ClaHost::getImageHost(), $image['path'], 's200_200/', $image['name'] ?>',<?= $image['id'] ?>)"
+                                   href="javascript:void(0)" title="Chỉnh sửa ảnh này"><i class="fa fa-crop"></i></a>
+                                <a onclick="deleteOldImage(this, 'col-md-55', <?= $image['id'] ?>)"
+                                   href="javascript:void(0)"><i class="fa fa-times"></i></a>
                             </div>
                         </div>
                     </div>
                     <div class="caption">
                         <div class="radio">
                             <label>
-                                <input type="radio" <?= $model->avatar_id == $image['id'] ? 'checked' : '' ?> value="new_<?= $image['id'] ?>" name="setava" /> Đặt làm ảnh đại diện
-                                <input type="hidden" name="order[]" value="<?= $image['id'] ?>" />
+                                <input type="radio" <?= $model->avatar_id == $image['id'] ? 'checked' : '' ?>
+                                       value="new_<?= $image['id'] ?>" name="setava"/> Đặt làm ảnh đại diện
+                                <input type="hidden" name="order[]" value="<?= $image['id'] ?>"/>
                             </label>
                         </div>
                     </div>
-
                 </div>
             </div>
             <?php
@@ -96,12 +95,12 @@ use common\components\ClaHost;
         var html = '<div class="col-md-55">';
         html += '<div class="thumbnail">';
         html += '<div class="image view view-first">';
-        html += '<img id="img-up-'+data.imgid+'" style="display: block;" src="' + data.imgurl + '" />';
+        html += '<img id="img-up-' + data.imgid + '" style="display: block;" src="' + data.imgurl + '" />';
         html += '<input type="hidden" value="' + data.imgid + '" name="newimage[]" class="newimage" />';
         html += '<div class="mask">';
         html += '<p>&nbsp;</p>';
         html += '<div class="tools tools-bottom">';
-        html +=' <a onclick="cropimages(this, \''+data.imgurl+'\',\''+data.imgid+'\')" href="javascript:void(0)" title="Chỉnh sửa ảnh này"><i class="fa fa-crop"></i></a>';
+        html += ' <a onclick="cropimages(this, \'' + data.imgurl + '\',\'' + data.imgid + '\')" href="javascript:void(0)" title="Chỉnh sửa ảnh này"><i class="fa fa-crop"></i></a>';
         html += '<a onclick="deleteNewImage(this, \'col-md-55\')" href="javascript:void(0)" title="Xóa ảnh này"><i class="fa fa-times"></i></a>';
         html += '</div>';
         html += '</div>';
@@ -135,8 +134,8 @@ use common\components\ClaHost;
     function deleteOldImage(_this, wrap, id) {
         if (confirm('Bạn có chắc muốn xóa ảnh?')) {
             $.getJSON(
-                    "<?= \yii\helpers\Url::to(['/product/product/delete-image']) ?>",
-                    {id: id}
+                "<?= \yii\helpers\Url::to(['/package/package/delete-image']) ?>",
+                {id: id}
             ).done(function (data) {
                 $(_this).closest('.' + wrap).remove();
             }).fail(function (jqxhr, textStatus, error) {
@@ -153,11 +152,11 @@ use common\components\ClaHost;
         <div class="in-flex">
             <div class="close-box-crops">x</div>
             <?php
-                echo \backend\widgets\cropImage\CropImageWidget::widget([
-                    'input' => [
-                        'img' => ''
-                    ]
-                ]);
+            echo \backend\widgets\cropImage\CropImageWidget::widget([
+                'input' => [
+                    'img' => ''
+                ]
+            ]);
             ?>
         </div>
     </div>

@@ -38,6 +38,7 @@ class NewsController extends CController
             'Trang chủ' => Url::home(),
             'tin-tuc' => Url::to(['/news/news/index']),
         ];
+        
         //
         $pagesize = 8;
 

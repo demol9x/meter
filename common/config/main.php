@@ -1,8 +1,8 @@
 <?php
 //die();
 const MAX_QUANTITY_PRODUCT = 1000000000000;
-const __SERVER_NAME = 'http://p-metter.com/';
-const __NAME = 'p-metter.com';
+const __SERVER_NAME = 'http://meter-dev.vn/';
+const __NAME = 'meter-dev.vn';
 const __NAME_SITE = 'meter';
 const __VOUCHER = 'OV';
 const __VOUCHER_RED = 'OVr';
