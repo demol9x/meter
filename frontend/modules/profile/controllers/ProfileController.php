@@ -4,6 +4,7 @@ namespace frontend\modules\profile\controllers;
 
 use frontend\controllers\CController;
 use Yii;
+use yii\db\Query;
 use yii\web\Controller;
 use frontend\models\User;
 use frontend\models\profile\UserInfo;
@@ -30,21 +31,57 @@ class ProfileController extends CController {
     public function actionIndex() {
         $this->layout = 'main';
         $user = User::findIdentity(Yii::$app->user->getId());
-//        //
-//        $user_info = $this->findModelInfo();
-//        // Học vấn và bằng cấp
-//        $user_education = new UserEducation();
-//        $educations = $this->findEducations();
-//        // file cv
-//        $file = UserFile::find()->where('user_id=:user_id', [':user_id' => Yii::$app->user->getId()])->one();
-        //
+        $old_phone = $user->phone;
+        $old_email= $user->email;
+
+        $old_username= $user->username;
+        $old_sex=$user->sex;
+        if($user->load(\Yii::$app->request->post())){
+            if(isset($user->username) && $user->username){
+            }
+            else
+            {
+                $user->username=$old_username;
+            }
+            if(isset($user->phone) && $user->phone){
+                if($old_phone ==$user->phone ){
+                    unset($user->phone);
+                }
+            }
+            else
+            {
+            }
+            if(isset($user->email) && $user->email){
+                if($old_email == $user->email){
+                    unset($user->email);
+                }
+            }
+            else
+            {
+                unset($user->email);
+            }
+            if(isset($user->sex) && $user->sex){
+                if($old_sex == $user->sex){
+                    unset($user->sex);
+                }
+            }
+            else
+            {
+                $user->sex=$old_sex;
+            }
+            $user->save();
+            echo '<pre>';
+            print_r($user->getErrors());
+            echo '</pre>';
+            die();
+            if($user->save()){
+                \Yii::$app->getSession()->setFlash('cusses', 'Cập nhật thông tin thành công');
+            }
+        }
+
 
         return $this->render('index', [
                     'user' => $user,
-//                    'user_info' => $user_info,
-//                    'user_education' => $user_education,
-//                    'educations' => $educations,
-//                    'file' => $file
         ]);
     }
     public function actionBoxAddress(){
@@ -100,20 +137,19 @@ class ProfileController extends CController {
         $model = UserAddress::findOne($id);
         if($model){
             if ($model->delete()){
-                \Yii::$app->getSession()->setFlash('cusses', 'Xóa địa chỉ thông tin thành công');
+                \Yii::$app->getSession()->setFlash('cusses', 'Xóa địa chỉ thành công');
                 return $this->redirect(['/profile/profile/box-address']);
             }
         }
     }
     public  function actionUpdateDefau($id){
         $model = UserAddress::findOne($id);
-        $data= UserAddress::find()->all();
-        if($id) {
-            $data['isdefault']=0;
-            $data->save();
+        Yii::$app->db->createCommand()->update('user_address', ['isdefault' => 0], ['user_id' => $model->user_id])->execute();
+        $model->isdefault=1;
+        if($model->save()){
+            \Yii::$app->getSession()->setFlash('cusses', 'Chọn làm mặc định thành công!');
+            return $this->goBack();
         }
-
-
     }
     /**
      * Cập nhật thông tin cá nhân cơ bản của user

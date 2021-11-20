@@ -1,4 +1,3 @@
-
 <link rel="stylesheet" href="<?= yii::$app->homeUrl?>css/list_packages.css">
 
 <div class="site51_bann_col0_slidein">
