@@ -8,7 +8,7 @@ use  common\components\ClaHost;
 <div class="site51_prodel_col12_chitietgoithau">
     <div class="container_fix">
         <?php //Menu main
-        echo frontend\widgets\breadcrumbs\breadcrumbsWidget::widget([])
+        echo frontend\widgets\breadcrumbs\BreadcrumbsWidget::widget(['view'=>'view']);
         ?>
         <div class="pro_detail">
             <div class="detail_left wow fadeInLeft" data-wow-duration="3s"
@@ -39,8 +39,7 @@ use  common\components\ClaHost;
                         <?= $model->name ?>
                     </div>
                     <div class="description">
-                        <i class="far fa-sticky-note"></i><span class="content_16">Đăng ký dự
-                                thầu 15</span></div>
+                        <i class="far fa-sticky-note"></i><span class="content_16">Đăng ký dự thầu 15</span></div>
                 </div>
                 <div class="contact_info">
                     <div class="content_16_b">Thông tin liên lạc:</div>
@@ -78,108 +77,13 @@ use  common\components\ClaHost;
                 </a>
             </div>
         </div>
-        <div class="pro_similar">
-            <div class="pro_package">
-                <div class="pro_content">
-                    <div class="content_text">
-                        <h3>gói thầu tương tự</h3>
-                    </div>
-                </div>
-                <div class="pro_flex item-list-sp">
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        <?php //gói thầu
+        echo frontend\widgets\package\PackageWidget::widget([
+            'view'=>'view',
+            'shop_id'=> $model->shop_id,
+            'limit'=>10
+        ]);
+        ?>
         <div class="pro_main">
             <div class="pro_flex_left">
                 <div class="nav_menu">
@@ -244,322 +148,29 @@ use  common\components\ClaHost;
                     </a>
                 </div>
             </div>
-            <div class="pro_flex_right">
-                <div class="pro_package">
-                    <div class="pro_content">
-                        <div class="content_text">
-                            <h3>nổi bật</h3>
-                        </div>
-                    </div>
-                    <div class="pro_flex item-list-hot-deal">
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                            <a href="chitietgoithau.php">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                    <div class="date_time">
-                                        <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span>
-                                        <span><i class="fas fa-star"></i>4/5</span>
-                                    </div>
-                                </div>
-                            </a>
-                            <div class="heart">
-                                <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                       alt=""></a>
-                                <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                            </div>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <?php //gói thầu
+            echo frontend\widgets\package\PackageWidget::widget([
+                'view'=>'view_left',
+                'isnew'=> 1,
+                'limit'=> 10
+            ]);
+            ?>
         </div>
         <div class="pro_slide">
             <div class="pro_package">
                 <div class="pro_content">
                     <div class="content_text">
-                        <h3>gói thầu</h3>
+                        <h3>gói thầu khác</h3>
                     </div>
                 </div>
-                <div class="pro_flex slide_pro_active">
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-                    <div class="pro_card wow fadeIn" data-wow-delay="0.3s">
-                        <a href="chitietgoithau.php">
-                            <div class="card_img">
-                                <img src="<?= yii::$app->homeUrl?>images/product_card.png" alt="">
-                            </div>
-                            <div class="card_text">
-                                <div class="title">Công trình nhà phố 5.5 tầng Cầu Giấy - Hà Nội</div>
-                                <div class="adress"><span>Hà Nội</span><span>60km</span></div>
-                                <div class="date_time"><span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt="">22-11-21</span></div>
-                            </div>
-                        </a>
-                        <div class="heart">
-                            <a href="" class="add_tim active"><img class="img_add_tim" src="<?= yii::$app->homeUrl?>images/tim.png"
-                                                                   alt=""></a>
-                            <a href="" class="add_tim_1"><i class="fas fa-heart"></i></a>
-                        </div>
-                        <div class="hot_product"><img src="<?= yii::$app->homeUrl?>images/hot_product.png" alt=""></div>
-                    </div>
-
-                </div>
+                <?php //gói thầu
+                echo frontend\widgets\package\PackageWidget::widget([
+                    'view'=>'view_random',
+                    'isnew'=> 1,
+                    'ishot'=>1,
+                    'limit'=> 10
+                ]);
+                ?>
             </div>
         </div>
     </div>

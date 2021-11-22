@@ -32,7 +32,8 @@ class AppAsset extends FrontendAsset
         'js/wow.min.js',
         'js/jquery.pwstabs.js',
         'js/jquery.fancybox.js',
-        'js/backend_js.js'
+        'js/backend_js.js',
+        'js/upload/ajaxupload.min.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

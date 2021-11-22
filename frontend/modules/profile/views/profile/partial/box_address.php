@@ -1,6 +1,5 @@
 <?php
 use yii\helpers\Url;
-
 ?>
 <link rel="stylesheet" href="<?= yii::$app->homeUrl ?>css/diachicanhan.css">
 <div class="item_right">
@@ -31,7 +30,7 @@ use yii\helpers\Url;
                             <?php if(isset($key['isdefault']) && $key['isdefault']==1 ){
                              ?>
                             <a style="cursor: no-drop">Mặc định</a>
-                            <span><i class="fa fa-check"></i> Địa chỉ gửi đến</span>
+                            <span><i class="fa fa-check"></i> Địa chỉ mặc định</span>
                             <?php } ?>
                         </div>
                     </div>
@@ -44,9 +43,8 @@ use yii\helpers\Url;
                             ?>
                             <?php } else{?>
                             <a class="cance" onclick="return confirm('Bạn có chắn chắn xóa??');" href="<?= Url::to(['/profile/profile/delete-address','id'=>$key['id']])?>"><i class="fa fa-times"></i>Xóa</a>
-                            <a class="btn-set-default active" href='#'">Chọn làm mặc định</a>
+                            <a class="btn-set-default active" href='<?= Url::to(['/profile/profile/update-defau','id'=>$key['id']])?>'">Chọn làm mặc định</a>
                             <?php } ?>
-
                         </div>
                     </div>
                 </div>

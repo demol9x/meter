@@ -5,21 +5,8 @@ namespace frontend\modules\user\controllers;
 use common\models\Province;
 use Yii;
 use frontend\controllers\CController;
-use common\models\product\ProductCategory;
-use common\models\shop\Shop;
-use frontend\models\User;
-use common\models\product\Product;
+use common\models\user\Tho;
 use common\models\product\ProductWish;
-use common\components\ClaLid;
-use common\components\ClaCategory;
-use yii\helpers\Url;
-use yii\web\Response;
-use common\components\ClaHost;
-use common\models\product\CertificateProduct;
-use common\models\product\CertificateProductItem;
-use common\models\affiliate\AffiliateLink;
-use common\models\affiliate\AffiliateClick;
-
 class UserController extends CController
 {
 
@@ -37,6 +24,13 @@ class UserController extends CController
     }
     public function actionIndex()
     {
+
+        $this->layout='main';
+        $data= Tho::find()->all();
+        echo '<pre>';
+        print_r($data);
+        echo '</pre>';
+        die();
         return $this->render('index', [
 
         ]);

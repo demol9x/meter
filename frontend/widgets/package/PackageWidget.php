@@ -11,10 +11,16 @@ class PackageWidget extends \frontend\components\CustomWidget {
     public $limit = 10;
     public $view = 'view';
     protected $package = [];
+    public $shop_id;
+    public $isnew;
+    public $ishot;
 
     public function init() {
         $this->package = Package::getPackage([
             'limit' => $this->limit,
+            'shop_id'=>$this->shop_id,
+            'isnew'=>$this->isnew,
+            'ishot'=>$this->ishot,
         ]);
         //
         parent::init();
@@ -26,6 +32,9 @@ class PackageWidget extends \frontend\components\CustomWidget {
         return $this->render($this->view, [
             'package' => $this->package,
             'limit'=>$this->limit,
+            'shop_id'=>$this->shop_id,
+            'isnew'=>$this->isnew,
+            'ishot'=>$this->ishot,
         ]);
     }
 

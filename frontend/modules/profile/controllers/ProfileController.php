@@ -4,6 +4,7 @@ namespace frontend\modules\profile\controllers;
 
 use frontend\controllers\CController;
 use Yii;
+use yii\db\Query;
 use yii\web\Controller;
 use frontend\models\User;
 use frontend\models\profile\UserInfo;
@@ -30,21 +31,57 @@ class ProfileController extends CController {
     public function actionIndex() {
         $this->layout = 'main';
         $user = User::findIdentity(Yii::$app->user->getId());
-//        //
-//        $user_info = $this->findModelInfo();
-//        // Học vấn và bằng cấp
-//        $user_education = new UserEducation();
-//        $educations = $this->findEducations();
-//        // file cv
-//        $file = UserFile::find()->where('user_id=:user_id', [':user_id' => Yii::$app->user->getId()])->one();
-        //
+        $old_phone = $user->phone;
+        $old_email= $user->email;
+
+        $old_username= $user->username;
+        $old_sex=$user->sex;
+        if($user->load(\Yii::$app->request->post())){
+            if(isset($user->username) && $user->username){
+            }
+            else
+            {
+                $user->username=$old_username;
+            }
+            if(isset($user->phone) && $user->phone){
+                if($old_phone ==$user->phone ){
+                    unset($user->phone);
+                }
+            }
+            else
+            {
+            }
+            if(isset($user->email) && $user->email){
+                if($old_email == $user->email){
+                    unset($user->email);
+                }
+            }
+            else
+            {
+                unset($user->email);
+            }
+            if(isset($user->sex) && $user->sex){
+                if($old_sex == $user->sex){
+                    unset($user->sex);
+                }
+            }
+            else
+            {
+                $user->sex=$old_sex;
+            }
+            $user->save();
+            echo '<pre>';
+            print_r($user->getErrors());
+            echo '</pre>';
+            die();
+            if($user->save()){
+                \Yii::$app->getSession()->setFlash('cusses', 'Cập nhật thông tin thành công');
+            }
+        }
+
 
         return $this->render('index', [
                     'user' => $user,
-//                    'user_info' => $user_info,
-//                    'user_education' => $user_education,
-//                    'educations' => $educations,
-//                    'file' => $file
         ]);
     }
     public function actionBoxAddress(){
@@ -76,28 +113,43 @@ class ProfileController extends CController {
     }
     public function actionUpdatePassword(){
         $this->layout='main';
+        $id=Yii::$app->user->getId();
+        $model = \common\models\User::findOne($id);
+        $old_pass = $model->password_hash;
+        if($model->load(\Yii::$app->request->post())){
+            if(Yii::$app->security->validatePassword($model->old_password, $old_pass)){
+                $model->password_hash = Yii::$app->security->generatePasswordHash($model->new_password);
+                if($model->save()){
+                    \Yii::$app->getSession()->setFlash('cusses', 'Thay đổi mật khẩu thành công');
+                    return $this->refresh();
+                }
+            }
+            else{
+                \Yii::$app->getSession()->setFlash('cusses', 'Mật khẩu cũ không trùng khớp');
+                return  $this->refresh();
+            }
+        }
         return $this->render('partial/update-password',[
-
+            'model'=>$model,
         ]);
     }
     public function actionDeleteAddress($id){
         $model = UserAddress::findOne($id);
         if($model){
             if ($model->delete()){
-                \Yii::$app->getSession()->setFlash('cusses', 'Xóa địa chỉ thông tin thành công');
+                \Yii::$app->getSession()->setFlash('cusses', 'Xóa địa chỉ thành công');
                 return $this->redirect(['/profile/profile/box-address']);
             }
         }
     }
     public  function actionUpdateDefau($id){
         $model = UserAddress::findOne($id);
-        $data= UserAddress::find()->all();
-        if($id) {
-            $data['isdefault']=0;
-            $data->save();
+        Yii::$app->db->createCommand()->update('user_address', ['isdefault' => 0], ['user_id' => $model->user_id])->execute();
+        $model->isdefault=1;
+        if($model->save()){
+            \Yii::$app->getSession()->setFlash('cusses', 'Chọn làm mặc định thành công!');
+            return $this->goBack();
         }
-
-
     }
     /**
      * Cập nhật thông tin cá nhân cơ bản của user
@@ -125,102 +177,6 @@ class ProfileController extends CController {
         }
     }
 
-    /**
-     * Cập nhật thông tin mô tả của thành viên
-     * @return type
-     */
-    public function actionUpdateInfoDescription() {
-        if (\Yii::$app->request->isAjax) {
-            \Yii::$app->response->format = Response::FORMAT_JSON;
-            $model = $this->findModelInfo();
-            if ($model->load(\Yii::$app->request->post())) {
-                if ($model->save()) {
-                    $html = $this->renderAjax('ajax/box_basic_description', [
-                        'user_info' => $model
-                    ]);
-                    return [
-                        'code' => 200,
-                        'html' => $html
-                    ];
-                } else {
-                    return $model->getErrors();
-                }
-            }
-        }
-    }
-
-    public function actionUpdateSkills() {
-        if (\Yii::$app->request->isAjax) {
-            \Yii::$app->response->format = Response::FORMAT_JSON;
-            $skills = Yii::$app->request->post('skills');
-            if (isset($skills) && $skills) {
-                $model_info = $this->findModelInfo();
-                $skill_array = [];
-                foreach ($skills as $skill) {
-                    $model = Skill::find()->where('name=:name', [':name' => $skill])->one();
-                    if ($model === NULL) {
-                        $model = new Skill();
-                        $model->name = $skill;
-                        $model->created_at = time();
-                        $model->updated_at = time();
-                        $model->save();
-                    }
-                    $skill_array[] = $model->id;
-                }
-                if (!empty($skill_array)) {
-                    $model_info->skills = implode(',', $skill_array);
-                }
-                if ($model_info->save()) {
-                    $html = $this->renderAjax('ajax/box_skill', [
-                        'user_info' => $model_info,
-                        'skills' => $skills
-                    ]);
-                    return [
-                        'code' => 200,
-                        'html' => $html
-                    ];
-                } else {
-                    return $model->getErrors();
-                }
-            }
-        }
-    }
-
-    public function actionUpdateEducation() {
-        if (\Yii::$app->request->isAjax) {
-            \Yii::$app->response->format = Response::FORMAT_JSON;
-            $id = isset(Yii::$app->request->post('UserEducation')['id']) ? Yii::$app->request->post('UserEducation')['id'] : 0;
-            $model = $this->findModelEducation($id);
-            if ($model->load(\Yii::$app->request->post())) {
-                // Từ tháng
-                if ($model->month_from && $model->month_from != '' && (int) strtotime($model->month_from)) {
-                    $model->month_from = (int) strtotime($model->month_from);
-                } else {
-                    $model->month_from = time();
-                }
-                // Đến tháng
-                if ($model->month_to && $model->month_to != '' && (int) strtotime($model->month_to)) {
-                    $model->month_to = (int) strtotime($model->month_to);
-                } else {
-                    $model->month_to = time();
-                }
-                if ($model->save()) {
-                    $user_education = new UserEducation();
-                    $educations = $this->findEducations();
-                    $html = $this->renderAjax('ajax/box_education', [
-                        'user_education' => $user_education,
-                        'educations' => $educations,
-                    ]);
-                    return [
-                        'code' => 200,
-                        'html' => $html
-                    ];
-                } else {
-                    return $model->getErrors();
-                }
-            }
-        }
-    }
 
     public function findModelInfo() {
         $model = UserInfo::findOne(\Yii::$app->user->getId());
@@ -238,27 +194,6 @@ class ProfileController extends CController {
      * Khởi tạo model education
      * @return UserEducation
      */
-    public function findModelEducation($id = 0) {
-        if ($id != 0) {
-            $model = UserEducation::findOne($id);
-            if ($model === NULL) {
-                $model = new UserEducation();
-                $model->user_id = \Yii::$app->user->getId();
-            }
-        } else {
-            $model = new UserEducation();
-            $model->user_id = \Yii::$app->user->getId();
-        }
-        return $model;
-    }
-
-    public function findEducations() {
-        $data = UserEducation::find()
-                ->where('user_id=:user_id', [':user_id' => Yii::$app->user->getId()])
-                ->orderBy('month_to DESC')
-                ->all();
-        return $data;
-    }
 
     public function actionUploadCv() {
         if (\Yii::$app->request->isAjax) {
@@ -326,11 +261,8 @@ class ProfileController extends CController {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
-
-    /**
-     * upload file
-     */
-    public function actionUploadAvatar() {
+    public function actionUploadAvatar()
+    {
         if (isset($_FILES['file'])) {
             $file = $_FILES['file'];
             if ($file['size'] > 1024 * 1000 * 2) {
@@ -349,9 +281,7 @@ class ProfileController extends CController {
                 $keycode = ClaGenerate::getUniqueCode();
                 $return['data']['realurl'] = ClaHost::getImageHost() . $response['baseUrl'] . 's150_150/' . $response['name'];
                 $return['data']['avatar'] = $keycode;
-//                Yii::app()->session[$keycode] = $response;
-//                $user = Users::model()->findByPk(Yii::app()->user->id);
-                $user_info = $this->findModelInfo();
+                $user_info = User::findOne(Yii::$app->user->getId());
                 if ($response) {
                     $user_info->avatar_path = $response['baseUrl'];
                     $user_info->avatar_name = $response['name'];
@@ -362,6 +292,43 @@ class ProfileController extends CController {
             Yii::$app->end();
         }
         //
+    }
+    /**
+     * upload file
+     */
+    public function actionUploadCover()
+    {
+
+        if (isset($_FILES['file'])) {
+            $file = $_FILES['file'];
+            if ($file['size'] > 1024 * 1000 * 2) {
+                $this->jsonResponse('400', array(
+                    'message' => Yii::t('errors', 'filesize_toolarge', array('{size}' => '2Mb')),
+                ));
+                Yii::app()->end();
+            }
+            $up = new UploadLib($file);
+
+            $up->setPath(array('user-cover', \Yii::$app->user->getId()));
+            $up->uploadImage();
+            $return = array();
+            $response = $up->getResponse(true);
+            $return = array('status' => $up->getStatus(), 'data' => $response, 'host' => ClaHost::getImageHost(), 'size' => '');
+
+            if ($up->getStatus() == '200') {
+                $keycode = ClaGenerate::getUniqueCode();
+                $return['data']['realurl'] = ClaHost::getImageHost() . $response['baseUrl'] . 's150_150/' . $response['name'];
+                $return['data']['avatar'] = $keycode;
+                $user_info = User::findOne(Yii::$app->user->getId());
+                if ($response) {
+                    $user_info->image_path = $response['baseUrl'];
+                    $user_info->image_name = $response['name'];
+                    $user_info->save(false);
+                }
+            }
+            echo json_encode($return);
+            Yii::$app->end();
+        }
     }
 
 }

@@ -37,6 +37,9 @@ class User extends ActiveRecord
     /**
      * @inheritdoc
      */
+    public $old_password;
+    public $new_password;
+    public $new_password_dre;
     public $avatar1;
     public $avatar2;
 
@@ -67,7 +70,9 @@ class User extends ActiveRecord
             ['status', 'default', 'value' => ClaLid::STATUS_ACTIVED],
             ['status', 'in', 'range' => [ClaLid::STATUS_ACTIVED, ClaLid::STATUS_DEACTIVED]],
             [['email', 'address', 'facebook', 'link_facebook', 'id_social'], 'string', 'max' => 255],
-            [['type_social', 'avatar1', 'avatar2'], 'safe']
+            [['type_social', 'avatar1', 'avatar2'], 'safe'],
+            [['old_password','new_password','new_password_dre'],'string'],
+            [['new_password_dre'],'checkPassworDre'],
         ];
     }
 
@@ -78,6 +83,15 @@ class User extends ActiveRecord
             'created_at' => 'Ngày tạo'
         ];
     }
+    public function checkPassworDre($attribute_name, $params)
+    {
+        if ($this->new_password_dre != $this->new_password) {
+            $this->addError('new_password_dre', 'Mật khẩu nhập lại không trùng.');
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * @inheritdoc
