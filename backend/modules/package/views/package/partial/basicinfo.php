@@ -14,6 +14,8 @@ $package = new Package();
 
 <?= $form->field($model, 'shop_id')->dropDownList(\frontend\models\User::getShop(), ['prompt' => 'Chọn nhà thầu']) ?>
 
+<?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
+
 <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
 <?= $form->field($model, 'province_id')->dropDownList(\common\models\Province::optionsProvince()) ?>
