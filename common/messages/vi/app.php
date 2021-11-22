@@ -387,7 +387,7 @@ return [
    'menu_product' => 'Danh mục sản phẩm',
    'introduce' => 'Giới thiệu',
    'contact' => 'Liên hệ',
-   'shop' => 'Doanh nghiệp',
+   'shop' => 'Nhà thầu',
    'timing' => 'Thời gian hoạt động',
    'create_shop' => 'Tạo doanh nghiệp',
    'create_product' => 'Tạo sản phẩm',
