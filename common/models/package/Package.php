@@ -174,6 +174,35 @@ class Package extends \yii\db\ActiveRecord
         return $ward;
     }
 
+    public static function getProvince_1 ($options = [])
+    {
+        $condition = 'status=:status';
+        $params = [
+            ':status' => ClaLid::STATUS_ACTIVED
+        ];
+        $skills_temp = ArrayHelper::map(Province::find()->asArray()->all(), 'id', 'name');
+        $results = [];
+        $province = (new Query())->select('province_id')
+            ->from('package')
+            ->where($condition, $params)
+            ->column();
+        if (isset($province) && $province) {
+
+            foreach ($province as $skill) {
+                $skill_explode = explode(' ', $skill);
+                foreach ($skill_explode as $skill_id) {
+                    if (isset($results[$skill_id]['count_job'])) {
+                        $results[$skill_id]['count_job']++;
+                    } else {
+                        $results[$skill_id]['count_job'] = 1;
+                        $results[$skill_id]['name'] = $skills_temp[$skill_id];
+                    }
+                }
+            }
+        }
+        return $results;
+    }
+
     public function getProvince()
     {
         return $this->hasOne(Province::className(), ['id' => 'province_id'])->select('name,id');

@@ -515,13 +515,13 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function getT($options = [])
     {
-        $query = Tho::find()->where(['status' => 1]);
+        $query = Tho::find()->where(['tho.status' => 1]);
         if (isset($options['s']) && $options['s']) {
             $query->andFilterWhere(['like', 'tho.name', $options['s']]);
         }
 
         if (isset($options['province_id']) && $options['province_id']) {
-            $query->andFilterWhere(['province_id' => $options['province_id']]);
+            $query->andFilterWhere(['tho.province_id' => $options['province_id']]);
         }
 
         if (isset($options['job_id']) && $options['job_id']) {
@@ -543,7 +543,12 @@ class User extends ActiveRecord implements IdentityInterface
         } else {
             $offset = 0;
         }
-        return $query->joinWith(['province'])
+        $total = $query->count();
+        $data = $query->joinWith(['province', 'job', 'user'])
             ->limit($limit)->offset($offset)->asArray()->all();
+        return [
+            'total' => $total,
+            'data' => $data
+        ];
     }
 }

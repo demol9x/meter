@@ -54,7 +54,7 @@ class ThoController extends RestController
             'kn' => $kn,
             'time' => $time,
         ]);
-
+        $users = $users['data'];
         if ($users) {
             $us_wish = UserWish::find()->where(['user_id_from' => $user_id,'type' => User::TYPE_THO])->asArray()->all();
             $us_wish = array_column($us_wish, 'user_id', 'id');
@@ -85,35 +85,36 @@ class ThoController extends RestController
         $request = Yii::$app->getRequest()->getBodyParams();
         $user_id = isset($request['user_id']) && $request['user_id'] ? $request['user_id'] : '';
         $auth_key = isset($request['auth_key']) && $request['auth_key'] ? $request['auth_key'] : '';
-        $package_id = isset($request['package_id']) && $request['package_id'] ? $request['package_id'] : '';
+        $tho_id = isset($request['tho_id']) && $request['tho_id'] ? $request['tho_id'] : '';
         $message = '';
         $errors = [];
 
         $user = User::findOne($user_id);
         if ($user && $user->auth_key == $auth_key) {
-            $package_wish = PackageWish::find()->where(['user_id' => $user_id, 'package_id' => $package_id])->one();
-            if ($package_wish) {
-                if ($package_wish->delete()) {
+            $user_wish = UserWish::find()->where(['user_id_from' => $user_id, 'user_id' => $tho_id])->one();
+            if ($user_wish) {
+                if ($user_wish->delete()) {
                     return $this->responseData([
                         'success' => true,
                         'errors' => $errors,
                         'message' => 'Bỏ yêu thích thành công'
                     ]);
                 } else {
-                    $errors = $package_wish->getErrors();
+                    $errors = $user_wish->getErrors();
                 }
             } else {
-                $package_wish = new PackageWish();
-                $package_wish->user_id = $user_id;
-                $package_wish->package_id = $package_id;
-                if ($package_wish->save()) {
+                $user_wish = new UserWish();
+                $user_wish->user_id_from = $user_id;
+                $user_wish->user_id = $tho_id;
+                $user_wish->type = User::TYPE_THO;
+                if ($user_wish->save()) {
                     return $this->responseData([
                         'success' => true,
                         'errors' => $errors,
                         'message' => 'Thêm vào danh sách yêu thích thành công'
                     ]);
                 } else {
-                    $errors = $package_wish->getErrors();
+                    $errors = $user_wish->getErrors();
                 }
             }
         } else {

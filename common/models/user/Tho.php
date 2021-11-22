@@ -2,7 +2,9 @@
 
 namespace common\models\user;
 
+use common\models\general\ChucDanh;
 use common\models\Province;
+use frontend\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -83,5 +85,13 @@ class Tho extends \yii\db\ActiveRecord
 
     public function getProvince(){
         return $this->hasOne(Province::className(),['id' => 'province_id'])->select('name,id');
+    }
+
+    public function getJob(){
+        return $this->hasOne(ChucDanh::className(),['id' => 'nghe_nghiep'])->select('name,id');
+    }
+
+    public function getUser(){
+        return $this->hasOne(User::className(),['id' => 'user_id'])->select('avatar_path,avatar_name,id');
     }
 }

@@ -319,10 +319,11 @@ class UserController extends RestController
                 if($user->save()){
                     $tho = Tho::findOne($user_id);
                     if($tho){
-                        $tho->province_id = isset($params['province_id']) && $params['province_id'] ? $params['province_id'] : $tho->province_id;
-                        $tho->district_id = isset($params['district_id']) && $params['district_id'] ? $params['district_id'] : $tho->district_id;
-                        $tho->ward_id = isset($params['ward_id']) && $params['ward_id'] ? $params['ward_id'] : $tho->ward_id;
-                        $tho->address = isset($params['address']) && $params['address'] ? $params['address'] : $tho->address;
+                        $tho->province_id = isset($params['province_id']) && $params['province_id'] ? $params['province_id'] : $user->province_id;
+                        $tho->district_id = isset($params['district_id']) && $params['district_id'] ? $params['district_id'] : $user->district_id;
+                        $tho->ward_id = isset($params['ward_id']) && $params['ward_id'] ? $params['ward_id'] : $user->ward_id;
+                        $tho->address = isset($params['address']) && $params['address'] ? $params['address'] : $user->address;
+                        $tho->name = isset($params['username']) && $params['username'] ? $params['username'] : $user->username;
                         $tho->save();
                     }
 
