@@ -54,4 +54,9 @@ class ChucDanh extends \yii\db\ActiveRecord
             TimestampBehavior::className()
         ];
     }
+
+    static function getJob(){
+        $model = self::find()->asArray()->all();
+        return array_column($model,'name','id');
+    }
 }

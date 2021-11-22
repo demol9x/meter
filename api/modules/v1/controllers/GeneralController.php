@@ -3,6 +3,7 @@
 namespace api\modules\v1\controllers;
 
 use api\components\RestController;
+use common\models\general\ChucDanh;
 use Yii;
 
 class GeneralController extends RestController
@@ -46,12 +47,21 @@ class GeneralController extends RestController
         ]);
     }
 
+    function actionGetJob(){
+        $jobs = ChucDanh::getJob();
+        return $this->responseData([
+            'success' => true,
+            'data' => $jobs
+        ]);
+    }
+
     protected function verbs()
     {
         return [
             'get-wards' => ['POST'],
             'get-districts' => ['POST'],
             'get-provinces' => ['POST'],
+            'get-job' => ['GET'],
         ];
     }
 }

@@ -226,6 +226,7 @@ class UserController extends RestController
                     $tho = new Tho();
                 }
                 if ($tho->load($params, '')) {
+                    $tho->name = $user->username;
                     $uploads = UploadedFile::getInstancesByName("file");
                     if (empty($uploads)) {
                     } else {
@@ -257,10 +258,12 @@ class UserController extends RestController
                             break;
                         }
                     }
-
-
                     if ($tho->save()) {
                         $user->type = User::TYPE_THO;
+                        $user->province_id = isset($params['province_id']) && $params['province_id'] ? $params['province_id'] : $user->province_id;
+                        $user->district_id = isset($params['district_id']) && $params['district_id'] ? $params['district_id'] : $user->district_id;
+                        $user->ward_id = isset($params['ward_id']) && $params['ward_id'] ? $params['ward_id'] : $user->ward_id;
+                        $user->address = isset($params['address']) && $params['address'] ? $params['address'] : $user->address;
                         $user->save();
                         return $this->responseData([
                             'success' => true,
@@ -314,6 +317,15 @@ class UserController extends RestController
                 $user->email = isset($params['email']) && $params['email'] ? $params['email'] : $user->email;
                 $user->birthday = isset($params['birthday']) && $params['birthday'] ? $params['birthday'] : $user->birthday;
                 if($user->save()){
+                    $tho = Tho::findOne($user_id);
+                    if($tho){
+                        $tho->province_id = isset($params['province_id']) && $params['province_id'] ? $params['province_id'] : $tho->province_id;
+                        $tho->district_id = isset($params['district_id']) && $params['district_id'] ? $params['district_id'] : $tho->district_id;
+                        $tho->ward_id = isset($params['ward_id']) && $params['ward_id'] ? $params['ward_id'] : $tho->ward_id;
+                        $tho->address = isset($params['address']) && $params['address'] ? $params['address'] : $tho->address;
+                        $tho->save();
+                    }
+
                     return $this->responseData([
                         'success' => true,
                         'errors' => [],

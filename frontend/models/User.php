@@ -2,6 +2,7 @@
 
 namespace frontend\models;
 
+use common\models\shop\Shop;
 use common\models\user\Tho;
 use Yii;
 use yii\base\NotSupportedException;
@@ -479,5 +480,70 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getTho(){
         return $this->hasOne(Tho::className(),['user_id' => 'id']);
+    }
+
+    public static function getCompany($options = [])
+    {
+        $query = Shop::find()->where(['status' => 1]);
+        if (isset($options['s']) && $options['s']) {
+            $query->andFilterWhere(['like', 'user.name', $options['s']]);
+        }
+
+        if (isset($options['province_id']) && $options['province_id']) {
+            $query->andFilterWhere(['province_id' => $options['province_id']]);
+        }
+
+        if (isset($options['price_min']) && $options['price_min']) {
+            $query->andFilterWhere(['>' ,'price', $options['price_min']-1]);
+        }
+        if (isset($options['price_max']) && $options['price_max']) {
+            $query->andFilterWhere(['<' ,'price', $options['price_max']+1]);
+        }
+
+        if (isset($options['limit']) && $options['limit']) {
+            $limit = $options['limit'];
+        }
+        if (isset($options['page'])) {
+            $offset = ($options['page'] - 1) * $limit;
+        } else {
+            $offset = 0;
+        }
+        return $query->joinWith(['province'])
+            ->orderBy('order ASC, updated_at DESC')
+            ->limit($limit)->offset($offset)->asArray()->all();
+    }
+
+    public static function getT($options = [])
+    {
+        $query = Tho::find()->where(['status' => 1]);
+        if (isset($options['s']) && $options['s']) {
+            $query->andFilterWhere(['like', 'tho.name', $options['s']]);
+        }
+
+        if (isset($options['province_id']) && $options['province_id']) {
+            $query->andFilterWhere(['province_id' => $options['province_id']]);
+        }
+
+        if (isset($options['job_id']) && $options['job_id']) {
+            $query->andFilterWhere(['nghe_nghiep' => $options['job_id']]);
+        }
+
+        if (isset($options['kn']) && $options['kn']) {
+            $query->andFilterWhere(['kinh_nghiem' => $options['kn']]);
+        }
+
+        if (isset($options['time']) && $options['time']) {
+        }
+
+        if (isset($options['limit']) && $options['limit']) {
+            $limit = $options['limit'];
+        }
+        if (isset($options['page'])) {
+            $offset = ($options['page'] - 1) * $limit;
+        } else {
+            $offset = 0;
+        }
+        return $query->joinWith(['province'])
+            ->limit($limit)->offset($offset)->asArray()->all();
     }
 }

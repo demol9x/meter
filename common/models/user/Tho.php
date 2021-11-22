@@ -2,6 +2,7 @@
 
 namespace common\models\user;
 
+use common\models\Province;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -36,9 +37,9 @@ class Tho extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'kinh_nghiem', 'created_at', 'updated_at'], 'integer'],
+            [['user_id', 'kinh_nghiem', 'created_at', 'updated_at','nghe_nghiep','ward_id','district_id','province_id'], 'integer'],
             [['kinh_nghiem_description', 'description'], 'string'],
-            [['tot_nghiep', 'nghe_nghiep', 'chuyen_nganh','attachment'], 'string', 'max' => 255],
+            [['tot_nghiep', 'chuyen_nganh','attachment','address','name'], 'string', 'max' => 255],
             ['file','file']
         ];
     }
@@ -50,6 +51,7 @@ class Tho extends \yii\db\ActiveRecord
     {
         return [
             'user_id' => 'User ID',
+            'name' => 'Họ và tên',
             'tot_nghiep' => 'Tốt nghiệp trường',
             'nghe_nghiep' => 'Nghề nghiệp',
             'chuyen_nganh' => 'Chuyên ngành',
@@ -77,5 +79,9 @@ class Tho extends \yii\db\ActiveRecord
             4 => '3-4 năm',
             5 => 'Trên 5 năm',
         ];
+    }
+
+    public function getProvince(){
+        return $this->hasOne(Province::className(),['id' => 'province_id'])->select('name,id');
     }
 }

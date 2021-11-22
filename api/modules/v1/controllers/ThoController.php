@@ -11,6 +11,7 @@ namespace api\modules\v1\controllers;
 use common\components\ClaLid;
 use common\components\ClaMeter;
 use common\models\general\ChucDanh;
+use common\models\general\UserWish;
 use common\models\package\Package;
 use common\models\package\PackageWish;
 use common\models\sms\SmsOtp;
@@ -24,7 +25,7 @@ use api\components\RestController;
 /**
  *
  */
-class PackageController extends RestController
+class ThoController extends RestController
 {
 
     public function actionIndex()
@@ -37,38 +38,38 @@ class PackageController extends RestController
         $lat = isset($request['lat']) && $request['lat'] ? $request['lat'] : '';
         $lng = isset($request['lng']) && $request['lng'] ? $request['lng'] : '';
         $province_id = isset($request['province_id']) && $request['province_id'] ? $request['province_id'] : '';
-        $price_min = isset($request['price_min']) && $request['price_min'] ? $request['price_min'] : '';
-        $price_max = isset($request['price_max']) && $request['price_max'] ? $request['price_max'] : '';
-        $distance = isset($request['distance']) && $request['distance'] ? $request['distance'] : '';
+        $job_id = isset($request['job_id']) && $request['job_id'] ? $request['job_id'] : '';
+        $kn = isset($request['kn']) && $request['kn'] ? $request['kn'] : '';
+        $time = isset($request['time']) && $request['time'] ? $request['time'] : 'new';
         $response = [];
 
-        $packages = Package::getPackage([
+        $users = User::getT([
             'limit' => $limit,
             'page' => $page,
             'lat' => $lat,
             'lng' => $lng,
             's' => $s,
             'province_id' => $province_id,
-            'price_min' => $price_min,
-            'price_max' => $price_max,
-            'distance' => $distance,
+            'job_id' => $job_id,
+            'kn' => $kn,
+            'time' => $time,
         ]);
 
-        if ($packages) {
-            $package_wish = PackageWish::find()->where(['user_id' => $user_id])->asArray()->all();
-            $package_wish = array_column($package_wish, 'package_id', 'id');
-            foreach ($packages as $package) {
-                if (in_array($package['id'], $package_wish)) {
-                    $package['is_wish'] = true;
+        if ($users) {
+            $us_wish = UserWish::find()->where(['user_id_from' => $user_id,'type' => User::TYPE_THO])->asArray()->all();
+            $us_wish = array_column($us_wish, 'user_id', 'id');
+            foreach ($users as $us) {
+                if (in_array($us['user_id'], $us_wish)) {
+                    $us['is_wish'] = true;
                 } else {
-                    $package['is_wish'] = false;
+                    $us['is_wish'] = false;
                 }
-                if ($lat && $lng) {
-                    $package['km'] = (int)ClaMeter::betweenTwoPoint($lat, $lng, $package['lat'], $package['long']) . 'km';
-                } else {
-                    $package['km'] = '';
-                }
-                $response[] = $package;
+//                if ($lat && $lng) {
+//                    $us['km'] = (int)ClaMeter::betweenTwoPoint($lat, $lng, $us['lat'], $us['long']) . 'km';
+//                } else {
+//                    $us['km'] = '';
+//                }
+                $response[] = $us;
             }
         }
 

@@ -49,6 +49,7 @@ class Package extends \yii\db\ActiveRecord
     const STATUS_ACTIVE = 1;
     const STATUS_CLOSE = 0;
     public $file;
+
     /**
      * @inheritdoc
      */
@@ -63,12 +64,12 @@ class Package extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'shop_id','ward_id', 'district_id', 'province_id'], 'required'],
-            [['shop_id', 'status', 'avatar_id', 'isnew', 'ishot', 'ward_id', 'district_id', 'province_id', 'viewed', 'ckedit_desc', 'order', 'created_at', 'updated_at','delete'], 'integer'],
+            [['name', 'shop_id', 'ward_id', 'district_id', 'province_id'], 'required'],
+            [['shop_id', 'status', 'avatar_id', 'isnew', 'ishot', 'ward_id', 'district_id', 'province_id', 'viewed', 'ckedit_desc', 'order', 'created_at', 'updated_at', 'delete'], 'integer'],
             [['short_description', 'description'], 'string'],
-            [['lat', 'long'], 'number'],
+            [['lat', 'long','price','rate','rate_count'], 'number'],
             [['file'], 'file'],
-            [['status'], 'default','value' => self::STATUS_CLOSE],
+            [['status'], 'default', 'value' => self::STATUS_CLOSE],
             [['name', 'alias', 'avatar_path', 'avatar_name', 'address', 'ward_name', 'district_name', 'province_name', 'latlng', 'ho_so'], 'string', 'max' => 255],
         ];
     }
@@ -80,6 +81,7 @@ class Package extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
+            'price' => 'Giá khởi điểm',
             'name' => 'Tên gói thầu',
             'shop_id' => 'Nhà thầu',
             'alias' => 'Alias',
@@ -127,15 +129,17 @@ class Package extends \yii\db\ActiveRecord
         }
     }
 
-    static function getStatus(){
+    static function getStatus()
+    {
         return [
             self::STATUS_ACTIVE => 'Hiển thị',
             self::STATUS_CLOSE => 'Ẩn'
         ];
     }
 
-    public function getUser(){
-        return $this->hasOne(User::className(),['id' => 'shop_id'])->select('username');
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'shop_id'])->select('username');
     }
 
     public static function getImages($id)
@@ -152,24 +156,57 @@ class Package extends \yii\db\ActiveRecord
         return $result;
     }
 
-    function getDistrict($model){
+    function getDistrict($model)
+    {
         $district = [];
-        if($model->province_id){
+        if ($model->province_id) {
             $district = District::dataFromProvinceId($model->province_id);
         }
         return $district;
     }
 
-    function getWard($model){
+    function getWard($model)
+    {
         $ward = [];
-        if($model->district_id){
+        if ($model->district_id) {
             $ward = Ward::dataFromDistrictId($model->district_id);
         }
         return $ward;
     }
 
-    public function getProvince(){
-        return $this->hasOne(Province::className(),['id' => 'province_id'])->select('name,id');
+    public function getProvince()
+    {
+        return $this->hasOne(Province::className(), ['id' => 'province_id'])->select('name,id');
     }
-    
+
+    public static function getPackage($options = [])
+    {
+        $query = Package::find()->where(['status' => 1]);
+        if (isset($options['s']) && $options['s']) {
+            $query->andFilterWhere(['like', 'package.name', $options['s']]);
+        }
+
+        if (isset($options['province_id']) && $options['province_id']) {
+            $query->andFilterWhere(['province_id' => $options['province_id']]);
+        }
+
+        if (isset($options['price_min']) && $options['price_min']) {
+            $query->andFilterWhere(['>' ,'price', $options['price_min']-1]);
+        }
+        if (isset($options['price_max']) && $options['price_max']) {
+            $query->andFilterWhere(['<' ,'price', $options['price_max']+1]);
+        }
+
+        if (isset($options['limit']) && $options['limit']) {
+            $limit = $options['limit'];
+        }
+        if (isset($options['page'])) {
+            $offset = ($options['page'] - 1) * $limit;
+        } else {
+            $offset = 0;
+        }
+        return $query->joinWith(['province'])
+            ->orderBy('order ASC, updated_at DESC')
+            ->limit($limit)->offset($offset)->asArray()->all();
+    }
 }

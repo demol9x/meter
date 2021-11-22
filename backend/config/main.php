@@ -87,6 +87,9 @@ return [
         'package' => [
             'class' => 'backend\modules\package\Package',
         ],
+        'general' => [
+            'class' => 'backend\modules\general\General',
+        ],
     ],
     'components' => [
         'i18n' => [

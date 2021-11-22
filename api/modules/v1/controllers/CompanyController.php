@@ -24,7 +24,7 @@ use api\components\RestController;
 /**
  *
  */
-class PackageController extends RestController
+class CompanyController extends RestController
 {
 
     public function actionIndex()
@@ -42,7 +42,7 @@ class PackageController extends RestController
         $distance = isset($request['distance']) && $request['distance'] ? $request['distance'] : '';
         $response = [];
 
-        $packages = Package::getPackage([
+        $packages = User::getCompany([
             'limit' => $limit,
             'page' => $page,
             'lat' => $lat,

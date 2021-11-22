@@ -300,45 +300,9 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                     </li>
                                 <?php } ?>
 
-                                <?php if (Helper::checkRoute('/withdraw')) { ?>
-                                    <?php $shop_wt = \common\models\order\Order::find()->where(['type_payment' => 1, 'payment_status' => 1, 'payment_method' =>  \common\components\payments\ClaPayment::PAYMENT_METHOD_CK])->count(); ?>
+                                <?php if (Helper::checkRoute('/general/job/index') || Helper::checkRoute('/siteinfo/index') || Helper::checkRoute('/site-introduce/index') || Helper::checkRoute('/social/index')) { ?>
                                     <li>
-                                        <a>
-                                            <i class="fa fa-user-secret"></i> Quản lý ví OCOP V(voucher) <span class="fa fa-chevron-down"></span>
-                                            <?= ($shop_wt) ? '<span class="index">' . ($shop_wt) . '</span>' : '' ?>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <?php if (Helper::checkRoute('/withdraw/order/index')) { ?>
-                                                <li>
-                                                    <a href="<?= Url::to(['/withdraw/order/index']) ?>">Yêu cầu nạp tiền</a>
-                                                    <?= $shop_wt ? '<span class="index">' . $shop_wt . '</span>' : '' ?>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/recharge/index')) { ?>
-                                                <li><?= Html::a('Nạp tiền', ['/withdraw/recharge/index']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/withdraw/index')) { ?>
-                                                <li><?= Html::a('Yêu cầu rút tiền', ['/withdraw/withdraw/index']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/withdraw/history')) { ?>
-                                                <li><?= Html::a('Lịch sử rút tiền', ['/withdraw/withdraw/history']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/bank/index')) { ?>
-                                                <li><?= Html::a('Ngân hàng chuyển khoản', ['/withdraw/bank/index']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/siteinfo/index')) { ?>
-                                                <li><?= Html::a('Cấu hình V khuyến mãi', ['/withdraw/siteinfo/index']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/siteinfo/config')) { ?>
-                                                <li><?= Html::a('Cấu hình V chung', ['/withdraw/siteinfo/config']); ?></li>
-                                            <?php } ?>
-                                        </ul>
-                                    </li>
-                                <?php } ?>
-
-                                <?php if (Helper::checkRoute('/siteinfo/index') || Helper::checkRoute('/site-introduce/index') || Helper::checkRoute('/social/index')) { ?>
-                                    <li>
-                                        <a><i class="fa fa-cog"></i> Cấu hình website <span class="fa fa-chevron-down"></span></a>
+                                        <a><i class="fa fa-cog"></i> Cấu hình chung <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <?php if (Helper::checkRoute('/siteinfo/index')) { ?>
                                                 <li><?= Html::a('Thông tin cơ bản', ['/siteinfo/index']); ?></li>
@@ -346,6 +310,12 @@ $notification = \common\models\NotificationAdmin::findOne(1);
 
                                             <?php if (Helper::checkRoute('/site-introduce/index')) { ?>
                                                 <li><?= Html::a('Giới thiệu', ['/site-introduce/index']); ?></li>
+                                            <?php } ?>
+
+                                            <?php if (Helper::checkRoute('/general/job/index')) { ?>
+                                                <li>
+                                                    <?= Html::a('Nghề nghiệp', ['/general/job/index']) ?>
+                                                </li>
                                             <?php } ?>
 
                                             <?php if (Helper::checkRoute('/social/index')) { ?>

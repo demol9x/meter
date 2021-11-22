@@ -108,6 +108,7 @@ class SignupForm extends Model
                     $shop->email = $this->email;
                     $shop->number_auth = $this->number_auth;
                     $shop->business = $this->business;
+                    $shop->status = 1;
                     if (!$shop->save()) {
                         $user->delete();
                         return [
