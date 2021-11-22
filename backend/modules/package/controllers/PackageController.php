@@ -12,7 +12,6 @@ use common\models\package\PackageSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
 use yii\web\UploadedFile;
 
 /**
@@ -228,18 +227,6 @@ class PackageController extends Controller
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
-        }
-    }
-
-    public function actionDeleteImage($id)
-    {
-        if (Yii::$app->request->isAjax) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            $id = Yii::$app->request->get('id');
-            $image = PackageImage::findOne($id);
-            if ($image->delete()) {
-                return ['code' => 200];
-            }
         }
     }
 

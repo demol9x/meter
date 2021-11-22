@@ -2,10 +2,10 @@
 use yii\helpers\Url;
 ?>
 <p>
-    Thông báo đơn hàng mới từ <a href="<?= __SERVER_NAME ?>/">OCOP</a>
+    Thông báo đơn hàng mới từ <a href="<?=__SERVER_NAME?>"><?=__NAME_SITE?></a>
 </p>
 <p>
-    Bạn có đơn hàng mới từ OCOP với tổng giá trị đơn hàng là: <?= number_format($orderShop['order_total'], 0, ',', '.') ?> VNĐ
+    Bạn có đơn hàng mới từ <?=__NAME_SITE?> với tổng giá trị đơn hàng là: <?= number_format($orderShop['order_total'], 0, ',', '.') ?> VNĐ
     <br/>
     <i>(chưa bao gồm phí vận chuyển)</i>
 </p>
@@ -21,4 +21,4 @@ use yii\helpers\Url;
     <?php } ?>
 </p>
 <p>Thời gian tạo đơn hàng: <?= date('d-m-Y H:i:s', time()) ?></p>
-<p><a href="<?= __SERVER_NAME ?><?= Url::to(['/management/order/index']) ?>">Xem chi tiết</a></p>
+<p><a href="<?= __SERVER_NAME.Url::to(['/management/order/index']) ?>">Xem chi tiết</a></p>

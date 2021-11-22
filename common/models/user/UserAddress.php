@@ -3,7 +3,6 @@
 namespace common\models\user;
 
 use Yii;
-use yii\db\Query;
 
 /**
  * This is the model class for table "{{%shop_address}}".
@@ -145,15 +144,4 @@ class UserAddress extends \yii\db\ActiveRecord
         $this->latlng = $this->latlng ? $this->latlng : ($tg ? $tg->latlng : '');
         return parent::beforeSave($insert);
     }
-    public function getUnsetDefaul($id){
-        $data= (new Query())->createCommand()->update(
-            'user_address',
-            [
-                'isdefault' => 0,
-            ],
-            'user_id = ' . $id
-        )->execute();
-        return $data;
-    }
 }
-

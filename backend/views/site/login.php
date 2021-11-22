@@ -30,8 +30,8 @@ $this->title = 'Bảng quản trị';
     <div class="clearfix"></div>
     <br />
     <div>
-        <h1><i class="fa fa-paw"></i> OCOP</h1>
-        <p>©2018 All Rights Reserved. OCOP! is a Bootstrap 3 template. Privacy and Terms</p>
+        <h1><i class="fa fa-paw"></i> <?=__NAME_SITE?></h1>
+        <p>©2018 All Rights Reserved. <?=__NAME_SITE?>! is a Bootstrap 3 template. Privacy and Terms</p>
     </div>
 </div>
 <?php ActiveForm::end(); ?>

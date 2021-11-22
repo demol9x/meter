@@ -10,11 +10,11 @@ class NewsWidget extends \frontend\components\CustomWidget {
     public $view = 'view';
     public $limit = 4;
     public $data = [];
-    public $ishot = 0;
-    public $category_id = 0;
+    public $ishot;
+    public $category_id ;
     public $category = [];
     public $relation = 0;
-    public $isnew = 0;
+    public $isnew;
     public $_id = 0;
 
     public function init() {
@@ -29,7 +29,8 @@ class NewsWidget extends \frontend\components\CustomWidget {
                     'relation' => $this->relation,
                     'category_id' => $this->category_id,
                     'isnew' => $this->isnew,
-                    '_id' => $this->_id
+                    '_id' => $this->_id,
+
         ]);
 
         if ($this->category_id) {

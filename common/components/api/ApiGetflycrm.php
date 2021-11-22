@@ -39,18 +39,18 @@ class ApiGetflycrm
                     "first_name" => $user->username,
                     "email" => $user->email,
                     "phone_mobile" => $user->phone,
-                    "title" => "Người dùng OCOP"
+                    "title" => "Người dùng ".__NAME_SITE
                 ],
             ],
             'referer' => [
                 // "utm_source" => "https://getfly.vn",
                 // "utm_campaign" => "GetflyWebsite",
                 "utm_source" => __SERVER_NAME,
-                "utm_campaign" => "OCOP"
+                "utm_campaign" => __NAME_SITE
             ],
             'custom_fields' => [
                 "id_social" => $user->id_social,
-                "avatar" => $user->avatar_name ? \common\components\ClaHost::getImageHost() . $user->avatar_path . $user->avatar_name : '',
+                "avatar" => $user->avatar_name ? \common\components\ClaHost::getImageHost().$user->avatar_path.$user->avatar_name : '',
             ],
         ];
         $api = new self();

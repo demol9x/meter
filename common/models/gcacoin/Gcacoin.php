@@ -204,7 +204,7 @@ class Gcacoin extends ActiveRecord
                 \common\models\mail\SendEmail::sendMail([
                     'email' => $user->email,
                     'title' => 'Nạp V thành công.',
-                    'content' => 'Số dư thay đổi <b style="color: green"> ' . formatMoney($history->gca_coin) . '</b> OCOP V.  Số dư hiện tại: <b style="color: green">' . formatMoney($history->last_coin) . '</b>  OCOP V'
+                    'content' => 'Số dư thay đổi <b style="color: green"> ' . formatMoney($history->gca_coin) . '</b> '.__NAME_SITE.' V.  Số dư hiện tại: <b style="color: green">' . formatMoney($history->last_coin) . '</b>  '.__NAME_SITE.' V'
                 ]);
             }
         }

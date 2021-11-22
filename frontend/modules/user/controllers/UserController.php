@@ -27,10 +27,7 @@ class UserController extends CController
 
         $this->layout='main';
         $data= Tho::find()->all();
-        echo '<pre>';
-        print_r($data);
-        echo '</pre>';
-        die();
+
         return $this->render('index', [
 
         ]);

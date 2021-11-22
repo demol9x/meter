@@ -29,7 +29,7 @@ use common\models\notifications\Notifications;
                     ]);
                     ?>
 
-                    <?= $form->field($model, 'recipient_id')->dropDownList(\common\models\notifications\Notifications::getArrNotification()) ?>
+                    <?= $form->field($model, 'recipient_id')->dropDownList(\common\models\notifications\Notifications::getArrNotificationRule()) ?>
                     <p>
                         1, Chọn tài khoản: U-{ID tài khoản}<br />
                         2, Chọn nhóm tài khoản: <?= Notifications::TYPE_USER_GROUP ?>-{Tên nhóm}<br />

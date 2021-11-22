@@ -66,12 +66,12 @@ class SendEmail extends \common\components\ClaActiveRecord
         if (isset($arr["title"])) {
             $title = $arr["title"];
         } else {
-            $title = "Thông báo từ ocopmart.org";
+            $title = "Thông báo từ ".__NAME;
         }
         if (isset($arr["content"])) {
             $content = $arr["content"];
         } else {
-            $content = "Cám ơn quý khách đã sử dụng dịch vụ của ocopmart.org.<br/> <a href='<?= __SERVER_NAME ?>/'>Đến trang web ngay</a>";
+            $content = "Cám ơn quý khách đã sử dụng dịch vụ của ".__NAME.".<br/> <a href='".__SERVER_NAME."'>Đến trang web ngay</a>";
         }
         $content = \frontend\widgets\mail\MailWidget::widget([
             'view' => 'view',

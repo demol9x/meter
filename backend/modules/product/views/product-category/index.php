@@ -4,7 +4,6 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $datas = (new \common\models\product\ProductCategory())->getDataProvider();
-
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\ProductCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */

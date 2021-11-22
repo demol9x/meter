@@ -18,7 +18,7 @@ class NewsSearch extends News
     public function rules()
     {
         return [
-            [['id', 'category_id', 'status', 'updated_at', 'publicdate', 'viewed', 'ishot', 'created_at'], 'integer'],
+            [['id', 'category_id', 'status', 'updated_at', 'publicdate', 'viewed', 'ishot', 'created_at','type'], 'integer'],
             [['title', 'alias', 'short_description', 'description', 'meta_keywords', 'meta_description', 'meta_title', 'avatar_path', 'avatar_name', 'author', 'source'], 'safe'],
         ];
     }
@@ -67,6 +67,7 @@ class NewsSearch extends News
             'viewed' => $this->viewed,
             'ishot' => $this->ishot,
             'created_at' => $this->created_at,
+            'type' => $this->type,
         ]);
 
         $query->andFilterWhere(['like', 'title', $this->title])

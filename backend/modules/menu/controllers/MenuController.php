@@ -217,6 +217,7 @@ class MenuController extends Controller {
             echo json_encode($return);
             Yii::$app->end();
         }
+        //
     }
 
 }

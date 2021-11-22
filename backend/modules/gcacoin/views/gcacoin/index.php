@@ -15,7 +15,7 @@ use yii\helpers\Url;
                             <table class="table table-striped table-bordered">
                                 <thead>
                                 <tr>
-                                    <th>(%)giảm giá khi thanh toán bằng PGA V</th>
+                                    <th>(%)giảm giá khi thanh toán bằng <?=__NAME_SITE?> V</th>
                                     <th>Tỉ lệ quy đổi tiền/V</th>
                                     <th class="action-column" style="width: 6%">Sửa</th>
                                 </tr>

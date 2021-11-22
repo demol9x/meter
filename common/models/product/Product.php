@@ -311,7 +311,38 @@ class Product extends \common\models\ActiveRecordC
             ->all();
         return $data;
     }
-
+    public static function getProvince($options = [])
+    {
+        $condition = 'status=:status';
+        $params = [
+            ':status' => ClaLid::STATUS_ACTIVED
+        ];
+        // search theo keywords
+        if (isset($options['keyword']) && $options['keyword']) {
+            $condition .= " AND MATCH (title) AGAINST (:title IN BOOLEAN MODE)";
+            $params[':title'] = $options['keyword'];
+        }
+        $skills_temp = ArrayHelper::map(Province::find()->asArray()->all(), 'id', 'name');
+        $results = [];
+        $province = (new Query())->select('province_id')
+            ->from('product')
+            ->where($condition, $params)
+            ->column();
+        if (isset($province) && $province) {
+            foreach ($province as $skill) {
+                $skill_explode = explode(' ', $skill);
+                foreach ($skill_explode as $skill_id) {
+                    if (isset($results[$skill_id]['count_job'])) {
+                        $results[$skill_id]['count_job']++;
+                    } else {
+                        $results[$skill_id]['count_job'] = 1;
+                        $results[$skill_id]['name'] = $skills_temp[$skill_id];
+                    }
+                }
+            }
+        }
+        return $results;
+    }
     /**
      * @param array $options
      * @return array
@@ -327,6 +358,15 @@ class Product extends \common\models\ActiveRecordC
             ];
             $condition .= ' AND r.status=:status';
             $condition .= ' AND pc.status=:status';
+        }
+
+        if (isset($options['wholesale']) && isset($options['retail'])) {
+            unset($options['wholesale']);
+            unset($options['retail']);
+        }
+        if (isset($options['category_id']) && $options['category_id']) {
+            $cats = is_array($options['category_id']) ? implode(' ', $options['category_id']) : $options['category_id'];
+            $condition .= " AND MATCH (t.category_track) AGAINST ('" . __removeDF($cats) . "' IN BOOLEAN MODE)";
         }
 
         if (isset($options['status_quantity'])) {
@@ -421,7 +461,9 @@ class Product extends \common\models\ActiveRecordC
         if (isset($options['keyword']) && $options['keyword']) {
             $query->andWhere("(MATCH (t.name) AGAINST ('" . $options['keyword'] . "' IN BOOLEAN MODE))");
         }
-
+        if (isset($options['sort_desc']) && $options['sort_desc']) {
+            $order='t.name ASC';
+        }
         if (isset($options['count'])) {
             $total = $query->count();
             return $total;

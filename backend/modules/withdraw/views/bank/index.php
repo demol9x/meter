@@ -3,7 +3,6 @@
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\grid\GridView;
-use common\models\shop\Shop;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\search\UserSearch */
@@ -19,14 +18,30 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="x_panel">
                 <div class="x_title">
                     <h2><?= Html::encode($this->title) ?></h2>
+                    <?php // echo Html::a('Thêm tiền vào số điện thoại', ['create'], ['class' => 'btn btn-success pull-right'])
+                    ?>
                     <?= Html::a('Xuất exel', ['/exel/exel', 'type' => 'USER'], ['class' => 'btn btn-success pull-right', 'target' => '_blank']) ?>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                   <pre>
-                   <?php print_r($data);
+                    <?=
+                    GridView::widget([
+                        'dataProvider' => $dataProvider,
+                        'filterModel' => $searchModel,
+                        'columns' => [
+                            ['class' => 'yii\grid\SerialColumn'],
+                            'id',
+                            'bank_name',
+                            'number',
+                            'user_name',
+                            'address',
+                            [
+                                'class' => 'yii\grid\ActionColumn',
+                                'template' => '{update}'
+                            ],
+                        ],
+                    ]);
                     ?>
-                   </pre>
                 </div>
             </div>
         </div>

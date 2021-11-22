@@ -54,4 +54,10 @@ class ClaSite {
         }
         return false;
     }
+    public static function formatPrice($price1=0, $price2=0) {
+        if ($price1<1000 && $price2<1000) {
+            return $price1 ? $price2 .' - '. $price1 .' triệu' : '> '. $price2.' triệu';
+        }
+        return $price1 ? ($price2/1000) .' - '. ($price1/1000) .' tỷ' : '> '. ($price2/1000).' tỷ';
+    }
 }

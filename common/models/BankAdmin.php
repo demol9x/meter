@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\data\ActiveDataProvider;
 
 /**
  * This is the model class for table "{{%bank_admin}}".
@@ -54,5 +55,35 @@ class BankAdmin extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
+    }
+    public function search($params)
+    {
+        $query = BankAdmin::find();
+
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'bank_name' => $this->bank_name,
+            'number' => $this->number,
+            'user_name' => $this->user_name,
+        ]);
+
+        if(!isset($_GET['sort'])) {
+            $query->orderBy('id DESC');
+        }
+        return $dataProvider;
     }
 }

@@ -69,10 +69,12 @@ class UserAdminController extends Controller
         $model->scenario = 'create';
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
+                $user->loadRuleNotify($_POST);
+                $user->save();
+                Yii::$app->session->setFlash('success', 'Lưu thành công.');
                 return $this->redirect(['index']);
             }
         }
-
         return $this->render('create', [
             'model' => $model,
         ]);
@@ -91,7 +93,8 @@ class UserAdminController extends Controller
         $model->username = $model_admin->username;
         $model->email = $model_admin->email;
         $model->status = $model_admin->status;
-        $model->type = $model_admin->type;
+        // $model->type = $model_admin->type;
+        $model->rule_notifys = $model_admin->rule_notifys;
         if ($model->load(Yii::$app->request->post())) {
             $model_admin->attributes = $model->attributes;
             if ($model->password) {
@@ -101,6 +104,7 @@ class UserAdminController extends Controller
                 $model_admin->setPassword2($model->password2);
             }
             $model_admin->generateAuthKey();
+            $model_admin->loadRuleNotify($_POST);
             if ($model_admin->save()) {
                 Yii::$app->session->setFlash('success', 'Lưu thành công.');
                 return $this->redirect(['index']);

@@ -30,6 +30,12 @@ use common\components\ClaLid;
                 <div class="x_content">
                     <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
 
+                    <?= $form->field($model, 'position')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'work_place')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'website')->textInput(['maxlength' => true]) ?>
+
                     <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true, 'value' => '']) ?>
 
                     <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
@@ -43,6 +49,14 @@ use common\components\ClaLid;
                     <?= $form->field($model, 'link_facebook')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'user_before')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'vdiarybook')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'zalo')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'viber')->textInput(['maxlength' => true]) ?>
+
+                    <?= $form->field($model, 'skype')->textInput(['maxlength' => true]) ?>
 
                     <?=
                         $form->field($model, 'status')->dropDownList([

@@ -1,5 +1,6 @@
 <?php
 
+use common\models\news\News;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use common\models\news\NewsCategory;
@@ -63,6 +64,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                         return $html;
                                     },
                                     'filter' => Html::activeDropDownList($searchModel, 'status', [2 => Yii::t('app', 'status_2'), 1 => Yii::t('app', 'status_1'), 0 => Yii::t('app', 'status_0')], ['class' => 'form-control', 'prompt' => Yii::t('app', 'selects')])
+                                ],
+                                [
+                                    'attribute' => 'type',
+                                    'content' => function ($model) {
+                                        return News::getType()[$model->type];
+                                    },
+                                    'filter' => Html::activeDropDownList($searchModel, 'type', News::getType(), ['class' => 'form-control', 'prompt' => Yii::t('app', 'selects')])
                                 ],
                                 'publicdate' => [
                                     'header' => 'Ngày đăng lên web',

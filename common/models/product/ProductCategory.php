@@ -61,9 +61,10 @@ class ProductCategory extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name'], 'required'],
+            [['name','category_type'], 'required'],
             [['parent', 'level', 'created_at', 'updated_at', 'status', 'attribute_set_id', 'order', 'point_percent'], 'integer'],
-            [['name', 'alias', 'track', 'meta_keywords', 'meta_description', 'meta_title', 'avatar_path', 'avatar_name'], 'string', 'max' => 255],
+            [['mat_tien', 'duong_vao', 'huong_nha', 'huong_ban_cong', 'so_tang', 'so_phong_ngu', 'so_toilet', 'noi_that','thong_tin_phap_ly'], 'integer'],
+            [['name', 'alias', 'track', 'meta_keywords', 'meta_description', 'meta_title', 'avatar_path', 'avatar_name','category_type','banner'], 'string', 'max' => 255],
             [['avatar', 'avatar2', 'avatar3', 'isnew', 'show_in_home', 'show_in_home_2', 'frontend_not_up'], 'safe']
         ];
     }
@@ -95,7 +96,17 @@ class ProductCategory extends \yii\db\ActiveRecord
             'show_in_home' => Yii::t('app', 'show_in_home'),
             'point_percent' => Yii::t('app', 'point_percent'),
             'show_in_home_2' => 'Hiện thị danh mục',
-            'frontend_not_up' => 'Chỉ giành cho Admin'
+            'frontend_not_up' => 'Chỉ giành cho Admin',
+            'mat_tien' => 'Mặt tiền',
+            'duong_vao' => 'Đường vào',
+            'huong_nha' => 'Hướng nhà',
+            'huong_ban_cong' => 'Hướng ban công',
+            'so_tang' => 'Số tầng',
+            'so_phong_ngu' => 'Số phòng ngủ',
+            'so_toilet' => 'Số toilet',
+            'noi_that' => 'Nội thất',
+            'thong_tin_phap_ly' => 'Thông tin pháp lý',
+            'category_type' => 'Hình thức',
         ];
     }
 
@@ -153,6 +164,26 @@ class ProductCategory extends \yii\db\ActiveRecord
             unset($this->_cats[$this->id]);
         }
         return $this->_cats;
+    }
+
+    public function optionsCategoryByType($category_type_id)
+    {
+        $query = "SELECT * FROM product_category WHERE status=1";
+        if (isset($category_type_id) && $category_type_id) {
+            $query .= " AND MATCH (category_type) AGAINST ('" . $category_type_id . "' IN BOOLEAN MODE)";
+            $data = Yii::$app->db->createCommand($query)->queryAll();
+        }else{
+            $data = [];
+        }
+        $data = array_column($data,'name','id');
+        return $data;
+    }
+
+    public function optionsCategoryType()
+    {
+        $category_types = ProductCategoryType::find()->asArray()->all();
+        $category_types = array_column($category_types,'name','id');
+        return $category_types;
     }
 
     public function getDataProvider($parent = 0, $level = 0)
@@ -268,6 +299,19 @@ class ProductCategory extends \yii\db\ActiveRecord
         return $data;
     }
 
+    public static function getCategory($option = [], $order = 'order ASC')
+    {
+        $condition = ['status' =>1];
+        if (isset($option)) {
+            $condition += $option;
+        }
+        return (new Query())->select('id,name,alias,parent,track,status,avatar_path,avatar_name,icon_path,icon_name,isnew,show_in_home,order,bgr_path,bgr_name,show_in_home_2,banner')
+            ->from('product_category')
+            ->where($condition)
+            ->orderBy($order)
+            ->all();
+    }
+
     public static function getItemInShop($shop_id)
     {
         return (new Query())->select('*')
@@ -372,5 +416,15 @@ class ProductCategory extends \yii\db\ActiveRecord
         }
         return $data;
         // return self::find()->where(['show_in_home_2' => 1])->orderBy('order ASC')->all();
+    }
+
+    static function getByType($type_id){
+        $data = [];
+        $query = "SELECT * FROM product_category WHERE status=1";
+        if (isset($type_id) && $type_id) {
+            $query .= " AND MATCH (category_type) AGAINST ('" . $type_id . "' IN BOOLEAN MODE)";
+            $data = Yii::$app->db->createCommand($query)->queryAll();
+        }
+        return $data;
     }
 }

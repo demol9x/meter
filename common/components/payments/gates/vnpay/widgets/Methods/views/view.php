@@ -1,21 +1,26 @@
+<?php
+$bankcks = \common\models\BankAdmin::find()->orderBy('isdefault DESC')->all();
+$bank_df = $bankcks ? $bankcks[0] : [];
+?>
 <style>
     .disabledbutton {
         pointer-events: none;
         opacity: 0.4;
+        display: none;
     }
 </style>
 <div class="payment-method">
     <div class="col-xs-12 payment">
         <ul class="list-content">
             <li class="">
-                <label><input checked="" id="input-defaunt" type="radio" value="<?= \common\components\payments\ClaPayment::PAYMENT_METHOD_NR; ?>" name="Order[payment_method]" ><?= Yii::t('app', 'cash_method') ?></label>
+                <label><input checked="" id="input-defaunt" type="radio" value="<?= \common\components\payments\ClaPayment::PAYMENT_METHOD_NR; ?>" name="Order[payment_method]"><?= Yii::t('app', 'cash_method') ?></label>
             </li>
-            <li class="">
+            <li class="disabledbutton">
                 <label><input type="radio" value="<?= \common\components\payments\ClaPayment::PAYMENT_METHOD_QR; ?>" name="Order[payment_method]"><?= Yii::t('app', 'qr_method') ?></label>
             </li>
-            <li class="">
-                <label><input type="radio" onclick="checkMoney()" value="<?= \common\components\payments\ClaPayment::PAYMENT_METHOD_MEMBERIN; ?>" name="Order[payment_method]" ><?= Yii::t('app', 'member_method') ?></label>
-            </li> 
+            <li class="disabledbutton">
+                <label><input type="radio" onclick="checkMoney()" value="<?= \common\components\payments\ClaPayment::PAYMENT_METHOD_MEMBERIN; ?>" name="Order[payment_method]"><?= Yii::t('app', 'member_method') ?></label>
+            </li>
             <li class="disabledbutton">
                 <label>
                     <input type="radio" value="<?= \common\components\payments\ClaPayment::PAYMENT_METHOD_VNPay; ?>" name="Order[payment_method]"><?= Yii::t('app', 'internet_banking_method') ?>(Cập nhật)
@@ -185,10 +190,66 @@
                                         <input type="radio" value="VISA" name="Order[payment_method_child]">
                                     </label>
                                 </li>
-                                <?php
+                        <?php
                             }
                         }
-                                ?>
+                        ?>
+                    </ul>
+                </div>
+            </li>
+            <li class="">
+                <label>
+                    <input type="radio" value="<?= \common\components\payments\ClaPayment::PAYMENT_METHOD_CK; ?>" name="Order[payment_method]">Chuyển khoản
+                </label>
+                <div class="boxContent">
+                    <ul class="cardListck clearfix">
+                        <?php if ($bankcks) { ?>
+                            <style>
+                                .list-content .nice-select {
+                                    width: 100%;
+                                    margin-bottom: 10px;
+                                }
+
+                                .list-content .nice-select .list {
+                                    width: 100%;
+                                }
+
+                                .create-page-store .form-create-store {
+                                    padding-bottom: 30px;
+                                }
+                            </style>
+                            <li class="active">
+                                <div class="boxContent">
+                                    <select name="Order[payment_method_child]" id="bank_id">
+                                        <?php foreach ($bankcks as $bank) { ?>
+                                            <option value="<?= $bank->id ?>" data-name="<?= $bank->bank_name ?>" data-uname="<b><?= $bank->user_name ?>" data-code="<?= $bank->number ?>" data-add="<?= $bank->address ?>"><?= $bank->bank_name ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <div class="info">
+                                        <ul>
+                                            <li>Tên ngân hàng: <b class="data-name"><?= $bank_df->bank_name ?></b></li>
+                                            <li>Số tài khoản: <b class="data-code"><?= $bank_df->number ?></b></li>
+                                            <li>Chủ tài khoản: <b class="data-uname"><?= $bank_df->user_name ?></b></li>
+                                            <li>Chi nhánh: <b class="data-add"><?= $bank_df->address ?></b></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </li>
+                            <script>
+                                $(document).on('change', '#bank_id', function() {
+                                    sl = $("#bank_id option:selected");
+                                    $('.data-name').html(sl.attr('data-name'));
+                                    $('.data-code').html(sl.attr('data-code'));
+                                    $('.data-uname').html(sl.attr('data-uname'));
+                                    $('.data-add').html(sl.attr('data-add'));
+                                })
+                            </script>
+                        <?php } ?>
+                        <p>
+                            <i>
+                                <span style="color:#ff5a00;font-weight:bold;text-decoration:underline;">Lưu ý</span>: Trường hợp bạn không sử dụng Internet Banking bạn có thể đến nạp V trực tiếp tại văn phòng công ty.
+                            </i>
+                        </p>
                     </ul>
                 </div>
             </li>

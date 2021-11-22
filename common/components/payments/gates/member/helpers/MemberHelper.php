@@ -85,11 +85,11 @@ class MemberHelper extends Component {
             'version' => $this->version,
             'merchant_id' => $this->merchant_id, //Mã merchant khai báo tại member, chưa cần phần này
             'receiver_email' => $this->receiver_email,
-            'merchant_password' => MD5($this->merchant_password), //MD5(Mật khẩu kết nối giữa merchant)						
+            'merchant_password' => MD5($this->merchant_password), //MD5(Mật khẩu kết nối giữa merchant)
             'order_code' => $order_code, //Mã hóa đơn do website bán hàng sinh ra
             'total_amount' => $total_amount, //Tổng số tiền của hóa đơn
-            'payment_method' => 'WALLET', //Phương thức thanh toán, nhận một trong các giá trị 'VISA','ATM_ONLINE', 'ATM_OFFLINE' hoặc 'NH_OFFLINE'												
-            'bank_code' => $bank_code, //Phương thức thanh toán, nhận một trong các giá trị 'VISA','ATM_ONLINE', 'ATM_OFFLINE' hoặc 'NH_OFFLINE'												
+            'payment_method' => 'WALLET', //Phương thức thanh toán, nhận một trong các giá trị 'VISA','ATM_ONLINE', 'ATM_OFFLINE' hoặc 'NH_OFFLINE'
+            'bank_code' => $bank_code, //Phương thức thanh toán, nhận một trong các giá trị 'VISA','ATM_ONLINE', 'ATM_OFFLINE' hoặc 'NH_OFFLINE'
             'payment_type' => $payment_type, //Kiểu giao dịch: 1 - Ngay; 2 - Tạm giữ; Nếu không truyền hoặc bằng rỗng thì lấy theo chính sách của
             'order_description' => $order_description, //Mô tả đơn hàng
             'tax_amount' => $tax_amount, //Tổng số tiền thuế

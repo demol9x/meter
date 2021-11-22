@@ -2,6 +2,8 @@
 
 namespace backend\modules\product\controllers;
 
+use common\components\ClaBds;
+use common\models\product\Project;
 use Yii;
 use common\models\product\Product;
 use common\models\product\ProductCategory;
@@ -10,9 +12,7 @@ use common\models\product\ProductAttributeOptionPrice;
 use common\models\product\ProductAttribute;
 use common\models\product\ProductRelation;
 use common\models\product\ProductImage;
-use common\models\product\ProductConfigurable;
 use common\models\product\search\ProductSearch;
-use keltstr\simplehtmldom\SimpleHTMLDom as SHD;
 use common\components\ClaCategory;
 use common\components\UploadLib;
 use common\components\ClaLid;
@@ -21,7 +21,6 @@ use yii\helpers\Url;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
-use common\models\transport\Transport;
 use common\models\transport\ShopTransport;
 use common\models\transport\ProductTransport;
 use common\models\product\CertificateProduct;
@@ -88,6 +87,7 @@ class ProductController extends Controller
     public function actionCreate()
     {
         $model = new Product();
+        $provinces = \common\models\Province::find()->where([])->asArray()->all();
 
         if ($model->load(Yii::$app->request->post())) {
             $newimage = Yii::$app->request->post('newimage');
@@ -107,8 +107,6 @@ class ProductController extends Controller
                 }
             }
             $categoryTrack = implode(ClaCategory::CATEGORY_SPLIT, $categoryTrack);
-            $shop = Shop::findOne($model->shop_id);
-            $model->province_id = $shop->province_id;
             //
             $model->category_track = $categoryTrack;
             $model->start_time = $model->start_time ? strtotime($model->start_time) : 0;
@@ -154,6 +152,9 @@ class ProductController extends Controller
                 }
                 $model->videos = $videos ? implode(',.,', $videos) : '';
             }
+            // $model->price_to_million = ClaBds::convertPriceToMillion($model->bo_donvi_tiente,$model->price_type,$model->price,$model->dien_tich);
+            $model->lat = $_POST['Product']['lat'];
+            $model->long = $_POST['Product']['long'];
             if ($model->save()) {
                 //
                 $setava = Yii::$app->request->post('setava');
@@ -190,6 +191,28 @@ class ProductController extends Controller
                     $model->avatar_id = $avatar['id'];
                     $model->save();
                 }
+                //
+                $certificates = Yii::$app->request->post('certificate');
+                if (count($certificates)) {
+                    for ($i = 0; $i < count($certificates); $i++) {
+                        $cer = Yii::$app->request->post('certificate' . $certificates[$i]);
+                        if ($cer) {
+                            $img = Yii::$app->session[$cer];
+                            if ($img) {
+                                $cer_item = new CertificateProductItem();
+                                $cer_item->avatar_path = $img['baseUrl'];
+                                $cer_item->avatar_name = $img['name'];
+                                $cer_item->product_id = $model->id;
+                                $cer_item->certificate_product_id = $certificates[$i];
+                                if ($certificates[$i] == 4) {
+                                    $cer_item->link_certificate = (isset($_POST['link_certificate'])) ? $_POST['link_certificate'] : '';
+                                    $cer_item->code = (isset($_POST['code_certificate'])) ? $_POST['code_certificate'] : '';
+                                }
+                                $cer_item->save();
+                            }
+                        }
+                    }
+                }
 
                 ProductTransport::updateAll(
                     ['status' => 1, 'product_id' => $model->id],
@@ -208,8 +231,11 @@ class ProductController extends Controller
         $attributes_changeprice = [];
         return $this->render('create', [
             'model' => $model,
+            'provinces' => $provinces,
             'images' => $images,
             'attributes_changeprice' => $attributes_changeprice,
+            'certificates' => CertificateProduct::find()->all(),
+            'certificate_items' => [],
             'shop_transports' => [],
             'product_transports' => [],
         ]);
@@ -224,6 +250,9 @@ class ProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $provinces = \common\models\Province::find()->where([])->asArray()->all();
+        $district = \common\models\District::find()->where(['province_id' => $model->province_id])->asArray()->all();
+        $wards = \common\models\Ward::find()->where(['district_id' => $model->district_id])->asArray()->all();
         $shop_old = $model->shop_id;
         if ($model->load(Yii::$app->request->post())) {
             //
@@ -294,6 +323,11 @@ class ProductController extends Controller
             }
             $model->admin_update = Yii::$app->user->id;
             $model->admin_update_time = time();
+            $model->price_to_million = ClaBds::convertPriceToMillion($model->bo_donvi_tiente,$model->price_type,$model->price,$model->dien_tich);
+
+            $model->lat = $_POST['Product']['lat'];
+            $model->long = $_POST['Product']['long'];
+
             if ($model->save()) {
 
                 if ($shop_old != $model->shop_id) {
@@ -378,7 +412,7 @@ class ProductController extends Controller
                         if ($cer) {
                             $img = Yii::$app->session[$cer];
                             $cer_item = CertificateProductItem::find()->where(['product_id' => $model->id, 'certificate_product_id' => $certificates[$i]])->one();
-                            $cer_item = $cer_item ? $cer_item :  new CertificateProductItem();
+                            $cer_item = $cer_item ? $cer_item : new CertificateProductItem();
                             if ($img) {
                                 $cer_item->avatar_path = $img['baseUrl'];
                                 $cer_item->avatar_name = $img['name'];
@@ -414,6 +448,9 @@ class ProductController extends Controller
         return $this->render('update', [
             'model' => $model,
             'images' => $images,
+            'provinces' => $provinces,
+            'district' => $district,
+            'wards' => $wards,
             'attributes_changeprice' => $attributes_changeprice,
             'certificates' => $certificates,
             'certificate_items' => $certificate_items,
@@ -522,7 +559,7 @@ class ProductController extends Controller
                                 $value = str_replace(array(".", ","), '', $value);
                                 $model->$field = is_numeric($value) ? $value : 0;
                             } else {
-                                $model->$field = (int) $value;
+                                $model->$field = (int)$value;
                             }
                         }
                     }
@@ -749,7 +786,7 @@ class ProductController extends Controller
                 $transport->status = $product_ids ? 1 : 2;
             } else {
                 $transport = new ProductTransport();
-                $transport->status =  $product_ids ? 1 : 2;
+                $transport->status = $product_ids ? 1 : 2;
                 $transport->transport_id = $transport_id;
                 $transport->product_id = $product_id;
             }
@@ -787,7 +824,7 @@ class ProductController extends Controller
             $avatartg->name = $name;
             $avatartg->save();
         } else {
-            if ($avatartg = \common\models\media\ImagesTemp::findOne($id));
+            if ($avatartg = \common\models\media\ImagesTemp::findOne($id)) ;
             $avatartg->path = '/media/images/product/';
             $avatartg->name = $name;
             $avatartg->save();
@@ -913,6 +950,7 @@ class ProductController extends Controller
             return \yii\helpers\Json::encode(array('code' => 400));
         }
     }
+
     // Vo so connect
     public function actionUpdatermtvscn($id)
     {
@@ -1058,5 +1096,38 @@ class ProductController extends Controller
         echo '<table>';
         echo $table;
         echo '</table>';
+    }
+
+    public function actionGetDistrict()
+    {
+        $req = Yii::$app->request;
+        if ($req->isAjax) {
+            $request = $_GET;
+            // $data = \common\models\District::dataFromProvinceId($request['province_id']);
+            $data = \common\models\District::find()->where(['province_id' => $request['province_id']])->asArray()->all();
+            $projects = Project::find()->where(['province_id' => $request['province_id']])->asArray()->all();
+            $projects = array_column($projects,'name','id');
+            $response['district'] = $data;
+            $response['project'] = $projects;
+            return json_encode($response);
+        } else {
+            return false;
+        }
+    }
+
+    public function actionGetWard()
+    {
+        $req = Yii::$app->request;
+        if ($req->isAjax) {
+            $request = $_GET;
+            $data = \common\models\Ward::find()->where(['district_id' => $request['district_id']])->asArray()->all();
+            $projects = Project::find()->where(['district_id' => $request['district_id']])->asArray()->all();
+            $projects = array_column($projects,'name','id');
+            $response['ward'] = $data;
+            $response['project'] = $projects;
+            return json_encode($response);
+        } else {
+            return false;
+        }
     }
 }

@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                 <option value="0">Tất cả</option>
                                 <option value="1">Tất cả người dùng thường</option>
                                 <option value="2">Tất cả chủ gian hàng</option>
+                                <option value="3">Tất cả nhóm người dùng</option>
                             </select>
                          </div>
                         <div class="form-group">

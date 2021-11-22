@@ -35,9 +35,12 @@ class BankController extends Controller
      */
     public function actionIndex()
     {
-        $data = BankAdmin::find()->all();
+        $searchModel = new BankAdmin();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = 50;
         return $this->render('index', [
-            'data' => $data,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -80,15 +83,7 @@ class BankController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->scenario = 'backend';
-        $password_hash = $model->password_hash;
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            if ($model->password_hash && strlen($model->password_hash) >= 6) {
-                $model->password_hash = Yii::$app->security->generatePasswordHash($model->password_hash);
-            } else {
-                $model->password_hash = $password_hash;
-            }
             if ($model->save()) {
                 Yii::$app->session->setFlash('success', 'Cập nhật thành công');
                 return $this->redirect(['update', 'id' => $model->id]);

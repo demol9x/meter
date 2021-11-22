@@ -28,11 +28,11 @@ use common\components\ClaHost;
             'type' => 'images',
             'id' => 'imageupload',
             'buttonheight' => 25,
-            'path' => array('news'),
+            'path' => array('products'),
             'limit' => 100,
             'multi' => true,
             'imageoptions' => array(
-                'resizes' => array(array(200, 200))
+                'resizes' => array(array(300, 300))
             ),
             'buttontext' => 'Thêm ảnh',
             'displayvaluebox' => false,

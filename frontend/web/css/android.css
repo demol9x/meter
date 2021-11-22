@@ -1,0 +1,33 @@
+body {
+	padding-top: 40px;
+}
+/*body .fix-all {
+    top: 55px !important;
+}*/
+body .front-back-page { 
+    top: 55px !important;
+}
+body .front-back-page .menu-bar-store {
+	max-height: 70vh;
+    overflow: auto;
+}
+#box-search-mobile {
+  	top: 0px;
+}
+.create-page-store {
+    padding-top: 57px !important;
+}
+#btn-send-message {
+    z-index: 9999999 !important;
+    bottom: 50px !important;
+    left: 8px !important;
+}
+body .scroll-top-btn {
+    bottom: 40px !important;
+    right: 8px !important;
+    left: unset !important
+}
+#shopee-chat-embedded{
+    bottom: 50px !important;
+    z-index: 9999999 !important;
+}

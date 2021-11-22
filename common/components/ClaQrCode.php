@@ -22,9 +22,9 @@ use Yii;
 
 class ClaQrCode
 {
-    const URL_OTP = 'https://pga-partner.vn/api/v1/sms/';
+    const URL_OTP = '/api/v1/sms/';
     const TOKEN_OTP = 'ios16052018_gca2018';
-    const TRANSACTION_CODE = 'GCA';
+    const TRANSACTION_CODE = __NAME_SITE;
     const TYPE_USER = 'user';
     const TYPE_PRODUCT = 'product';
     const TYPE_ORDER = 'order';
@@ -89,7 +89,7 @@ class ClaQrCode
                 $qr->save();
             }
         }
-        
+
         return $src;
     }
 
@@ -149,7 +149,7 @@ class ClaQrCode
         } elseif ($type == self::TYPE_USER) {
             $noti->title = $info_noti->title;
             $noti->description = $info_noti->content;
-            $noti->link = 'https://pga-partner.vn/vi-pga-v.html';
+            $noti->link = __SERVER_NAME.'/vi-pga-v.html';
             $noti->type = 3;
             $noti->recipient_id = $user_id;
             $noti->unread = ClaLid::STATUS_ACTIVED;

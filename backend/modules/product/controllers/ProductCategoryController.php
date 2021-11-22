@@ -2,6 +2,8 @@
 
 namespace backend\modules\product\controllers;
 
+use common\components\ClaBds;
+use common\models\product\ProductCategoryType;
 use Yii;
 use common\models\product\ProductCategory;
 use common\models\product\ProductAttribute;
@@ -16,12 +18,14 @@ use yii\filters\VerbFilter;
 /**
  * ProductCategoryController implements the CRUD actions for ProductCategory model.
  */
-class ProductCategoryController extends Controller {
+class ProductCategoryController extends Controller
+{
 
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -36,13 +40,14 @@ class ProductCategoryController extends Controller {
      * Lists all ProductCategory models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new ProductCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination->pageSize = 100;
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -50,13 +55,14 @@ class ProductCategoryController extends Controller {
      * Lists all ProductCategory models.
      * @return mixed
      */
-    public function actionIndexPoint() {
+    public function actionIndexPoint()
+    {
         $searchModel = new ProductCategorySearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination->pageSize = 100;
         return $this->render('index_point', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -65,9 +71,10 @@ class ProductCategoryController extends Controller {
      * @param string $id
      * @return mixed
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -76,7 +83,8 @@ class ProductCategoryController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new ProductCategory();
 
         if ($model->load(Yii::$app->request->post())) {
@@ -111,18 +119,28 @@ class ProductCategoryController extends Controller {
                 }
                 unset(Yii::$app->session[$model->avatar3]);
             }
+            if ($model->banner) {
+                $banner = Yii::$app->session[$model->banner];
+                if ($banner) {
+                    $model->banner = ClaHost::getImageHost() . $banner['baseUrl'] . $banner['name'];
+                }
+                unset(Yii::$app->session[$model->banner]);
+            }
             if (isset($_POST['Attribute'])) {
                 $attributes = $_POST['Attribute'];
                 $this->_prepareAttribute($attributes, $model);
             } else {
                 $model->dynamic_field = NULL;
             }
+            if(isset($model->category_type) && $model->category_type){
+                $model->category_type = implode(',', $model->category_type);
+            }
             if ($model->save()) {
                 return $this->redirect(['index']);
             }
         }
         return $this->render('create', [
-                    'model' => $model,
+            'model' => $model,
         ]);
     }
 
@@ -132,7 +150,8 @@ class ProductCategoryController extends Controller {
      * @param string $id
      * @return mixed
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id)
+    {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -167,23 +186,32 @@ class ProductCategoryController extends Controller {
                 }
                 unset(Yii::$app->session[$model->avatar3]);
             }
+            if ($model->banner) {
+                $banner = Yii::$app->session[$model->banner];
+                if ($banner) {
+                    $model->banner = ClaHost::getImageHost() . $banner['baseUrl'] . $banner['name'];
+                }
+                unset(Yii::$app->session[$model->banner]);
+            }
             if (isset($_POST['Attribute'])) {
                 $attributes = $_POST['Attribute'];
                 $this->_prepareAttribute($attributes, $model);
             } else {
                 $model->dynamic_field = NULL;
             }
+            $model->category_type = implode(',', $model->category_type);
             if ($model->save()) {
                 return $this->redirect(['index']);
             }
         } else {
             return $this->render('update', [
-                        'model' => $model,
+                'model' => $model,
             ]);
         }
     }
 
-    public function actionUpdatePoint($id) {
+    public function actionUpdatePoint($id)
+    {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
@@ -229,12 +257,13 @@ class ProductCategoryController extends Controller {
             }
         } else {
             return $this->render('update_point', [
-                        'model' => $model,
+                'model' => $model,
             ]);
         }
     }
 
-    protected function _prepareAttribute($attributes, $model) {
+    protected function _prepareAttribute($attributes, $model)
+    {
         $attributeValue = array();
         if (!empty($attributes)) {
             foreach ($attributes as $key => $value) {
@@ -263,15 +292,21 @@ class ProductCategoryController extends Controller {
      * @param string $id
      * @return mixed
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
+        $datas = (new \common\models\product\ProductCategory())->getDataProvider($id);
+        if (count($datas)) {
+            Yii::$app->session->setFlash('error', 'Bạn phải xóa tất cả danh mục con thuộc danh mục này trước.');
+            return $this->redirect(['index']);
+        }
         $this->findModel($id)->delete();
-
         return $this->redirect(['index']);
     }
 
-    public function actionSaveOrder($id, $order) {
+    public function actionSaveOrder($id, $order)
+    {
         $model = $this->findModel($id);
-        if($model) {
+        if ($model) {
             $model->order = $order;
             $model->save();
         }
@@ -285,7 +320,8 @@ class ProductCategoryController extends Controller {
      * @return ProductCategory the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
+    protected function findModel($id)
+    {
         if (($model = ProductCategory::findOne($id)) !== null) {
             return $model;
         } else {
@@ -293,7 +329,8 @@ class ProductCategoryController extends Controller {
         }
     }
 
-    public function beforeAction($action) {
+    public function beforeAction($action)
+    {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
@@ -301,7 +338,8 @@ class ProductCategoryController extends Controller {
     /**
      * upload file
      */
-    public function actionUploadfile() {
+    public function actionUploadfile()
+    {
         if (isset($_FILES['file'])) {
             $file = $_FILES['file'];
             if ($file['size'] > 1024 * 1000) {
@@ -325,9 +363,10 @@ class ProductCategoryController extends Controller {
         //
     }
 
-    public function actionExel() {
+    public function actionExel()
+    {
         $data = ProductCategory::find()->select('product_category.*, c.name as prarent_name')->leftJoin("product_category as c", "product_category.parent = c.id")->orderBy('parent ASC')->asArray()->all();
-         
+
         $filename = "thongkedanhmuc.xls"; // File Name
         // Download file
         header("Content-Disposition: attachment; filename=\"$filename\"");
@@ -338,9 +377,9 @@ class ProductCategoryController extends Controller {
         $row = [];
         $table = '';
         foreach ($data as $value) {
-           
-            if(!$flag) {
-              // display field/column names as first row
+
+            if (!$flag) {
+                // display field/column names as first row
                 $table .= '<tr>';
                 $table .= '<td>ID</td>';
                 $table .= '<td>Danh mục</td>';
@@ -350,35 +389,32 @@ class ProductCategoryController extends Controller {
                 $flag = true;
             }
             $table .= '<tr>';
-            $table .= '<td>'.$value['id'].'</td>';
-            $table .= '<td>'.$value['name'].'</td>';
-            $table .= '<td>'.$value['parent'].'</td>';
-            $table .= '<td>'.$value['prarent_name'].'</td>';
+            $table .= '<td>' . $value['id'] . '</td>';
+            $table .= '<td>' . $value['name'] . '</td>';
+            $table .= '<td>' . $value['parent'] . '</td>';
+            $table .= '<td>' . $value['prarent_name'] . '</td>';
             $table .= '</tr>';
         }
         // echo $this->renderAjax('exel',['body' => $table]);
         echo '<table>';
         echo $table;
-        echo '</table>';  
+        echo '</table>';
     }
 
     /**
-     * 
+     *
      */
-    public function actionGetNhvtFinal() {
-        echo "<pre>";
-        print_r(987);
-        echo "</pre>";
-        die();
+    public function actionGetNhvtFinal()
+    {
         $categories = ProductCategory::find()->all();
         foreach ($categories as $category) {
             $ids = explode(' ', $category->map_nhvt2);
             $codes_string = '';
             foreach ($ids as $id) {
                 $cats = \common\models\product\ProductAttributeOption::find()
-                        ->where('attribute_id = 22 AND code_app LIKE :code_app', [':code_app' => $id . '%'])
-                        ->asArray()
-                        ->all();
+                    ->where('attribute_id = 22 AND code_app LIKE :code_app', [':code_app' => $id . '%'])
+                    ->asArray()
+                    ->all();
                 $codes = array_column($cats, 'code_app');
                 $string = implode(' ', $codes);
                 if ($codes_string != '') {
@@ -393,6 +429,47 @@ class ProductCategoryController extends Controller {
         print_r('DONE');
         echo "</pre>";
         die();
+    }
+
+    public function actionGetCategoryByType()
+    {
+        $req = Yii::$app->request;
+        if ($req->isAjax) {
+            $request = $_GET;
+            $category_type_id = $request['category_type_id'];
+            $cat_type = ProductCategoryType::findOne($category_type_id);
+            if ($cat_type) {
+                if ($cat_type->bo_donvi_tiente == ClaBds::KEY_BOTIENTE_BAN) {
+                    $bo_donvi = ClaBds::donvitiente_ban();
+                } else {
+                    $bo_donvi = ClaBds::donvitiente_thue();
+                }
+            }
+            $data = ProductCategory::getByType($category_type_id);
+            $data = array_column($data, 'name', 'id');
+            $response = [];
+            $response['category'] = $data;
+            $response['money'] = $bo_donvi;
+            $response['bo_donvi_tiente'] = $cat_type->bo_donvi_tiente;
+            return json_encode($response);
+        } else {
+            return false;
+        }
+    }
+
+    public function actionGetAttribute()
+    {
+        $req = Yii::$app->request;
+        if ($req->isAjax) {
+            $request = $_GET;
+            $category_id = $request['category_id'];
+            $model = ProductCategory::findOne($category_id);
+            return $this->renderPartial('attribute_view', [
+                'model' => $model,
+            ]);
+        } else {
+            return false;
+        }
     }
 
 }

@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model common\models\product\Product */
 
-$this->title = 'Tạo sản phẩm';
-$this->params['breadcrumbs'][] = ['label' => 'Quản lý sản phẩm', 'url' => ['index']];
+$this->title = 'Tạo bất động sản';
+$this->params['breadcrumbs'][] = ['label' => 'Quản lý bất động sản', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="product-create">
@@ -16,8 +16,11 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_form', [
         'model' => $model,
+        'provinces' => $provinces,
         'images' => $images,
         'attributes_changeprice' => $attributes_changeprice,
+        'certificates' => $certificates,
+        'certificate_items' => $certificate_items,
         'shop_transports' => $shop_transports,
         'product_transports' => $product_transports,
     ]) ?>

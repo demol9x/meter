@@ -27,7 +27,14 @@ use yii\db\Query;
  * @property string $viewed
  * @property string $source
  * @property integer $ishot
+ * @property integer $type
+ * @property integer $real_time
+ * @property integer $start_date
+ * @property integer $end_date
  * @property string $created_at
+ * @property string $link_video
+ * @property string $address
+ * @property string $discount_code
  */
 class News extends \common\models\ActiveRecordC
 {
@@ -59,7 +66,8 @@ class News extends \common\models\ActiveRecordC
             [['description'], 'string'],
             [['title', 'alias', 'meta_keywords', 'meta_description', 'meta_title', 'avatar_path', 'avatar_name', 'author', 'source'], 'string', 'max' => 255],
             [['short_description'], 'string', 'max' => 500],
-            [['avatar'], 'safe']
+            [['link_video','address','discount_code'], 'string', 'max' => 255],
+            [['avatar','type','real_time', 'start_date','end_date'], 'safe']
         ];
     }
 
@@ -88,6 +96,14 @@ class News extends \common\models\ActiveRecordC
             'source' => 'Nguồn bài tin',
             'ishot' => 'Tin nổi bật',
             'created_at' => 'Created At',
+            'type' => 'Loại tin',
+            'link_video' => 'Link video youtube embed',
+            'real_time' => 'Thời gian diễn ra',
+            'address' => 'Địa chỉ nhận hàng',
+            'discount_code' => 'Mã giảm giá',
+            'user_id' => 'Thông tin người đăng ký',
+            'start_date' => 'Thời gian bắt đầu',
+            'end_date' => 'Thời gian kết thúc',
         ];
     }
 
@@ -111,7 +127,21 @@ class News extends \common\models\ActiveRecordC
      * @param array $options
      * @return int|array
      */
-    public static function getNews($options = [], $countOnly = false)
+    public static function getType (){
+        return [
+          0 => 'Tin thường',
+          1 => 'Tin bán hàng',
+          2 => 'Tin sự kiện',
+          3 => 'Tin tuyển dụng nhân sự'
+        ];
+    }
+
+    /**
+     *
+     * @param array $options
+     * @return int|array
+     */
+    public static function getNews($options = [])
     {
         $condition = 'status=:status';
         $params = [
@@ -135,6 +165,7 @@ class News extends \common\models\ActiveRecordC
                 $params[':category_id'] = $options['category_id'];
             }
         }
+
         $order = 'publicdate DESC';
         if (isset($options['relation']) && $options['relation'] && isset($options['_id']) && $options['_id']) {
             $order = 'ABS(id - ' . $options['_id'] . ')';
@@ -149,7 +180,7 @@ class News extends \common\models\ActiveRecordC
         }
         $offset = ($options['page'] - 1) * $limit;
         //
-        if (isset($countOnly) && $countOnly) {
+        if (isset($options['count']) && $options['count']) {
             return News::find()
                 ->where($condition, $params)
                 ->count();

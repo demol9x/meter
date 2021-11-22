@@ -40,12 +40,12 @@ $this->params['breadcrumbs'][] = $this->title;
                                     return date('d/m/Y', $model->created_at);
                                 }
                             ],
-                            'type' => [
-                                'header' => 'Loại tải khoản',
-                                'content' => function($model) {
-                                    return \backend\models\UserAdmin::getTypeName($model->type);
-                                }
-                            ],
+                            // 'type' => [
+                            //     'header' => 'Loại tải khoản',
+                            //     'content' => function($model) {
+                            //         return \backend\models\UserAdmin::getTypeName($model->type);
+                            //     }
+                            // ],
                             [
                                 'class' => 'yii\grid\ActionColumn',
                                 'template' => '{update} {delete}'

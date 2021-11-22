@@ -136,3 +136,48 @@ use common\models\news\NewsCategory;
         <?= Html::error($model, 'description', ['class' => 'help-block']); ?>
     </div>
 </div>
+
+<?php if ($model->user_id) { ?>
+    <div class="form-group">
+        <?= Html::activeLabel($model, 'user_id', ['class' => 'control-label col-md-2 col-sm-2 col-xs-12']) ?>
+        <div class="col-md-10 col-sm-10 col-xs-12">
+            <a target="_blank" class="btn-success user" href="<?=\yii\helpers\Url::to(['/user/user/view', 'id' =>$model->user_id])?>">Xem thông tin người đăng ký</a>
+        </div>
+    </div>
+    <style>
+        .user {
+            padding: 15px;
+        }
+    </style>
+<?php } ?>
+
+<div class="form-group">
+    <?= Html::activeLabel($model, 'start_date', ['class' => 'control-label col-md-2 col-sm-2 col-xs-12']) ?>
+    <div class="col-md-10 col-sm-10 col-xs-12" style="padding-top: 8px;">
+        <label for=""><?=date('d/m/Y',$model->start_date)?></label>
+    </div>
+</div>
+<div class="form-group">
+    <?= Html::activeLabel($model, 'end_date', ['class' => 'control-label col-md-2 col-sm-2 col-xs-12']) ?>
+    <div class="col-md-10 col-sm-10 col-xs-12" style="padding-top: 8px;">
+        <label for=""><?=date('d/m/Y',$model->end_date)?></label>
+    </div>
+</div>
+<div class="form-group">
+    <?= Html::activeLabel($model, 'link_video', ['class' => 'control-label col-md-2 col-sm-2 col-xs-12']) ?>
+    <div class="col-md-10 col-sm-10 col-xs-12" style="padding-top: 8px;">
+        <label for=""><?=$model->link_video?></label>
+    </div>
+</div>
+<div class="form-group">
+    <?= Html::activeLabel($model, 'address', ['class' => 'control-label col-md-2 col-sm-2 col-xs-12']) ?>
+    <div class="col-md-10 col-sm-10 col-xs-12" style="padding-top: 8px;">
+        <label for=""><?=$model->address?></label>
+    </div>
+</div>
+<div class="form-group">
+    <?= Html::activeLabel($model, 'discount_code', ['class' => 'control-label col-md-2 col-sm-2 col-xs-12']) ?>
+    <div class="col-md-10 col-sm-10 col-xs-12" style="padding-top: 8px;">
+        <label for=""><?=$model->discount_code?></label>
+    </div>
+</div>

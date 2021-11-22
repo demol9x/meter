@@ -70,7 +70,9 @@ class DiscountCodeSearch extends DiscountCode
             'created_at' => $this->created_at,
             'status' => $this->status,
         ]);
-
+        if (!isset($_GET['sort'])) {
+            $query->orderBy('created_at DESC');
+        }
         return $dataProvider;
     }
 }

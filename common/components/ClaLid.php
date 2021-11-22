@@ -18,7 +18,7 @@ class ClaLid
 {
 
     //
-    const DOMAIN = 'ocopmart.org';
+    const DOMAIN = __NAME;
     const DEFAULT_EXPIRE_COOKIE = 30; // 30 days
     //
     const PRODUCT_RELATION = 1;
@@ -49,7 +49,7 @@ class ClaLid
     const PAGE_SIZE_VAR = 'pageSize';
     const PAGE_SORT = 'sort';
     // const API_KEY = 'AIzaSyCTzEPYD5pmP22o0LN99IQoMbfLzcekELA';
-    const API_KEY = 'AIzaSyCzUyRnU8bnbY1QKoGkHrfCuEfT6IQDGbg'; //Giành cho main 
+    const API_KEY = 'AIzaSyDcb3gy1mSYnaC7Ol2iVZIIXb4Oc-nQYDc'; //Giành cho main 
     const KEY_FILTER_CHAR = 'key_filter_char';
 
 
@@ -189,6 +189,12 @@ class ClaLid
         // $price_market = str_replace('.', '', $price_market);
         // $price = str_replace('.', '', $price);
         return ($price_market && $price) ? round(($price_market - $price) / ($price_market / 100)) : '';
+    }
+    public static function remove_format($text)
+    {
+        $text = str_replace(",", "", $text);
+        $text = str_replace(".", "", $text);
+        return $text;
     }
 
     public static function getCurrentLanguage()

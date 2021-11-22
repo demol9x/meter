@@ -84,7 +84,7 @@ class UserDevice extends \common\components\ClaActiveRecord
                 $device->save();
             }
         } else {
-            $model = new self();
+            $model = new \common\models\user\UserDevice();
             $model->device_id = $device_id;
             $model->user_id = $user_id;
             $model->type = $type;

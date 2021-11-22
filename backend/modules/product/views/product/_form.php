@@ -77,13 +77,21 @@ use yii\widgets\ActiveForm;
                                     <?= Yii::t('app', 'product_image') ?>
                                 </a>
                             </li>
+                            <li role="presentation">
+                                <a href="#tab_content3" id="three-tab" role="tab" data-toggle="tab" aria-expanded="true">
+                                    Liên hệ
+                                </a>
+                            </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="one-tab">
-                                <?= $this->render('partial/basicinfo', ['form' => $form, 'model' => $model]); ?>
+                                <?= $this->render('partial/basicinfo', ['form' => $form, 'model' => $model,'provinces' => $provinces,]); ?>
                             </div>
                             <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="two-tab">
                                 <?= $this->render('partial/image', ['form' => $form, 'model' => $model, 'images' => $images]); ?>
+                            </div>
+                            <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="three-tab">
+                                <?= $this->render('partial/contact', ['form' => $form, 'model' => $model]); ?>
                             </div>
                         </div>
                     </div>

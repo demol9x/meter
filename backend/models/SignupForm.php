@@ -17,6 +17,7 @@ class SignupForm extends Model
     public $password2;
     public $status;
     public $type;
+    public $rule_notifys;
 
     /**
      * @inheritdoc
@@ -28,6 +29,7 @@ class SignupForm extends Model
             ['username', 'required'],
             ['username', 'unique', 'targetClass' => '\backend\models\UserAdmin', 'message' => 'This username has already been taken.'],
             ['username', 'string', 'min' => 2, 'max' => 255],
+            ['rule_notifys', 'safe'],
             ['email', 'trim'],
             ['email', 'required'],
             ['email', 'email'],
@@ -54,7 +56,8 @@ class SignupForm extends Model
             'password2' => 'Mật khẩu cấp 2',
             'status' => 'Trạng thái',
             'created_at' => 'Ngày tạo',
-            'type' => 'Loại tài khoản'
+            'type' => 'Loại tài khoản',
+            'rule_notifys' => 'Quyền thông báo'
         ];
     }
 
@@ -72,8 +75,7 @@ class SignupForm extends Model
         $user = new UserAdmin();
         $user->username = $this->username;
         $user->email = $this->email;
-        $user->type = $this->type;
-
+        $user->type = UserAdmin::USER_DELIVERY;
         $user->setPassword($this->password);
         $user->setPassword2($this->password2);
         $user->generateAuthKey();

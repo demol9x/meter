@@ -2,7 +2,7 @@
 use yii\helpers\Url;
 ?>
 <p>
-    Thông báo đặt hàng thành công từ <a href="<?= __SERVER_NAME ?>/">OCOP</a>
+    Thông báo đặt hàng thành công từ <a href="<?=__SERVER_NAME?>"><?=__NAME_SITE?></a>
 </p>
 <p>
     Bạn đã đặt hàng thành công với tổng giá trị đơn hàng là: <?= number_format($orderShop['order_total'], 0, ',', '.') ?> VNĐ
@@ -21,4 +21,4 @@ use yii\helpers\Url;
     <?php } ?>
 </p>
 <p>Thời gian tạo đơn hàng: <?= date('d-m-Y H:i:s', time()) ?></p>
-<p><a href="<?= __SERVER_NAME ?><?= Url::to(['/management/order/view']) ?>">Xem chi tiết</a></p>
+<p><a href="<?= __SERVER_NAME.Url::to(['/management/order/view']) ?>">Xem chi tiết</a></p>

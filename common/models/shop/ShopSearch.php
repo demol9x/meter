@@ -19,7 +19,7 @@ class ShopSearch extends Shop
     {
         return [
             [['id', 'user_id', 'status', 'site_id', 'avatar_id', 'time_open', 'time_close', 'day_open', 'day_close', 'like', 'rate_count', 'viewed'], 'integer'],
-            [['name', 'alias', 'address', 'province_id', 'province_name', 'district_id', 'district_name', 'ward_id', 'ward_name', 'image_path', 'image_name', 'avatar_path', 'avatar_name', 'phone', 'hotline', 'email', 'yahoo', 'skype', 'website', 'facebook', 'instagram', 'pinterest', 'twitter', 'field_business', 'short_description', 'description', 'meta_keywords', 'meta_description', 'meta_title', 'latlng', 'number_auth', 'lat', 'lng', 'business'], 'safe'],
+            [['name', 'alias', 'address', 'province_id', 'province_name', 'district_id', 'district_name', 'ward_id', 'ward_name', 'image_path', 'image_name', 'avatar_path', 'avatar_name', 'phone', 'hotline', 'email', 'yahoo', 'skype', 'website', 'facebook', 'instagram', 'pinterest', 'twitter', 'field_business', 'short_description', 'description', 'meta_keywords', 'meta_description', 'meta_title', 'latlng', 'number_auth', 'lat', 'lng', 'business','created_time', 'modified_time'], 'safe'],
             [['rate'], 'number'],
         ];
     }

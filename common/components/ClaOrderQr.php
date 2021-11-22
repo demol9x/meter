@@ -100,7 +100,7 @@ class ClaOrderQr
                     if($shop['email']) {
                         $mail->sendMail([
                             'email' => $shop['email'],
-                            'title' => 'Đơn hàng mới tại OCOP',
+                            'title' => 'Đơn hàng mới tại '.__NAME_SITE,
                             'content' => $mail->render('email_shop', [
                                 'orderShop' => $orderShop
                             ])
@@ -109,7 +109,7 @@ class ClaOrderQr
                     if($address['email']) {
                         $mail->sendMail([
                             'email' => $address['email'],
-                            'title' => 'Tạo đơn hàng thành công tại OCOP',
+                            'title' => 'Tạo đơn hàng thành công tại '.__NAME_SITE,
                             'content' => $mail->render('email_user', [
                                 'orderShop' => $orderShop
                             ])
@@ -125,7 +125,7 @@ class ClaOrderQr
                     if($email_manager) {
                         $mail->sendMail([
                             'email' => $email_manager,
-                            'title' => 'Tạo đơn hàng thành công tại OCOP',
+                            'title' => 'Tạo đơn hàng thành công tại '.__NAME_SITE,
                             'content' => $mail->render('email_manager', [
                                 'orderShop' => $orderShop,
                                 'address' => $address,
@@ -164,8 +164,8 @@ class ClaOrderQr
                     $mail = new \common\components\mail\Mail();
                     $mail->sendMail([
                         'email' => $address['email'],
-                        'title' => 'Bạn đã thanh toán bằng mã QR thành công tại OCOP',
-                        'content' => 'Bạn đã thanh toán bằng mã QR thành công cho đơn hàng OR'.$order->id.' trên <a href="ocopmart.org">ocopmart.org</a><br/>Số tiền đã thành toán là :'. number_format($options['price'], 0, ',', '.').' Đ'
+                        'title' => 'Bạn đã thanh toán bằng mã QR thành công tại '.__NAME_SITE,
+                        'content' => 'Bạn đã thanh toán bằng mã QR thành công cho đơn hàng OR'.$order->id.' trên <a href="'.__NAME.'">'.__NAME.'</a><br/>Số tiền đã thành toán là :'. number_format($options['price'], 0, ',', '.').' Đ'
                     ]);
                 }
                 return $order;

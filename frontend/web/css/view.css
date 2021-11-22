@@ -1446,6 +1446,7 @@ h2.title_30::before {
 .tintuc .content-tab .main-tintuc .item-img {
   position: relative;
   max-width: 394px;
+  height: 247px;
   width: 100%;
   border-radius: 10px;
   overflow: hidden;
@@ -1458,6 +1459,8 @@ h2.title_30::before {
   transition: all 0.4s ease;
   -webkit-transform: scale(1);
           transform: scale(1);
+  width: 100%;
+  height: 100%;
 }
 .tintuc .content-tab .main-tintuc .item-img .date {
   position: absolute;
@@ -1683,9 +1686,14 @@ h2.title_30::before {
 .tintuc__left .tinkhac-item .item-img {
   display: block;
   max-width: 120px;
-  width: 100%;
   overflow: hidden;
   border-radius: 5px;
+  width: 120px;
+  height: 70px;
+  -o-object-fit: cover;
+  object-fit: cover;
+  -webkit-transition: all 0.4s ease;
+  transition: all 0.4s ease;
 }
 .tintuc__left .tinkhac-item .item-img:hover img {
   -webkit-transform: scale(1.05) rotate(3deg);
@@ -2985,7 +2993,7 @@ nav .back::before {
   position: relative;
 }
 .profile_pro_item .item_left .menu-my-store .banner-store .fix-img-bg {
-  position: absolute !important;
+  position: absolute;
   top: 5px;
   right: 5px;
   color: #fff;

@@ -91,11 +91,12 @@ class DiscountShopCode extends \yii\db\ActiveRecord
     }
     function genCode()
     {
-        $string = $this->shop_id . 'S' . $this->id . 'D' . rand(1000, 9999);
+        $string = $this->shop_id . rand(1, 99);
         $add = [
-            'P',
-            'G',
-            'A',
+            'V',
+            'Z',
+            'O',
+            'E',
         ];
         foreach ($add as $value) {
             $pos = rand(0, strlen($string)-1);

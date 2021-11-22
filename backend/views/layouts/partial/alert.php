@@ -33,7 +33,7 @@
 </style>
 <!-- alert -->
 <script type="text/javascript">
-    var ALERT_TITLE = "Thông báo từ ocopmart.org";
+    var ALERT_TITLE = "Thông báo từ <?=__NAME?>";
     var ALERT_BUTTON_TEXT = "Xác nhận";
     var ALERT_CONFIRM_TEXT_OK = "Đồng ý";
     var ALERT_CONFIRM_TEXT_CAN = "Hủy bỏ";

@@ -5,8 +5,8 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\User */
 
-$this->title = 'Cập nhật tài khoản: #' . $model->id;
-$this->params['breadcrumbs'][] = ['label' => 'Quản lý tài khoản', 'url' => ['index']];
+$this->title = 'Cập nhật ngân hàng: #' . $model->id;
+$this->params['breadcrumbs'][] = ['label' => 'Quản lý ngân hàng', 'url' => ['index']];
 $this->params['breadcrumbs'][] = ['label' => $this->title];
 ?>
 <div class="user-update">

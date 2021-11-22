@@ -7,7 +7,7 @@ use Yii;
  */
 
 class ClaCookie {
-    const DOMAIN = 'ocopmart.org';
+    const DOMAIN = __NAME;
     const DEFAULT_EXPIRE_COOKIE = 30; // 30 days
 
     public static function getNameCookieShopAddress($shop_id) {

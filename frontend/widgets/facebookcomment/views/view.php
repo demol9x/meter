@@ -1,1 +1,7 @@
-<div class="fb_comment"><div class="fb-comments" data-href="<?php echo $link; ?>" order_by="reverse_time" data-numposts="5" data-colorscheme="light" width="100%"></div></div>
+
+<div class="operation">
+    <button class="btn fb like wow bounceIn" data-wow-delay="0.3s"><div class="social-item fb-like fb_iframe_widget" data-href="<?= $link; ?>" data-layout="button_count" data-action="like" data-show-faces="true" data-share="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=&amp;container_width=0&amp;href=<?= $link; ?>&amp;layout=button_count&amp;locale=vi_VI&amp;sdk=joey&amp;share=false&amp;show_faces=true" data-size="large"></div></button>
+    <button class="btn fb share_fb wow bounceIn" data-wow-delay="0.4s"><div class="social-item fb-share-button fb_iframe_widget" data-href="<?= $link; ?>" data-layout="button_count" fb-xfbml-state="rendered" fb-iframe-plugin-query="app_id=&amp;container_width=0&amp;href=<?= $link; ?>&amp;layout=button_count&amp;locale=vi_VI&amp;sdk=joey" data-size="large"></div></buton>
+    <button class="btn zl share_zl wow bounceIn" data-wow-delay="0.5s"><a class="btn zl share_zl wow bounceIn" data-wow-delay="0.5s" href="https://sp.zalo.me/share_inline?d=<?= $link ?>"><img src="<?php echo yii::$app->homeUrl?>images/zl.png" alt="">Chia sẻ</a></buton>
+    <button class="btn tw share_tw wow bounceIn" data-wow-delay="0.6s"><a class="btn tw share_tw wow bounceIn" data-wow-delay="0.6s" href="https://www.facebook.com/sharer/sharer.php?u=<?= $link ?>"><img src="<?php echo yii::$app->homeUrl?>images/tw.png" alt="">Tweet</a></buton>
+</div>

@@ -9,7 +9,7 @@ use common\models\shop\Shop;
 /* @var $searchModel frontend\models\search\UserSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Nạp OCOP V';
+$this->title = 'Nạp '.__NAME_SITE.' V';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-index">

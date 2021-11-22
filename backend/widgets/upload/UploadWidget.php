@@ -26,7 +26,7 @@ class UploadWidget extends Widget {
     public $buttonStyle = 'style1';
     public $multi = true;
     public $displayvaluebox = true;
-    public $fileSizeLimit = 10485760; // interger bytes; 10Mb
+    public $fileSizeLimit = 1024*1024*10; // interger bytes; 10Mb
     public $uploader = '';
     protected $application = '';
     public $oncecomplete = '';

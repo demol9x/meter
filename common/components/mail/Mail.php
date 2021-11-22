@@ -13,19 +13,18 @@ use Yii;
 class Mail extends \yii\widgets\ActiveForm
 {
 
-    public function sendMail($arr)
-    {
+    public function sendMail($arr) {
         $email = $arr["email"];
         // $url = $arr["url"];
         if (isset($arr["title"])) {
             $title = $arr["title"];
         } else {
-            $title = "Thông báo từ ocopmart.org";
+            $title = "Thông báo từ ".__NAME;
         }
         if (isset($arr["content"])) {
             $content = $arr["content"];
         } else {
-            $content = "Cám ơn quý khách đã sử dụng dịch vụ của ocopmart.org.<br/> <a href='" . __SERVER_NAME . "'>Đến trang web ngay</a>";
+            $content = "Cám ơn quý khách đã sử dụng dịch vụ của ".__NAME.".<br/> <a href='".__SERVER_NAME."'>Đến trang web ngay</a>";
         }
         \common\models\mail\SendEmail::sendMail([
             'email' => $email,
@@ -39,4 +38,5 @@ class Mail extends \yii\widgets\ActiveForm
         //         ->setHtmlBody($content)
         //         ->send();
     }
+
 }

@@ -291,7 +291,7 @@ class Package extends \yii\db\ActiveRecord
 
 
         if (isset($options['keyword']) && $options['keyword']) {
-            $query->andWhere("t.name like '%" . $options['keyword'] . "%'");
+            $query->andWhere("(MATCH (t.name) AGAINST ('" . $options['keyword'] . "' IN BOOLEAN MODE))");
         }
 
         if (isset($options['count'])) {

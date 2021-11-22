@@ -8,7 +8,10 @@ use common\components\ClaHost;
 /* @var $model common\models\ProductCategory */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<link rel="stylesheet" href="<?php echo Yii::$app->homeUrl ?>css/chosen.css" />
+
 <script src="<?php echo Yii::$app->homeUrl ?>js/upload/ajaxupload.min.js"></script>
+<script src="<?php echo Yii::$app->homeUrl ?>js/chosen.jquery.js"></script>
 <div class="product-category-form">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row">
@@ -34,10 +37,19 @@ use common\components\ClaHost;
                                     Thông tin cơ bản
                                 </a>
                             </li>
+                            <li role="presentation" class="">
+                                <a href="#tab_content2" id="two-tab" role="tab" data-toggle="tab" aria-expanded="true">
+                                    Bộ thuộc tính
+                                </a>
+                            </li>
                         </ul>
                         <div id="myTabContent" class="tab-content">
                             <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="one-tab">
                                 <?= $this->render('partial/basicinfo', ['form' => $form, 'model' => $model]); ?>
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="one-tab">
+                                <?= $this->render('partial/category_attributes', ['form' => $form, 'model' => $model]); ?>
                             </div>
                         </div>
                     </div>
@@ -55,3 +67,11 @@ use common\components\ClaHost;
     </div>
 
 </div>
+<style>
+    .chosen-container{
+        width: 100% !important;
+    }
+</style>
+<script>
+    jQuery('.chosen-select').chosen();
+</script>

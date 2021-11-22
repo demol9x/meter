@@ -233,7 +233,7 @@ class SiteinfoController extends Controller {
             $return = array('status' => $up->getStatus(), 'data' => $response, 'host' => ClaHost::getImageHost(), 'size' => '');
             if ($up->getStatus() == '200') {
                 $keycode = ClaGenerate::getUniqueCode();
-                $return['data']['realurl'] = ClaHost::getImageHost() . $response['baseUrl'] . 's100_100/' . $response['name'];
+                $return['data']['realurl'] = ClaHost::getImageHost() . $response['baseUrl'] . $response['name'];
                 $return['data']['avatar'] = $keycode;
                 Yii::$app->session[$keycode] = $response;
             }

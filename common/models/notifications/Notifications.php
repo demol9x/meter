@@ -63,10 +63,9 @@ class Notifications extends \common\models\ActiveRecordC
             ->select('id, username')
             ->orderBy('id ASC')
             ->all();
-        $arr = [
-            self::TYPE_USER_ALL => 'Tất cả tài khoản',
-            self::TYPE_USER_SHOP => 'Tất cả gian hàng',
-        ];
+        $count_shop = (new \yii\db\Query())->from('shop')
+            ->select('id')->count();
+        $arr = [];
         $lisg = (new \common\models\user\UserGroup())->options();
         if ($lisg) foreach ($lisg as $key => $value) {
             $arr[self::TYPE_USER_GROUP . $key] = self::TYPE_USER_GROUP . '-' . $value;
@@ -77,13 +76,16 @@ class Notifications extends \common\models\ActiveRecordC
             }
         }
         $lisg = \common\models\Province::optionRegions();
+
         if ($lisg) foreach ($lisg as $key => $value) {
             $arr[self::TYPE_REGION . $key] = self::TYPE_REGION . '-' . $value;
         }
+
         $lisg = (new \common\models\Province())->options();
         if ($lisg) foreach ($lisg as $key => $value) {
             $arr[self::TYPE_PROVINCE . $key] = self::TYPE_PROVINCE . '-' . $value;
         }
+        $arr = [self::TYPE_USER_ALL => 'Tất cả tài khoản ('.count($users).')', self::TYPE_USER_SHOP => 'Tất cả gian hàng ('.$count_shop.')'] + $arr;
         return $arr;
     }
 
@@ -245,7 +247,7 @@ class Notifications extends \common\models\ActiveRecordC
         $model->recipient_real_id = $notify['recipient_id'];
         if ($model->save()) {
             if ($notify['recipient_id'] > 0) {
-                $values .= '("' . $notify['title'] . '", "' . $notify['description'] . '", "' . $notify['link'] . '", ' . $notify['type'] . ', ' . $notify['recipient_id'] . ', ' . $user_send . ', 1, ' . $time_now . ', ' . $time_now . ')';
+                $values .=  '("' . $notify['title'] . '", "' . $notify['description'] . '", "' . $notify['link'] . '", ' . $notify['type'] . ', ' . $notify['recipient_id'] . ', ' . $user_send . ', 1, ' . $time_now . ', ' . $time_now . ')';
 
                 $sql = 'INSERT INTO notifications (title, description, link, type, recipient_id, sender_id, unread, created_at, updated_at) VALUES ' . $values;
                 $notify_mb = new \common\components\notifications\ClaMobileNotify();
@@ -257,7 +259,7 @@ class Notifications extends \common\models\ActiveRecordC
                 );
                 $response = $notify_mb->send($notify['recipient_id'], array('notification' => $noti));
                 Yii::$app->db->createCommand($sql)->execute();
-                self::sendApp(strip_tags($notify['title']), strip_tags($notify['description']), $notify['recipient_id'], ['link' => $notify['link'], 'type' => $notify['type']]);
+                self::sendApp(strip_tags($notify['title']),  strip_tags($notify['description']), $notify['recipient_id'], ['link' => $notify['link'], 'type' => $notify['type']]);
                 return 1;
             } else {
                 $userIds = [];
@@ -295,7 +297,7 @@ class Notifications extends \common\models\ActiveRecordC
                     }
                     $sql = 'INSERT INTO notifications (title, description, link, type, recipient_id, sender_id, unread, created_at, updated_at) VALUES ' . $values;
                     Yii::$app->db->createCommand($sql)->execute();
-                    self::sendApp(strip_tags($notify['title']), strip_tags($notify['description']), $userIds, ['link' => $notify['link'], 'type' => $notify['type']]);
+                    self::sendApp(strip_tags($notify['title']),  strip_tags($notify['description']), $userIds, ['link' => $notify['link'], 'type' => $notify['type']]);
                     return 1;
                 }
                 return 0;
@@ -340,13 +342,13 @@ class Notifications extends \common\models\ActiveRecordC
     static function countUnreadNotifications($user_id = 0)
     {
         $count = 0;
-        $user_id = (int)$user_id;
+        $user_id = (int) $user_id;
         if ($user_id) {
             $count = \common\models\notifications\Notifications::find()
                 ->where(['recipient_id' => $user_id, 'unread' => 1])
                 ->count();
         }
-        return (int)$count;
+        return (int) $count;
     }
 
     static function sendApp($title, $message, $user_id = null, $options = [])
@@ -356,57 +358,41 @@ class Notifications extends \common\models\ActiveRecordC
             return false;
         }
         $data = $query->where(['user_id' => $user_id])->all();
+        // if (\Yii::$app->id == 'app-backend') {
+        //     echo "<pre>";
+        //     echo $user_id;
+        //     print_r($data);
+        //     die();
+        // }
         if ($data) {
             $registrationIds = array_column($data, 'device_id');
-            $serverToken = 'AAAAzMnH5kQ:APA91bHF9N7iPzxx9VaertSH5kvoHhOVZ-_I9JpgAp9jJwTt-5yFlJUIC8jAszmTR8tj3PqMy1cKiOCW_LySPDPCjU2F0sVesfUmsfYXh4gj8VXuwUJZiPGEjsi-9xR61dOu3jr1K69T';
+            $serverToken = 'AAAAwhk2utI:APA91bG0P4JnpDUxoODdFuDDmPW5IOq72FGfK2IuGy7dCW5db8qi9XISG85efd6_i_cyGYCmrEpdF-iNdDzp9XfMXVv6_k4MP8hVKkWVnJ8HM8bW4DdjYGj83MR4ES6_n9e_3QyXTj67';
             $msg = array(
                 'title' => $title,
-                'body' => $message,
+                'body'  => $message,
             );
+            $options['title'] = $title;
+            $options['body'] = $message;
             $options['click_action'] = 'FLUTTER_NOTIFICATION_CLICK';
-            if (count($registrationIds) < 1000) {
-                $fields = array(
-                    "registration_ids" => $registrationIds,
-                    'notification' => $msg,
-                    'data' => $options
-                );
-                $headers = array(
-                    'Authorization: key=' . $serverToken,
-                    'Content-Type: application/json'
-                );
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-                curl_setopt($ch, CURLOPT_POST, true);
-                curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-                $result = curl_exec($ch);
-                curl_close($ch);
-                return $result;
-            } else {
-                $registrationIds = array_chunk($registrationIds, 999);
-                foreach ($registrationIds as $value) {
-                    $fields = array(
-                        "registration_ids" => $value,
-                        'notification' => $msg,
-                        'data' => $options
-                    );
-                    $headers = array(
-                        'Authorization: key=' . $serverToken,
-                        'Content-Type: application/json'
-                    );
-                    $ch = curl_init();
-                    curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-                    curl_setopt($ch, CURLOPT_POST, true);
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-                    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-                    $result = curl_exec($ch);
-                    curl_close($ch);
-                }
-            }
+            $fields = array(
+                "registration_ids" =>  $registrationIds,
+                'notification'  => $msg,
+                'data' => $options
+            );
+            $headers = array(
+                'Authorization: key=' . $serverToken,
+                'Content-Type: application/json'
+            );
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
+            $result = curl_exec($ch);
+            curl_close($ch);
+            return $result;
         }
         return false;
     }

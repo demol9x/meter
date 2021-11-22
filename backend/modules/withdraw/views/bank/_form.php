@@ -28,28 +28,22 @@ use common\components\ClaLid;
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
-                    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'bank_name')->textInput(['maxlength' => true]) ?>
+                    
+                    <?= $form->field($model, 'number')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'password_hash')->textInput(['maxlength' => true, 'value' => '']) ?>
-
-                    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
-
-                    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
+                    <?= $form->field($model, 'user_name')->textInput(['maxlength' => true]) ?>
 
                     <?= $form->field($model, 'address')->textInput(['maxlength' => true]) ?>
 
-                    <?= $form->field($model, 'facebook')->textInput(['maxlength' => true]) ?>
+                    <div class="form-group">
+                        <?= Html::activeLabel($model, 'isdefault', ['class' => '']) ?>
+                        <div class="" style="padding-top: 8px;">
+                            <?= Html::activeCheckbox($model, 'isdefault', ['class' => 'js-switch']) ?>
+                            <?= Html::error($model, 'isdefault', ['class' => 'help-block']); ?>
+                        </div>
+                    </div>
 
-                    <?= $form->field($model, 'link_facebook')->textInput(['maxlength' => true]) ?>
-
-                    <?= $form->field($model, 'user_before')->textInput(['maxlength' => true]) ?>
-
-                    <?=
-                        $form->field($model, 'status')->dropDownList([
-                            ClaLid::STATUS_ACTIVED => 'Hoạt Động',
-                            ClaLid::STATUS_DEACTIVED => 'Khóa',
-                        ])
-                    ?>
                     
                 </div>
                 <div class="form-group">

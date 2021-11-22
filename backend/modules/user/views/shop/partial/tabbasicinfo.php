@@ -42,6 +42,8 @@ use common\models\shop\ShopLevel;
 
 <?= $form->field($model, 'website')->textInput(['maxlength' => true]) ?>
 
+<?= $form->field($model, 'vdiarybook')->textInput(['maxlength' => true]) ?>
+
 <?= $form->field($model, 'facebook')->textInput(['maxlength' => true]) ?>
 
 <?= $form->field($model, 'skype')->textInput(['maxlength' => true]) ?>

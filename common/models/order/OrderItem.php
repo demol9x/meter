@@ -293,6 +293,7 @@ class OrderItem extends \common\models\ActiveRecordC
             $user_id = $user_id ? $user_id  : Yii::$app->user->id;
             if (!$product->canBuyFor($user_id)) {
                 $this->_merrors = $product->_merrors;
+                // echo "SĐs"; die();
                 return false;
             }
             $change_v = \common\models\gcacoin\Gcacoin::getPerMoneyCoin();
@@ -326,7 +327,9 @@ class OrderItem extends \common\models\ActiveRecordC
             $this->price = $this->price > 0 ? $this->price : $price;
             return true;
         }
-        $this->_merrors = 'Sản phẩm '.$this->product_id.' không tồn tại.';;
+        $this->_merrors = 'Sản phẩm '.$this->product_id.' không tồn tại.';
+        // echo "SĐs1"; die();
+        // return false;
         return false;
     }
 

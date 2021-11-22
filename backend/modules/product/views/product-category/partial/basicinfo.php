@@ -2,7 +2,9 @@
 
 use yii\bootstrap\Html;
 use common\components\ClaHost;
-
+if($model->getErrors()){
+    $errors = $model->getErrors();
+}
 ?>
 <?=
 $form->field($model, 'name', [
@@ -15,6 +17,23 @@ $form->field($model, 'name', [
 ])
 ?>
 
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-2 col-xs-12" for="productcategory-parent">Hình thức</label>
+    <div class="col-md-10">
+        <?php
+        $category_types = explode(',',$model->category_type);
+        $types = $model->optionsCategoryType();
+        ?>
+        <select data-placeholder="Chọn hình thức" class="chosen-select" name="ProductCategory[category_type][]" multiple
+                tabindex="10">
+            <?php foreach ($types as $key => $val): ?>
+                <option value="<?= $key ?>" <?= in_array($key, $category_types) ? 'selected' : '' ?>><?= $val ?></option>
+            <?php endforeach; ?>
+        </select>
+        <div class="help-block"><?= isset($errors['category_type'][0]) && $errors['category_type'][0] ? $errors['category_type'][0] : '' ?></div>
+    </div>
+</div>
+
 
 <?=
 $form->field($model, 'parent', [
@@ -25,16 +44,7 @@ $form->field($model, 'parent', [
     'class' => 'control-label col-md-2 col-sm-2 col-xs-12'
 ])
 ?>
-<?=
-$form->field($model, 'attribute_set_id', [
-    'template' => '{label}<div class="col-md-10 col-sm-10 col-xs-12">{input}{error}{hint}</div>'
-])->dropDownList(common\models\product\ProductAttributeSet::optionsAttributeSet(), [
-    'class' => 'form-control',
-    'prompt' => '--- Chọn nhóm thuộc tính ---'
-])->label($model->getAttributeLabel('attribute_set_id'), [
-    'class' => 'control-label col-md-2 col-sm-2 col-xs-12'
-])
-?>
+
 <style type="text/css">
     .form-group {
         clear: both;
@@ -78,6 +88,45 @@ backend\widgets\form\FormWidget::widget([
 ]);
 ?>
 
+<div class="form-group">
+    <?= Html::activeLabel($model, 'banner', ['class' => 'control-label col-md-2 col-sm-2 col-xs-12']) ?>
+    <div class="col-md-10 col-sm-10 col-xs-12">
+        <?= Html::activeHiddenInput($model, 'banner') ?>
+        <div id="sitebanner_img" style="display: inline-block; max-width: 100px; max-height: 100px; overflow: hidden; vertical-align: top;">
+            <?php if ($model->banner) { ?>
+                <img src="<?= $model->banner ?>" style="width: 100%;" />
+            <?php } ?>
+        </div>
+        <div id="sitebanner_form" style="display: inline-block;">
+            <?= Html::button('Chọn banner', ['class' => 'btn']); ?>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    $(document).ready(function() {
+        jQuery('#sitebanner_form').ajaxUpload({
+            url: '<?= yii\helpers\Url::to(['/siteinfo/uploadfile']); ?>',
+            name: 'file',
+            onSubmit: function() {},
+            onComplete: function(result) {
+                var obj = $.parseJSON(result);
+                if (obj.status == '200') {
+                    if (obj.data.realurl) {
+                        jQuery('#productcategory-banner').val(obj.data.avatar);
+                        if (jQuery('#sitebanner_img img').attr('src')) {
+                            jQuery('#sitebanner_img img').attr('src', obj.data.realurl);
+                        } else {
+                            jQuery('#sitebanner_img').append('<img src="' + obj.data.realurl + '" />');
+                        }
+                        jQuery('#sitebanner_img').css({
+                            "margin-right": "10px"
+                        });
+                    }
+                }
+            }
+        });
+    });
+</script>
 <?=
 $form->field($model, 'description', [
     'template' => '{label}<div class="col-md-10 col-sm-10 col-xs-12">{input}{error}{hint}</div>'
