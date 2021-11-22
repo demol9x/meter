@@ -96,7 +96,5 @@
       <path value="$PROJECT_DIR$/vendor/yiisoft/yii2-debug" />
     </include_path>
   </component>
-  <component name="PhpProjectSharedConfiguration" php_language_level="7.3">
-    <option name="suggestChangeDefaultLanguageLevel" value="false" />
-  </component>
+  <component name="PhpProjectSharedConfiguration" php_language_level="5.4.0" />
 </project>

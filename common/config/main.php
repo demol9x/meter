@@ -43,13 +43,13 @@ $config =  [
     'components' => [
         'db' => [
             'class' => 'yii\db\Connection',
-            'dsn' => 'mysql:host=150.95.108.45;dbname=meter',
-            'username' => 'user_meter',
-            'password' => 'xXLGTMrQ5rdZMBTMuqNP',
+            'dsn' => 'mysql:host=localhost;dbname=meter',
+            'username' => 'root',
+            'password' => '',
             'charset' => 'utf8',
         ],
         'cache' => [
-            'useMemcached' => true,
+            'useMemcached' => false,
             'keyPrefix' => __NAME_SITE,
             'class' => 'yii\caching\MemCache',
         ],

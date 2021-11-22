@@ -132,6 +132,82 @@ class UserController extends RestController
         ]);
     }
 
+    public function actionForgotPassword(){
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $password = isset($params['password']) && $params['password'] ? $params['password'] : '';
+        $re_password = isset($params['re_password']) && $params['re_password'] ? $params['re_password'] : '';
+        $phone = isset($params['phone']) && $params['phone'] ? $params['phone'] : '';
+        $user = User::find()->where(['phone' => $phone])->one();
+        $message = '';
+        $errors = [];
+        if($password != $re_password){
+            $message = 'Mật khẩu không khớp';
+        }
+        if ($user && $password && $password == $re_password) {
+            $user->setPassword($password);
+            $user->generateAuthKey();
+            $user->save();
+            return $this->responseData([
+                'success' => true,
+                'errors' => $errors,
+                'message' => $message
+            ]);
+        }else {
+            $message = 'Số điện thoại chưa đăng ký tài khoản';
+        }
+        return $this->responseData([
+            'success' => false,
+            'errors' => $errors,
+            'message' => $message
+        ]);
+    }
+
+    public function actionChangePassword(){
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $password = isset($params['password']) && $params['password'] ? $params['password'] : '';
+        $new_password = isset($params['new_password']) && $params['new_password'] ? $params['new_password'] : '';
+        $re_password = isset($params['re_password']) && $params['re_password'] ? $params['re_password'] : '';
+        $user_id = isset($params['user_id']) && $params['user_id'] ? $params['user_id'] : '';
+        $auth_key = isset($params['auth_key']) && $params['auth_key'] ? $params['auth_key'] : '';
+
+        $user = User::findOne($user_id);
+        $message = '';
+        $errors = [];
+
+        if ($user && $user->auth_key == $auth_key) {
+            $model = new LoginForm();
+            $params = [
+                'phone' => $user->phone,
+                'password' => $password
+            ];
+            if ($model->load($params, '') && $model->login()) {
+                if($new_password && $new_password == $re_password){
+                    $user->setPassword($new_password);
+-                    $user->save();
+                    return $this->responseData([
+                        'success' => true,
+                        'errors' => $errors,
+                        'message' => $message
+                    ]);
+                }else{
+                    $message = 'Mật khẩu mới không khớp';
+                }
+
+            }else{
+                $message = 'Mật khẩu không đúng';
+            }
+
+        }else {
+            $message = 'Thông tin tài khoản không hợp lệ';
+        }
+
+        return $this->responseData([
+            'success' => false,
+            'errors' => $errors,
+            'message' => $message
+        ]);
+    }
+
     /**
      * Đăng ký thợ
      */
