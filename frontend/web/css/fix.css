@@ -41,3 +41,8 @@
     align-items: center;
     cursor: pointer;
 }
+.help-block{
+    color: red;
+    font-size: 13px;
+    margin: 3px;
+}

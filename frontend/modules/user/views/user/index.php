@@ -51,7 +51,7 @@
                                                    data-url="<?= $url ?>" <?= $checked && $checked == $key ? 'checked' : '' ?>>
                                             <label for="jobs<?= $key ?>"><?= $job ?></label>
                                         </div>
-                                        <span>15</span>
+<!--                                        <span>15</span>-->
                                     </div>
 
                                 <?php endforeach; ?>
@@ -76,7 +76,7 @@
                                                    data-url="<?= $url ?>" <?= $checked && $checked == $key ? 'checked' : '' ?>>
                                             <label for="kn<?= $key ?>"> <?= $kn ?></label>
                                         </div>
-                                        <span>15</span>
+<!--                                        <span>15</span>-->
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -92,7 +92,6 @@
                                     <input type="checkbox" id="moinhat" name="moinhat" value="moinhat" checked>
                                     <label for="moinhat"> Mới nhất</label>
                                 </div>
-                                <span>15</span>
                             </div>
 
                             <div class="fitler_flex">
@@ -100,14 +99,12 @@
                                     <input type="checkbox" id="tuantruoc" name="tuantruoc" value="tuantruoc">
                                     <label for="tuantruoc"> Tuần trước</label>
                                 </div>
-                                <span>15</span>
                             </div>
                             <div class="fitler_flex">
                                 <div>
                                     <input type="checkbox" id="thangtruoc" name="thangtruoc" value="thangtruoc">
                                     <label for="thangtruoc"> Tháng trước</label>
                                 </div>
-                                <span>15</span>
                             </div>
                         </div>
                     </div>

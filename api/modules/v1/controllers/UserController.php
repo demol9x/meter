@@ -4,6 +4,7 @@ namespace api\modules\v1\controllers;
 
 
 use common\components\ClaGenerate;
+use common\models\shop\Shop;
 use common\models\user\Tho;
 use common\models\user\UserDevice;
 use common\models\user\UserImage;
@@ -115,6 +116,10 @@ class UserController extends RestController
         $message = '';
         $errors = [];
         if ($user && $user->auth_key == $auth_key) {
+            $shop = Shop::findOne($user_id);
+            $shop->status = 1;
+            $shop->save();
+
             $user->status = User::STATUS_ACTIVE;
             $user->save();
             return $this->responseData([

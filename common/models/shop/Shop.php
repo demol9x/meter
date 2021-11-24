@@ -2,6 +2,11 @@
 
 namespace common\models\shop;
 
+use common\models\District;
+use common\models\general\ChucDanh;
+use common\models\Province;
+use common\models\Ward;
+use frontend\models\User;
 use yii\db\Query;
 use Yii;
 use common\components\ClaLid;
@@ -93,10 +98,10 @@ class Shop extends \common\models\ActiveRecordC
     public function rules()
     {
         return [
-            [['name', 'user_id', 'phone', 'email','number_auth'], 'required'],
-            [['id', 'user_id', 'status', 'created_time', 'modified_time', 'site_id', 'avatar_id', 'time_open', 'time_close', 'day_open', 'day_close', 'like', 'rate_count', 'viewed'], 'integer'],
+            [['name', 'phone', 'email','number_auth'], 'required'],
+            [['user_id', 'status', 'created_time', 'modified_time', 'site_id', 'avatar_id', 'time_open', 'time_close', 'day_open', 'day_close', 'like', 'rate_count', 'viewed','founding'], 'integer'],
             [['description'], 'string'],
-            [['rate'], 'number'],
+            [['rate','price'], 'number'],
             [['name', 'alias', 'address', 'image_name', 'avatar_path', 'avatar_name', 'email', 'yahoo', 'skype', 'website', 'facebook', 'instagram', 'pinterest', 'twitter', 'field_business', 'meta_keywords', 'meta_description', 'meta_title'], 'string', 'max' => 250],
             [['province_id', 'district_id'], 'string', 'max' => 4],
             [['province_name', 'district_name', 'ward_name'], 'string', 'max' => 100],
@@ -116,9 +121,9 @@ class Shop extends \common\models\ActiveRecordC
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'name' => 'Name',
             'alias' => 'Alias',
+            'founding' => 'Ngày thành lập',
             'user_id' => 'User ID',
             'address' => 'Address',
             'province_id' => 'Province ID',
@@ -165,6 +170,7 @@ class Shop extends \common\models\ActiveRecordC
             'lng' => 'Lng',
             'viewed' => 'Viewed',
             'business' => 'Business',
+            'price'=>'Vốn điều lệ'
         ];
     }
 
@@ -393,5 +399,24 @@ class Shop extends \common\models\ActiveRecordC
             return true;
         }
         return false;
+    }
+    public function getProvince(){
+        return $this->hasOne(Province::className(),['id' => 'province_id'])->select('name,id');
+    }
+
+    public function getDistrict(){
+        return $this->hasOne(District::className(),['id' => 'district_id'])->select('name,id');
+    }
+
+    public function getWard(){
+        return $this->hasOne(Ward::className(),['id' => 'ward_id'])->select('name,id');
+    }
+
+    public function getJob(){
+        return $this->hasOne(ChucDanh::className(),['id' => 'nghe_nghiep'])->select('name,id');
+    }
+
+    public function getUser(){
+        return $this->hasOne(User::className(),['id' => 'user_id'])->select('avatar_path,avatar_name,id');
     }
 }

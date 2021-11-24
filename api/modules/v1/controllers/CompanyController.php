@@ -11,6 +11,7 @@ namespace api\modules\v1\controllers;
 use common\components\ClaLid;
 use common\components\ClaMeter;
 use common\models\general\ChucDanh;
+use common\models\general\UserWish;
 use common\models\package\Package;
 use common\models\package\PackageWish;
 use common\models\sms\SmsOtp;
@@ -34,48 +35,34 @@ class CompanyController extends RestController
         $page = isset($request['page']) && $request['page'] ? $request['page'] : 1;
         $s = isset($request['s']) && $request['s'] ? $request['s'] : '';
         $user_id = isset($request['user_id']) && $request['user_id'] ? $request['user_id'] : '';
-        $lat = isset($request['lat']) && $request['lat'] ? $request['lat'] : '';
-        $lng = isset($request['lng']) && $request['lng'] ? $request['lng'] : '';
         $province_id = isset($request['province_id']) && $request['province_id'] ? $request['province_id'] : '';
-        $price_min = isset($request['price_min']) && $request['price_min'] ? $request['price_min'] : '';
-        $price_max = isset($request['price_max']) && $request['price_max'] ? $request['price_max'] : '';
-        $distance = isset($request['distance']) && $request['distance'] ? $request['distance'] : '';
+        $id_price = isset($request['id_price']) && $request['id_price'] ? $request['id_price'] : '';
         $response = [];
 
-        $packages = User::getCompany([
+        $shops = User::getS([
             'limit' => $limit,
             'page' => $page,
-            'lat' => $lat,
-            'lng' => $lng,
             's' => $s,
             'province_id' => $province_id,
-            'price_min' => $price_min,
-            'price_max' => $price_max,
-            'distance' => $distance,
+            'id_price' => $id_price,
         ]);
-
-        if ($packages) {
-            $package_wish = PackageWish::find()->where(['user_id' => $user_id])->asArray()->all();
-            $package_wish = array_column($package_wish, 'package_id', 'id');
-            foreach ($packages as $package) {
-                if (in_array($package['id'], $package_wish)) {
-                    $package['is_wish'] = true;
+        if (isset($shops['data']) && $shops['data']) {
+            $shop_wish = UserWish::find()->where(['user_id_from' => $user_id])->asArray()->all();
+            $shop_wish = array_column($shop_wish, 'user_id', 'id');
+            foreach ($shops['data'] as $value) {
+                if (in_array($value['user_id'], $shop_wish)) {
+                    $value['is_wish'] = true;
                 } else {
-                    $package['is_wish'] = false;
+                    $value['is_wish'] = false;
                 }
-                if ($lat && $lng) {
-                    $package['km'] = (int)ClaMeter::betweenTwoPoint($lat, $lng, $package['lat'], $package['long']) . 'km';
-                } else {
-                    $package['km'] = '';
-                }
-                $response[] = $package;
+                $response[] = $value;
             }
         }
 
 
         return $this->responseData([
             'success' => true,
-            'package' => $response
+            'data' => $response
         ]);
     }
 
@@ -84,35 +71,36 @@ class CompanyController extends RestController
         $request = Yii::$app->getRequest()->getBodyParams();
         $user_id = isset($request['user_id']) && $request['user_id'] ? $request['user_id'] : '';
         $auth_key = isset($request['auth_key']) && $request['auth_key'] ? $request['auth_key'] : '';
-        $package_id = isset($request['package_id']) && $request['package_id'] ? $request['package_id'] : '';
+        $shop_id = isset($request['shop_id']) && $request['shop_id'] ? $request['shop_id'] : '';
         $message = '';
         $errors = [];
 
         $user = User::findOne($user_id);
         if ($user && $user->auth_key == $auth_key) {
-            $package_wish = PackageWish::find()->where(['user_id' => $user_id, 'package_id' => $package_id])->one();
-            if ($package_wish) {
-                if ($package_wish->delete()) {
+            $user_wish = UserWish::find()->where(['user_id_from' => $user_id, 'user_id' => $shop_id])->one();
+            if ($user_wish) {
+                if ($user_wish->delete()) {
                     return $this->responseData([
                         'success' => true,
                         'errors' => $errors,
                         'message' => 'Bỏ yêu thích thành công'
                     ]);
                 } else {
-                    $errors = $package_wish->getErrors();
+                    $errors = $user_wish->getErrors();
                 }
             } else {
-                $package_wish = new PackageWish();
-                $package_wish->user_id = $user_id;
-                $package_wish->package_id = $package_id;
-                if ($package_wish->save()) {
+                $user_wish = new UserWish();
+                $user_wish->user_id_from = $user_id;
+                $user_wish->user_id = $shop_id;
+                $user_wish->type = User::TYPE_DOANH_NGHIEP;
+                if ($user_wish->save()) {
                     return $this->responseData([
                         'success' => true,
                         'errors' => $errors,
                         'message' => 'Thêm vào danh sách yêu thích thành công'
                     ]);
                 } else {
-                    $errors = $package_wish->getErrors();
+                    $errors = $user_wish->getErrors();
                 }
             }
         } else {
@@ -125,7 +113,6 @@ class CompanyController extends RestController
             'message' => $message
         ]);
     }
-
     /**
      * @return array
      */

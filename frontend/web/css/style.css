@@ -277,7 +277,7 @@ body {
 .pro_flex {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: flex-start;
 }
 
 .pro_flex .pro_card {
@@ -288,8 +288,8 @@ body {
     /*huy*/
     border: 1px solid #ffffff00;
     box-sizing: border-box;
-    margin-bottom: 15px;     
-   overflow: hidden;
+    margin-bottom: 15px;
+    overflow: hidden;
 }
 
 .pro_flex .pro_card:hover {
@@ -308,10 +308,10 @@ body {
     overflow: hidden;
 }
 .pro_flex .pro_card .card_img img{
-   max-height: 100%;
-   width: 100%;
-   height: 100%;
-   max-width: none;
+    max-height: 100%;
+    width: 100%;
+    height: 100%;
+    max-width: none;
 }
 
 .pro_flex .pro_card .card_img img:hover {
@@ -404,37 +404,18 @@ body {
     right: auto;
 }
 
-.pro_flex .pro_card .heart .check:hover .iuthik1 {
-    display: none;
+.pro_flex .pro_card .heart .iuthik1 i {
+    font-size: 19px;
+    -webkit-text-fill-color: white;
+    -webkit-text-stroke-width: 1.5px;
+    -webkit-text-stroke-color: #289300;
 }
 
-.pro_flex .pro_card .heart .check:hover .iuthik2 {
-    display: block;
-}
+.pro_flex .pro_card .heart .iuthik1.active i{
 
-.pro_flex .pro_card .heart .check .iuthik2 i {
-    color: #289300;
-    font-size: 21px;
-}
-
-.pro_flex .pro_card .heart .check .iuthik2 {
-    display: none;
-}
-
-.pro_flex .pro_card .heart input {
-    display: none;
-}
-
-.pro_flex .pro_card .heart .check .iuthik2 {
-    display: none;
-}
-
-.pro_flex .pro_card .heart input[type=checkbox]:checked+.check>.iuthik2 {
-    display: block;
-}
-
-.pro_flex .pro_card .heart input[type=checkbox]:checked+.check>.iuthik1 {
-    display: none;
+    -webkit-text-fill-color: #289300 !important;
+    -webkit-text-stroke-width: 1.5px !important;
+    -webkit-text-stroke-color: #289300 !important;
 }
 
 .pro_flex .pro_card .hot_product {
@@ -608,7 +589,6 @@ body {
         height: 17px;
         overflow: hidden;
     }
-
     .pro_content .content_text h3::before {
         top: 0;
         height: 17px;

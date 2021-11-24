@@ -45,7 +45,7 @@ $config =  [
             'class' => 'yii\db\Connection',
             'dsn' => 'mysql:host=localhost;dbname=meter',
             'username' => 'root',
-            'password' => '',
+            'password' => 'Qia8BY7iFWjzNqHCkwZ9IvD9H',
             'charset' => 'utf8',
         ],
         'cache' => [

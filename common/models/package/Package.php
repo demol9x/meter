@@ -234,8 +234,25 @@ class Package extends \yii\db\ActiveRecord
         } else {
             $offset = 0;
         }
-        return $query->joinWith(['province'])
-            ->orderBy('order ASC, updated_at DESC')
-            ->limit($limit)->offset($offset)->asArray()->all();
+        if(isset($options['ishot'])&&$options['ishot'] ){
+            $query->andFilterWhere(['ishot' => $options['ishot']]);
+        }
+        if(isset($options['isnew'])&&$options['isnew'] ){
+            $query->andFilterWhere(['isnew' => $options['isnew']]);
+        }
+        $order='order ASC, updated_at DESC';
+        if(isset($options['order']) && $options['order']){
+            $order=$options['order'];
+        }
+        $total= $query->count();
+        $data= $query->joinWith(['province'])
+        ->orderBy($order)
+        ->limit($limit)->offset($offset)->asArray()->all();
+        return [
+            'total' => $total,
+            'data' => $data
+        ];
+
+
     }
 }

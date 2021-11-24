@@ -4,6 +4,8 @@ namespace api\modules\v1\controllers;
 
 use api\components\RestController;
 use common\models\general\ChucDanh;
+use common\models\OptionPrice;
+use common\models\Province;
 use Yii;
 
 class GeneralController extends RestController
@@ -40,18 +42,43 @@ class GeneralController extends RestController
 
     function actionGetProvinces()
     {
-        $list = (new \common\models\Province())->optionsCache();
+        $post = Yii::$app->getRequest()->getBodyParams();
+        $s = isset($post['s']) && $post['s'] ? $post['s'] : '';
+        if ($s) {
+            $list = Province::find()->where(['like', 'name', $s])->asArray()->all();
+            $list = array_column($list, 'name', 'id');
+        } else {
+            $list = (new \common\models\Province())->optionsCache();
+        }
+
         return $this->responseData([
             'success' => true,
             'data' => $list
         ]);
     }
 
-    function actionGetJob(){
-        $jobs = ChucDanh::getJob();
+    function actionGetJob()
+    {
+        $post = $_GET;
+        $s = isset($post['s']) && $post['s'] ? $post['s'] : '';
+        if ($s) {
+            $jobs = ChucDanh::find()->where(['like', 'name', $s])->asArray()->all();
+            $jobs = array_column($jobs, 'name', 'id');
+        } else {
+            $jobs = ChucDanh::getJob();
+        }
         return $this->responseData([
             'success' => true,
             'data' => $jobs
+        ]);
+    }
+
+    function actionGetPriceFillter()
+    {
+        $prices = OptionPrice::find()->asArray()->all();
+        return $this->responseData([
+            'success' => true,
+            'data' => $prices
         ]);
     }
 

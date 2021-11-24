@@ -27,7 +27,7 @@ class PackageFilterWidget extends \frontend\components\CustomWidget {
         $params = [
             'province_id'=> $this->province_id,
         ];
-        $this->province_id = Package::getProvince($params);
+        $this->province_id = Package::getProvince_1($params);
         uasort($this->province_id, function ($a, $b) {
             if ($a['count_job'] == $b['count_job']) {
                 return 0;

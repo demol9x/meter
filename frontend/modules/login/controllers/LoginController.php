@@ -112,7 +112,7 @@ class LoginController extends CController
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
             if ($model->login()){
-                return $this->redirect(['/profile/profile/index']);
+                return $this->redirect(['/management/profile/index']);
             }
         }
         return $this->render('login', [

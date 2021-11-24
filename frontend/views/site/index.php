@@ -43,8 +43,7 @@ echo frontend\widgets\banner\BannerWidget::widget([
 echo frontend\widgets\news\NewsWidget::Widget([
     'view' => 'hot_index',
     'limit' => 8,
-    'ishot'=>1,
-    'category_id'=>1,
+    'category_id'=>20,
 ])
 ?>
 

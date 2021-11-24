@@ -1,4 +1,9 @@
-
+<?php //Menu main
+echo frontend\widgets\menu\MenuWidget::widget([
+    'view' => 'social_bt',
+    'group_id' => 10,
+])
+?>
 <div class="site51_foot_col0_meter" >
     <div class="container_fix">
         <div class="fluild">

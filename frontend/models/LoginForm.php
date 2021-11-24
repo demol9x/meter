@@ -13,11 +13,13 @@ use yii\base\Model;
  */
 class LoginForm extends Model
 {
+
     public $email;
     public $phone;
     public $password;
     public $rememberMe = true;
     private $_user;
+
     /**
      * @inheritdoc
      */
@@ -37,9 +39,7 @@ class LoginForm extends Model
     public function attributeLabels()
     {
         return [
-            'rememberMe' => 'Nhớ đăng nhập',
-            'phone'=>'Số điện thoại',
-            'password'=>'Mật khẩu'
+            'rememberMe' => 'Nhớ đăng nhập'
         ];
     }
 
