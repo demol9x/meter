@@ -20,6 +20,8 @@ use yii\behaviors\TimestampBehavior;
  * @property string $description
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $rate_count
+ * @property number $rate
  */
 class Tho extends \yii\db\ActiveRecord
 {
@@ -39,10 +41,11 @@ class Tho extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'kinh_nghiem', 'created_at', 'updated_at','nghe_nghiep','ward_id','district_id','province_id'], 'integer'],
+            [['user_id', 'kinh_nghiem', 'created_at', 'updated_at','nghe_nghiep','ward_id','district_id','province_id','rate_count'], 'integer'],
             [['kinh_nghiem_description', 'description'], 'string'],
             [['tot_nghiep', 'chuyen_nganh','attachment','address','name'], 'string', 'max' => 255],
-            ['file','file']
+            ['file','file'],
+            [['rate'], 'number'],
         ];
     }
 

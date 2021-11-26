@@ -12,6 +12,76 @@ $package = new Package();
 
 ?>
 <style>
+    .hidden {
+        display: none !important;
+    }
+    .col-md-55{
+        position: relative;
+        min-height: 1px;
+        float: left;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .thumbnail .caption {
+        padding: 9px;
+        color: #333;
+    }
+    .thumbnail .image {
+        height: 120px;
+        overflow: hidden;
+    }
+    .radio, .checkbox {
+        position: relative;
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+    .view-first .mask {
+        opacity: 0;
+        background-color: rgba(0,0,0,0.5);
+        transition: all 0.4s ease-in-out;
+    }
+    .view .mask, .view .content {
+        position: absolute;
+        width: 100%;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+    }
+    .view-first .tools {
+        transform: translateY(-100px);
+        opacity: 0;
+        transition: all 0.2s ease-in-out;
+    }
+    .view .tools {
+        text-transform: uppercase;
+        color: #fff;
+        text-align: center;
+        position: relative;
+        font-size: 17px;
+        padding: 3px;
+        background: rgba(0,0,0,0.35);
+        margin: 43px 0 0 0;
+    }
+    .thumbnail {
+        margin-bottom: 0px;
+    }
+    .thumbnail {
+        height: 190px;
+        overflow: hidden;
+    }
+    .thumbnail {
+        display: block;
+        padding: 4px;
+        margin-bottom: 20px;
+        line-height: 1.42857143;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        -webkit-transition: border .2s ease-in-out;
+        -o-transition: border .2s ease-in-out;
+        transition: border .2s ease-in-out;
+    }
     .form-control {
         display: block;
         width: 100%;
@@ -33,14 +103,6 @@ $package = new Package();
         max-width: 100%;
         margin-bottom: 5px;
         font-weight: bold;
-    }
-    .profile-company input{
-        width: 100%;
-        height: 40px;
-        line-height: 40px;
-        padding: 0px 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
     }
     .profile-company textarea {
         width: 100%;
@@ -119,6 +181,8 @@ $package = new Package();
                 <?= $form->field($shop, 'address')->textInput(['maxlength' => true])->label('Địa chỉ') ?>
 
                 <?= $form->field($shop, 'description')->textInput(['maxlength' => true])->label('Mô tả') ?>
+
+                <?= $this->render('partial/image', ['form' => $form, 'model' => $shop, 'images' => $images]); ?>
                 </tbody>
             </table>
         </div>

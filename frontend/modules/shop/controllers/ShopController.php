@@ -2,6 +2,11 @@
 
 namespace frontend\modules\shop\controllers;
 
+use backend\modules\optionprice\Optionprice;
+use common\models\general\ChucDanh;
+use common\models\general\UserWish;
+use common\models\Province;
+use common\models\user\Tho;
 use Yii;
 use yii\web\Controller;
 use common\models\product\ProductCategory;
@@ -24,23 +29,92 @@ use frontend\models\User;
 /**
  * Shop controller for the `product` module
  */
-class ShopController extends Controller {
+class ShopController extends Controller
+{
 
     public $layout = 'main';
+
     /**
      * Renders the index view for the module
      * @return string
      */
-    public function beforeAction($event) {
+    public function beforeAction($event)
+    {
         Yii::$app->session->open();
         return parent::beforeAction($event);
     }
-    public function  actionIndex(){
-        $_SESSION['url_back_login'] = 'http://'.\common\components\ClaSite::getServerName()."$_SERVER[REQUEST_URI]";
 
-        return $this->render('index',[]);
+    public function actionIndex()
+    {
+        $pagesize = 24;
+        $page = Yii::$app->request->get('page', 1);
+        $users = \frontend\models\User::getS(array_merge(Yii::$app->request->get(), [
+            'limit' => $pagesize,
+            'page' => $page,
+        ]));
+        $us_wish = UserWish::find()->where(['user_id_from' => Yii::$app->user->id, 'type' => \frontend\models\User::TYPE_DOANH_NGHIEP])->asArray()->all();
+        $us_wish = array_column($us_wish, 'user_id', 'id');
+        $provinces = Province::find()->asArray()->all();
+        $option_price = \common\models\OptionPrice::find()->asArray()->all();
+        return $this->render('index', [
+            'users' => $users['data'],
+            'us_wish' => $us_wish,
+            'provinces' => array_column($provinces, 'name', 'id'),
+            'limit' => $pagesize,
+            'totalitem' => $users['total'],
+            'option_price' => $option_price,
+        ]);
     }
-    public function actionDetail() {
+
+    public function actionAddLike()
+    {
+        $user_id = Yii::$app->user->getId();
+        $dn_id = Yii::$app->request->get('dn_id', 0);
+        $message = '';
+        $errors = [];
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if (Yii::$app->user->getId()) {
+                $user = \frontend\models\User::findOne($user_id);
+                $user_wish = UserWish::find()->where(['user_id_from' => $user_id, 'user_id' => $dn_id])->one();
+                if ($user_wish) {
+                    if ($user_wish->delete()) {
+                        return json_encode([
+                            'success' => true,
+                            'errors' => $errors,
+                            'message' => 'Xóa khỏi danh sách yêu thích thành công'
+                        ]);
+                    } else {
+                        $message = $user_wish->getErrors();
+                    }
+                } else {
+                    $user_wish = new UserWish();
+                    $user_wish->user_id_from = $user_id;
+                    $user_wish->user_id = $dn_id;
+                    $user_wish->type = \frontend\models\User::TYPE_DOANH_NGHIEP;
+                    if ($user_wish->save()) {
+                        return json_encode([
+                            'success' => true,
+                            'errors' => $errors,
+                            'message' => 'Thêm vào danh sách yêu thích thành công'
+                        ]);
+                    } else {
+                        $message = $user_wish->getErrors();
+                    }
+                }
+            } else {
+                $message = 'Bạn phải đăng nhập để thực hiện hành động này.';
+            }
+        }
+        return json_encode([
+            'success' => false,
+            'errors' => $errors,
+            'message' => $message
+        ]);
+    }
+
+    public function actionDetail()
+    {
         //
 //        $_SESSION['url_back_login'] = 'http://'.\common\components\ClaSite::getServerName()."$_SERVER[REQUEST_URI]";
 //        $model = $this->findModel($id);
@@ -64,9 +138,10 @@ class ShopController extends Controller {
      * @return Shop the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
+    protected function findModel($id)
+    {
         if (($model = Shop::findOne($id)) !== null) {
-            $name_shop_ck = 'view_shop_'.$model->id;
+            $name_shop_ck = 'view_shop_' . $model->id;
             if (!isset($_COOKIE[$name_shop_ck])) {
                 $model->viewed++;
                 $connection = Yii::$app->db;
@@ -78,7 +153,6 @@ class ShopController extends Controller {
             return 0;
         }
     }
-
 
 
 }

@@ -171,7 +171,7 @@ class PackageController extends RestController
                 $package = Package::findOne($package_id);
                 if ($package && $package->shop_id != $user_id) {
                     $check = PackageOrder::find()->where(['shop_id' => $user_id,'package_id' => $package_id])->one();
-                    if ($check) {
+                    if (!$check) {
                         $order = new PackageOrder();
                         $order->load($request, '');
                         $order->shop_id = $user_id;

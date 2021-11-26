@@ -31,7 +31,7 @@ class UserController extends RestController
         $message = '';
         $errors = [];
         if ($user && $user['auth_key'] == $auth_key) {
-            if($user['tho']){
+            if ($user['tho']) {
                 $images = UserImage::find()->where(['user_id' => $user_id])->asArray()->all();
                 $user['tho']['images'] = $images;
             }
@@ -41,7 +41,7 @@ class UserController extends RestController
                 'errors' => $errors,
                 'message' => $message
             ]);
-        }else {
+        } else {
             $message = 'Thông tin tài khoản không hợp lệ';
         }
         return $this->responseData([
@@ -117,8 +117,10 @@ class UserController extends RestController
         $errors = [];
         if ($user && $user->auth_key == $auth_key) {
             $shop = Shop::findOne($user_id);
-            $shop->status = 1;
-            $shop->save();
+            if ($shop) {
+                $shop->status = 1;
+                $shop->save();
+            }
 
             $user->status = User::STATUS_ACTIVE;
             $user->save();
@@ -127,7 +129,7 @@ class UserController extends RestController
                 'errors' => $errors,
                 'message' => $message
             ]);
-        }else {
+        } else {
             $message = 'Thông tin tài khoản không hợp lệ';
         }
         return $this->responseData([
@@ -137,7 +139,8 @@ class UserController extends RestController
         ]);
     }
 
-    public function actionForgotPassword(){
+    public function actionForgotPassword()
+    {
         $params = Yii::$app->getRequest()->getBodyParams();
         $password = isset($params['password']) && $params['password'] ? $params['password'] : '';
         $re_password = isset($params['re_password']) && $params['re_password'] ? $params['re_password'] : '';
@@ -145,7 +148,7 @@ class UserController extends RestController
         $user = User::find()->where(['phone' => $phone])->one();
         $message = '';
         $errors = [];
-        if($password != $re_password){
+        if ($password != $re_password) {
             $message = 'Mật khẩu không khớp';
         }
         if ($user && $password && $password == $re_password) {
@@ -157,7 +160,7 @@ class UserController extends RestController
                 'errors' => $errors,
                 'message' => $message
             ]);
-        }else {
+        } else {
             $message = 'Số điện thoại chưa đăng ký tài khoản';
         }
         return $this->responseData([
@@ -167,7 +170,8 @@ class UserController extends RestController
         ]);
     }
 
-    public function actionChangePassword(){
+    public function actionChangePassword()
+    {
         $params = Yii::$app->getRequest()->getBodyParams();
         $password = isset($params['password']) && $params['password'] ? $params['password'] : '';
         $new_password = isset($params['new_password']) && $params['new_password'] ? $params['new_password'] : '';
@@ -186,23 +190,23 @@ class UserController extends RestController
                 'password' => $password
             ];
             if ($model->load($params, '') && $model->login()) {
-                if($new_password && $new_password == $re_password){
+                if ($new_password && $new_password == $re_password) {
                     $user->setPassword($new_password);
--                    $user->save();
+                    -$user->save();
                     return $this->responseData([
                         'success' => true,
                         'errors' => $errors,
                         'message' => $message
                     ]);
-                }else{
+                } else {
                     $message = 'Mật khẩu mới không khớp';
                 }
 
-            }else{
+            } else {
                 $message = 'Mật khẩu không đúng';
             }
 
-        }else {
+        } else {
             $message = 'Thông tin tài khoản không hợp lệ';
         }
 
@@ -292,7 +296,8 @@ class UserController extends RestController
         ]);
     }
 
-    public function actionUpdate(){
+    public function actionUpdate()
+    {
         $params = Yii::$app->getRequest()->getBodyParams();
         $user_id = isset($params['user_id']) && $params['user_id'] ? $params['user_id'] : '';
         $auth_key = isset($params['auth_key']) && $params['auth_key'] ? $params['auth_key'] : '';
@@ -305,14 +310,14 @@ class UserController extends RestController
                 $file = (array)$avatar[0];
                 $file['tmp_name'] = $file['tempName'];
                 unset($file['tempName']);
-                $data = $this->uploadImage($file,'user');
+                $data = $this->uploadImage($file, 'user');
                 if ($data['code'] == 1) {
                     $user->avatar_path = $data['data']['path'];
                     $user->avatar_name = $data['data']['name'];
                 }
             }
 
-            if($user->load($params,'')){
+            if ($user->load($params, '')) {
                 $user->sex = isset($params['sex']) && $params['sex'] ? $params['sex'] : $user->sex;
                 $user->username = isset($params['username']) && $params['username'] ? $params['username'] : $user->username;
                 $user->province_id = isset($params['province_id']) && $params['province_id'] ? $params['province_id'] : $user->province_id;
@@ -321,9 +326,9 @@ class UserController extends RestController
                 $user->address = isset($params['address']) && $params['address'] ? $params['address'] : $user->address;
                 $user->email = isset($params['email']) && $params['email'] ? $params['email'] : $user->email;
                 $user->birthday = isset($params['birthday']) && $params['birthday'] ? $params['birthday'] : $user->birthday;
-                if($user->save()){
+                if ($user->save()) {
                     $tho = Tho::findOne($user_id);
-                    if($tho){
+                    if ($tho) {
                         $tho->province_id = isset($params['province_id']) && $params['province_id'] ? $params['province_id'] : $user->province_id;
                         $tho->district_id = isset($params['district_id']) && $params['district_id'] ? $params['district_id'] : $user->district_id;
                         $tho->ward_id = isset($params['ward_id']) && $params['ward_id'] ? $params['ward_id'] : $user->ward_id;
@@ -338,7 +343,7 @@ class UserController extends RestController
                         'data' => $user->attributes,
                         'message' => 'Cập nhật thành công'
                     ]);
-                }else{
+                } else {
                     $errors = $user->getErrors();
                 }
             }

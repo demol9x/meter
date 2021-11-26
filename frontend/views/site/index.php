@@ -46,15 +46,11 @@ echo frontend\widgets\news\NewsWidget::Widget([
     'category_id'=>20,
 ])
 ?>
+<?php //Menu main
+echo frontend\widgets\banner\BannerWidget::widget([
+    'view' => 'banner_qc_mobile',
+    'group_id' => 19,
+    'limit'=>1,
+])
+?>
 
-<div class="site51_html_col0_taiappmeter" style="background-image: url('<?= yii::$app->homeUrl?>images/taiappmeter.png');">
-    <div class="container_fix">
-        <h2 class="title-icon title_30">TẢI APP METER NGAY</h2>
-        <p class="content_16">Để tận hưởng một trải nghiệm hoàn toàn mới.</p>
-        <div class="link_app">
-            <a href="" class="btn-app "><img src="<?= yii::$app->homeUrl?>images/button1.png" alt=""></a>
-            <a href="" class="btn-app "><img src="<?= yii::$app->homeUrl?>images/button2.png" alt=""></a>
-        </div>
-    </div>
-</div>
-</div>
