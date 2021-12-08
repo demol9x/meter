@@ -12,6 +12,10 @@
     margin-left: 6px;
 }
 
+.site52_pro_col12_nhathau .pro_flex .pro_card{
+  margin-left: 6px;
+}
+
 @media (max-width: 1270px) {
     .pro_flex .pro_card {
         width: 24%;
