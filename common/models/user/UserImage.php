@@ -68,6 +68,11 @@ class UserImage extends \yii\db\ActiveRecord {
         }
     }
 
+    static function getImages($user_id){
+        $data = self::find()->where(['user_id' => $user_id])->asArray()->all();
+        return $data;
+    }
+
     /**
      * get all images by color
      * @param type $user_id

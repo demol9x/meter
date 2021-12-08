@@ -2,6 +2,8 @@
 
 namespace frontend\models;
 
+use common\models\OptionPrice;
+use common\models\shop\Shop;
 use common\models\user\Tho;
 use Yii;
 use yii\base\NotSupportedException;
@@ -86,7 +88,9 @@ class User extends ActiveRecord implements IdentityInterface
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
             [['email', 'address', 'facebook', 'link_facebook', 'id_social'], 'string', 'max' => 255],
             [['type_social', 'image_path', 'image_name', 'avatar_path', 'avatar_name', 'avatar', 'cover'], 'safe'],
-            ['type', 'integer'],
+            [['type'], 'integer'],
+            ['birthday', 'safe']
+
         ];
     }
 
@@ -174,7 +178,7 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
 
-        $timestamp = (int) substr($token, strrpos($token, '_') + 1);
+        $timestamp = (int)substr($token, strrpos($token, '_') + 1);
         $expire = Yii::$app->params['user.passwordResetTokenExpire'];
         return $timestamp + $expire >= time();
     }
@@ -473,11 +477,159 @@ class User extends ActiveRecord implements IdentityInterface
 
     static function getShop()
     {
-        $shop = self::find()->where(['type' => self::TYPE_DOANH_NGHIEP,'status' => self::STATUS_ACTIVE])->asArray()->all();
-        return array_column($shop,'username','id');
+        $shop = self::find()->where(['type' => self::TYPE_DOANH_NGHIEP, 'status' => self::STATUS_ACTIVE])->asArray()->all();
+        return array_column($shop, 'username', 'id');
     }
 
-    public function getTho(){
-        return $this->hasOne(Tho::className(),['user_id' => 'id']);
+    public function getTho()
+    {
+        return $this->hasOne(Tho::className(), ['user_id' => 'id']);
+    }
+
+    public static function getCompany($options = [])
+    {
+        $query = Shop::find()->where(['status' => 1]);
+        if (isset($options['s']) && $options['s']) {
+            $query->andFilterWhere(['like', 'user.name', $options['s']]);
+        }
+
+        if (isset($options['province_id']) && $options['province_id']) {
+            $query->andFilterWhere(['province_id' => $options['province_id']]);
+        }
+
+        if (isset($options['price_min']) && $options['price_min']) {
+            $query->andFilterWhere(['>', 'price', $options['price_min'] - 1]);
+        }
+        if (isset($options['price_max']) && $options['price_max']) {
+            $query->andFilterWhere(['<', 'price', $options['price_max'] + 1]);
+        }
+
+        if (isset($options['limit']) && $options['limit']) {
+            $limit = $options['limit'];
+        }
+        if (isset($options['page'])) {
+            $offset = ($options['page'] - 1) * $limit;
+        } else {
+            $offset = 0;
+        }
+        return $query->joinWith(['province'])
+            ->orderBy('order ASC, updated_at DESC')
+            ->limit($limit)->offset($offset)->asArray()->all();
+    }
+
+    public static function getS($options = [], $getdata = false)
+    {
+        $query = Shop::find()->where(['shop.status' => 1]);
+        if (isset($options['s']) && $options['s']) {
+            $query->andFilterWhere(['like', 'shop.name', $options['s']]);
+        }
+        if (isset($options['province_id']) && $options['province_id']) {
+            $query->andFilterWhere(['shop.province_id' => $options['province_id']]);
+        }
+
+
+
+        if (isset($options['id_price']) && $options['id_price']) {
+            $pr = OptionPrice::findOne($options['id_price']);
+            $query->andFilterWhere(['>', 'price', $pr['price_min'] - 1]);
+            $query->andFilterWhere(['<', 'price', $pr['price_max'] + 1]);
+        }
+        if (isset($options['limit']) && $options['limit']) {
+            $limit = $options['limit'];
+        }
+        if (isset($options['page'])) {
+            $offset = ($options['page'] - 1) * $limit;
+        } else {
+            $offset = 0;
+        }
+        $order = [];
+
+        if (isset($options['sort']) && $options['sort']) {
+            if($options['sort'] == 'new'){
+                $order['created_at'] = SORT_DESC;
+            }
+            if($options['sort'] == 'rate'){
+                $order['rate'] = SORT_DESC;
+            }
+            if($options['sort'] == 'name'){
+                $order['name'] = SORT_ASC;
+            }
+        }
+
+        $total = $query->count();
+        $data = $query->joinWith(['province', 'user'])
+            ->orderBy($order)
+            ->limit($limit)->offset($offset)->asArray()->all();
+        if (isset($getdata) && $getdata) {
+            return $data;
+        }
+        return [
+            'total' => $total,
+            'data' => $data
+        ];
+
+    }
+
+    public static function getT($options = [])
+    {
+        $query = Tho::find()->where(['tho.status' => 1]);
+        if (isset($options['s']) && $options['s']) {
+            $query->andFilterWhere(['like', 'tho.name', $options['s']]);
+        }
+
+        if (isset($options['province_id']) && $options['province_id']) {
+            $query->andFilterWhere(['tho.province_id' => $options['province_id']]);
+        }
+
+        if (isset($options['job_id']) && $options['job_id']) {
+            $query->andFilterWhere(['nghe_nghiep' => $options['job_id']]);
+        }
+
+        if (isset($options['kn']) && $options['kn']) {
+            $query->andFilterWhere(['kinh_nghiem' => $options['kn']]);
+        }
+
+        if (isset($options['time']) && $options['time']) {
+        }
+        if (isset($options['sort']) && $options['sort']) {
+            if($options['sort'] == 'new'){
+                $order['created_at'] = SORT_DESC;
+            }
+            if($options['sort'] == 'rate'){
+                $order['rate'] = SORT_DESC;
+            }
+            if($options['sort'] == 'name'){
+                $order['name'] = SORT_ASC;
+            }
+        }
+        $order = [];
+        if (isset($options['sort']) && $options['sort']) {
+            if($options['sort'] == 'new'){
+                $order['created_at'] = SORT_DESC;
+            }
+            if($options['sort'] == 'rate'){
+                $order['rate'] = SORT_DESC;
+            }
+            if($options['sort'] == 'name'){
+                $order['name'] = SORT_ASC;
+            }
+        }
+
+        if (isset($options['limit']) && $options['limit']) {
+            $limit = $options['limit'];
+        }
+        if (isset($options['page'])) {
+            $offset = ($options['page'] - 1) * $limit;
+        } else {
+            $offset = 0;
+        }
+        $total = $query->count();
+        $data = $query->joinWith(['province', 'job', 'user'])
+            ->orderBy($order)
+            ->limit($limit)->offset($offset)->asArray()->all();
+        return [
+            'total' => $total,
+            'data' => $data
+        ];
     }
 }

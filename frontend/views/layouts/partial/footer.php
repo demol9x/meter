@@ -62,40 +62,42 @@ echo frontend\widgets\menu\MenuWidget::widget([
             <div class="rows">
                 <div class="service_1 service"><a href=""><img src="<?= yii::$app->homeUrl ?>images/dau_foot.png" alt=""></a></div>
                 <div class="service_2 service">
-                    <a href="">
+                    <a href="#">
                         <img src="<?= yii::$app->homeUrl ?>images/vnpay_foot.png" alt="">
                     </a>
-                    <a href="">
+                    <a href="#">
                         <img src="<?= yii::$app->homeUrl ?>images/visa_foot.png" alt="">
                     </a>
-                    <a href="">
+                    <a href="#">
                         <img src="<?= yii::$app->homeUrl ?>images/banking_foot.png" alt="">
                     </a>
-                    <a href="">
+                    <a href="#">
                         <img src="<?= yii::$app->homeUrl ?>images/visa_foot.png" alt="">
                     </a>
-                    <a href="">
+                    <a href="#">
                         <img src="<?= yii::$app->homeUrl ?>images/installment_foot.png" alt="">
                     </a>
-                    <a href="">
+                    <a href="#">
                         <img src="<?= yii::$app->homeUrl ?>images/the_foot.png" alt="">
                     </a>
-                    <a href="">
+                    <a href="#">
                         <img src="<?= yii::$app->homeUrl ?>images/monney_foot.png" alt="">
                     </a>
                 </div>
                 <div class="service_3 service">
                     <span>LIÊN KẾT:</span>
                     <div class="flex-icon">
-                        <a href=""><i class="fab fa-facebook-f"></i></a>
-                        <a href=""><i class="fab fa-instagram"></i></a>
-                        <a href=""><i class="fab fa-twitter"></i></a>
-                        <a href=""><i class="fab fa-skype"></i></a>
+                        <?php //Menu main
+                        echo frontend\widgets\menu\MenuWidget::widget([
+                            'view' => 'view',
+                            'group_id' => 8,
+                        ])
+                        ?>
                     </div>
                 </div>
                 <div class="service_4">
-                    <a href="">
-                        <span> <span><?= $siteinfo->copyright ?></span></span>
+                    <a href="https://nanoweb.vn/" target="_blank">
+                        <span><span><?= $siteinfo->copyright ?></span></span>
                     </a>
                 </div>
             </div>

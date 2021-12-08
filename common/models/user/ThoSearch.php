@@ -18,8 +18,8 @@ class ThoSearch extends Tho
     public function rules()
     {
         return [
-            [['user_id', 'kinh_nghiem', 'created_at', 'updated_at'], 'integer'],
-            [['tot_nghiep', 'nghe_nghiep', 'chuyen_nganh', 'kinh_nghiem_description', 'description', 'attachment'], 'safe'],
+            [['kinh_nghiem', 'updated_at','is_hot'], 'integer'],
+            [['tot_nghiep', 'nghe_nghiep', 'chuyen_nganh', 'kinh_nghiem_description', 'description', 'attachment','user_id'], 'safe'],
         ];
     }
 
@@ -59,13 +59,15 @@ class ThoSearch extends Tho
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'user_id' => $this->user_id,
             'kinh_nghiem' => $this->kinh_nghiem,
             'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
 
+        $query->joinWith(['user']);
+
         $query->andFilterWhere(['like', 'tot_nghiep', $this->tot_nghiep])
+            ->andFilterWhere(['like', 'user.username', $this->user_id])
             ->andFilterWhere(['like', 'nghe_nghiep', $this->nghe_nghiep])
             ->andFilterWhere(['like', 'chuyen_nganh', $this->chuyen_nganh])
             ->andFilterWhere(['like', 'kinh_nghiem_description', $this->kinh_nghiem_description])

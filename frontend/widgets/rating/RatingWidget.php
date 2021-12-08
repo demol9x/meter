@@ -2,74 +2,93 @@
 
 namespace frontend\widgets\rating;
 
-use yii\base\Widget;
+use common\models\rating\RatingImage;
+use common\models\rating\RatingLike;
 use Yii;
 use common\models\rating\Rating;
 
-class RatingWidget extends \frontend\components\CustomWidget {
+class RatingWidget extends \frontend\components\CustomWidget
+{
 
     public $view = 'view';
-    public $limit = 1;
+    public $limit = 5;
+    public $page = 1;
     public $type = 0; // Loại đối tượng
     public $object_id = 0; // Id đối tượng
     public $data = [];
-    public $exist = [];
-    public $ratings = [];
-    public $title = '';
-    public $statistic = [];
-    public $avg = 0;
+    public $title = 'Đánh giá';
+    public $rating = [];
+    public $images = [];
+    public $total;
 
-    public function init() {
-        // check user rating object
-        $this->exist = Rating::find()->where('user_id=:user_id AND type=:type AND object_id=:object_id', [
-                    ':user_id' => \Yii::$app->user->getId(),
-                    ':type' => $this->type,
-                    ':object_id' => $this->object_id
-                ])->one();
-        // get all rating of object
-        $this->ratings = Rating::getRatings($this->type, $this->object_id);
-        $this->avg = Rating::getAvgRating($this->type, $this->object_id);
-        //
-        $this->statistic = $this->getStatistic($this->ratings);
-        //
+    public function init()
+    {
         parent::init();
     }
 
-    public function run() {
-        //
+    public function run()
+    {
+        $this->data = $this->getData();
+        $this->images = $this->getImagges();
         return $this->render($this->view, [
-                    'data' => $this->data,
-                    'type' => $this->type,
-                    'object_id' => $this->object_id,
-                    'exist' => $this->exist,
-                    'ratings' => $this->ratings,
-                    'title' => $this->title,
-                    'statistic' => $this->statistic,
-                    'avg' => $this->avg
+            'data' => $this->data,
+            'type' => $this->type,
+            'object_id' => $this->object_id,
+            'limit' => $this->limit,
+            'page' => $this->page,
+            'title' => $this->title,
+            'rating' => $this->rating,
+            'images' => $this->images,
+            'total' => $this->total,
         ]);
     }
 
-    public function getStatistic($data) {
-        $result = [
-            5 => ['count' => 0, 'percent' => 0, 'label' => Yii::t('app', 'rate_5')],
-            4 => ['count' => 0, 'percent' => 0, 'label' => Yii::t('app', 'rate_4')],
-            3 => ['count' => 0, 'percent' => 0, 'label' => Yii::t('app', 'rate_3')],
-            2 => ['count' => 0, 'percent' => 0, 'label' => Yii::t('app', 'rate_2')],
-            1 => ['count' => 0, 'percent' => 0, 'label' => Yii::t('app', 'rate_1')],
+    function getData()
+    {
+        $data = [];
+        if ($this->object_id && $this->type) {
+            $rating = Rating::getRating([
+                'object_id' => $this->object_id,
+                'type' => $this->type,
+                'limit' => $this->limit,
+                'page' => $this->page,
+            ]);
+            if ($rating['data']) {
+                $this->total = $rating['total'];
+                foreach ($rating['data'] as $rt) {
+                    if (Yii::$app->user->id) {
+                        $rating_like = RatingLike::find()->where(['rating_id' => $rt['id'], 'user_id' => Yii::$app->user->id])->one();
+                        if ($rating_like) {
+                            $rt['is_like'] = true;
+                        } else {
+                            $rt['is_like'] = false;
+                        }
+                    } else {
+                        $rt['is_like'] = false;
+                    }
+                    $data[] = $rt;
+                }
+            }
+
+        }
+        return $data;
+    }
+
+    function getImagges()
+    {
+        if ($this->object_id && $this->type) {
+            $query = RatingImage::find()->where(['type' => $this->type,'object_id' => $this->object_id])->orderBy('created_at DESC');
+            $count = $query->count();
+            $data = $query->asArray()->all();
+            return [
+                'images' => $data,
+                'total' => $count
+            ];
+        }
+        return [
+            'images' => [],
+            'total' => 0
         ];
-        $count = count($data);
-        if (isset($data) && $data) {
-            foreach ($data as $item) {
-                $result[$item['rating']]['count'] ++;
-            }
-        }
-        $onepercent = $count / 100;
-        if ($onepercent) {
-            foreach ($result as $star => $rating) {
-                $result[$star]['percent'] = ceil($rating['count'] / $onepercent);
-            }
-        }
-        return $result;
     }
 
 }

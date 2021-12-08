@@ -14,7 +14,7 @@ $params = array_merge(
 
 return [
     'id' => 'app-frontend',
-    'name' => 'OCOP',
+    'name' => 'METER',
     'language' => 'vi',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
@@ -132,7 +132,8 @@ return [
         'request' => [
             'csrfParam' => '_csrf-frontend',
             'class' => 'common\components\Request',
-            'web' => '/frontend/web'
+            'web' => '/frontend/web',
+            'enableCsrfValidation' => false
         ],
         'urlManager' => [
             'enablePrettyUrl' => true,

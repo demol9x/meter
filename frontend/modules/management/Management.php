@@ -18,10 +18,6 @@ class Management extends \yii\base\Module {
      * @inheritdoc
      */
     public function init() {
-        if (\common\components\ClaSite::isMobile()) {
-            $this->controllerNamespace = 'frontend\mobile\modules\management\controllers';
-            $this->setViewPath(Yii::getAlias('@root') . '/frontend/mobile/modules/management/views');
-        }
 
         $this->layout = 'main';
 

@@ -16,11 +16,7 @@ class News extends \yii\base\Module {
      * @inheritdoc
      */
     public function init() {
-
-
-            $this->setViewPath(Yii::getAlias('@root') . '/frontend/modules/news/views');
-
-
+        $this->setViewPath(Yii::getAlias('@root') . '/frontend/modules/news/views');
         // custom initialization code goes here
     }
 

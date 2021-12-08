@@ -18,10 +18,8 @@ class Product extends \yii\base\Module {
      * @inheritdoc
      */
     public function init() {
-        if (\common\components\ClaSite::isMobile()) {
-            $this->controllerNamespace = 'frontend\mobile\modules\product\controllers';
-            $this->setViewPath(Yii::getAlias('@root') . '/frontend/mobile/modules/product/views');
-        }
+            $this->setViewPath(Yii::getAlias('@root') . '/frontend/modules/product/views');
+
         parent::init();
 
         // custom initialization code goes here

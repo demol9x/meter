@@ -1,56 +1,67 @@
 .site52_pro_col12_nhathau {
-  padding-top: 40px;
-  background: #FFFFFF;
+    padding-top: 30px;
+    background: #FFFFFF;
 }
+
 .site52_pro_col12_nhathau .container_fix .pro_flex .site52_pro_col10_nhathau {
-  width: calc(100% - (248px + 30px));
-  padding-bottom: 60px;
+    width: calc(100% - (248px + 30px));
+    padding-bottom: 60px;
+}
+
+.pro_flex .pro_card {
+    margin-left: 6px;
 }
 
 @media (max-width: 1270px) {
-  .pro_flex .pro_card {
-    width: 24%;
-  }
+    .pro_flex .pro_card {
+        width: 24%;
+    }
 }
-@media (max-width: 1199px) {
-  .pro_flex .pro_card {
-    width: 32%;
-  }
-}
-@media (max-width: 1000px) {
-  .site52_pro_col12_nhathau {
-    padding-top: 35px;
-  }
-  .site52_pro_col12_nhathau .container_fix .pro_flex .site52_pro_col10_nhathau {
-    width: calc(100% - (210px + 15px));
-    padding-bottom: 40px;
-  }
-}
-@media (max-width: 991px) {
-  .site52_pro_col12_nhathau {
-    padding-top: 30px;
-  }
-  .site52_pro_col12_nhathau .container_fix .pro_flex .site52_pro_col10_nhathau {
-    width: 100%;
-  }
 
-  .pro_flex .pro_card .card_text {
-    padding: 10px;
-  }
+@media (max-width: 1199px) {
+    .pro_flex .pro_card {
+        width: 32%;
+    }
 }
+
+@media (max-width: 1000px) {
+    .site52_pro_col12_nhathau {
+        padding-top: 30px;
+    }
+    .site52_pro_col12_nhathau .container_fix .pro_flex .site52_pro_col10_nhathau {
+        width: calc(100% - (210px + 15px));
+        padding-bottom: 40px;
+    }
+}
+
+@media (max-width: 991px) {
+    .site52_pro_col12_nhathau {
+        padding-top: 30px;
+    }
+    .site52_pro_col12_nhathau .container_fix .pro_flex .site52_pro_col10_nhathau {
+        width: 100%;
+    }
+    .pro_flex .pro_card .card_text {
+        padding: 10px;
+    }
+}
+
 @media (max-width: 576px) {
-  .pro_flex .pro_card {
-    width: 49%;
-  }
+    .pro_flex .pro_card {
+        width: 48%;
+        margin-bottom: 2%;
+        margin-left: 2%;
+    }
 }
+
 @media (max-width: 460px) {
-  .pro_content .content_text {
-    margin-bottom: 15px;
-  }
-  .pro_content .pro_select_env {
-    -webkit-box-pack: justify;
+    .pro_content .content_text {
+        margin-bottom: 15px;
+    }
+    .pro_content .pro_select_env {
+        -webkit-box-pack: justify;
         -ms-flex-pack: justify;
-            justify-content: space-between;
-    width: 100%;
-  }
+        justify-content: space-between;
+        width: 100%;
+    }
 }

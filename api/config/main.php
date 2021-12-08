@@ -34,9 +34,9 @@ return [
             ],
         ],
         'request' => [
-            // 'parsers' => [
-            //     'application/json' => 'yii\web\JsonParser',
-            // ],
+             'parsers' => [
+                 'application/json' => 'yii\web\JsonParser',
+             ],
             'csrfParam' => '_csrf-apiend',
             'class' => 'common\components\Request',
             'cookieValidationKey' => '8bT0fm4WF-TE6lhvB4HrGm7P8GRGO7sg',

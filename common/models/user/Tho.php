@@ -2,6 +2,11 @@
 
 namespace common\models\user;
 
+use common\models\District;
+use common\models\general\ChucDanh;
+use common\models\Province;
+use common\models\Ward;
+use frontend\models\User;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 
@@ -17,6 +22,9 @@ use yii\behaviors\TimestampBehavior;
  * @property string $description
  * @property integer $created_at
  * @property integer $updated_at
+ * @property integer $rate_count
+ * @property number $rate
+ * @property number $status
  */
 class Tho extends \yii\db\ActiveRecord
 {
@@ -36,10 +44,11 @@ class Tho extends \yii\db\ActiveRecord
     {
         return [
             [['user_id'], 'required'],
-            [['user_id', 'kinh_nghiem', 'created_at', 'updated_at'], 'integer'],
+            [['user_id', 'kinh_nghiem', 'created_at', 'updated_at','nghe_nghiep','ward_id','district_id','province_id','rate_count','is_hot','status'], 'integer'],
             [['kinh_nghiem_description', 'description'], 'string'],
-            [['tot_nghiep', 'nghe_nghiep', 'chuyen_nganh','attachment'], 'string', 'max' => 255],
-            ['file','file']
+            [['tot_nghiep', 'chuyen_nganh','attachment','address','name'], 'string', 'max' => 255],
+            ['file','file'],
+            [['rate'], 'number'],
         ];
     }
 
@@ -49,7 +58,8 @@ class Tho extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'user_id' => 'User ID',
+            'user_id' => 'Họ và tên',
+            'name' => 'Họ và tên',
             'tot_nghiep' => 'Tốt nghiệp trường',
             'nghe_nghiep' => 'Nghề nghiệp',
             'chuyen_nganh' => 'Chuyên ngành',
@@ -57,7 +67,8 @@ class Tho extends \yii\db\ActiveRecord
             'kinh_nghiem_description' => 'Kinh nghiệm làm việc',
             'description' => 'Giới thiệu',
             'attachment' => 'CV',
-            'created_at' => 'Created At',
+            'is_hot' => 'Nổi bật',
+            'created_at' => 'Thời gian tạo',
             'updated_at' => 'Updated At',
         ];
     }
@@ -77,5 +88,25 @@ class Tho extends \yii\db\ActiveRecord
             4 => '3-4 năm',
             5 => 'Trên 5 năm',
         ];
+    }
+
+    public function getProvince(){
+        return $this->hasOne(Province::className(),['id' => 'province_id'])->select('name,id');
+    }
+
+    public function getDistrict(){
+        return $this->hasOne(District::className(),['id' => 'district_id'])->select('name,id');
+    }
+
+    public function getWard(){
+        return $this->hasOne(Ward::className(),['id' => 'ward_id'])->select('name,id');
+    }
+
+    public function getJob(){
+        return $this->hasOne(ChucDanh::className(),['id' => 'nghe_nghiep'])->select('name,id');
+    }
+
+    public function getUser(){
+        return $this->hasOne(User::className(),['id' => 'user_id'])->select('avatar_path,avatar_name,id,phone,email,username,birthday');
     }
 }

@@ -28,11 +28,22 @@ $siteinfo = common\components\ClaLid::getSiteinfo();
     </head>
     <body>
     <?php $this->beginBody()?>
+    <?php if (Yii::$app->session->getFlash('success')) { ?>
+        <div class="set-flash">
+            <div class="flash-set-flex content_14">
+                <?php echo Yii::$app->session->getFlash('success'); ?>
+                <div class="flash-ok">
+                    Xác nhận
+                </div>
+            </div>
+        </div>
+    <?php } ?>
 
     <?php echo $this->render('partial/header', ['siteinfo' => $siteinfo]) ?>
     <?=$content?>
     <?php echo $this->render('partial/footer', ['siteinfo' => $siteinfo]) ?>
 
+    <?= $this->render('partial/add_js_all'); ?>
     <?php $this->endBody()?>
     </body>
 

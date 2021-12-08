@@ -22,10 +22,10 @@ use yii\helpers\Url;
                 <?php if (isset($_GET['cate']) && $_GET['cate']) {
                     foreach ($category_news as $key) {
                         if ($_GET['cate'] == $key['id']) {?>
-                            <h2 class="title_30"><?= $key['name']?></h2>
+                            <h2 class="title_26"><?= $key['name']?></h2>
                         <?php } } ?>
                 <?php } else {?>
-                    <h2 class="title_30">tin tức chung</h2>
+                    <h2 class="title_26">tin tức chung</h2>
                 <?php } ?>
                 <div class="main-tintuc">
                     <?php
@@ -34,13 +34,15 @@ use yii\helpers\Url;
                     foreach($data as $key) {
                         $i=$i+3;
                         $link = Url::to(['/news/news/detail', 'id' => $key['id'], 'alias' => $key['alias']]);
-
+                        $avatar_path = \common\components\ClaHost::getImageHost() . '/imgs/default.png';
+                        if (isset($key['avatar_path']) && $key['avatar_path']) {
+                            $avatar_path = \common\components\ClaHost::getImageHost() . $key['avatar_path'] . $key['avatar_name'];
+                        }
                         ?>
                         <div class="item-tintuc wow fadeInUp" data-wow-delay="0.<?= $i ?>s">
                             <div class="item-img">
-                                <a href="<?php echo $link ?>"><img
-                                            src="<?= ClaHost::getImageHost(), $key['avatar_path'] . 's400_400/' . $key['avatar_name'] ?>"
-                                            alt="<?php echo $key['title'] ?>"></a>
+                                <a href="<?php echo $link ?>">
+                                    <img src="<?= $avatar_path ?>" alt="<?php echo $key['title'] ?>"></a>
                                 <div class="date">
                                     <time class="content_14">
                                         <span><?= date('d', $key['publicdate']) ?></span><br><?= date('m', $key['publicdate']) ?>

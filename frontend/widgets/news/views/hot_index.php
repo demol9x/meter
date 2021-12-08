@@ -4,8 +4,8 @@ use common\components\ClaHost;
 use yii\helpers\Url;
 if(isset($category->show_in_home) && $category->show_in_home == 1){
 if (isset($data) && $data) {
-    $data0=array_slice($data,1,4);
-    $data1=array_slice($data,5,2);
+    $data0=array_slice($data,1,5);
+    $data1=array_slice($data,6,2);
     ?>
 <div class="site51_new_col12_tintuc">
     <div class="container_fix">

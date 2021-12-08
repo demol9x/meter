@@ -275,3 +275,7 @@
     color: #fff;
     display: block;
 }
+/* duc fix 4/12/2021*/
+.chitiettintuc h2.title_30{
+    color: #5A5A5A !important;
+}

@@ -2,6 +2,7 @@
 
 namespace common\models\order;
 
+use common\models\voucher\Voucher;
 use Yii;
 use common\components\ClaLid;
 use common\components\payments\ClaPayment;
@@ -32,6 +33,10 @@ use common\components\payments\ClaPayment;
  * @property integer $received_money
  * @property integer $shipfee
  * @property integer $point_accrued
+ * @property integer $discount_code_id
+ * @property integer $ward_id
+ * @property integer $sex
+ * @property integer $shipping_method
  */
 class Order extends \common\models\ActiveRecordC
 {
@@ -63,12 +68,12 @@ class Order extends \common\models\ActiveRecordC
     public function rules()
     {
         return [
-            [['name', 'phone', 'address'], 'required'],
-            [['user_id', 'district_id', 'province_id', 'shipping_district_id', 'shipping_province_id', 'created_at', 'updated_at', 'payment_status', 'delivery_status', 'status', 'bank_transfer', 'money_customer_transfer', 'confirm_customer_transfer', 'shipfee', 'point_accrued'], 'integer'],
+            [['name', 'phone', 'address', 'district_id', 'province_id','ward_id'], 'required'],
+            [['user_id', 'district_id', 'province_id', 'shipping_district_id', 'shipping_province_id', 'created_at', 'updated_at', 'payment_status', 'delivery_status', 'status', 'bank_transfer', 'money_customer_transfer', 'confirm_customer_transfer', 'shipfee', 'point_accrued','discount_code_id'], 'integer'],
             [['name', 'email', 'address', 'shipping_name', 'shipping_email', 'shipping_address', 'facebook', 'key'], 'string', 'max' => 255],
-            [['order_total'], 'number'],
+            [['order_total','sex','shipping_method'], 'number'],
             [['email', 'shipping_email'], 'email'],
-            [['phone', 'shipping_phone'], 'integer'],
+            [['phone', 'shipping_phone','ward_id'], 'integer'],
             [['phone', 'shipping_phone'], 'string', 'min' => 9, 'max' => 13],
             [['note'], 'string', 'max' => 500],
             [['user_delivery', 'received_money', 'shipfee', 'currency', 'delivery_status', 'payment_status', 'payment_method', 'payment_method_child', 'user_address_id', 'shop_address_id'], 'safe']
@@ -110,10 +115,17 @@ class Order extends \common\models\ActiveRecordC
             'shipping_district_id' => Yii::t('app', 'district'),
             'shipping_province_id' => Yii::t('app', 'province'),
             'payment_method' => Yii::t('app', 'payment_method'),
-            'payment_status' => 'Trạng thái thanh toán',
-            'order_total' => 'Tống hóa đơn',
-            'point_accrued' => 'Đã tích lũy điểm'
+            'point_accrued' => 'Đã tích lũy điểm',
+            'ward_id' => 'Phường/Xã'
         ];
+    }
+
+    public function getItems(){
+        return $this->hasMany(OrderItem::className(),['order_id' => 'id']);
+    }
+
+    public function getVoucher(){
+        return $this->hasOne(Voucher::className(),['id' => 'discount_code_id']);
     }
 
     /**
@@ -995,7 +1007,7 @@ class Order extends \common\models\ActiveRecordC
 
     public static function getOrderByKey($key, $time = null)
     {
-        return self::find()->where(['key' => $key])->all();
+        return self::find()->where(['key' => $key])->one();
     }
 
     public static function countOrder($order_status, $user_id, $options = [])

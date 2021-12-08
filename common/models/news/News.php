@@ -165,7 +165,6 @@ class News extends \common\models\ActiveRecordC
                 $params[':category_id'] = $options['category_id'];
             }
         }
-
         $order = 'publicdate DESC';
         if (isset($options['relation']) && $options['relation'] && isset($options['_id']) && $options['_id']) {
             $order = 'ABS(id - ' . $options['_id'] . ')';
@@ -180,6 +179,9 @@ class News extends \common\models\ActiveRecordC
         }
         $offset = ($options['page'] - 1) * $limit;
         //
+
+
+
         if (isset($options['count']) && $options['count']) {
             return News::find()
                 ->where($condition, $params)

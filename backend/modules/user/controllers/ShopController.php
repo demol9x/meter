@@ -2,10 +2,12 @@
 
 namespace backend\modules\user\controllers;
 
+use common\models\package\Package;
 use Yii;
 use frontend\models\User;
 use common\models\shop\Shop;
 use common\models\shop\ShopSearch;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -33,39 +35,9 @@ class ShopController extends Controller
         ];
     }
 
-    public function actionListAffiliate()
-    {
-        $searchModel = new ShopSearch();
-        $tg = Yii::$app->request->queryParams;
-        $tg['ShopSearch']['status_affiliate'] = 1;
-        $dataProvider = $searchModel->search($tg);
-        $dataProvider->pagination->pageSize = 50;
-        return $this->render('affliate_list', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
-    /**
-     * Lists all User models.
-     * @return mixed
-     */
-    public function actionAffiliate()
-    {
-        $searchModel = new ShopSearch();
-        $tg = Yii::$app->request->queryParams;
-        $tg['ShopSearch']['affiliate_waitting'] = 1;
-        $dataProvider = $searchModel->search($tg);
-        $dataProvider->pagination->pageSize = 50;
-        return $this->render('affliate', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
 
     public function actionIndex()
     {
-        \common\models\NotificationAdmin::removeNotifaction('shop');
         $searchModel = new ShopSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         $dataProvider->pagination->pageSize = 50;
@@ -222,13 +194,14 @@ class ShopController extends Controller
     public function actionBlock($id)
     {
         $model = $this->findModel($id);
-        $model->status = 0;
+        if($model->status == 0){
+            $model->status = 1;
+        }else{
+            $model->status = 0;
+        }
         if ($model->save(false)) {
-            \common\models\product\Product::updateAll(['status' => 0], [
-                'AND',
-                'status <> 0',
-                ['shop_id' => $id]
-            ]);
+            
+
             Yii::$app->session->setFlash('success', 'Khóa "' . $model->name . '" thành công');
         } else {
             Yii::$app->session->setFlash('error', 'Khóa "' . $model->name . '" lỗi.');
@@ -299,6 +272,25 @@ class ShopController extends Controller
             ]
         );
         return $transport->save();
+    }
+
+    public function actionUpdateHot($user_id){
+        $model = Shop::findOne($user_id);
+        if($model->is_hot ==  0){
+            $model->is_hot = 1;
+        }else{
+            $model->is_hot = 0;
+        }
+        if ($model->save()) {
+            return \yii\helpers\Json::encode(array(
+                'code' => 200,
+                'html' => '<i class="fa fa-times" aria-hidden="true"></i>',
+                'title' => Yii::t('app', 'click_to_on'),
+                'link' => Url::to(['/user/shop/update-hot', 'user_id' => $user_id])
+            ));
+        } else {
+            return \yii\helpers\Json::encode(array('code' => 400));
+        }
     }
 
     public function actionDeleteImage($id)

@@ -74,7 +74,10 @@ class NewsController extends CController
         $model = $this->findModel($id);
         //
         $category = NewsCategory::findOne($model->category_id);
-        $category_news= NewsCategory::find()->where(['parent'=> 0])->asArray()->All();
+        if ($category === NULL) {
+            $this->layout = '@frontend/views/layouts/error_layout.php';
+            return $this->render('error');
+        }
         //
         Yii::$app->view->title = $model->meta_title ? $model->meta_title : $model->title;
         // add meta description
@@ -120,13 +123,23 @@ class NewsController extends CController
         ]);
         Yii::$app->params['breadcrumbs'] = [
             'Trang chủ' => Url::home(),
-            isset($category) && $category ? $category->name : 'Không có danh mục'=> '#',
-            $model->title => Url::current()
+            $category->name=>Url::to(['/news/news/index']),
+            $model->title => Url::to(['/news/news/detail','id'=>$model['id'],'alias'=>$model['alias']]),
         ];
+        $category_news= NewsCategory::find()->where(['parent'=> 0])->asArray()->All();
+
+        $new_realate= News::find()->where(['category_id'=>$model->category_id])->limit(3)->all();
+        foreach ($new_realate as $key => $value){
+            if($model['id']== $value['id']){
+                unset($new_realate[$key]);
+                $new_realate= News::find()->where(['category_id'=>$model->category_id])->andWhere(['<>','id',$value['id']])->limit(3)->all();
+            }
+        }
         return $this->render('detail', [
             'model' => $model,
             'category' => $category,
             'category_news'=>$category_news,
+            'new_realate'=>$new_realate
         ]);
     }
 

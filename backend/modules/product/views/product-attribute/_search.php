@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\product\search\ProductAttributeSearch */
+/* @var $model common\models\product\ProductAttributeSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
@@ -19,23 +19,15 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'code') ?>
+    <?= $form->field($model, 'type') ?>
 
-    <?= $form->field($model, 'attribute_set_id') ?>
+    <?= $form->field($model, 'show_filter') ?>
 
-    <?= $form->field($model, 'frontend_input') ?>
+    <?= $form->field($model, 'data') ?>
 
-    <?php // echo $form->field($model, 'type_option') ?>
+    <?php // echo $form->field($model, 'data_option') ?>
 
-    <?php // echo $form->field($model, 'order') ?>
-
-    <?php // echo $form->field($model, 'default_value') ?>
-
-    <?php // echo $form->field($model, 'is_configurable') ?>
-
-    <?php // echo $form->field($model, 'is_filterable') ?>
-
-    <?php // echo $form->field($model, 'is_system') ?>
+    <?php // echo $form->field($model, 'display_type') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>

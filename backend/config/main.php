@@ -21,8 +21,12 @@ return [
             ],
         ],
     ],
-    'bootstrap' => ['log'],
+    'bootstrap' => ['gii'],
     'modules' => [
+        'form'=>
+        [
+            'class'=>'backend\modules\form\Form'
+        ],
         'mail' => [
             'class' => 'backend\modules\mail\Mail',
         ],
@@ -80,6 +84,7 @@ return [
         ],
         'gii' => [
             'class' => 'yii\gii\Module',
+            'allowedIPs' => ['127.0.0.1', '::1', '192.168.1.101'],
         ],
         'notifications' => [
             'class' => 'backend\modules\notifications\Notifications',
@@ -87,6 +92,15 @@ return [
         'package' => [
             'class' => 'backend\modules\package\Package',
         ],
+        'general' => [
+            'class' => 'backend\modules\general\General',
+        ],
+        'voucher'=>[
+            'class'=>'backend\modules\voucher\Voucher',
+        ],
+        'optionprice'=>[
+            'class'=>'backend\modules\optionprice\Optionprice',
+        ]
     ],
     'components' => [
         'i18n' => [

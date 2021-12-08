@@ -21,24 +21,35 @@ class ClaMeter
         $b = sin($latFrom) * sin($latTo) + cos($latFrom) * cos($latTo) * cos($lonDelta);
 
         $angle = atan2(sqrt($a), $b);
-        return $angle * $earthRadius;
+        $km = $angle * $earthRadius;
+        $km = explode('.', $km);
+        return $km[0] / 1000;
     }
 
-    static function distance($lat1, $lon1, $lat2, $lon2, $unit) {
-
-        $theta = $lon1 - $lon2;
-        $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-        $dist = acos($dist);
-        $dist = rad2deg($dist);
-        $miles = $dist * 60 * 1.1515;
-        $unit = strtoupper($unit);
-
-        if ($unit == "K") {
-            return ($miles * 1.609344);
-        } else if ($unit == "N") {
-            return ($miles * 0.8684);
-        } else {
-            return $miles;
+    static function genMoneyText($price_min, $price_max)
+    {
+        if ($price_min < 1000 && $price_max < 1000) {
+            return $price_min . ' triệu - ' . $price_max . ' triệu';
         }
+        if($price_min < 1000 && $price_max >= 1000){
+            return $price_min . ' triệu - ' . $price_max/1000 . ' tỷ';
+        }
+
+        if($price_min >= 1000 && $price_max >= 1000){
+            return $price_min/1000 . ' tỷ - ' . $price_max/1000 . ' tỷ';
+        }
+
+        return $price_min . ' - ' . $price_max . ' triệu';
+    }
+
+    static function genStarText()
+    {
+        return [
+            1 => 'Rất tệ',
+            2 => 'Tệ',
+            3 => 'Bình thường',
+            4 => 'Tốt',
+            5 => 'Rất tốt',
+        ];
     }
 }

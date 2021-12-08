@@ -1,5 +1,7 @@
 <?php
+
 use yii\helpers\Url;
+
 ?>
 <link rel="stylesheet" href="<?= yii::$app->homeUrl ?>css/list_packages.css">
 <?php //Menu main
@@ -8,135 +10,84 @@ echo frontend\widgets\banner\BannerWidget::widget([
     'group_id' => 5,
 ])
 ?>
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
 <div class="site52_pro_col12_nhathau">
     <div class="container_fix">
         <div class="pro_flex">
             <div class="site51_profil_col3_locsanpham">
                 <div class="locsanpham">
-                    <div class="pro_fitler">
-                        <div class="pro_env">
-                            <span class="content_16_b">Địa điểm</span><i class="fas fa-chevron-right"></i>
-                        </div>
-                        <div class="fitler">
-                            <div>
-                                <input type="checkbox" id="hanoi" name="hanoi" value="hanoi" checked>
-                                <label for="hanoi"> Hà nội</label>
+                    <?php if ($provinces) { ?>
+                        <div class="pro_fitler">
+                            <div class="pro_env">
+                                <span class="content_15_b">Địa điểm</span><i class="fas fa-chevron-right"></i>
                             </div>
-                            <div>
-                                <input type="checkbox" id="nghean" name="nghean" value="nghean">
-                                <label for="nghean"> Nghệ An</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="hanam" name="hanam" value="hanam">
-                                <label for="hanam"> Hà Nam</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="camau" name="camau" value="camau">
-                                <label for="camau"> Cà Mau</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="haugiang" name="haugiang" value="haugiang">
-                                <label for="haugiang"> Hậu giang</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="tiengiang" name="tiengiang" value="tiengiang">
-                                <label for="tiengiang"> Tiền giang</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="tiengiang" name="tiengiang" value="tiengiang">
-                                <label for="tiengiang"> Tiền giang</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="tiengiang" name="tiengiang" value="tiengiang">
-                                <label for="tiengiang"> Tiền giang</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="tiengiang" name="tiengiang" value="tiengiang">
-                                <label for="tiengiang"> Tiền giang</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="tiengiang" name="tiengiang" value="tiengiang">
-                                <label for="tiengiang"> Tiền giang</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="tiengiang" name="tiengiang" value="tiengiang">
-                                <label for="tiengiang"> Tiền giang</label>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="tiengiang" name="tiengiang" value="tiengiang">
-                                <label for="tiengiang"> Tiền giang</label>
+                            <div class="fitler croll">
+                                <?php foreach ($provinces as $key => $province):
+                                    $checked = \common\components\ClaUrl::getValueFieldToUrl('province_id');
+                                    $url = \common\components\ClaUrl::setLink($key, 'province_id');
+                                    ?>
+                                    <div>
+                                        <input onclick="change_link(this)" type="radio" id="province_fillter<?= $key ?>"
+                                               name="province_id"
+                                               value="<?= $key ?>" <?= $checked && $checked == $key ? 'checked' : '' ?>
+                                               data-url="<?= $url ?>">
+                                        <label for="province_fillter<?= $key ?>"> <?= $province ?></label>
+                                    </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
-                    </div>
+                    <?php } ?>
+                    <?php if ($option_price) { ?>
+                        <div class="pro_fitler">
+                            <div class="pro_env">
+                                <span class="content_15_b">Vốn điều lệ</span><i class="fas fa-chevron-right"></i>
+                            </div>
+                            <div class="fitler">
+                                <?php foreach ($option_price as $key => $price) {
+                                    $checked = \common\components\ClaUrl::getValueFieldToUrl('id_price');
+                                    $url = \common\components\ClaUrl::setLink($price['id'], 'id_price');
+                                    ?>
+                                    <div class="fitler_flex">
+                                        <div>
+                                            <input class="price_op_click" onclick="change_link(this)" type="radio"
+                                                   id="price_fitler<?= $price['id'] ?>" name="price"
+                                                   value="<?= $price['id'] ?>" <?= $checked && $checked == $price['id'] ? 'checked' : '' ?>
+                                                   data-url="<?= $url ?>">
+                                            <label class="price_op_click"
+                                                   for="price_fitler<?= $price['id'] ?>"><?= \common\components\ClaMeter::genMoneyText($price['price_min'],$price['price_max']) ?></label>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    <?php } ?>
                     <div class="pro_fitler">
                         <div class="pro_env">
-                            <span class="content_16_b">Vốn điều lệ</span><i class="fas fa-chevron-right"></i>
+                            <span class="content_15_b">Ngày đăng</span><i class="fas fa-chevron-right"></i>
                         </div>
                         <div class="fitler">
                             <div class="fitler_flex">
                                 <div>
-                                    <input type="checkbox" id="1000-1500" name="1000-1500" value="1000-1500" checked>
-                                    <label for="1000-1500">1000 - 1500 tỷ</label>
+                                    <input onclick="change_link(this)" type="radio" id="moinhat1" name="moinhat" value="very_new" data-url="<?= \common\components\ClaUrl::setLink('very_new', 'fitler') ?>" <?= isset($_GET['fitler']) && $_GET['fitler'] == 'very_new' ? 'checked' : '' ?> >
+                                    <label for="moinhat1"> Mới nhất</label>
                                 </div>
-                                <span>15</span>
-                            </div>
-                            <div class="fitler_flex">
-                                <div>
-                                    <input type="checkbox" id="1500-2500" name="1500-2500" value="1500-2500">
-                                    <label for="1500-2500"> 1500 - 2500 tỷ</label>
-                                </div>
-                                <span>15</span>
-                            </div>
-                            <div class="fitler_flex">
-                                <div>
-                                    <input type="checkbox" id="60-100" name="60-100" value="60-100">
-                                    <label for="60-100"> 60 - 100 km</label>
-                                </div>
-                                <span>15</span>
-                            </div>
-                            <div class="fitler_flex">
-                                <div>
-                                    <input type="checkbox" id="60-100" name="60-100" value="60-100">
-                                    <label for="60-100"> 60 - 100 km</label>
-                                </div>
-                                <span>15</span>
-                            </div>
-                            <div class="fitler_flex">
-                                <div>
-                                    <input type="checkbox" id="60-100" name="60-100" value="60-100">
-                                    <label for="60-100"> 60 - 100 km</label>
-                                </div>
-                                <span>15</span>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="pro_fitler">
-                        <div class="pro_env">
-                            <span class="content_16_b">Ngày đăng</span><i class="fas fa-chevron-right"></i>
-                        </div>
-                        <div class="fitler">
-                            <div class="fitler_flex">
-                                <div>
-                                    <input type="checkbox" id="moinhat" name="moinhat" value="moinhat" checked>
-                                    <label for="moinhat"> Mới nhất</label>
-                                </div>
-                                <span>15</span>
                             </div>
 
                             <div class="fitler_flex">
                                 <div>
-                                    <input type="checkbox" id="tuantruoc" name="tuantruoc" value="tuantruoc">
+                                    <input  onclick="change_link(this)" type="radio" id="tuantruoc" name="moinhat" value="week" data-url="<?= \common\components\ClaUrl::setLink('week', 'fitler') ?>" <?= isset($_GET['fitler']) && $_GET['fitler'] == 'week' ? 'checked' : '' ?>>
                                     <label for="tuantruoc"> Tuần trước</label>
                                 </div>
-                                <span>15</span>
                             </div>
                             <div class="fitler_flex">
                                 <div>
-                                    <input type="checkbox" id="thangtruoc" name="thangtruoc" value="thangtruoc">
+                                    <input onclick="change_link(this)" type="radio" id="thangtruoc" name="moinhat" value="month" data-url="<?= \common\components\ClaUrl::setLink('month', 'fitler') ?>" <?= isset($_GET['fitler']) && $_GET['fitler'] == 'month' ? 'checked' : '' ?>>
                                     <label for="thangtruoc"> Tháng trước</label>
                                 </div>
-                                <span>15</span>
                             </div>
                         </div>
                     </div>
@@ -151,435 +102,112 @@ echo frontend\widgets\banner\BannerWidget::widget([
                         <div class="pro_select_env">
                             <div class="pro_select">
                                 <span>Sắp xếp:</span>
-                                <select>
-                                    <option value="">Cao - Thấp</option>
-                                    <option value="">A-Z</option>
-                                    <option value="">Mới nhất</option>
+                                <select id="select_pro_option" name="sort">
+                                    <option data-url="<?= \common\components\ClaUrl::setLink('name', 'sort') ?>" value="name" <?= isset($_GET['sort']) && $_GET['sort'] == 'name' ? 'selected' : '' ?>>
+                                        A-Z
+                                    </option>
+                                    <option data-url="<?= \common\components\ClaUrl::setLink('new', 'sort') ?>" value="new" <?= isset($_GET['sort']) && $_GET['sort'] == 'new' ? 'selected' : '' ?>>
+                                        Mới nhất
+                                    </option>
+                                    <option data-url="<?= \common\components\ClaUrl::setLink('rate', 'sort') ?>" value="rate" <?= isset($_GET['sort']) && $_GET['sort'] == 'rate' ? 'selected' : '' ?>>
+                                        Đánh giá
+                                    </option>
                                 </select>
                             </div>
-                            <a href="" class="sapxep_1">
-                                <img src="<?= yii::$app->homeUrl ?>images/img_sapxep_1.png" alt="">
-                            </a>
-                            <a href="" class="sapxep_2">
-                                <img src="<?= yii::$app->homeUrl ?>images/img_sapxep_2.png" alt="">
-                            </a>
+                            <div class="buttons">
+                                <div class="list active">
+                                    <img src="<?= yii::$app->homeUrl ?>images/img_sapxep_1.png" alt="">
+                                </div>
+                                <div class="grid">
+                                    <img src="<?= yii::$app->homeUrl ?>images/img_sapxep_2.png" alt="">
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="pro_flex">
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="<?= Url::to(['/shop/shop/detail'])  ?>">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
+                    <?php
+                    if (isset($users) && $users) {
+                        ?>
+                        <div class="pro_flex" id="wrapper">
+                            <?php
 
+                            foreach ($users as $key) {
+                                $url = Url::to(['/shop/shop/detail', 'id' => $key['user_id'], 'alias' => $key['alias']]);
+                                $avatar_path = \common\components\ClaHost::getImageHost() . '/imgs/default.png';
+                                if (isset($key['user']['avatar_path']) && $key['user']['avatar_path']) {
+                                    $avatar_path = \common\components\ClaHost::getImageHost() . $key['user']['avatar_path'] . $key['user']['avatar_name'];
+                                }
+                                ?>
+                                <div class="pro_card wow fadeIn">
+                                    <a href="<?= Url::to(['/shop/shop/detail', 'id' => $key['user_id']]) ?>">
+                                        <div class="card_img">
+                                            <img src="<?= $avatar_path ?>" alt="<?= $key['name'] ?>">
+                                        </div>
+                                        <div class="card_text">
+                                            <div class="title"><?= $key['name'] ?></div>
+                                            <div class="adress"><span><?= isset($key['province']['name']) && $key['province']['name'] ?$key['province']['name'] : 'Đang cập nhật' ?></span>
+                                                <?php
+                                                if (isset($key['rate']) && $key['rate']) { ?>
+                                                    <span><i class="fas fa-star"></i><?php echo $key['rate'] ?>/5</span>
+                                                <?php }
+                                                else{?>
+                                                    <span><i class="fas fa-star"></i>0/5</span>
+                                                <?php }?>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <label class="heart">
+                                        <a data-id="<?= $key['user_id'] ?>"
+                                           class="iuthik1 <?= in_array($key['user_id'], $us_wish) ? 'active' : '' ?>"><i
+                                                    class="fas fa-heart"></i></a>
+                                    </label>
                                 </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                            <?php } ?>
                         </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="<?= Url::to(['/shop/shop/detail'])  ?>">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
+                    <?php } else { ?>
+                        <div class="default_view">
+                            <i class="fas fa-bomb" style="color:#289300 "></i> Rất tiếc! Không thấy doanh nghiệp mà bạn
+                            cần tìm.
+                            <a href="<?= \yii\helpers\Url::to(['/shop/shop/index']) ?>">Quay lại</a>
                         </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="<?= Url::to(['/shop/shop/detail'])  ?>">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="<?= Url::to(['/shop/shop/detail'])  ?>">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="<?= Url::to(['/shop/shop/detail'])  ?>">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                        <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
-                            <a href="">
-                                <div class="card_img">
-                                    <img src="<?= yii::$app->homeUrl ?>images/nhathau_pro.png" alt="">
-                                </div>
-                                <div class="card_text">
-                                    <div class="title">Công ty CP Đầu tư Xây dựng Dân dụng Hà Nội</div>
-                                    <div class="adress"><span>Hà Nội</span><span><i class="fas fa-star"></i>4/5</span></div>
-
-                                </div>
-                            </a>
-                            <label class="heart">
-                                <input class="Dashboard" name="" type="checkbox">
-                                <div class="check">
-                                    <span class="iuthik1 active"><img class="img_add_tim" src="<?= Yii::$app->homeUrl ?>images/tim.png" alt=""></span>
-                                    <span class="iuthik2"><i class="fas fa-heart"></i></span>
-                                </div>
-                            </label>
-                            <div class="hot_product"><img src="<?= yii::$app->homeUrl ?>images/hot_product.png" alt=""></div>
-                        </div>
-                    </div>
+                    <?php } ?>
                 </div>
+
                 <div class="pagination">
-                    <ul>
-                        <li><a href="" title="">‹</a></li>
-                        <li class="active"><a href="" title="">1</a></li>
-                        <li><a href="" title="">2</a></li>
-                        <li><a href="" title="">3</a></li>
-                        <li class=""><span>...</span></li>
-                        <li><a href="" title="">15</a></li>
-                        <li><a href="" title="">›</a></li>
-                    </ul>
+                    <?php
+                    $pagination = new \yii\data\Pagination(['totalCount' => $totalitem, 'pageSize' => $limit]);
+                    echo \yii\widgets\LinkPager::widget([
+                        'pagination' => $pagination,
+                    ]);
+                    ?>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    function change_link(t) {
+        var url = $(t).data('url');
+        window.location.href = url;
+    }
+    $(".iuthik1").click(function () {
+        var t = $(this);
+        var dn_id = $(this).data('id');
+        $.ajax({
+            url: "<?= yii\helpers\Url::to(['/shop/shop/add-like']) ?>",
+            type: "get",
+            data: {"dn_id": dn_id},
+            success: function (response) {
+                var data = JSON.parse(response);
+                if (data.success) {
+                    t.toggleClass('active');
+
+                } else {
+                    alert(data.message)
+                }
+
+            },
+        });
+    });
+
+</script>

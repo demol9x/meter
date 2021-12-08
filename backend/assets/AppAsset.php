@@ -11,8 +11,9 @@ class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
     public $baseUrl = '@web';
+    const VERSION = '1.0.3';
     public $css = [
-        'css/site.css',
+        'css/site.css?v='.self::VERSION,
         'gentelella/font-awesome/css/font-awesome.min.css',
         'gentelella/nprogress/nprogress.css',
         'gentelella/select2/dist/css/select2.min.css',

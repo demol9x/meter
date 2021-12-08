@@ -6,6 +6,7 @@ use common\components\ClaGenerate;
 use common\models\gcacoin\Gcacoin;
 use common\models\User;
 use frontend\controllers\CController;
+use frontend\models\SignupDoanhNghiep;
 use Yii;
 use frontend\models\SignupForm;
 use frontend\models\LoginForm;
@@ -22,12 +23,7 @@ class LoginController extends CController
         return $this->render('index');
     }
 
-    public function actionSignupShop()
-    {
-        \Yii::$app->session->open();
-        $_SESSION['create_shop'] = 1;
-        return $this->redirect(['signup']);
-    }
+
     public function actionInfo()
     {
         if (Yii::$app->user->id) {
@@ -38,13 +34,13 @@ class LoginController extends CController
         }
         return $this->goHome();
     }
+
     /**
      * đăng ký thành viên
      * @return type
      */
     public function actionSignup()
     {
-
         if (Yii::$app->user->id) {
             return $this->goBack();
         }
@@ -60,43 +56,59 @@ class LoginController extends CController
         ]);
         $this->layout = 'main';
         $model = new SignupForm();
-        if ($model->load(Yii::$app->request->post())) {
+        $model->scenario = 'web';
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($user = $model->signup()) {
-                $gcacoin = new Gcacoin();
-                $gcacoin->user_id = $user->id;
-                $gcacoin->gca_coin = ClaGenerate::encrypt(0);
-                if ($gcacoin->save()) {
-                    if (Yii::$app->getUser()->login($user)) {
-                        if ($user['email']) {
-                            \common\models\mail\SendEmail::sendMail([
-                                'email' => $user['email'],
-                                'title' => 'Đăng ký tài khoản OCOP thành công',
-                                'content' => \frontend\widgets\mail\MailWidget::widget(['view' => 'email_signup', 'input' => ['user' => $user]])
-                            ]);
-                        }
-                        \common\components\ClaLid::resetLocaltionDefault();
-                        if (isset($_SESSION['create_shop'])) {
-                            return $this->redirect(['/management/shop/create']);
-                        }
-                        return $this->redirect(['/management/profile/index']);
-                    }
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->redirect(['/management/profile/index']);
                 }
+
             }
         }
-
         return $this->render('signup', [
             'model' => $model,
         ]);
     }
+    public function actionSignupdoanhnghiep()
+    {
+        if (Yii::$app->user->id) {
+            return $this->goBack();
+        }
+        $siteinfo = \common\components\ClaLid::getSiteinfo();
+        Yii::$app->view->registerMetaTag([
+            'name' => 'description',
+            'content' => $siteinfo->meta_description
+        ]);
+        // add meta keywords
+        Yii::$app->view->registerMetaTag([
+            'name' => 'keywords',
+            'content' => $siteinfo->meta_keywords
+        ]);
+        $this->layout = 'main';
+        $model = new SignupDoanhNghiep();
+        $model->scenario = 'web';
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($user = $model->signup()) {
+                if (Yii::$app->getUser()->login($user)) {
+                    return $this->redirect(['/management/profile/index']);
+                }
+            }
+        }
+        return $this->render('signupdoanhnghiep', [
+            'model' => $model,
+        ]);
+    }
+
 
     /**
      * đăng nhập thành viên
      * @return type
      */
-    public function actionLogin()
+    public
+    function actionLogin()
     {
         if (Yii::$app->user->id) {
-            return __getUrlBack() ? $this->redirect(__getUrlBack()) :  $this->goBack();
+            return __getUrlBack() ? $this->redirect(__getUrlBack()) : $this->goBack();
         }
         $siteinfo = \common\components\ClaLid::getSiteinfo();
         Yii::$app->view->registerMetaTag([
@@ -111,8 +123,8 @@ class LoginController extends CController
         $this->layout = 'main';
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->login()){
-                return $this->redirect(['/profile/profile/index']);
+            if ($model->login()) {
+                return $this->redirect(['/management/profile/index']);
             }
         }
         return $this->render('login', [
@@ -125,13 +137,15 @@ class LoginController extends CController
      *
      * @return mixed
      */
-    public function actionLogout()
+    public
+    function actionLogout()
     {
         Yii::$app->user->logout();
         return $this->goHome();
     }
 
-    public function actionLoginajax()
+    public
+    function actionLoginajax()
     {
         // return print_r($_POST);
         if (Yii::$app->request->post()) {
@@ -188,7 +202,8 @@ class LoginController extends CController
         Yii::$app->end();
     }
 
-    public function beforeAction($action)
+    public
+    function beforeAction($action)
     {
         if ($this->action->id == 'tklogin') {
             $this->enableCsrfValidation = false;

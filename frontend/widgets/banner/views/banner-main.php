@@ -11,11 +11,11 @@
         </div>
         <div class="container_fix">
             <div class="bann_text">
-                <span>METTER</span>
-                <span>HỢP TÁC CÙNG PHÁT TRIỂN</span>
-                <span>Luôn đồng hành cùng bạn trong tất cả các dự án</span>
+                <?=
+                    $tg['description'];
+                ?>
                 <div class="bann_flex">
-                    <a href="">XEM NGAY</a><a href="">LIÊN HỆ</a>
+                    <a href="<?= \yii\helpers\Url::to(['/package/package/index'])?>">XEM NGAY</a><a href="<?= \yii\helpers\Url::to(['/site/contact'])?>">LIÊN HỆ</a>
                 </div>
             </div>
         </div>

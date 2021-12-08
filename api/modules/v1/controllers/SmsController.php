@@ -33,7 +33,7 @@ class SmsController extends RestController
             'phone' => '0948145789',
             'mess' => 'Hello Hung',
             'tranId' => time(),
-            'brandName' => 'pga-partner.vn',
+            'brandName' => __NAME,
             'dataEncode' => 0,
             'sendTime' => ''
         ];
@@ -115,15 +115,15 @@ class SmsController extends RestController
             $model->status = ClaLid::STATUS_DEACTIVED;
             if ($model->save()) {
                 // Send SMS
-                $tranID = 'pga-partner.vn-' . $phone . '-' . time();
-                $mess = 'Ma OTP la ' . $model->otp_number . '. Ma OTP chi su dung 1 lan cho giao dich tai san TMDT WWW.pga-partner.vn. Quy khach vui long bao mat thong tin. Hotline: 0984349724';
+                $tranID = __NAME.'-' . $phone . '-' . time();
+                $mess = 'Ma OTP la ' . $model->otp_number . '. Ma OTP chi su dung 1 lan cho giao dich tai san TMDT WWW.'.__NAME.'. Quy khach vui long bao mat thong tin. Hotline: 0984349724';
                 $postData = [
                     'user' => 'gcaeco',
                     'pass' => 'GCaEc0G9',
                     'phone' => $phone,
                     'mess' => $mess,
                     'tranId' => $tranID,
-                    'brandName' => 'pga-partner.vn',
+                    'brandName' => __NAME,
                     'dataEncode' => 0,
                     'sendTime' => ''
                 ];

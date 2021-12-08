@@ -3,10 +3,7 @@ use yii\helpers\Url;
 use common\components\ClaHost;
 use common\models\Province;
 if (isset($package) && $package) {
-    echo '<pre>';
-    print_r($package);
-    echo '</pre>';
-    die();?>
+   ?>
     <div class="pro_package">
         <div class="pro_content">
             <div class="content_text"><h3>gói thầu</h3></div>
@@ -15,7 +12,7 @@ if (isset($package) && $package) {
         <div class="pro_flex">
             <?php
             foreach ($package as $packages ) {
-                $url = \yii\helpers\Url::to(['/package/package/detail', 'id' => $packages['id'], 'alias' => $packages['alias']]);
+//                $url = \yii\helpers\Url::to(['/package/package/detail', 'id' => $packages['id'], 'alias' => $packages['alias']]);
                 ?>
                 <div class="pro_card wow fadeIn"  data-wow-delay="0.3s">
                     <a href="<?= $url ?>">

@@ -1,6 +1,6 @@
 <?php
 if ($label != '') {
-    echo '<option>' . $label . '</option>';
+    echo '<option value="0">' . $label . '</option>';
 }
 if (isset($options) && $options) {
     foreach ($options as $option_value => $option_name) {

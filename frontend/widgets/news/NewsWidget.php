@@ -16,6 +16,8 @@ class NewsWidget extends \frontend\components\CustomWidget {
     public $relation = 0;
     public $isnew;
     public $_id = 0;
+    public $id_re=0;
+    public $cate_diff;
 
     public function init() {
         parent::init();
@@ -30,7 +32,7 @@ class NewsWidget extends \frontend\components\CustomWidget {
                     'category_id' => $this->category_id,
                     'isnew' => $this->isnew,
                     '_id' => $this->_id,
-
+                    'cate_diff'=>$this->cate_diff
         ]);
 
         if ($this->category_id) {
@@ -40,7 +42,9 @@ class NewsWidget extends \frontend\components\CustomWidget {
         //
         return $this->render($this->view, [
                     'data' => $this->data,
-                    'category' => $this->category
+                    'category' => $this->category,
+                     'id_re' =>$this->id_re,
+                    'cate_diff'=>$this->cate_diff
         ]);
     }
 

@@ -2,6 +2,10 @@
 
 namespace frontend\modules\product\controllers;
 
+use common\models\package\Package;
+use common\models\product\Brand;
+use common\models\product\OptionPriceProduct;
+use common\models\product\ProductVariables;
 use common\models\Province;
 use Yii;
 use frontend\controllers\CController;
@@ -169,29 +173,37 @@ class ProductController extends CController
         $pagesize = 24;
 
         $page = Yii::$app->request->get('page', 1);
-        $province_id = Yii::$app->request->get('p', 0);
         $keyword = Yii::$app->request->get('k', '');
-        $data = Product::getProduct(array_merge($_GET,[
-            'keyword'=>$keyword,
-            'province_id'=>$province_id,
+        $data = Product::getProduct(array_merge($_GET, [
+            'keyword' => $keyword,
             'limit' => $pagesize,
             'page' => $page,
         ]));
 
-        $totalitem = Product::getProduct(array_merge($_GET,[
+        $totalitem = Product::getProduct(array_merge($_GET, [
             'count' => 1,
-            'keyword'=>$keyword,
-            'province_id'=>$province_id,
+            'keyword' => $keyword,
             'limit' => $pagesize,
             'page' => $page,
         ]));
+        $provinces = Province::find()->asArray()->all();//Lấy ra danh sách tỉnh thành
+        $brands = Brand::getListBrand(); //Lấy ra danh sách thương hiệu
+
+        $category = new ClaCategory(array('type' => ClaCategory::CATEGORY_PRODUCT, 'create' => true));
+        $category_product = $category->createArrayCategory(0); //Lấy danh mục cấp 1 của sản phẩm
+
+        $option_price = OptionPriceProduct::find()->asArray()->all(); //Dãy khoảng giá
 
         return $this->render('index', [
             // 'category' => $category,
             'data' => $data,
             'totalitem' => $totalitem,
+            'provinces' => array_column($provinces, 'name', 'id'),
             'limit' => $pagesize,
             'productdes' => $productdes,
+            'brands' => $brands,
+            'category_product' => $category_product,
+            'option_price' => $option_price,
         ]);
     }
 
@@ -479,11 +491,6 @@ class ProductController extends CController
                 return $this->goHome();
             }
         }
-        $shop= Shop::findOne($model->shop_id);
-        if (!$shop) {
-            $this->layout = '@frontend/views/layouts/error_layout';
-            return $this->render('error');
-        }
         //
         Yii::$app->view->title = $model->meta_title ? $model->meta_title : $model->name;
         // add meta description
@@ -527,26 +534,31 @@ class ProductController extends CController
         //
         Yii::$app->params['breadcrumbs'] = [
             Yii::t('app', 'home') => Url::home(),
-            $model->name => Url::to(['/product/product/detail','alias' => $model->alias, 'id' => $model->id])
+            'Thiết bị công nghiệp' => Url::to(['/product/product/index']),
+            $model->name => Url::to(['/product/product/detail', 'alias' => $model->alias, 'id' => $model->id])
         ];
-
-        //
-
-
-
-
-
         //
         $is_add_wish = Yii::$app->user->getId() ? ProductWish::find()->Where(['user_id' => Yii::$app->user->getId(), 'product_id' => $id])->count() : 0;
 
+        $hot_package = Package::getPackage(['ishot' => 1, 'limit' => 5], 1); //Lấy ra danh sách gói thầu nổi bật
 
+        $users = \frontend\models\User::getS(['sort' => 'new', 'limit' => 8], 1); //Lấy ra 8 nhà thầu mới nhất
+        $attribute_id = (array)json_decode($model->product_attributes);
+
+        asort($attribute_id); //Sắp xếp theo đúng thứ tự
+        $attributes = [];
+        if (isset($attribute_id) && $attribute_id) {
+            $attributes = Product::getAttrs($attribute_id);
+        }
 
         return $this->render('detail', [
             't' => $t,
             'model' => $model,
             'category' => $category,
             'is_add_wish' => $is_add_wish,
-            'shop'=>$shop,
+            'hot_package' => $hot_package,
+            'users' => $users,
+            'attributes' => $attributes,
         ]);
     }
 
@@ -567,6 +579,40 @@ class ProductController extends CController
         return '';
     }
 
+    public function actionGetVariable()
+    {
+        if (Yii::$app->request->isAjax) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $product_id = Yii::$app->request->get('product_id', '');
+            $key = Yii::$app->request->get('data', '');
+            sort($key);
+            $key = array_values($key);
+            $data_key = "[";
+            $i = 0;
+            foreach ($key as $vl) {
+                $i++;
+                $data_key .= '"' . $vl . '"';
+                if ($i < count($key)) {
+                    $data_key .= ',';
+                }
+            }
+            $data_key .= "]";
+            $product_attr_varable = ProductVariables::getVarable(['key' => $data_key, 'product_id' => $product_id]);
+
+            if ($product_attr_varable) {
+                $price = Product::getTextByPriceCustom($product_attr_varable['price']);
+                return [
+                    'code' => 200,
+                    'price' => $price,
+                    'var_id' => $product_attr_varable['id'],
+                ];
+            }
+            return [
+                'code' => 400,
+            ];
+        }
+    }
+
     public function actionGetImages()
     {
         if (Yii::$app->request->isAjax) {
@@ -585,6 +631,7 @@ class ProductController extends CController
             }
         }
     }
+
     protected function addView($id)
     {
         if (($model = Product::findOne($id)) !== null) {

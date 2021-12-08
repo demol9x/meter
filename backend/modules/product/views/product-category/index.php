@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $datas = (new \common\models\product\ProductCategory())->getDataProvider();
+
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\search\ProductCategorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -59,7 +60,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 <div class="x_title">
                     <h2><?= Html::encode($this->title) ?></h2>
                     <?= Html::a('Tạo danh mục', ['create'], ['class' => 'btn btn-success pull-right']) ?>
-                    <?= Html::a('Xuất exel', ['exel'], ['class' => 'btn btn-success pull-right', 'target' => '_blank']) ?>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">

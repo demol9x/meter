@@ -17,11 +17,7 @@ class CustomWidget extends Widget {
 
     public function getViewPath() {
         $class = new ReflectionClass($this);
-        if (\common\components\ClaSite::isMobile()) {
-            return dirname($class->getFileName()) . DIRECTORY_SEPARATOR . 'views_mobile';
-        } else {
-            return dirname($class->getFileName()) . DIRECTORY_SEPARATOR . 'views';
-        }
+        return dirname($class->getFileName()) . DIRECTORY_SEPARATOR . 'views';
     }
 
 }

@@ -1,0 +1,245 @@
+.section-filter {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    padding: 3rem;
+    position: relative;
+    margin: 15px 0;
+}
+
+.section-filter::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #00000057;
+    z-index: -1;
+}
+
+.section-filter .filter-close {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 16px;
+    height: 16px;
+    background-color: #fff;
+    border-radius: 16px;
+    transform: rotate(45deg);
+    cursor: pointer;
+    z-index: 2;
+}
+
+.section-filter .filter-close:hover,
+.section-filter .filter-close:focus,
+.section-filter .filter-close:active {
+    background-color: #f9f9f9;
+}
+
+.section-filter .filter-close::before,
+.section-filter .filter-close::after {
+    content: "";
+    position: absolute;
+    background-color: #0053A0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.section-filter .filter-close::before {
+    width: 9px;
+    height: 1px;
+}
+
+.section-filter .filter-close::after {
+    width: 1px;
+    height: 9px;
+}
+
+.section-filter .section-filter-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.section-filter .section-filter-head .search-action {
+    margin-right: auto;
+    margin-left: 20px;
+}
+
+.section-filter .section-filter-head .search-action>a {
+    font-family: "Roboto";
+    font-size: 16px;
+    font-weight: normal;
+    cursor: pointer;
+    color: #fff;
+    margin: 0 10px;
+}
+
+.section-filter .filter-tabs-list {
+    float: left;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    clear: left;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    z-index: 2;
+    margin-bottom: 20px;
+}
+
+.section-filter .filter-tabs-list .filter-tabs-item {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    color: #81b341;
+    background: #FFFFFF;
+    border: 1px solid #81b341;
+    box-sizing: border-box;
+    padding: 15px 20px;
+    transition: .3s all;
+}
+
+.section-filter .filter-tabs-list .filter-tabs-item.active {
+    background: #81b341;
+    color: #fff;
+    position: relative;
+}
+
+.section-filter .filter-tabs-list .filter-tabs-item.active::before {
+    content: "";
+    width: 0;
+    height: 0;
+    border-top: 18px solid #81b341;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    bottom: -18px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.section-filter .filter-description {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 28px;
+    color: #FFFFFF;
+    margin: 0;
+}
+
+.section-filter .filter-tabs-body {
+    display: block;
+    width: 100%;
+}
+
+.section-filter .filter-tabs-body .filter-tab {
+    display: none;
+    width: 100%;
+    visibility: hidden;
+    opacity: 0;
+    transition: .3s all;
+}
+
+.section-filter .filter-tabs-body .filter-tab.show {
+    display: block;
+    visibility: visible;
+    opacity: 1;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form {
+    display: flow-root;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:first-child>input[type="text"] {
+    width: calc(92% / 5 * 4 + 6%);
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #828282;
+    padding: 15px 20px;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:first-child>input[type="text"]:focus {
+    outline: none;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:first-child>button[type="submit"] {
+    width: calc(92% / 5);
+    background: #165699;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 19px;
+    color: #fff;
+    padding: 16px 20px;
+    margin-left: 2%;
+    border: none;
+    outline: none;
+    border: none;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:not(:first-child) {
+    width: calc(92% / 5);
+    margin-right: 2%;
+    display: block;
+    float: left;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:not(:first-child):nth-child(6n) {
+    margin-right: 0;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:not(:first-child) .chosen-container,
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:not(:first-child) div>select {
+    width: 100% !important;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 19px;
+    color: #828282;
+    max-height: 51px;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:not(:first-child) div>select {
+    padding: 16px 15px;
+    background-color: #fff;
+    border: unset;
+    box-shadow: unset;
+    outline: unset;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:not(:first-child) .chosen-container .chosen-single {
+    height: 51px;
+    border: unset;
+    box-shadow: unset;
+    outline: unset;
+    border-radius: unset;
+    padding: 15px;
+    background: #fff;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group:not(:first-child) .chosen-container .chosen-single>div {
+    padding: 15px 0;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group-more {
+    min-height: 53px;
+    margin-bottom: 15px;
+}
+
+.section-filter .filter-tabs-body .filter-tab .filter-tabs-form .form-group-more a {
+    color: #fff;
+    font-family: 'Roboto';
+    font-size: 16px;
+    margin-right: 10px;
+}

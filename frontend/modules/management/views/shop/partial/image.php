@@ -1,68 +1,23 @@
 <?php
 
 use common\components\ClaHost;
+
 ?>
 <style type="text/css">
-    .boxuploadfile {
-        position: absolute;
-    }
-    .thumbnail{
+    .thumbnail {
         margin-bottom: 0px;
     }
-    .thumbnail img{
+
+    .thumbnail img {
         max-width: 100%;
         display: block;
-        max-height: 85px;
+        max-height: 100%;
         margin: 0 auto;
     }
-    .col-md-55 {
-        width: 20%;
-        float: left;
-        height: 130px;
-        overflow: hidden;
-        border: 1px solid #ddd;
-    }
-    .mask {
-        position: absolute;
-        bottom: 0px;
-        display: block;
-        width: 100%;
-        height: 56px;
-    }
-    #wrap_image_album {
-        cursor: pointer;
-        clear: both;
-        overflow: hidden;
-        margin-bottom: 20px;
-        margin-left: 15%;
-        margin-right: 0%;
-        min-height: 132px;
-        background:  unset;
-        border: 1px solid #ebebeb;
-        width: unset;
-    }
-    .boxuploadfile > span {
-        /*display: none !important;*/
-    }
-    .view-first {
-        position: relative;
-        height: 123px;
-        background: #fff;
-        overflow: hidden;
-    }
-    .tools-bottom {
-        margin-top: 0px;
-        position: absolute;
-        right: 0px;
-        top: 0px;
-        width: 25px;
-        height: 25px;
-        background: #fff;
-    }
 </style>
-<div class="item-input-form">
-    <label class=""><?= isset($title) ? $title : Yii::t('app', 'shop_image_1') ?></label>
-    <div class="group-input">
+<div class="form-group">
+    <label class="control-label col-md-2 col-sm-2 col-xs-12">Ảnh</label>
+    <div class="col-md-10 col-sm-10 col-xs-12">
         <?=
         /**
          * Banner main
@@ -71,13 +26,13 @@ use common\components\ClaHost;
             'type' => 'images',
             'id' => 'imageupload',
             'buttonheight' => 25,
-            'path' => array('shop'),
+            'path' => array('package'),
             'limit' => 100,
             'multi' => true,
             'imageoptions' => array(
                 'resizes' => array(array(200, 200))
             ),
-            'buttontext' => Yii::t('app', 'add_image'),
+            'buttontext' => 'Thêm ảnh',
             'displayvaluebox' => false,
             'oncecomplete' => "callbackcomplete(da);",
             'onUploadStart' => 'ta=false;',
@@ -87,7 +42,7 @@ use common\components\ClaHost;
     </div>
 </div>
 
-<div class="group-input" id="wrap_image_album">
+<div class="row" id="wrap_image_album">
     <?php
     if (isset($images) && $images) {
         foreach ($images as $image) {
@@ -95,11 +50,26 @@ use common\components\ClaHost;
             <div class="col-md-55">
                 <div class="thumbnail">
                     <div class="image view view-first">
-                        <img style="display: block;" src="<?= ClaHost::getImageHost(), $image['path'], 's200_200/', $image['name'] ?>" />
+                        <img id="img-up-<?= $image['id'] ?>" style="display: block;"
+                             src="<?= ClaHost::getImageHost(), $image['path'], 's200_200/', $image['name'] ?>"/>
+                        <input type="hidden" value="<?= $image['id'] ?>" name="newimage[]" class="newimage"/>
                         <div class="mask">
+                            <p>&nbsp;</p>
                             <div class="tools tools-bottom">
-                                <a onclick="deleteOldImage(this, 'col-md-55',<?= $image['id'] ?>)" href="javascript:void(0)" title="Xóa ảnh này"><i class="fa fa-times"></i></a>
+                                <a onclick="cropimages(this, '<?= ClaHost::getImageHost(), $image['path'], 's200_200/', $image['name'] ?>',<?= $image['id'] ?>)"
+                                   href="javascript:void(0)" title="Chỉnh sửa ảnh này"><i class="fa fa-crop"></i></a>
+                                <a onclick="deleteOldImage(this, 'col-md-55', <?= $image['id'] ?>)"
+                                   href="javascript:void(0)"><i class="fa fa-times"></i></a>
                             </div>
+                        </div>
+                    </div>
+                    <div class="caption">
+                        <div class="radio">
+                            <label>
+                                <input type="radio" <?= $model->avatar_id == $image['id'] ? 'checked' : '' ?>
+                                       value="new_<?= $image['id'] ?>" name="setava"/> Đặt làm ảnh đại diện
+                                <input type="hidden" name="order[]" value="<?= $image['id'] ?>"/>
+                            </label>
                         </div>
                     </div>
                 </div>
@@ -109,29 +79,30 @@ use common\components\ClaHost;
     }
     ?>
 </div>
-<script>
-    $(function () {
-        // $("#wrap_image_album").sortable();
-        // $("#wrap_image_album").disableSelection();
-        // $('#wrap_image_album').click(function() {
-        //     $('#imageupload').click();
-        //     event.stopPropagation();
-        // });
-    });
-</script>
 <script type="text/javascript">
 
     function callbackcomplete(data) {
         var html = '<div class="col-md-55">';
         html += '<div class="thumbnail">';
         html += '<div class="image view view-first">';
-        html += '<img style="width: 100%; display: block;" src="' + data.imgurl + '" />';
+        html += '<img id="img-up-' + data.imgid + '" style="display: block;" src="' + data.imgurl + '" />';
         html += '<input type="hidden" value="' + data.imgid + '" name="newimage[]" class="newimage" />';
         html += '<div class="mask">';
+        html += '<p>&nbsp;</p>';
         html += '<div class="tools tools-bottom">';
+        html += ' <a onclick="cropimages(this, \'' + data.imgurl + '\',\'' + data.imgid + '\')" href="javascript:void(0)" title="Chỉnh sửa ảnh này"><i class="fa fa-crop"></i></a>';
         html += '<a onclick="deleteNewImage(this, \'col-md-55\')" href="javascript:void(0)" title="Xóa ảnh này"><i class="fa fa-times"></i></a>';
         html += '</div>';
         html += '</div>';
+        html += '</div>';
+        html += '<div class="caption">';
+
+        html += '<div class="radio">';
+        html += '<label>';
+        html += '<input type="radio" value="new_' + data.imgid + '" name="setava" /> Đặt làm ảnh đại diện';
+        html += '</label>';
+        html += '</div>';
+
         html += '</div>';
         html += '</div>';
         html += '</div>';
@@ -140,10 +111,9 @@ use common\components\ClaHost;
     }
 
     function deleteNewImage(_this, wrap) {
-        if (confirm('<?= Yii::t('app', 'delete_sure') ?>')) {
+        if (confirm('Bạn có chắc muốn xóa ảnh?')) {
             $(_this).closest('.' + wrap).remove();
         }
-        event.stopPropagation();
         return false;
     }
 
@@ -152,10 +122,10 @@ use common\components\ClaHost;
     };
 
     function deleteOldImage(_this, wrap, id) {
-        if (confirm('<?= Yii::t('app', 'delete_sure') ?>')) {
+        if (confirm('Bạn có chắc muốn xóa ảnh?')) {
             $.getJSON(
-                    "<?= \yii\helpers\Url::to(['/management/shop/delete-image']) ?>",
-                    {id: id}
+                "<?= \yii\helpers\Url::to(['/management/shop/delete-image']) ?>",
+                {id: id}
             ).done(function (data) {
                 $(_this).closest('.' + wrap).remove();
             }).fail(function (jqxhr, textStatus, error) {
@@ -163,8 +133,6 @@ use common\components\ClaHost;
                 console.log("Request Failed: " + err);
             });
         }
-        event.stopPropagation();
         return false;
     }
-
 </script>

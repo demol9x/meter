@@ -8,7 +8,6 @@ use yii\bootstrap\ActiveForm;
 use yii\authclient\widgets\AuthChoice;
 use yii\helpers\Url;
 
-
 $authAuthChoice = AuthChoice::begin([
     'baseAuthUrl' => ['/site/auth'],
 ]);
@@ -22,19 +21,19 @@ $authAuthChoice = AuthChoice::begin([
                 <div class="title">
                     <h2 class="title_60">Đăng nhập</h2>
                 </div>
-                <p class="content_14">Chào mừng bạn đến với shoppingonline365. Vui lòng đăng nhập để có trải nghiệm mua sắm tốt hơn.</p>
+                <p class="content_16">Chào mừng bạn đến với shoppingonline365. Vui lòng đăng nhập để có trải nghiệm mua sắm tốt hơn.</p>
                 <?php
                 $form = ActiveForm::begin([
-                    'id' => 'form-signup',
+                    'id' => '',
                     'options' => [
-                        'class' => 'form-horizontal'
+                        'class' => ''
                     ]
                 ]);
                 ?>
                 <div class="main__left--login">
                     <?=
                     $form->field($model, 'phone', [
-                        'template' => '<label for=""><i class="fal fa-phone-alt"></i>{input}</label>{error}'
+                        'template' => '<label for=""><i class="fal fa-phone-alt"></i>{input}{error}</label>'
                     ])->textInput([
                         'class' => 'content_16',
                         'placeholder' => 'Số điện thoại'
@@ -42,18 +41,19 @@ $authAuthChoice = AuthChoice::begin([
                     ?>
                     <?=
                     $form->field($model, 'password', [
-                        'template' => '<label for=""> <i class="far fa-lock"></i>{input}</label>{error}'
+                        'template' => '<label for=""> <i class="far fa-lock"></i>{input}{error}</label>'
                     ])->passwordInput([
                         'class' => 'content_16',
                         'placeholder' => 'Nhập mật khẩu'
                     ]);
                     ?>
+
                 </div>
                 <div class="main__left--check">
-                        <span class="content_16">
-                            <input type="radio" name="SignupForm[rememberMe]" value="1">Ghi nhớ đăng nhập
-                        </span>
-                    <a href="" class="content_16">Quên mật khẩu</a>
+                    <span class="content_16">
+                        <input type="checkbox" name="SignupForm[rememberMe]" value="1" checked id="remem"><label for="remem">Ghi nhớ đăng nhập</label>
+                    </span>
+                    <a href="<?=Url::to('/site/request-password-reset')?>" class="content_16">Quên mật khẩu</a>
                 </div>
                 <div class="main__left--btn">
                     <button class="btn-1 content_16 btn-animation" type="submit" >Đăng nhập</button>
@@ -67,3 +67,14 @@ $authAuthChoice = AuthChoice::begin([
         </div>
     </div>
 </div>
+<script>
+    // $(document).ready(function(){
+    //     var $errorText= $('.main__left--login .help-block');
+    //     var $cssText= $('.main__left--login .form-group:first-child input');
+    //     if($errorText != " "){
+    //         $($cssText).css("border-bottom", "0.5px solid #289300");
+    //     }else{
+    //         $($cssText).css("border-bottom", "none");
+    //     }
+    // })
+</script>

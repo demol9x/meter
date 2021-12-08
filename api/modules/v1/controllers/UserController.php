@@ -4,7 +4,9 @@ namespace api\modules\v1\controllers;
 
 
 use common\components\ClaGenerate;
+use common\models\shop\Shop;
 use common\models\user\Tho;
+use common\models\user\UserAddress;
 use common\models\user\UserDevice;
 use common\models\user\UserImage;
 use frontend\models\SignupForm;
@@ -30,7 +32,7 @@ class UserController extends RestController
         $message = '';
         $errors = [];
         if ($user && $user['auth_key'] == $auth_key) {
-            if($user['tho']){
+            if ($user['tho']) {
                 $images = UserImage::find()->where(['user_id' => $user_id])->asArray()->all();
                 $user['tho']['images'] = $images;
             }
@@ -40,7 +42,7 @@ class UserController extends RestController
                 'errors' => $errors,
                 'message' => $message
             ]);
-        }else {
+        } else {
             $message = 'Thông tin tài khoản không hợp lệ';
         }
         return $this->responseData([
@@ -115,6 +117,17 @@ class UserController extends RestController
         $message = '';
         $errors = [];
         if ($user && $user->auth_key == $auth_key) {
+            $shop = Shop::findOne($user_id);
+            $tho = Tho::findOne($user_id);
+            if ($shop) {
+                $shop->status = 1;
+                $shop->save();
+            }
+            if ($tho) {
+                $tho->status = 1;
+                $tho->save();
+            }
+
             $user->status = User::STATUS_ACTIVE;
             $user->save();
             return $this->responseData([
@@ -122,9 +135,87 @@ class UserController extends RestController
                 'errors' => $errors,
                 'message' => $message
             ]);
-        }else {
+        } else {
             $message = 'Thông tin tài khoản không hợp lệ';
         }
+        return $this->responseData([
+            'success' => false,
+            'errors' => $errors,
+            'message' => $message
+        ]);
+    }
+
+    public function actionForgotPassword()
+    {
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $password = isset($params['password']) && $params['password'] ? $params['password'] : '';
+        $re_password = isset($params['re_password']) && $params['re_password'] ? $params['re_password'] : '';
+        $phone = isset($params['phone']) && $params['phone'] ? $params['phone'] : '';
+        $user = User::find()->where(['phone' => $phone])->one();
+        $message = '';
+        $errors = [];
+        if ($password != $re_password) {
+            $message = 'Mật khẩu không khớp';
+        }
+        if ($user && $password && $password == $re_password) {
+            $user->setPassword($password);
+            $user->generateAuthKey();
+            $user->save();
+            return $this->responseData([
+                'success' => true,
+                'errors' => $errors,
+                'message' => $message
+            ]);
+        } else {
+            $message = 'Số điện thoại chưa đăng ký tài khoản';
+        }
+        return $this->responseData([
+            'success' => false,
+            'errors' => $errors,
+            'message' => $message
+        ]);
+    }
+
+    public function actionChangePassword()
+    {
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $password = isset($params['password']) && $params['password'] ? $params['password'] : '';
+        $new_password = isset($params['new_password']) && $params['new_password'] ? $params['new_password'] : '';
+        $re_password = isset($params['re_password']) && $params['re_password'] ? $params['re_password'] : '';
+        $user_id = isset($params['user_id']) && $params['user_id'] ? $params['user_id'] : '';
+        $auth_key = isset($params['auth_key']) && $params['auth_key'] ? $params['auth_key'] : '';
+
+        $user = User::findOne($user_id);
+        $message = '';
+        $errors = [];
+
+        if ($user && $user->auth_key == $auth_key) {
+            $model = new LoginForm();
+            $params = [
+                'phone' => $user->phone,
+                'password' => $password
+            ];
+            if ($model->load($params, '') && $model->login()) {
+                if ($new_password && $new_password == $re_password) {
+                    $user->setPassword($new_password);
+                    -$user->save();
+                    return $this->responseData([
+                        'success' => true,
+                        'errors' => $errors,
+                        'message' => $message
+                    ]);
+                } else {
+                    $message = 'Mật khẩu mới không khớp';
+                }
+
+            } else {
+                $message = 'Mật khẩu không đúng';
+            }
+
+        } else {
+            $message = 'Thông tin tài khoản không hợp lệ';
+        }
+
         return $this->responseData([
             'success' => false,
             'errors' => $errors,
@@ -150,6 +241,7 @@ class UserController extends RestController
                     $tho = new Tho();
                 }
                 if ($tho->load($params, '')) {
+                    $tho->name = $user->username;
                     $uploads = UploadedFile::getInstancesByName("file");
                     if (empty($uploads)) {
                     } else {
@@ -181,10 +273,12 @@ class UserController extends RestController
                             break;
                         }
                     }
-
-
                     if ($tho->save()) {
                         $user->type = User::TYPE_THO;
+                        $user->province_id = isset($params['province_id']) && $params['province_id'] ? $params['province_id'] : $user->province_id;
+                        $user->district_id = isset($params['district_id']) && $params['district_id'] ? $params['district_id'] : $user->district_id;
+                        $user->ward_id = isset($params['ward_id']) && $params['ward_id'] ? $params['ward_id'] : $user->ward_id;
+                        $user->address = isset($params['address']) && $params['address'] ? $params['address'] : $user->address;
                         $user->save();
                         return $this->responseData([
                             'success' => true,
@@ -208,7 +302,8 @@ class UserController extends RestController
         ]);
     }
 
-    public function actionUpdate(){
+    public function actionUpdate()
+    {
         $params = Yii::$app->getRequest()->getBodyParams();
         $user_id = isset($params['user_id']) && $params['user_id'] ? $params['user_id'] : '';
         $auth_key = isset($params['auth_key']) && $params['auth_key'] ? $params['auth_key'] : '';
@@ -221,14 +316,14 @@ class UserController extends RestController
                 $file = (array)$avatar[0];
                 $file['tmp_name'] = $file['tempName'];
                 unset($file['tempName']);
-                $data = $this->uploadImage($file,'user');
+                $data = $this->uploadImage($file, 'user');
                 if ($data['code'] == 1) {
                     $user->avatar_path = $data['data']['path'];
                     $user->avatar_name = $data['data']['name'];
                 }
             }
 
-            if($user->load($params,'')){
+            if ($user->load($params, '')) {
                 $user->sex = isset($params['sex']) && $params['sex'] ? $params['sex'] : $user->sex;
                 $user->username = isset($params['username']) && $params['username'] ? $params['username'] : $user->username;
                 $user->province_id = isset($params['province_id']) && $params['province_id'] ? $params['province_id'] : $user->province_id;
@@ -237,17 +332,95 @@ class UserController extends RestController
                 $user->address = isset($params['address']) && $params['address'] ? $params['address'] : $user->address;
                 $user->email = isset($params['email']) && $params['email'] ? $params['email'] : $user->email;
                 $user->birthday = isset($params['birthday']) && $params['birthday'] ? $params['birthday'] : $user->birthday;
-                if($user->save()){
+                if ($user->save()) {
+                    $tho = Tho::findOne($user_id);
+                    if ($tho) {
+                        $tho->province_id = isset($params['province_id']) && $params['province_id'] ? $params['province_id'] : $user->province_id;
+                        $tho->district_id = isset($params['district_id']) && $params['district_id'] ? $params['district_id'] : $user->district_id;
+                        $tho->ward_id = isset($params['ward_id']) && $params['ward_id'] ? $params['ward_id'] : $user->ward_id;
+                        $tho->address = isset($params['address']) && $params['address'] ? $params['address'] : $user->address;
+                        $tho->name = isset($params['username']) && $params['username'] ? $params['username'] : $user->username;
+                        $tho->save();
+                    }
+
                     return $this->responseData([
                         'success' => true,
                         'errors' => [],
                         'data' => $user->attributes,
                         'message' => 'Cập nhật thành công'
                     ]);
-                }else{
+                } else {
                     $errors = $user->getErrors();
                 }
             }
+
+        } else {
+            $message = 'Thông tin tài khoản không hợp lệ';
+        }
+        return $this->responseData([
+            'success' => false,
+            'errors' => $errors,
+            'message' => $message
+        ]);
+    }
+
+    public function actionAddress()
+    {
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $user_id = isset($params['user_id']) && $params['user_id'] ? $params['user_id'] : '';
+        $auth_key = isset($params['auth_key']) && $params['auth_key'] ? $params['auth_key'] : '';
+        $user = User::findOne($user_id);
+        $message = '';
+        $errors = [];
+        if ($user && $user->auth_key == $auth_key) {
+            $address = UserAddress::find()->where(['user_id' => $user_id])->all();
+            return $this->responseData([
+                'success' => false,
+                'data' => $address,
+                'errors' => $errors,
+                'message' => $message
+            ]);
+
+        } else {
+            $message = 'Thông tin tài khoản không hợp lệ';
+        }
+        return $this->responseData([
+            'success' => false,
+            'errors' => $errors,
+            'message' => $message
+        ]);
+    }
+
+    public function actionAddAddress()
+    {
+        $params = Yii::$app->getRequest()->getBodyParams();
+        $user_id = isset($params['user_id']) && $params['user_id'] ? $params['user_id'] : '';
+        $auth_key = isset($params['auth_key']) && $params['auth_key'] ? $params['auth_key'] : '';
+        $isdefault = isset($params['isdefault']) && $params['isdefault'] ? $params['isdefault'] : 0;
+        $user = User::findOne($user_id);
+        $message = '';
+        $errors = [];
+        if ($user && $user->auth_key == $auth_key) {
+            $address = new UserAddress();
+            $address->load($params, '');
+            if($isdefault == 1){
+                UserAddress::updateAll(['isdefault' => 0],['user_id' => $user_id]);
+            }
+            if ($address->save()) {
+                return $this->responseData([
+                    'success' => false,
+                    'data' => $address->attributes,
+                    'errors' => $errors,
+                    'message' => $message
+                ]);
+            } else {
+                return $this->responseData([
+                    'success' => false,
+                    'errors' => $address->getErrors(),
+                    'message' => $message
+                ]);
+            }
+
 
         } else {
             $message = 'Thông tin tài khoản không hợp lệ';

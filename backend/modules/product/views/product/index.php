@@ -13,7 +13,7 @@ use common\components\ClaHost;
 /* @var $searchModel common\models\product\searchProductSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Quản lý bất động sản';
+$this->title = Yii::t('app', 'product_management');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style type="text/css">
@@ -80,6 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
         left: 0px;
         transition: background-color 0.4s, left 0.2s;
     }
+    
 </style>
 <div class="product-index">
     <div class="row">
@@ -87,9 +88,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="x_panel">
                 <div class="x_title">
                     <h2><?= Html::encode($this->title) ?></h2>
-                    <?= Html::a('Tạo bất động sản', ['create'], ['class' => 'btn btn-success pull-right']) ?>
-                    <?= Html::a('Xuất exel', ['exel'], ['class' => 'btn btn-success pull-right']) ?>
-
+                    <?= Html::a(Yii::t('app', 'create_product'), ['create'], ['class' => 'btn btn-success pull-right']) ?>
                     <div class="clearfix"></div>
                 </div>
                 <div class="x_content">
@@ -112,18 +111,9 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'attribute' => 'category_id',
                                 'content' => function ($model) {
-                                    return $model->getCategories();
+                                    return $model->category->name;
                                 },
                                 'filter' => Html::activeDropDownList($searchModel, 'category_id', $model_category->optionsCategory(), ['class' => 'form-control'])
-                            ],
-                            [
-                                'header' => Yii::t('app', 'shop'),
-                                'content' => function ($model) {
-                                    if ($shop = Shop::findOne($model->shop_id)) {
-                                        return '<a class="' . ($shop->status == 1 ? 'blue' : 'red') . '" target="_blank" title="' . ($shop->status == 1 ? Yii::t('app', 'shop_actived') : Yii::t('app', 'shop_nonactive')) . '" href="' . Url::to(['/user/shop/index', 'ShopSearch[id]' => $shop->id]) . '">' . $shop->name . '</a>';
-                                    }
-                                    return 'N/A';
-                                }
                             ],
                             // 'code',
                             [
@@ -163,39 +153,26 @@ $this->params['breadcrumbs'][] = $this->title;
                             [
                                 'attribute' => 'status',
                                 'content' => function ($model) {
-                                    $html = 'N/A';
-                                    if ($shop = Shop::findOne($model->shop_id)) {
-                                        $html = '<select onchange="changeStatusProduct(this, ' . $model->id . ',' . $shop->status . ')">';
-                                        $html .= '<option value="0" ' . ($model->status == 0 ? 'selected' : '') . '>' . Yii::t('app', 'status_0') . '</option>';
-                                        $html .= '<option value="1" ' . ($model->status == 1 ? 'selected' : '') . '>' . Yii::t('app', 'status_1') . '</option>';
-                                        $html .= '<option value="2" ' . ($model->status == 2 ? 'selected' : '') . '>' . Yii::t('app', 'status_2') . '</option>';
-                                        $html .= '</select>';
-                                    }
-                                    return $html;
+                                    return $model->status == 1 ? 'Hiển thị' : 'Ẩn';
                                 },
-                                'filter' => Html::activeDropDownList($searchModel, 'status', [2 => Yii::t('app', 'status_2'), 1 => Yii::t('app', 'status_1'), 0 => Yii::t('app', 'status_0')], ['class' => 'form-control', 'prompt' => Yii::t('app', 'selects')])
+                                'filter' => Html::activeDropDownList($searchModel, 'status', [1 => 'Hiển thị', 0 => 'Ẩn'], ['class' => 'form-control', 'prompt' => Yii::t('app', 'selects')])
                             ],
-                            'admin_update' => [
-                                'header' => 'Người duyệt',
-                                'content' => function ($model) {
-                                    if ($model->admin_update) {
-                                        $user = \backend\models\UserAdmin::findOne($model->admin_update);
-                                        if ($user) {
-                                            return $user->username;
-                                        }
-                                    }
-                                    return 'N/A';
-                                }
-                            ],
-                            'admin_update_time' => [
-                                'header' => 'Ngày duyệt',
-                                'content' => function ($model) {
-                                    return $model->admin_update_time > 0 ? date('d/m/Y', $model->admin_update_time) : 'N/A';
-                                }
-                            ],
+                            'order',
                             [
                                 'class' => 'yii\grid\ActionColumn',
-                                'template' => '{update} {delete}'
+                                'template' => '{update} {copy} {delete}',
+                                'buttons' => [
+                                    'copy' => function ($url, $model) {
+                                        return \yii\helpers\Html::a('<div class="text-center"><em data-toggle="tooltip"
+                                                            data-placement="top" title="Sao chép"
+                                                            class="fa fa-external-link-square"></em></div>',
+                                            (new yii\grid\ActionColumn())->createUrl('/product/product/create', $model, $model['id'], 1), [
+                                                'title' => Yii::t('yii', 'view'),
+                                                'data-method' => 'post',
+                                                'data-pjax' => '0',
+                                            ]);
+                                    },
+                                ]
                             ],
                         ],
                     ]);

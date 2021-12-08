@@ -2,6 +2,11 @@
 
 namespace frontend\modules\profile\controllers;
 
+use common\models\package\Package;
+use common\models\package\PackageImage;
+use common\models\shop\Shop;
+use common\models\user\Tho;
+use common\models\Ward;
 use frontend\controllers\CController;
 use Yii;
 use yii\db\Query;
@@ -18,6 +23,7 @@ use common\components\UploadLib;
 use common\components\HtmlFormat;
 use common\components\ClaHost;
 use common\models\user\UserAddress;
+use yii\web\UploadedFile;
 
 /**
  * News controller for the `login` module
@@ -31,55 +37,6 @@ class ProfileController extends CController {
     public function actionIndex() {
         $this->layout = 'main';
         $user = User::findIdentity(Yii::$app->user->getId());
-        $old_phone = $user->phone;
-        $old_email= $user->email;
-
-        $old_username= $user->username;
-        $old_sex=$user->sex;
-        if($user->load(\Yii::$app->request->post())){
-            if(isset($user->username) && $user->username){
-            }
-            else
-            {
-                $user->username=$old_username;
-            }
-            if(isset($user->phone) && $user->phone){
-                if($old_phone ==$user->phone ){
-                    unset($user->phone);
-                }
-            }
-            else
-            {
-            }
-            if(isset($user->email) && $user->email){
-                if($old_email == $user->email){
-                    unset($user->email);
-                }
-            }
-            else
-            {
-                unset($user->email);
-            }
-            if(isset($user->sex) && $user->sex){
-                if($old_sex == $user->sex){
-                    unset($user->sex);
-                }
-            }
-            else
-            {
-                $user->sex=$old_sex;
-            }
-            $user->save();
-            echo '<pre>';
-            print_r($user->getErrors());
-            echo '</pre>';
-            die();
-            if($user->save()){
-                \Yii::$app->getSession()->setFlash('cusses', 'Cập nhật thông tin thành công');
-            }
-        }
-
-
         return $this->render('index', [
                     'user' => $user,
         ]);
@@ -101,6 +58,10 @@ class ProfileController extends CController {
         $model = new UserAddress();
         if($model->load(\Yii::$app->request->post())){
             $model->user_id = Yii::$app->user->getId();
+            if($model->isdefault == 1)
+            {
+                Yii::$app->db->createCommand()->update('user_address', ['isdefault' => 0], ['user_id' => $model->user_id])->execute();
+            }
             if($model->save())
             {
                 \Yii::$app->getSession()->setFlash('cusses', 'Cập nhật thông tin thành công');
@@ -176,7 +137,13 @@ class ProfileController extends CController {
             }
         }
     }
-
+    public function actionProfileNhathau(){
+        $this->layout='main';
+        $model = Shop::findOne(['user_id'=>\Yii::$app->user->getId()]);
+        return $this->render('partial/profile-nhathau',[
+            'model'=>$model
+        ]);
+    }
 
     public function findModelInfo() {
         $model = UserInfo::findOne(\Yii::$app->user->getId());
@@ -189,7 +156,86 @@ class ProfileController extends CController {
         }
         return $model;
     }
+    public function  actionViewGoithau(){
+        $this->layout='main';
+        $model= new Package();
+        return $this->render('partial/add-goithau',[
+            'model'=>$model
+        ]);
+    }
+    public function actionAddGoithau(){
+        $this->layout='main';
+        $model = new Package();
+        $images = [];
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
 
+
+            $newimage = Yii::$app->request->post('newimage');
+            $countimage = $newimage ? count($newimage) : 0;
+            $ward = Ward::findOne($model->ward_id);
+            $latlng = explode(',', $ward->latlng);
+            $model->latlng = $ward->latlng;
+            $model->lat = $latlng[0];
+            $model->long = $latlng[1];
+
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->file) {
+                $model->file->saveAs(Yii::getAlias('@rootpath') . '/static/media/files/package/' . ClaGenerate::getUniqueCode() . '.' . $model->file->extension);
+                $model->ho_so = '/media/files/package/' . ClaGenerate::getUniqueCode() . '.' . $model->file->extension;
+            }
+            if ($model->save()) {
+                $setava = Yii::$app->request->post('setava');
+                $simg_id = str_replace('new_', '', $setava);
+                $avatar = [];
+                $recount = 0;
+                if ($newimage && $countimage > 0) {
+                    foreach ($newimage as $image_code) {
+                        $imgtem = \common\models\media\ImagesTemp::findOne($image_code);
+                        if ($imgtem) {
+                            $nimg = new PackageImage();
+                            $nimg->attributes = $imgtem->attributes;
+                            $nimg->id = NULL;
+                            unset($nimg->id);
+                            $nimg->package_id = $model->id;
+                            if ($nimg->save()) {
+                                if ($recount == 0) {
+                                    $avatar = $nimg->attributes;
+                                    $recount = 1;
+                                }
+                                if ($imgtem->id == $simg_id) {
+                                    $avatar = $nimg->attributes;
+                                }
+                                $imgtem->delete();
+                            }
+                        }
+                    }
+                }
+                // set avatar
+                if ($avatar && count($avatar)) {
+                    $model->avatar_path = $avatar['path'];
+                    $model->avatar_name = $avatar['name'];
+                    $model->avatar_id = $avatar['id'];
+                    $model->save();
+                }
+            }
+            return $this->redirect(['index']);
+        }
+        return $this->render('partial/add-goithau', [
+            'model' => $model,
+        ]);
+    }
+    public  function actionAddTho(){
+        $this->layout='main';
+        $model= Tho::find()->joinWith(['province','job','user'])->where(['user_id'=>\Yii::$app->user->getId()])->asArray()->One();
+        echo '<pre>';
+        print_r($model['province']['name']);
+        echo '</pre>';
+        die();
+        return $this->render('partial/add-goithau',[
+               'model'=>$model,
+        ]);
+    }
     /**
      * Khởi tạo model education
      * @return UserEducation

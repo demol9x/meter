@@ -16,11 +16,9 @@ class Shop extends \yii\base\Module {
      * @inheritdoc
      */
     public function init() {
-        if (\common\components\ClaSite::isMobile()) {
-            $this->controllerNamespace = 'frontend\mobile\modules\shop\controllers';
-            $this->setViewPath(Yii::getAlias('@root') . '/frontend/mobile/modules/shop/views');
-        }
-        parent::init();
+
+            $this->setViewPath(Yii::getAlias('@root') . '/frontend/modules/shop/views');
+
 
         // custom initialization code goes here
     }

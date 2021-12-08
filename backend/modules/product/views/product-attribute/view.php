@@ -30,15 +30,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'code',
-            'attribute_set_id',
-            'frontend_input',
-            'type_option',
-            'order',
-            'default_value',
-            'is_configurable',
-            'is_filterable',
-            'is_system',
+            'type',
+            'show_filter',
+            'data:ntext',
+            'data_option:ntext',
+            'display_type',
         ],
     ]) ?>
 

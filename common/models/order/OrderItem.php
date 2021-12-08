@@ -12,13 +12,13 @@ use yii\db\Query;
  * @property string $id
  * @property string $shop_id
  * @property string $order_id
- * @property string $order_id
  * @property string $product_id
  * @property string $code
  * @property string $quantity
  * @property string $price
  * @property string $created_at
  * @property integer $status
+ * @property integer $product_variable_id
  */
 class OrderItem extends \common\models\ActiveRecordC
 {
@@ -43,9 +43,9 @@ class OrderItem extends \common\models\ActiveRecordC
     public function rules()
     {
         return [
-            [['order_id', 'product_id', 'quantity', 'price', 'shop_id'], 'required'],
+            [['order_id', 'product_id', 'quantity', 'price'], 'required'],
             [['price'], 'number'],
-            [['order_id', 'created_at'], 'integer'],
+            [['order_id', 'created_at','product_variable_id'], 'integer'],
             [['quantity'], 'number'],
             [['product_id', 'code', 'status', 'length', 'width', 'height', 'weight'], 'safe']
         ];
@@ -175,6 +175,21 @@ class OrderItem extends \common\models\ActiveRecordC
         return $data;
     }
 
+    public static function getOrderItem($id)
+    {
+        $condition = 'order_id=:id';
+        $params = [
+            'id' => $id
+        ];
+        $data = (new \yii\db\Query())
+            ->select('t.*')
+            ->from('order_item t')
+            ->where($condition, $params)
+            ->orderBy('id DESC')
+            ->all();
+        return $data;
+    }
+
     public static function getAllOrderItemIsShop($user_id, $options = [])
     {
         $condition = 't.user_before_shop=:user_id';
@@ -293,7 +308,6 @@ class OrderItem extends \common\models\ActiveRecordC
             $user_id = $user_id ? $user_id  : Yii::$app->user->id;
             if (!$product->canBuyFor($user_id)) {
                 $this->_merrors = $product->_merrors;
-                // echo "SĐs"; die();
                 return false;
             }
             $change_v = \common\models\gcacoin\Gcacoin::getPerMoneyCoin();
@@ -327,9 +341,7 @@ class OrderItem extends \common\models\ActiveRecordC
             $this->price = $this->price > 0 ? $this->price : $price;
             return true;
         }
-        $this->_merrors = 'Sản phẩm '.$this->product_id.' không tồn tại.';
-        // echo "SĐs1"; die();
-        // return false;
+        $this->_merrors = 'Sản phẩm '.$this->product_id.' không tồn tại.';;
         return false;
     }
 

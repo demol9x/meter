@@ -17,6 +17,8 @@ if (isset($_COOKIE['smin_check_bke']) &&  $_COOKIE['smin_check_bke']) {
     defined('YII_DEBUG') or define('YII_DEBUG', $debug);
     defined('YII_ENV') or define('YII_ENV', 'real'); // Khong duoc thay doi bien nay (minhbn)
 }
+
+
 require(__DIR__ . '/../../common/autoload/autoload.php');
 require(__DIR__ . '/../../frontend/autoload/autoload.php');
 require(__DIR__ . '/../../vendor/autoload.php');

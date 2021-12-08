@@ -27,13 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ['class' => 'yii\grid\SerialColumn'],
 
                             // 'id',
-                            [
-                                'attribute' => 'type',
-                                'value' => function($model) {
-                                    return Rating::getTypeNull($model->type);
-                                },
-                                'filter' => Html::activeDropDownList($searchModel, 'type',Rating::getType(), ['class' => 'form-control'])
-                            ],
+
                             'object_id',
                             'name',
                             // 'address',

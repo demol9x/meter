@@ -124,7 +124,7 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                 <?php } ?>
 
                                 <!-- Quản lý sản phẩm, gói thầu -->
-                                <?php if (Helper::checkRoute('/package/package/index') || Helper::checkRoute('/product/product-category/index') || Helper::checkRoute('/product/product/index')) { ?>
+                                <?php if (Helper::checkRoute('/product/product-attribute/index') || Helper::checkRoute('/package/package/index') || Helper::checkRoute('/product/product-category/index') || Helper::checkRoute('/product/product/index')) { ?>
                                     <li>
                                         <a>
                                             <i class="fa fa-product-hunt"></i> <?= Yii::t('app', 'product_management') ?>
@@ -133,6 +133,18 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                         <ul class="nav child_menu">
                                             <?php if (Helper::checkRoute('/product/product-category/index')) { ?>
                                                 <li><?= Html::a('Danh mục sản phẩm', ['/product/product-category/index']) ?></li>
+                                            <?php } ?>
+
+                                            <?php if (Helper::checkRoute('/product/brand/index')) { ?>
+                                                <li><?= Html::a('Quản lý thương hiệu', ['/product/brand/index']) ?></li>
+                                            <?php } ?>
+                                            
+                                            <?php if (Helper::checkRoute('/product/optionprice/index')) { ?>
+                                                <li><?= Html::a('Quản lý khoảng giá', ['/product/optionprice/index']) ?></li>
+                                            <?php } ?>
+
+                                            <?php if (Helper::checkRoute('/product/product-attribute/index')) { ?>
+                                                <li><?= Html::a('Bộ thuộc tính', ['/product/product-attribute/index']) ?></li>
                                             <?php } ?>
 
                                             <?php if (Helper::checkRoute('/product/product/index')) { ?>
@@ -170,7 +182,7 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                     </li>
                                 <?php } ?>
 
-                                <?php if (Helper::checkRoute('/product/discount-code/index')) { ?>
+                                <?php if (Helper::checkRoute('/voucher/voucher/index')) { ?>
                                     <li>
                                         <a>
                                             <i class="fa fa-product-hunt"></i> 
@@ -178,8 +190,8 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                             <span class="fa fa-chevron-down"></span>
                                         </a>
                                         <ul class="nav child_menu">
-                                            <?php if (Helper::checkRoute('/product/discount-code/index')) { ?>
-                                                <li><?= Html::a('Quản lý mã giảm giá', ['/product/discount-code/index']) ?></li>
+                                            <?php if (Helper::checkRoute('/voucher/voucher/index')) { ?>
+                                                <li><?= Html::a('Quản lý mã giảm giá', ['/voucher/voucher/index']) ?></li>
                                             <?php } ?>
                                         </ul>
                                     </li>
@@ -213,16 +225,30 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                                     <?= $notification['order'] ? '<span class="index">' . $notification['order'] . '</span>' : '' ?>
                                                 </li>
                                             <?php } ?>
+                                        </ul>
+                                    </li>
+                                <?php } ?>
+                                <?php
+                                $count = \common\models\form\Contact::find()->where(['viewed' => 0])->count();
+                                ?>
+                                <?php if (Helper::checkRoute('/notification/notification/index')) { ?>
+                                    <li>
+                                        <a class="<?= $count ? 'notification' : '' ?>"><i class="fa fa-bell" aria-hidden="true"></i> Thông báo & liên hệ<?= $count ? "($count)" : '' ?> <span class="fa fa-chevron-down"></span></a>
+                                        <ul class="nav child_menu">
+                                            <!--  <?php if (Helper::checkRoute('/notification/notification/index')) { ?>
+                                                    <li>
+                                                        <?= Html::a('Trung tâm thông báo', ['/notification/notification/index']) ?>
+                                                    </li>
+                                                <?php } ?> -->
 
-                                            <?php if (Helper::checkRoute('/gcacoin/history/index')) { ?>
+                                            <?php if (Helper::checkRoute('/form/contact/index')) { ?>
                                                 <li>
-                                                    <a href="<?= Url::to(['/gcacoin/history/index']) ?>">Lịch sử dụng OCOP V(voucher)</a>
+                                                    <?= Html::a('Yêu cầu liên hệ' . ($count ? "($count)" : ''), ['/form/contact/index']) ?>
                                                 </li>
                                             <?php } ?>
                                         </ul>
                                     </li>
                                 <?php } ?>
-
                                 <?php if (Helper::checkRoute('/promotion/promotion/index') || Helper::checkRoute('/mail/mail/index')) { ?>
                                     <li>
                                         <a>
@@ -300,45 +326,9 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                     </li>
                                 <?php } ?>
 
-                                <?php if (Helper::checkRoute('/withdraw')) { ?>
-                                    <?php $shop_wt = \common\models\order\Order::find()->where(['type_payment' => 1, 'payment_status' => 1, 'payment_method' =>  \common\components\payments\ClaPayment::PAYMENT_METHOD_CK])->count(); ?>
+                                <?php if (Helper::checkRoute('/general/job/index') || Helper::checkRoute('/siteinfo/index') || Helper::checkRoute('/site-introduce/index') || Helper::checkRoute('/social/index')) { ?>
                                     <li>
-                                        <a>
-                                            <i class="fa fa-user-secret"></i> Quản lý ví OCOP V(voucher) <span class="fa fa-chevron-down"></span>
-                                            <?= ($shop_wt) ? '<span class="index">' . ($shop_wt) . '</span>' : '' ?>
-                                        </a>
-                                        <ul class="nav child_menu">
-                                            <?php if (Helper::checkRoute('/withdraw/order/index')) { ?>
-                                                <li>
-                                                    <a href="<?= Url::to(['/withdraw/order/index']) ?>">Yêu cầu nạp tiền</a>
-                                                    <?= $shop_wt ? '<span class="index">' . $shop_wt . '</span>' : '' ?>
-                                                </li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/recharge/index')) { ?>
-                                                <li><?= Html::a('Nạp tiền', ['/withdraw/recharge/index']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/withdraw/index')) { ?>
-                                                <li><?= Html::a('Yêu cầu rút tiền', ['/withdraw/withdraw/index']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/withdraw/history')) { ?>
-                                                <li><?= Html::a('Lịch sử rút tiền', ['/withdraw/withdraw/history']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/bank/index')) { ?>
-                                                <li><?= Html::a('Ngân hàng chuyển khoản', ['/withdraw/bank/index']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/siteinfo/index')) { ?>
-                                                <li><?= Html::a('Cấu hình V khuyến mãi', ['/withdraw/siteinfo/index']); ?></li>
-                                            <?php } ?>
-                                            <?php if (Helper::checkRoute('/withdraw/siteinfo/config')) { ?>
-                                                <li><?= Html::a('Cấu hình V chung', ['/withdraw/siteinfo/config']); ?></li>
-                                            <?php } ?>
-                                        </ul>
-                                    </li>
-                                <?php } ?>
-
-                                <?php if (Helper::checkRoute('/siteinfo/index') || Helper::checkRoute('/site-introduce/index') || Helper::checkRoute('/social/index')) { ?>
-                                    <li>
-                                        <a><i class="fa fa-cog"></i> Cấu hình website <span class="fa fa-chevron-down"></span></a>
+                                        <a><i class="fa fa-cog"></i> Cấu hình chung <span class="fa fa-chevron-down"></span></a>
                                         <ul class="nav child_menu">
                                             <?php if (Helper::checkRoute('/siteinfo/index')) { ?>
                                                 <li><?= Html::a('Thông tin cơ bản', ['/siteinfo/index']); ?></li>
@@ -348,6 +338,16 @@ $notification = \common\models\NotificationAdmin::findOne(1);
                                                 <li><?= Html::a('Giới thiệu', ['/site-introduce/index']); ?></li>
                                             <?php } ?>
 
+                                            <?php if (Helper::checkRoute('/general/job/index')) { ?>
+                                                <li>
+                                                    <?= Html::a('Nghề nghiệp', ['/general/job/index']) ?>
+                                                </li>
+                                            <?php } ?>
+                                            <?php if (Helper::checkRoute('/optionprice/optionprice/index')) { ?>
+                                                <li>
+                                                    <?= Html::a('Khoảng giá', ['/optionprice/optionprice/index']) ?>
+                                                </li>
+                                            <?php } ?>
                                             <?php if (Helper::checkRoute('/social/index')) { ?>
                                                 <li>
                                                     <?= Html::a('Hỗ trợ trực tuyến', ['/social/index']) ?>

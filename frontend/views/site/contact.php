@@ -6,18 +6,16 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
-// use common\components\ClaLid;
-
-$this->title = 'THÔNG TIN LIÊN HỆ';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="container_fix">
     <?php //Menu main
-    echo frontend\widgets\breadcrumbs\BreadcrumbsWidget::widget([])
+    echo frontend\widgets\breadcrumbs\BreadcrumbsWidget::widget([
+            'view'=>'view'
+    ])
     ?>
     <div class="lienhe__row">
         <div class="lienhe__row--left">
-            <h2 class="title-icon title_30"><?= $this->title ?></h2>
+            <h2 class="title-icon title_30">THÔNG TIN LIÊN HỆ</h2>
             <h3 class="title_26"><span><?= $infoAdd->title ?></span></h3>
             <ul class="content_16">
                 <li>

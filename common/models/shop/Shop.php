@@ -2,6 +2,11 @@
 
 namespace common\models\shop;
 
+use common\models\District;
+use common\models\general\ChucDanh;
+use common\models\Province;
+use common\models\Ward;
+use frontend\models\User;
 use yii\db\Query;
 use Yii;
 use common\components\ClaLid;
@@ -70,7 +75,7 @@ class Shop extends \common\models\ActiveRecordC
     const MANY_MEMBER = 2;
     const IMG_AUTH = 2;
     const DEFAULT_LIMIT = 12;
-    const DEFAULT_ORDER = 'id DESC ';
+    const DEFAULT_ORDER = 'user_id DESC ';
 
     const ID_SHOP_BQT = 2041;
     const ID_SHOP_CHARITY = 3300;
@@ -93,10 +98,10 @@ class Shop extends \common\models\ActiveRecordC
     public function rules()
     {
         return [
-            [['name', 'user_id', 'phone', 'email','number_auth'], 'required'],
-            [['id', 'user_id', 'status', 'created_time', 'modified_time', 'site_id', 'avatar_id', 'time_open', 'time_close', 'day_open', 'day_close', 'like', 'rate_count', 'viewed'], 'integer'],
+            [['name', 'phone', 'email','number_auth'], 'required'],
+            [['user_id', 'status', 'created_time', 'modified_time', 'site_id', 'avatar_id', 'time_open', 'time_close', 'day_open', 'day_close', 'like', 'rate_count', 'viewed','founding','ckedit_desc','is_hot'], 'integer'],
             [['description'], 'string'],
-            [['rate'], 'number'],
+            [['rate','price'], 'number'],
             [['name', 'alias', 'address', 'image_name', 'avatar_path', 'avatar_name', 'email', 'yahoo', 'skype', 'website', 'facebook', 'instagram', 'pinterest', 'twitter', 'field_business', 'meta_keywords', 'meta_description', 'meta_title'], 'string', 'max' => 250],
             [['province_id', 'district_id'], 'string', 'max' => 4],
             [['province_name', 'district_name', 'ward_name'], 'string', 'max' => 100],
@@ -116,9 +121,11 @@ class Shop extends \common\models\ActiveRecordC
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
             'name' => 'Name',
             'alias' => 'Alias',
+            'is_hot' => 'Nổi bật',
+            'ckedit_desc' => 'Sử dụng trình soạn thảo',
+            'founding' => 'Ngày thành lập',
             'user_id' => 'User ID',
             'address' => 'Address',
             'province_id' => 'Province ID',
@@ -165,6 +172,7 @@ class Shop extends \common\models\ActiveRecordC
             'lng' => 'Lng',
             'viewed' => 'Viewed',
             'business' => 'Business',
+            'price'=>'Vốn điều lệ'
         ];
     }
 
@@ -266,6 +274,10 @@ class Shop extends \common\models\ActiveRecordC
             $params[':province_id'] = $options['province_id'];
         }
 
+        if (isset($options['_id']) && $options['_id']) {
+            $condition .= " AND s.user_id != :_id";
+            $params[':_id'] = $options['_id'];
+        }
         if (isset($options['category_id']) && $options['category_id']) {
             $condition .= " AND MATCH (t.category_track) AGAINST ('" . __removeDF($options['category_id']) . "' IN BOOLEAN MODE)";
         }
@@ -332,6 +344,17 @@ class Shop extends \common\models\ActiveRecordC
                 $params[':tag'] = $tag;
             }
         }
+        if(isset($options['fitler']) && $options['fitler']){
+            if($options['fitler'] == 'week'){
+                $condition .= ' AND FROM_UNIXTIME(s.created_time) >= curdate() - INTERVAL DAYOFWEEK(curdate())+6 DAY AND FROM_UNIXTIME(s.created_time) < curdate() + 1';
+            }
+            if($options['fitler'] == 'month'){
+                $condition.= ' AND FROM_UNIXTIME(s.created_time) >= curdate() - INTERVAL DAYOFWEEK(curdate())+30 DAY AND FROM_UNIXTIME(s.created_time) < curdate() + 1';
+            }
+            if($options['fitler']== 'very_new'){
+                $order = 'created_time DESC';
+            }
+        }
         //
         if (isset($options['count'])) {
             $total = $query->select($select)
@@ -351,6 +374,40 @@ class Shop extends \common\models\ActiveRecordC
             ->offset($offset)
             ->distinct('s.name')
             ->groupBy('s.id')
+            ->all();
+        return $data;
+    }
+
+    public static function getShopRelation($options = [])
+    {
+        $condition = '1 = 1';
+        $params = '';
+        if (!isset($options['status'])) {
+            $condition = 'status=:status';
+            $params = [
+                ':status' => ClaLid::STATUS_ACTIVED,
+            ];
+        }
+        $select = '*';
+        $order = Shop::DEFAULT_ORDER;
+        if (isset($options['order']) && $options['order']) {
+            $order = __removeDF($options['order']);
+        }
+
+        if (isset($options['_id']) && $options['_id']) {
+            $condition .= " AND user_id != :_id";
+            $params[':_id'] = $options['_id'];
+        }
+        $limit = Shop::DEFAULT_LIMIT;
+        if (isset($options['limit']) && $options['limit']) {
+            $limit = $options['limit'];
+        }
+
+        $data = (new Query())->select($select)
+            ->from('shop')
+            ->andWhere($condition, $params)
+            ->orderBy($order)
+            ->limit($limit)
             ->all();
         return $data;
     }
@@ -393,5 +450,24 @@ class Shop extends \common\models\ActiveRecordC
             return true;
         }
         return false;
+    }
+    public function getProvince(){
+        return $this->hasOne(Province::className(),['id' => 'province_id'])->select('name,id');
+    }
+
+    public function getDistrict(){
+        return $this->hasOne(District::className(),['id' => 'district_id'])->select('name,id');
+    }
+
+    public function getWard(){
+        return $this->hasOne(Ward::className(),['id' => 'ward_id'])->select('name,id');
+    }
+
+    public function getJob(){
+        return $this->hasOne(ChucDanh::className(),['id' => 'nghe_nghiep'])->select('name,id');
+    }
+
+    public function getUser(){
+        return $this->hasOne(User::className(),['id' => 'user_id'])->select('avatar_path,avatar_name,id');
     }
 }

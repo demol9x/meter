@@ -1,116 +1,123 @@
 <?php
 
+use common\components\ClaHost;
+use common\models\product\Product;
+use common\models\product\ProductAttribute;
+use common\models\product\ProductAttributeItem;
+use common\models\product\ProductVariables;
 use yii\helpers\Url;
 use common\components\HtmlFormat;
+
 ?>
-<div class="title-box">
-    <h2>
-        <a href="<?= $link ?>">
-            <?= Yii::t('app', 'shoppingcart') ?>
-            <span><?= $quantity ?> <?= Yii::t('app', 'product') ?></span>
-        </a>
-    </h2>
-</div>
-<div class="cart-mini">
-    <div class="uk-dropdown" style="">
-        <h5><?= Yii::t('app', 'my_shoppingcart') ?></h5>
-        <table>
-            <tbody>
-                <?php
-                if (isset($products) && $products) {
-                    foreach ($products as $key => $product) {
-                        $url = Url::to([
-                            '/product/product/detail',
-                            'id' => $product['id'],
-                            'alias' => HtmlFormat::parseToAlias($product['name'])
-                        ]);
-                ?>
-                        <tr>
-                            <td class="title">
-                                <a href="<?= $url ?>" title="<?= $product['name'] ?>"><?= $product['name'] ?></a>
-                            </td>
-                            <td class="quantity">
-                                <div>
-                                    <?= $product['quantity'] ?>
-                                </div>
-                            </td>
-                            <td class="price" data-price="<?= $product['price'] ?>">
-                                <?= number_format($product['price'], 0, ',', '.'); ?>đ
-                            </td>
-                            <td>
-                                <a class="remove click" data-href="<?= Url::to(['/product/shoppingcart/remove', 'key' => $product['id']]) ?>"><i class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
-                <?php }
-                } ?>
-            </tbody>
-            <tfoot>
-                <tr class="total">
-                    <td colspan="2" class="title">
-                        <?= Yii::t('app', 'sum_money') ?>
-                    </td>
-                    <td class="price">
-                        &nbsp;<?= number_format($ordertotal, 0, ',', '.'); ?>đ
-                    </td>
-                    <td>&nbsp;</td>
-                </tr>
-            </tfoot>
-        </table>
-        <a href="<?= $link ?>" class="uk-button"><?= Yii::t('app', 'pay') ?></a>
+<div class="modal-content wow fadeInDown" data-wow-duration="1s">
+    <span class="close">&times;</span>
+    <div class="item-title-popup">
+        <div class="title-popup-donhang">
+            <h3 class="title_26">KIỂM TRA ĐƠN HÀNG</h3>
+            <img class="Rectangle" src="<?= Yii::$app->homeUrl ?>images/Rectangle.png">
+        </div>
     </div>
-    <div class="close-popup"></div>
+    <div class="item-product">
+        <?php
+        if (isset($products) && $products) {
+            foreach ($products as $key => $product) {
+                $url = Url::to([
+                    '/product/product/detail',
+                    'id' => $product['id'],
+                    'alias' => HtmlFormat::parseToAlias($product['name'])
+                ]);
+                $price = $product['price'];
+                $attribute_id = [];
+                if ($product['var_id']) {
+                    $product_attr_varable = ProductVariables::getVarable(['id' => $product['var_id']]);
+                    $price = $product_attr_varable['price'];
+
+                    $attribute_id = (array)json_decode($product_attr_varable['key']);
+                }
+                ?>
+                <div class="item-donhang-product">
+                    <div class="image">
+                        <img src="<?= ClaHost::getImageHost(), $product['avatar_path'] . $product['avatar_name'] ?>"
+                             alt="<?= $product['name'] ?>">
+                    </div>
+                    <div class="detail-item">
+                        <h4 class="title_28"><?= $product['name'] ?></h4>
+                        <?php if (count($attribute_id)) { ?>
+                            <div class="tt-color-mm">
+                                <?php foreach ($attribute_id as $attr) {
+                                    $val = explode('~',$attr);
+                                    $group_name = ProductAttribute::getName($val[0]);
+                                    $name = ProductAttributeItem::getItemByAttribute($val[1]);
+                                    ?>
+                                    <p class="content_16"><?=$group_name?>: <?=$name['value']?></p>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
+                        <h5 class="price title_30"><?= ($price) ? number_format($price, 0, ',', '.') . ' ' . Yii::t('app', 'currency') : 'Liên hệ' ?></h5>
+                        <?php if ($product['price_market']) { ?>
+                            <div class="price_sale">
+                                <p class="content_16"><?= number_format($product['price_market'], 0, ',', '.') . ' ' . Yii::t('app', 'currency'); ?></p>
+                                <?php if ($product['price_market'] > $price && $price > 0) { ?>
+                                    <span class="content_16">-<?= \common\components\ClaLid::getDiscount($product['price_market'], $price) ?>%</span>
+                                <?php } ?>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </div>
+                <div class="Quantity-item">
+                    <p class="content_16">Số lượng</p>
+
+                    <div class="custom custom-btn-numbers form-control">
+                        <button onclick="var result = document.getElementById('tity'); var tity = result.value; if( !isNaN(tity) &amp; tity > 1 ) result.value--;return false;"
+                                class="btn-minus btn-cts" type="button">-
+                        </button>
+                        <div class="input"><input class="content_16" type="text" class="tity input-text" id="tity"
+                                                  name="Quantity-item" size="4" value="<?=$product['quantity']?>" maxlength="99999999">
+                        </div>
+                        <button onclick="var result = document.getElementById('tity'); var tity = result.value; if( !isNaN(tity)) result.value++;return false;"
+                                class="btn-plus btn-cts" type="button">+
+                        </button>
+                    </div>
+                </div>
+            <?php }
+        } ?>
+
+        <ul class="payments-item">
+            <li>
+                <p class="content_16">Tiền hàng:</p>
+                <p class="content_16"><?= number_format($ordertotal, 0, ',', '.'); ?>đ</p>
+            </li>
+            <li>
+                <p class="title_18">Tổng tiền thanh toán:</p>
+                <p class="title_18"><?= number_format($ordertotal, 0, ',', '.'); ?>đ</p>
+            </li>
+        </ul>
+        <form>
+            <textarea class="content_16" name="" id="" placeholder="Chat"></textarea>
+        </form>
+
+        <a href="<?= $link ?>" title="" class="create-order content_16">tạo đơn hàng<img
+                    src="<?= Yii::$app->homeUrl ?>images/form_foot.png"></a>
+    </div>
 </div>
-<script type="text/javascript">
-    $('#add-cart-ajax').html('<i class="fa fa-shopping-cart"></i> <?= Yii::t('app', 'added_shoppingcart') ?>');
-    $('#add-cart-ajax').attr('add', '0');
-    $('#load-like').html("<p><?= isset($message) ? $message : Yii::t('app', 'add_success') ?></p>");
-</script>
-<script type="text/javascript">
-    $('#load-like').fadeIn(1000);
-    setTimeout(function() {
-        $('#load-like').fadeOut(1000, function() {});
-    }, 3000);
-</script>
 <script>
-    $('#box-shopping-cart .remove').click(function() {
-        loadAjax($(this).attr('data-href'), {}, $(this));
-        $(this).closest('tr').remove();
-        price = $('#box-shopping-cart tbody .price');
-        price_t = 0;
-        count = 0;
-        price.each(function(index) {
-            price_t += parseFloat($(this).attr('data-price'));
-            count++;
-            console.log($(this).attr('data-price'));
-        });
-        $('#box-shopping-cart .total .price').html('' + formatMoney(price_t, 0, ',', '.') + 'đ');
-        $('#box-shopping-cart .title-box span').html('' + count + ' sản phẩm');
-        return false;
+    $(document).ready(function () {
+
+        var modal = document.getElementById("kiemtradonhang");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        };
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        };
     });
 </script>
-<?php if (isset($message)) { ?>
-    <style>
-        body .load-like {
-            width: 290px;
-            margin-left: calc(50% - 145px);
-            padding-top: 27px;
-            margin-top: calc(50vh - 150px);
-            padding: 20px;
-            color: red;
-            height: 95px;
-            background: #fff;
-            border: 1px solid;
-        }
-    </style>
-<?php } else { ?>
-    <style type="text/css">
-        body .load-like {
-            width: 290px;
-            margin-left: calc(50% - 145px);
-            height: 70px;
-            padding-top: 27px;
-            margin-top: calc(50vh - 150px);
-            padding: 20px;
-        }
-    </style>
-<?php } ?>

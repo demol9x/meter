@@ -27,7 +27,7 @@ if(isset($package) && $package){
                         <?php $provin= Province::findOne($key['province_id']) ; ?>
                         <div class="adress"><span><?= $provin->name ?></span><span>60km</span></div>
                         <div class="date_time">
-                            <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt=""><?= date('d',$key['created_at'])?>-<?= date('m',$key['created_at'])?>-<?= date('Y',$key['created_at'])?></span>
+                            <span><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt=""><?= date('d',$key['created_at'])?>/<?= date('m',$key['created_at'])?>/<?= date('Y',$key['created_at'])?></span>
                             <span><i class="fas fa-star"></i>4/5</span>
                         </div>
                     </div>

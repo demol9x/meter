@@ -2,434 +2,401 @@
 
 namespace frontend\modules\management\controllers;
 
+use common\models\package\Package;
+use common\models\package\PackageImage;
+use common\models\shop\Shop;
+use common\models\user\Tho;
+use common\models\Ward;
+use frontend\controllers\CController;
 use Yii;
 use frontend\models\User;
+use frontend\models\profile\UserInfo;
+use frontend\models\profile\UserEducation;
+use frontend\models\profile\UserFile;
+use yii\helpers\Url;
+use yii\web\Response;
+//
 use common\components\ClaGenerate;
 use common\components\UploadLib;
+use common\components\HtmlFormat;
 use common\components\ClaHost;
 use common\models\user\UserAddress;
+use yii\web\UploadedFile;
 
-class ProfileController extends \frontend\controllers\CController
+/**
+ * News controller for the `login` module
+ */
+class ProfileController extends CController
 {
 
-    public $layout = 'main_user';
     /**
      * Renders the index view for the module
      * @return string
      */
     public function actionIndex()
     {
+        $this->layout = 'main';
         $user = User::findIdentity(Yii::$app->user->getId());
-        $address = UserAddress::find()->where(['user_id' => Yii::$app->user->getId(), 'isdefault' => 1])->one();
+        $user_address= UserAddress::findOne(['user_id'=>Yii::$app->user->getId(),'isdefault'=>1]);
         return $this->render('index', [
             'user' => $user,
-            'address' => $address
+            'user_address'=>$user_address,
         ]);
     }
 
-    public function actionIndexManagement()
+    public function actionAddress()
     {
-        Yii::$app->view->dynamicPlaceholders = [
-            'asset' => 'AppAssetManagement'
+        $this->layout = 'main';
+        $id = Yii::$app->user->getId();
+        $model = UserAddress::find()->where(['user_id' => $id])->all();
+        Yii::$app->params['breadcrumbs'] = [
+            'Trang chủ' => Url::home(),
+            'Thông tin'=>Url::to(['/management/profile/index']),
+            'Tạo địa chỉ mơi' => Url::to(['/management/profile/address']),
         ];
-        $this->layout = 'main_user_index';
-        return $this->render('index-management');
+        return $this->render('address', [
+            'model' => $model,
+        ]);
     }
 
-    public function actionChangePassword()
+    public function actionUpdateAddress($id = 0)
     {
-        $id = Yii::$app->user->getId();
-        $user = \frontend\models\User::findIdentity($id);
-        if (isset($_POST['passwordre']) && strlen($_POST['passwordre']) > 5) {
-            if ($user->password_hash) {
-                if (!(isset($_POST['password']))) {
-                    Yii::$app->session->setFlash('error', 'Mật khẩu không đúng.');
-                    return $this->render('change-password', [
-                        'user' => $user
-                    ]);
+        $this->layout = 'main';
+
+        Yii::$app->params['breadcrumbs'] = [
+            'Trang chủ' => Url::home(),
+            'Thông tin'=>Url::to(['/management/profile/index']),
+            'Tạo địa chỉ mơi' => Url::to(['/management/profile/address']),
+        ];
+        if ($id) {
+            $model = UserAddress::findOne($id);
+        } else
+            $model = new UserAddress();
+        if ($model->load(\Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->getId();
+            if ($model->isdefault == 1) {
+                Yii::$app->db->createCommand()->update('user_address', ['isdefault' => 0], ['user_id' => $model->user_id])->execute();
+            }
+            if ($model->save()) {
+                \Yii::$app->getSession()->setFlash('cusses', 'Cập nhật thông tin thành công');
+                return $this->redirect(['/management/profile/address']);
+            }
+        }
+        return $this->render('update-address', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionUpdatePassword(){
+        $this->layout='main';
+        $id=Yii::$app->user->getId();
+        $model = \common\models\User::findOne($id);
+        $old_pass = $model->password_hash;
+        if($model->load(\Yii::$app->request->post())){
+            if(Yii::$app->security->validatePassword($model->old_password, $old_pass)){
+                $model->password_hash = Yii::$app->security->generatePasswordHash($model->new_password);
+                if($model->save()){
+                    \Yii::$app->getSession()->setFlash('cusses', 'Đã đổi mật khẩu thành công');
+                    return $this->refresh();
                 }
-                if ($user->validatePassword($_POST['password'])) {
-                    $user->password_hash = Yii::$app->security->generatePasswordHash($_POST['passwordre']);
-                    if ($user->save(false)) {
-                        Yii::$app->session->setFlash('success', 'Đổi mật khẩu thành công.');
-                        if ($user['email']) {
-                            $this->sendMail([
-                                'email' => $user['email'],
-                                'title' => 'Đổi mật khẩu trên ocopmart.org.',
-                                'content' => "Mật khẩu tài khoản '" . $user['username'] . "' đã được thay đổi trên ocopmart.org. Cám ơn quý khách đã sử dụng dịch vụ của ocopmart.org <p> <a style='display:inline-block; padding: 7px 15px; background:#337ab7; color:#fff; border-radius: 5px;' href='<?= __SERVER_NAME ?>/lien-he.html'>Click vào đây nếu không phải người thay đổi là bạn</a></p>"
-                            ]);
+            }
+            else{
+                \Yii::$app->getSession()->setFlash('cusses', 'Mật khẩu cũ không trùng khớp');
+                return  $this->refresh();
+            }
+        }
+        return $this->render('update-password',[
+            'model'=>$model,
+        ]);
+    }
+    public function actionDeleteAddress($id)
+    {
+        $model = UserAddress::findOne($id);
+        if ($model) {
+            if ($model->delete()) {
+                \Yii::$app->getSession()->setFlash('cusses', 'Xóa địa chỉ thành công');
+                return $this->redirect(['/management/profile/address']);
+            }
+        }
+    }
+
+    public function actionUpdateDefaut($id)
+    {
+        $model = UserAddress::findOne($id);
+        Yii::$app->db->createCommand()->update('user_address', ['isdefault' => 0], ['user_id' => $model->user_id])->execute();
+        $model->isdefault = 1;
+        if ($model->save()) {
+            \Yii::$app->getSession()->setFlash('cusses', 'Chọn làm mặc định thành công!');
+            return $this->redirect(['/management/profile/address']);
+        }
+    }
+
+    /**
+     * Cập nhật thông tin cá nhân cơ bản của user
+     * @return type
+     */
+    public function actionUpdateInfo()
+    {
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            $user = User::findIdentity(Yii::$app->user->getId());
+            $model = $this->findModelInfo();
+            if ($model->load(\Yii::$app->request->post())) {
+                if ($model->save()) {
+                    $html = $this->renderAjax('ajax/box_basic_info', [
+                        'user' => $user,
+                        'user_info' => $model
+                    ]);
+                    return [
+                        'code' => 200,
+                        'html' => $html
+                    ];
+                } else {
+                    return $model->getErrors();
+                }
+            }
+        }
+    }
+
+    public function actionProfileNhathau()
+    {
+        $this->layout = 'main';
+        $model = Shop::findOne(['user_id' => \Yii::$app->user->getId()]);
+        return $this->render('partial/profile-nhathau', [
+            'model' => $model
+        ]);
+    }
+
+    public function findModelInfo()
+    {
+        $model = UserInfo::findOne(\Yii::$app->user->getId());
+        if ($model === NULL) {
+            $model = new UserInfo();
+        }
+        if ($model->isNewRecord) {
+            $model->user_id = \Yii::$app->user->getId();
+            $model->new_graduate = \common\components\ClaLid::STATUS_ACTIVED;
+        }
+        return $model;
+    }
+
+    public function actionViewGoithau()
+    {
+        $this->layout = 'main';
+        $model = new Package();
+        return $this->render('partial/add-goithau', [
+            'model' => $model
+        ]);
+    }
+
+    public function actionAddGoithau()
+    {
+        $this->layout = 'main';
+        $model = new Package();
+        $images = [];
+        if ($model->load(Yii::$app->request->post())) {
+            $model->save();
+
+
+            $newimage = Yii::$app->request->post('newimage');
+            $countimage = $newimage ? count($newimage) : 0;
+            $ward = Ward::findOne($model->ward_id);
+            $latlng = explode(',', $ward->latlng);
+            $model->latlng = $ward->latlng;
+            $model->lat = $latlng[0];
+            $model->long = $latlng[1];
+
+            $model->file = UploadedFile::getInstance($model, 'file');
+            if ($model->file) {
+                $model->file->saveAs(Yii::getAlias('@rootpath') . '/static/media/files/package/' . ClaGenerate::getUniqueCode() . '.' . $model->file->extension);
+                $model->ho_so = '/media/files/package/' . ClaGenerate::getUniqueCode() . '.' . $model->file->extension;
+            }
+            if ($model->save()) {
+                $setava = Yii::$app->request->post('setava');
+                $simg_id = str_replace('new_', '', $setava);
+                $avatar = [];
+                $recount = 0;
+                if ($newimage && $countimage > 0) {
+                    foreach ($newimage as $image_code) {
+                        $imgtem = \common\models\media\ImagesTemp::findOne($image_code);
+                        if ($imgtem) {
+                            $nimg = new PackageImage();
+                            $nimg->attributes = $imgtem->attributes;
+                            $nimg->id = NULL;
+                            unset($nimg->id);
+                            $nimg->package_id = $model->id;
+                            if ($nimg->save()) {
+                                if ($recount == 0) {
+                                    $avatar = $nimg->attributes;
+                                    $recount = 1;
+                                }
+                                if ($imgtem->id == $simg_id) {
+                                    $avatar = $nimg->attributes;
+                                }
+                                $imgtem->delete();
+                            }
                         }
-                    } else {
-                        Yii::$app->session->setFlash('error', 'Đổi mật khẩu không thành công.');
                     }
-                    return $this->redirect(['/management/profile/change-password']);
-                } else {
-                    // echo $_POST['password'];
-                    Yii::$app->session->setFlash('error', 'Mật khẩu không đúng.');
                 }
-            } else {
-                $user->password_hash = Yii::$app->security->generatePasswordHash($_POST['passwordre']);
-                // $user->phone = $user->phone ? $user->phone : '0000000000';
-                if ($user->save(false)) {
-                    Yii::$app->session->setFlash('success', 'Đổi mật khẩu thành công.');
-                } else {
-                    Yii::$app->session->setFlash('error', 'Đổi mật khẩu không thành công2.');
-                }
-                return $this->redirect(['/management/profile/index']);
-            }
-        }
-        return $this->render('change-password', [
-            'user' => $user
-        ]);
-    }
-
-    public function actionChangePassword2()
-    {
-        $id = Yii::$app->user->getId();
-        $user = \frontend\models\User::findIdentity($id);
-        if (isset($_POST['passwordre']) && strlen($_POST['passwordre']) > 5) {
-            if ($user->password_hash2) {
-                if (!(isset($_POST['password']))) {
-                    Yii::$app->session->setFlash('error', 'Mật khẩu cấp 2 không đúng.');
-                    return $this->render('change-password', [
-                        'user' => $user
-                    ]);
-                }
-                if ($user->validatePassword2($_POST['password'])) {
-                    $user->password_hash2 = Yii::$app->security->generatePasswordHash($_POST['passwordre']);
-                    if ($user->save(false)) {
-                        Yii::$app->session->setFlash('success', 'Đổi mật khẩu cấp 2 thành công.');
-                        if ($user['email']) {
-                            $this->sendMail([
-                                'email' => $user['email'],
-                                'title' => 'Đổi mật khẩu cấp 2 trên ocopmart.org.',
-                                'content' => "Mật khẩu cấp 2 tài khoản '" . $user['username'] . "' đã được thay đổi trên ocopmart.org. Cám ơn quý khách đã sử dụng dịch vụ của ocopmart.org <p> <a style='display:inline-block; padding: 7px 15px; background:#337ab7; color:#fff; border-radius: 5px;' href='<?= __SERVER_NAME ?>/lien-he.html'>Click vào đây nếu không phải người thay đổi là bạn</a></p>"
-                            ]);
-                        }
-                    } else {
-                        Yii::$app->session->setFlash('error', 'Đổi mật khẩu cấp 2 không thành công.');
-                    }
-                    return $this->redirect(['/management/profile/change-password2']);
-                } else {
-                    // echo $_POST['password'];
-                    Yii::$app->session->setFlash('error', 'Mật khẩu cấp 2 không đúng.');
-                }
-            } else {
-                $user->password_hash2 = Yii::$app->security->generatePasswordHash($_POST['passwordre']);
-                // $user->phone = $user->phone ? $user->phone : '0000000000';
-                if ($user->save(false)) {
-                    Yii::$app->session->setFlash('success', 'Đổi mật khẩu cấp 2 thành công.');
-                } else {
-                    Yii::$app->session->setFlash('error', 'Đổi mật khẩu cấp 2 không thành công2.');
-                }
-                return $this->redirect(['/management/profile/index']);
-            }
-        }
-        return $this->render('change-password2', [
-            'user' => $user
-        ]);
-    }
-
-    public function actionResetPass2()
-    {
-        $id = Yii::$app->user->getId();
-        $user = \frontend\models\User::findIdentity($id);
-        $pass = 'Reset' . rand(100000, 999999);
-        $user->password_hash2 = Yii::$app->security->generatePasswordHash($pass);
-        if ($user['email']) {
-            if ($user->save(false)) {
-                Yii::$app->session->setFlash('success', 'Thay đổi mật khẩu cấp 2 thành công. Quý khách vui lòng truy cập email ' . $user->email . ' để biết thông tin đã thay đổi');
-                $title = 'Đổi mật khẩu cấp 2 trên ocopmart.org.';
-                $content = "Mật khẩu cấp 2 tài khoản '" . $user['username'] . "' đã được thay đổi thành <b>$pass</b> trên ocopmart.org. Cám ơn quý khách đã sử dụng dịch vụ của ocopmart.org<p> <a style='display:inline-block; padding: 7px 15px; background:#337ab7; color:#fff; border-radius: 5px;' href='<?= __SERVER_NAME ?>/lien-he.html'>Click vào đây nếu không phải người thay đổi là bạn</a></p>";
-                $content = \frontend\widgets\mail\MailWidget::widget([
-                    'view' => 'view',
-                    'input' => [
-                        'title' => $title,
-                        'content' => $content
-                    ]
-                ]);
-                Yii::$app->mailer->compose()
-                    ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name])
-                    ->setTo($user['email'])
-                    ->setSubject($title)
-                    ->setHtmlBody($content)
-                    ->send();
-            } else {
-                Yii::$app->session->setFlash('error', 'Đổi mật khẩu cấp 2 không thành công.');
-            }
-        } else {
-            Yii::$app->session->setFlash('error', 'Vui lòng cập nhật email để có thể thực hiện chức năng này.');
-        }
-        return $this->redirect(['/management/profile/change-password2']);
-    }
-
-    public function actionGetOtp($attr, $value)
-    {
-        $user = User::findIdentity(Yii::$app->user->getId());
-        return $this->renderAjax('partial/otp2', [
-            'user' => $user,
-            'attr' => $attr,
-            'value' => $value,
-        ]);
-
-        // $user = User::findIdentity(Yii::$app->user->getId());
-        // if (!(isset($user->$attr) && $value)) {
-        //     return $this->renderAjax('partial/error', [
-        //         'error' => 'value',
-        //         'attr' => $attr,
-        //         'value'  => $value
-        //     ]);
-        // }
-        // $value = str_replace(' ', '', $value);
-        // $check_require = User::find()->where([$attr => $value])->andWhere('id <> ' . Yii::$app->user->getId())->one();
-        // if ($check_require) {
-        //     return $this->renderAjax('partial/error', [
-        //         'error' => 'require',
-        //         'attr' => $attr,
-        //         'value'  => $value
-        //     ]);
-        // }
-        // if (!$user->phone) {
-        //     $user->$attr = $value;
-        //     if ($user->save()) {
-        //         if ($user['email']) {
-        //             $this->sendMail([
-        //                 'email' => $user['email'],
-        //             ]);
-        //         }
-        //         return $this->renderAjax('partial/saved', [
-        //             'success' => 1,
-        //             'attr' => $attr,
-        //             'value'  => $value
-        //         ]);
-        //     } else {
-        //         return $this->renderAjax('partial/error', [
-        //             'error' => 'save',
-        //             'attr' => $attr,
-        //             'value'  => $value
-        //         ]);
-        //     }
-        // } else {
-        //     \Yii::$app->session->open();
-        //     $kt = 0;
-        //     if (isset($_SESSION['fix_profile_opt']['time'])) {
-        //         if (time() - $_SESSION['fix_profile_opt']['time'] >= 5) {
-        //             $kt = 1;
-        //         }
-        //     } else {
-        //         $kt = 1;
-        //     }
-        //     $_SESSION['fix_profile_opt']['time'] = time();
-        //     $_SESSION['fix_profile_opt']['attr'] = $attr;
-        //     $_SESSION['fix_profile_opt']['value'] = $value;
-        //     if ($kt) {
-        //         $kt = \common\components\ClaQrCode::getOtpCheckAll($user->phone);
-        //         if ($kt['success']) {
-        //             return $this->renderAjax('partial/otp', [
-        //                 'success' => 1,
-        //                 'user' => $user
-        //             ]);
-        //         } else {
-        //             return $this->renderAjax('partial/otp', [
-        //                 'success' => 0,
-        //                 'error' => $kt['error']
-        //             ]);
-        //         }
-        //     }
-        //     return $this->renderAjax('partial/otp', [
-        //         'success' => 0,
-        //         'error' => 'Quý khách nhập quá nhanh. Vui lòng thực hiện lại thao tác sau 5 giây.'
-        //     ]);
-        // }
-    }
-
-    public function actionSaveOtp($otp, $attr, $value)
-    {
-        $user = User::findIdentity(Yii::$app->user->getId());
-        if ($user->checkOtp($otp)) {
-            if (!in_array($attr, ['email', 'phone'])) {
-                return $this->renderAjax('partial/error2', [
-                    'error' => 'save',
-                    'attr' => $attr,
-                    'value'  => $value,
-                    'user'  => $user,
-                ]);
-            }
-            $user->$attr = $value;
-            if ($user->save(false)) {
-                if ($user['email']) {
-                    $this->sendMail([
-                        'email' => $user['email'],
-                    ]);
-                }
-                return $this->renderAjax('partial/saved', [
-                    'success' => 1,
-                    'attr' => $attr,
-                    'value'  => $value,
-                    'user'  => $user,
-                ]);
-            } else {
-                return $this->renderAjax('partial/error2', [
-                    'error' => 'save',
-                    'attr' => $attr,
-                    'value'  => $value,
-                    'user'  => $user,
-                ]);
-            }
-        }
-        return $this->renderAjax('partial/error2', [
-            'error' => 'otp',
-            'attr' => $attr,
-            'value'  => $value,
-            'user'  => $user,
-        ]);
-        // $kt = \common\components\ClaQrCode::checkOtpCheckAll($user['phone'], $otp);
-        // $attr = $_SESSION['fix_profile_opt']['attr'];
-        // $value = $_SESSION['fix_profile_opt']['value'];
-        // if ((isset($kt['success']) && $kt['success'])) {
-        //     unset($_SESSION['fix_profile_opt']['attr']);
-        //     unset($_SESSION['fix_profile_opt']['value']);
-        //     \common\components\ClaQrCode::updateOtp($phone, $otp);
-        //     if (!(isset($user->$attr) && $value)) {
-        //         return $this->renderAjax('partial/error', [
-        //             'error' => 'value',
-        //             'attr' => $attr,
-        //             'value'  => $value
-        //         ]);
-        //     }
-        //     $value = str_replace(' ', '', $value);
-        //     $check_require = User::find()->where([$attr => $value])->andWhere('id <> ' . Yii::$app->user->getId())->one();
-        //     if ($check_require) {
-        //         return $this->renderAjax('partial/error', [
-        //             'error' => 'require',
-        //             'attr' => $attr,
-        //             'value'  => $value
-        //         ]);
-        //     }
-        //     $user->$attr = $value;
-        //     if ($user->save()) {
-        //         if ($user['email']) {
-        //             $this->sendMail([
-        //                 'email' => $user['email'],
-        //             ]);
-        //         }
-        //         return $this->renderAjax('partial/saved', [
-        //             'success' => 1,
-        //             'attr' => $attr,
-        //             'value'  => $value
-        //         ]);
-        //     } else {
-        //         return $this->renderAjax('partial/error', [
-        //             'error' => 'save',
-        //             'attr' => $attr,
-        //             'value'  => $value
-        //         ]);
-        //     }
-        // }
-        // return $this->renderAjax('partial/error', [
-        //     'error' => 'otp',
-        //     'message' => $kt['error'],
-        //     'attr' => $attr,
-        //     'value'  => $value
-        // ]);
-    }
-
-    public function actionUpdateAjax($attr, $value)
-    {
-        $user = User::findIdentity(Yii::$app->user->getId());
-        if ($value !== '') {
-            switch ($attr) {
-                case 'birthday':
-                    $user->$attr = strtotime($value);
-                    if (strtotime($value) < 1000) {
-                        return 0;
-                    }
-                    break;
-                case 'sex':
-                    $user->$attr = $value;
-                    break;
-                case 'username':
-                    $user->$attr = $value;
-                    break;
-            }
-            if ($user->save(false)) {
-                if ($user['email']) {
-                    $this->sendMail([
-                        'email' => $user['email'],
-                    ]);
-                }
-                return 1;
-            }
-        }
-        return 0;
-    }
-
-    public function actionUpdateGroup()
-    {
-        if (isset($_POST['UserInGroup']['user_group_id']) && $_POST['UserInGroup']['user_group_id']) {
-            $model = \common\models\user\UserInGroup::getModel(['user_id' => Yii::$app->user->id, 'user_group_id' => $_POST['UserInGroup']['user_group_id']]);
-            if ($model->load(Yii::$app->request->post())) {
-                $model->user_id = Yii::$app->user->id;
-                $model->status = 2;
-                if ($model->avatar) {
-                    $avatar = Yii::$app->session[$model->avatar];
-                    if ($avatar) {
-                        $avatar = \common\components\UploadLib::getSaveLink($avatar, 'group/');
-                        $model->image = $avatar['baseUrl'] . $avatar['name'];
-                    }
-                    unset(Yii::$app->session[$model->avatar]);
+                // set avatar
+                if ($avatar && count($avatar)) {
+                    $model->avatar_path = $avatar['path'];
+                    $model->avatar_name = $avatar['name'];
+                    $model->avatar_id = $avatar['id'];
                     $model->save();
                 }
             }
+            return $this->redirect(['index']);
         }
-        $user = User::findIdentity(Yii::$app->user->getId());
-        return $this->renderAjax('group', ['user' => $user]);
+        return $this->render('partial/add-goithau', [
+            'model' => $model,
+        ]);
     }
 
-    public function actionDeleteGroup($id)
+    public function actionAddTho()
     {
-        $model = \common\models\user\UserInGroup::find()->where(['user_id' => Yii::$app->user->id, 'id' => $id])->one();
-        if ($model && $model->delete()) {
-            return 1;
+        $this->layout = 'main';
+        $model = Tho::find()->joinWith(['province', 'job', 'user'])->where(['user_id' => \Yii::$app->user->getId()])->asArray()->One();
+        echo '<pre>';
+        print_r($model);
+        echo '</pre>';
+        die();
+        return $this->render('partial/add-goithau', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionChangeProfile(){
+        $model= User::findOne(Yii::$app->user->getId());
+        $old_phone= $model->phone;
+        $old_mail=$model->email;
+        if($model->load(Yii::$app->request->post())){
+            if($model->birthday){
+                $model->birthday = strtotime($model['birthday']);
+            }
+            if($model->save()){
+                \Yii::$app->getSession()->setFlash('cusses', 'Sửa thông tin thành công');
+                return $this->redirect(['/management/profile/index']);
+            }
+            else
+            {
+                echo '<pre>';
+                print_r($model->getErrors());
+                echo '</pre>';
+                die();
+            }
         }
-        return 0;
+
+        return $this->render('partial/change-profile',['model'=>$model]);
+    }
+    /**
+     * Khởi tạo model education
+     * @return UserEducation
+     */
+
+    public function actionUploadCv()
+    {
+        if (\Yii::$app->request->isAjax) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            if (isset($_FILES['file'])) {
+                $file = $_FILES['file'];
+
+                $ext = pathinfo($file['name'], PATHINFO_EXTENSION);
+                $file_allow = array('doc', 'docx', 'pdf');
+                if (in_array($ext, $file_allow)) {
+                    $user_id = \Yii::$app->user->getId();
+                    $model_file = UserFile::find()->where('user_id=:user_id', [':user_id' => $user_id])->one();
+                    if ($model_file === NULL) {
+                        $model_file = new UserFile();
+                    }
+                    $model_file->file_src = 'true';
+                    $model_file->size = $file['size'];
+                    $model_file->id = ClaGenerate::getUniqueCode(array('prefix' => 'f'));
+                    $model_file->display_name = $file['name'];
+                    $up = new UploadLib($file);
+                    $up->setPath(array('user-file', $user_id));
+                    $up->uploadFile();
+                    $response = $up->getResponse(true);
+                    if ($up->getStatus() == '200') {
+                        $model_file->path = $response['baseUrl'];
+                        $model_file->name = $response['name'];
+                        $model_file->extension = $response['ext'];
+                        $model_file->file_src = 'true';
+                        $model_file->user_id = $user_id;
+                        if ($model_file->save()) {
+                            $html = $this->renderAjax('ajax/html_file_info', [
+                                'file' => $model_file
+                            ]);
+                            return [
+                                'code' => 200,
+                                'html' => $html,
+                                'model' => $model_file->attributes
+                            ];
+                        } else {
+                            return $model_file->getErrors();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public function actionDownloadFileCv($id)
+    {
+        $file = UserFile::findOne($id);
+        if ($file !== NULL) {
+            $read = \Yii::$app->request->get('read', false) ? true : false;
+            $up = new UploadLib();
+            $up->download(array(
+                'path' => $file->path,
+                'name' => $file->name,
+                'extension' => UserFile::getMimeType($file->extension),
+                'realname' => HtmlFormat::parseToAlias($file->display_name) . '.' . $file->extension,
+                'readOnline' => $read
+            ));
+        }
+        \Yii::$app->end();
     }
 
     public function beforeAction($action)
     {
-        if (Yii::$app->controller->action->id != 'change-password') {
-            $user = User::findIdentity(Yii::$app->user->getId());
-            if (!$user->password_hash) {
-                return $this->redirect(['/management/profile/change-password']);
-            }
-        }
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
 
-    public function actionUploadfilebgr()
+    public function actionUploadAvatar()
     {
         if (isset($_FILES['file'])) {
             $file = $_FILES['file'];
-            if ($file['size'] > 1024 * 1000) {
-                Yii::$app->end();
+            if ($file['size'] > 1024 * 1000 * 2) {
+                $this->jsonResponse('400', array(
+                    'message' => Yii::t('errors', 'filesize_toolarge', array('{size}' => '2Mb')),
+                ));
+                Yii::app()->end();
             }
             $up = new UploadLib($file);
-            $up->setPath(array('profile', date('Y_m_d', time())));
+            $up->setPath(array('user-avatar', \Yii::$app->user->getId()));
             $up->uploadImage();
             $return = array();
             $response = $up->getResponse(true);
             $return = array('status' => $up->getStatus(), 'data' => $response, 'host' => ClaHost::getImageHost(), 'size' => '');
             if ($up->getStatus() == '200') {
                 $keycode = ClaGenerate::getUniqueCode();
-                $return['data']['realurl'] = ClaHost::getImageHost() . $response['baseUrl'] . 's400_400/' . $response['name'];
+                $return['data']['realurl'] = ClaHost::getImageHost() . $response['baseUrl'] . 's150_150/' . $response['name'];
                 $return['data']['avatar'] = $keycode;
-                Yii::$app->session[$keycode] = $response;
-                $user = User::findOne(Yii::$app->user->id);
-                if ($user) {
-                    $user->image_name = $response['name'];
-                    $user->image_path = $response['baseUrl'];
-                    $user->save(false);
+                $user_info = User::findOne(Yii::$app->user->getId());
+                if(isset($user_info) && $user_info->type == 2) {
+                    $shop = Shop::findOne(Yii::$app->user->getId());
+                }
+                if ($response) {
+                    $user_info->avatar_path = $response['baseUrl'];
+                    $user_info->avatar_name = $response['name'];
+                    if(isset($user_info) && $user_info->type == 2){
+                        $shop->avatar_path = $response['baseUrl'];
+                        $shop->avatar_name = $response['name'];
+                        $shop->save(false);
+                    }
+                    $user_info->save(false);
                 }
             }
             echo json_encode($return);
@@ -438,69 +405,50 @@ class ProfileController extends \frontend\controllers\CController
         //
     }
 
-    public function actionUploadfileava()
+    /**
+     * upload file
+     */
+    public function actionUploadCover()
     {
+
         if (isset($_FILES['file'])) {
             $file = $_FILES['file'];
-            if ($file['size'] > 1024 * 1000) {
-                Yii::$app->end();
+            if ($file['size'] > 1024 * 1000 * 2) {
+                $this->jsonResponse('400', array(
+                    'message' => Yii::t('errors', 'filesize_toolarge', array('{size}' => '2Mb')),
+                ));
+                Yii::app()->end();
             }
             $up = new UploadLib($file);
-            $up->setPath(array('profile', date('Y_m_d', time())));
+
+            $up->setPath(array('user-cover', \Yii::$app->user->getId()));
             $up->uploadImage();
             $return = array();
             $response = $up->getResponse(true);
             $return = array('status' => $up->getStatus(), 'data' => $response, 'host' => ClaHost::getImageHost(), 'size' => '');
+
             if ($up->getStatus() == '200') {
                 $keycode = ClaGenerate::getUniqueCode();
-                $return['data']['realurl'] = ClaHost::getImageHost() . $response['baseUrl'] . 's400_400/' . $response['name'];
+                $return['data']['realurl'] = ClaHost::getImageHost() . $response['baseUrl'] . 's150_150/' . $response['name'];
                 $return['data']['avatar'] = $keycode;
-                Yii::$app->session[$keycode] = $response;
-                $user = User::findOne(Yii::$app->user->id);
-                if ($user) {
-                    $user->avatar_name = $response['name'];
-                    $user->avatar_path = $response['baseUrl'];
-                    $user->save(false);
+                $user_info = User::findOne(Yii::$app->user->getId());
+                if(isset($user_info) && $user_info->type == 2) {
+                    $shop = Shop::findOne(Yii::$app->user->getId());
+                }
+                if ($response) {
+                    $user_info->image_path = $response['baseUrl'];
+                    $user_info->image_name = $response['name'];
+                    if(isset($user_info) && $user_info->type == 2){
+                        $shop->avatar_path = $response['baseUrl'];
+                        $shop->avatar_name = $response['name'];
+                        $shop->save(false);
+                    }
+                    $user_info->save(false);
                 }
             }
             echo json_encode($return);
             Yii::$app->end();
         }
-        //
     }
 
-    public function sendMail($arr)
-    {
-        $email = $arr["email"];
-        // $url = $arr["url"];
-        if (isset($arr["title"])) {
-            $title = $arr["title"];
-        } else {
-            $title = "Thông báo cập nhật thông tin tài khoản trên ocopmart.org";
-        }
-        if (isset($arr["content"])) {
-            $content = $arr["content"];
-        } else {
-            $content = "Thông tin tài khoản của quý khách đã được thay đổi lúc " . date('d/m/Y H:i') . ".Cám ơn quý khách đã sử dụng dịch vụ của ocopmart.org.<p> <a style='display:inline-block; padding: 7px 15px; background:#337ab7; color:#fff; border-radius: 5px;' href='<?= __SERVER_NAME ?>/lien-he.html'>Click vào đây nếu không phải người thay đổi là bạn</a></p>";
-        }
-
-        $content = \frontend\widgets\mail\MailWidget::widget([
-            'view' => 'view',
-            'input' => [
-                'title' => $title,
-                'content' => $content
-            ]
-        ]);
-        \common\models\mail\SendEmail::addMail([
-            'email' => $email,
-            'title' => $title,
-            'content' => $content,
-        ]);
-        // Yii::$app->mailer->compose()
-        //         ->setFrom([Yii::$app->params['adminEmail'] => Yii::$app->name])
-        //         ->setTo($email)
-        //         ->setSubject($tieude)
-        //         ->setHtmlBody($content)
-        //         ->send();
-    }
 }

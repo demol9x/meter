@@ -18,10 +18,8 @@ class User extends \yii\base\Module {
      * @inheritdoc
      */
     public function init() {
-        if (\common\components\ClaSite::isMobile()) {
-            $this->controllerNamespace = 'frontend\mobile\modules\user\controllers';
-            $this->setViewPath(Yii::getAlias('@root') . '/frontend/mobile/modules/user/views');
-        }
+
+        $this->setViewPath(Yii::getAlias('@root') . '/frontend/modules/user/views');
         parent::init();
 
         // custom initialization code goes here

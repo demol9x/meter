@@ -53,7 +53,7 @@ use common\components\ClaLid;
 
                                             <?php  $provin= Province::findOne(['id'=>$key['province_id']])?>
                                             <div class="adress"><span><?= $provin->name ?></span><span>60km</span></div>
-                                            <div class="date_time"><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt=""><span><?= date('d',$key['updated_at'])?> </span>-<span><?= date('m',$key['updated_at'])?></span>-<span><?= date('Y',$key['updated_at']) ?></span></div>
+                                            <div class="date_time"><img src="<?= yii::$app->homeUrl?>images/time_pro.png" alt=""><span><?= date('d',$key['updated_at'])?> </span>/<span><?= date('m',$key['updated_at'])?></span>/<span><?= date('Y',$key['updated_at']) ?></span></div>
                                         </div>
                                     </a>
                                     <div class="heart">

@@ -1,27 +1,28 @@
+<?php
+
+use common\components\ClaHost;
+
+$controller = Yii::$app->controller->id;
+$action = Yii::$app->controller->action->id;
+$class = '';
+// if ($controller == 'site' && $action == 'index') {
+//     $class = 'active';
+// }
+?>
+
+
+
 <?php if (isset($data) && $data) { ?>
-    <div class="container">
-        <div class="row">
-            <?php
-                foreach ($data as $menu) {
-                $name =  Trans($menu['name'], $menu['name_en']);
-                ?>
-                <div class="item-categories">
-                    <div class="img-item-categories">
-                        <a <?= $menu['target'] ? 'target="_blank"' : '' ?> href="<?= $menu['link']; ?>">
-                            <img src="<?= common\components\ClaHost::getImageHost(), $menu['avatar_path'], $menu['avatar_name'] ?>"  alt="<?= $name ?>" alt="">
-                        </a>
-                    </div>
-                    <div class="title-item-categories">
-                        <div class="vertical-box">
-                            <h2><a <?= $menu['target'] ? 'target="_blank"' : '' ?> href="<?= $menu['link']; ?>"><?= $name ?></a></h2>
-                            <p>
-                                <?= Trans($menu['description'], $menu['description_en']); ?>
-                            </p>
-                            <a <?= $menu['target'] ? 'target="_blank"' : '' ?> href="<?= $menu['link']; ?>" class="view-more-categories"><?= Yii::t('app','view_more') ?></a>
-                        </div>
-                    </div>
-                </div>
-            <?php } ?>
-        </div>
-    </div>
+    <?php
+    foreach ($data as $menu_lv1) {
+        ?>
+        <li class="list <?php isset($menu_lv1['active'] )&& $menu_lv1['active'] ? 'active' : '' ?>"><a href="<?= $menu_lv1['link'] ?>"><?= $menu_lv1['name'] ?></a></li>
+    <?php   }?>
 <?php } ?>
+
+
+
+
+
+
+

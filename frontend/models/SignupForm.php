@@ -3,8 +3,10 @@
 namespace frontend\models;
 
 use common\models\shop\Shop;
-use yii\base\Model;
 use frontend\models\User;
+
+use yii\base\Model;
+
 
 /**
  * Signup form
@@ -23,18 +25,18 @@ class SignupForm extends Model
     public $type;
     public $number_auth;
     public $business;
-
+    public $passwordre;
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
+            [['username'],'required'],
             ['username', 'trim'],
             ['username', 'string', 'min' => 2, 'max' => 255],
             ['phone', 'trim'],
             ['phone', 'required'],
-            ['username', 'required'],
             ['phone', 'integer'],
             ['user_before', 'integer'],
             ['phone', 'string', 'min' => 10, 'max' => 11],
@@ -45,6 +47,9 @@ class SignupForm extends Model
             ['phone', 'unique', 'targetClass' => '\frontend\models\User', 'message' => 'Số điện thoại đã tồn tại.'],
             ['password', 'required'],
             ['password', 'string', 'min' => 6, 'max' => 100],
+            ['passwordre', 'required','on' => 'web'],
+            ['passwordre', 'string', 'min' => 6, 'max' => 100],
+            ['passwordre', 'compare', 'compareAttribute'=>'password', 'message'=>"Mật khẩu không khớp" ],
             ['terms_and_condition', 'integer'],
             ['terms_and_condition', 'required'],
             ['tax_number', 'string', 'max' => 255],
@@ -53,7 +58,8 @@ class SignupForm extends Model
             ['type', 'integer'],
             ['number_auth', 'string', 'max' => 255],
             ['business', 'string', 'max' => 500],
-            [['number_auth', 'business', 'email'], 'required', 'on' => 'company']
+            [['number_auth', 'business', 'email'], 'required', 'on' => 'company'],
+
         ];
     }
 
@@ -71,9 +77,18 @@ class SignupForm extends Model
             'user_before' => 'ID giới thiệu',
             'number_auth' => 'Mã số thuế',
             'business' => 'Ngành nghề kinh doanh',
+            'terms_and_condition'=>'Điều khoản và chính sách',
+            'passwordre'=>'Mật khẩu nhập lại'
         ];
     }
 
+    public function checkErrors($attribute)
+    {
+        if($this->username == ''){
+            return false;
+        }
+        return true;
+    }
     /**
      * Signs user up.
      *
@@ -138,26 +153,39 @@ class SignupForm extends Model
 
     public function signup()
     {
-        if (!$this->validate()) {
-            return null;
+        if(!$this->validate()) {
+            null;
         }
-
         $user = new User();
         $user->username = $this->username;
         $user->phone = $this->phone;
         $user->email = $this->email;
-        $user->cmt = $this->cmt;
-        $user->address = $this->address;
-        $user->facebook = $this->facebook;
-        $user->link_facebook = $this->link_facebook;
-        $user->province_id = $this->province_id;
-        $user->type_social = $this->type_social;
-        $user->id_social = $this->id_social;
-        $user->is_notification = $this->is_notification;
-        $user->user_before = $this->user_before;
+        $user->type = $this->type;
+        $user->status = User::STATUS_ACTIVE;
         $user->setPassword($this->password);
         $user->generateAuthKey();
-        return $user->save() ? $user : null;
+        if($user->save())
+        {
+            if ($this->type == User::TYPE_DOANH_NGHIEP) {
+                $shop = new Shop();
+                $shop->name = $this->username;
+                $shop->user_id = $user->id;
+                $shop->phone = $this->phone;
+                $shop->email = $this->email;
+                $shop->number_auth = $this->number_auth;
+                $shop->business = $this->business;
+                if($shop->save()){
+
+                }
+                else{
+                    print_r('<pre>');
+                    print_r($shop->getErrors());
+                }
+            }
+            return $user;
+        }else{
+            return null;
+        }
     }
 
 }

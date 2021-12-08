@@ -178,20 +178,7 @@ class SiteController extends CController
      */
     public function actionIndex()
     {
-
         \Yii::$app->session->open();
-        if (isset($_SESSION['url_back_login_yes']) && $_SESSION['url_back_login']) {
-            unset($_SESSION['url_back_login_yes']);
-            echo '
-                <div style="display: flex; width: 100%; height: 100vh">
-                    <img style="margin: auto;" src="' . Yii::$app->homeUrl . 'images/start_mobile.png">
-                </div>
-                <script type="text/javascript">
-                    window.history.back();
-                </script>';
-            die();
-        }
-
         $this->layout = 'main';
         $siteinfo = \common\components\ClaLid::getSiteinfo();
         // add title for view
@@ -265,17 +252,21 @@ class SiteController extends CController
             'name' => 'keywords',
             'content' => $siteinfo->meta_keywords
         ]);
+        Yii::$app->params['breadcrumbs'] = [
+            'Trang chủ' => Url::home(),
+        ];
+        Yii::$app->params['breadcrumbs']['Liên hệ'] = Url::to(['/site/contact']);
         //
         $model = new \common\models\Contact();
         $model->created_at = time();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
+//            if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
                 Yii::$app->session->setFlash('success', Yii::t('app', 'thank_for_contact'));
-            } else {
-                Yii::$app->session->setFlash('error', 'There was an error sending email.');
-            }
+//            } else {
+//            }
             return $this->refresh();
         }
+
         $infoAdd  = \common\models\Siteinfo::findOne(1);
         return $this->render('contact', [
             'model' => $model,

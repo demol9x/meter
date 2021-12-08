@@ -18,9 +18,7 @@ echo frontend\widgets\banner\BannerWidget::widget([
         <?php //Menu main
         echo frontend\widgets\breadcrumbs\BreadcrumbsWidget::widget([])
         ?>
-        <?php
 
-        ?>
         <div class="gioithieu">
             <div class="gioithieu__left wow fadeIn" data-wow-delay="0.3s">
                 <h2 class="title_30"><?= $this->title ?></h2>
@@ -32,7 +30,7 @@ echo frontend\widgets\banner\BannerWidget::widget([
                         <?= $model->description ?>
                     </li>
                 </ul>
-                <a href="" class="content_16 btn-gioithieu btn-animation2">Liên hệ ngay</a>
+                <a href="<?= \yii\helpers\Url::to(['/site/contact'])?>" class="content_16 btn-gioithieu btn-animation2">Liên hệ ngay</a>
             </div>
             <div class="gioithieu__right wow fadeRight" data-wow-duration="2s" data-wow-delay="0.4s">
                 <div class="gioithieu__right--img">

@@ -47,7 +47,6 @@ class PasswordResetRequestForm extends Model {
 
         if (!User::isPasswordResetTokenValid($user->password_reset_token)) {
             $user->generatePasswordResetToken();
-            $user->cmt = '123456789';
             if (!$user->save()) {
                 return false;
             }

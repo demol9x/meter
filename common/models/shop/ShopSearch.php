@@ -18,8 +18,8 @@ class ShopSearch extends Shop
     public function rules()
     {
         return [
-            [['id', 'user_id', 'status', 'site_id', 'avatar_id', 'time_open', 'time_close', 'day_open', 'day_close', 'like', 'rate_count', 'viewed'], 'integer'],
-            [['name', 'alias', 'address', 'province_id', 'province_name', 'district_id', 'district_name', 'ward_id', 'ward_name', 'image_path', 'image_name', 'avatar_path', 'avatar_name', 'phone', 'hotline', 'email', 'yahoo', 'skype', 'website', 'facebook', 'instagram', 'pinterest', 'twitter', 'field_business', 'short_description', 'description', 'meta_keywords', 'meta_description', 'meta_title', 'latlng', 'number_auth', 'lat', 'lng', 'business','created_time', 'modified_time'], 'safe'],
+            [['user_id', 'status', 'site_id', 'avatar_id', 'time_open', 'time_close', 'day_open', 'day_close', 'like', 'rate_count', 'viewed','is_hot'], 'integer'],
+            [['name', 'alias', 'address', 'province_id', 'province_name', 'district_id', 'district_name', 'ward_id', 'ward_name', 'image_path', 'image_name', 'avatar_path', 'avatar_name', 'phone', 'hotline', 'email', 'yahoo', 'skype', 'website', 'facebook', 'instagram', 'pinterest', 'twitter', 'field_business', 'short_description', 'description', 'meta_keywords', 'meta_description', 'meta_title', 'latlng', 'number_auth', 'lat', 'lng', 'business'], 'safe'],
             [['rate'], 'number'],
         ];
     }
@@ -60,7 +60,6 @@ class ShopSearch extends Shop
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'id' => $this->id,
             'user_id' => $this->user_id,
             'status' => $this->status,
             'site_id' => $this->site_id,
@@ -73,6 +72,7 @@ class ShopSearch extends Shop
             'rate' => $this->rate,
             'rate_count' => $this->rate_count,
             'viewed' => $this->viewed,
+            'is_hot' => $this->is_hot,
         ]);
 
         if($this->created_time) {

@@ -18,7 +18,7 @@ class RatingSearch extends Rating
     public function rules()
     {
         return [
-            [['id', 'user_id', 'rating', 'type', 'object_id', 'status', 'order_item_id'], 'integer'],
+            [['id', 'user_id', 'rating', 'type', 'object_id', 'status'], 'integer'],
             [['name', 'address', 'email', 'created_at', 'content'], 'safe'],
         ];
     }
@@ -66,7 +66,6 @@ class RatingSearch extends Rating
             'object_id' => $this->object_id,
             'created_at' => $this->created_at,
             'status' => $this->status,
-            'order_item_id' => $this->order_item_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

@@ -3,6 +3,7 @@
 namespace frontend\modules\product\controllers;
 
 use common\models\gcacoin\Gcacoin;
+use common\models\product\ProductVariables;
 use frontend\controllers\CController;
 use Yii;
 use frontend\components\Shoppingcart;
@@ -96,190 +97,66 @@ class ShoppingcartController extends CController
         //
         Yii::$app->params['breadcrumbs'] = [
             Yii::t('app', 'home') => Url::home(),
-            Yii::t('app', 'thanh_toan') => Url::current(),
+            'Giỏ hàng' => Url::current(),
         ];
         $shoppingcart = new Shoppingcart();
         $data = $shoppingcart->cartstore;
         if (!$data) {
-            $this->redirect(['index']);
-        }
-        $dataProcess = [];
-        if ($data) {
-            foreach ($data as $item) {
-                $dataProcess[$item['shop_id']][] = $item;
-            }
+            $this->redirect(Url::to('/product/product/index'));
         }
         $ordertotal = $shoppingcart->getOrderTotal();
         $model = new Order();
-        $address = \common\models\user\UserAddress::getDefaultAddress();
         $user = (Yii::$app->user->id) ? User::findOne(Yii::$app->user->id) : new User();
         if ($model->load(Yii::$app->request->post())) {
-            if ($model->payment_method == ClaPayment::PAYMENT_METHOD_MEMBERIN) {
-                Yii::$app->session->open();
-                if (isset($_SESSION['oke_otp_order']) && time() - $_SESSION['oke_otp_order'] < 30) {
-                    $_SESSION['oke_otp_order'] = 0;
-                } else {
-                    Yii::$app->session->setFlash('error', 'Xác nhận mật khẩu cấp 2 không hợp lệ.');
-                    return $this->redirect(['checkout']);
-                }
-            }
             $model->key = \common\components\ClaGenerate::getUniqueCode();
             $model->order_total = $ordertotal;
             $model->user_id = (Yii::$app->user->id) ? Yii::$app->user->id : 0;
-            $model->getAddress($address);
-            $model->status = 1;
-            $ship_total = 0;
-            if ($model->checkCostAffilate($dataProcess)) {
-                if ($model->validate()) {
-                    foreach ($dataProcess as $shop_id => $items) {
-                        $orderTotalShop = 0;
-                        foreach ($items as $item) {
-                            $orderTotalShop += $item['price'] * $item['quantity'];
-                        }
-                        $order = new Order();
-                        $order->attributes = $model->attributes;
-                        $order->payment_status = 1;
-                        $shop = \common\models\shop\Shop::findOne($shop_id);
-                        $order->shop_id = $shop_id;
-                        $order->getShopAddressSlected();
-                        $order->order_total = $order->order_total_all = $orderTotalShop;
-                        //van chuyen
-                        $tran = new Transport();
-                        $order->transport_type = isset($tran->transports[$shop_id]['method']) ? $tran->transports[$shop_id]['method'] : 0;
-                        $order->shipfee = 0;
-                        $order->transport_id = 0;
-                        //van chuyen
-                        if ($order->save()) {
-                            //them item
-                            $list = [];
-                            foreach ($items as $product) {
-                                $model_item = new OrderItem();
-                                $model_item->order_id = $order->id;
-                                $model_item->shop_id = $product['shop_id'];
-                                $model_item->product_id = $product['id'];
-                                $model_item->code = $product['code'];
-                                $model_item->price = $product['price'] ? $product['price'] : 0;
-                                $model_item->quantity = $product['quantity'];
-                                $model_item->status = 1;
-                                $model_item->name = $product['name'];
-                                $model_item->avatar_path = $product['avatar_path'];
-                                $model_item->avatar_name = $product['avatar_name'];
-                                $model_item->weight = $product['weight'];
-                                $model_item->height = $product['height'];
-                                $model_item->width = $product['width'];
-                                $model_item->length = $product['length'];
-                                $model_item->getAffiliate();
-                                if ($model_item->save()) {
-                                    $notify = [];
-                                    $notify['title'] = Yii::t('app', 'have_new_order');
-                                    $notify['description'] = Yii::t('app', 'order_ms_0') . $product['name'] . Yii::t('app', 'order_ms_1') . $product['quantity'];
-                                    $notify['link'] = Url::to(['/management/order/index']);
-                                    $notify['type'] = Notifications::ORDER;
-                                    $notify['recipient_id'] = $product['shop_id'];
-                                    Notifications::pushMessage($notify);
-                                    $list[] = $model_item;
-                                }
-                            }
-                            $shop = Shop::findOne($product['shop_id']);
-                            $order->costAffiliate($list);
-                            $order->addDiscountCode(isset($_POST['discount_code'][$product['shop_id']]) ? $_POST['discount_code'][$product['shop_id']] : '');
-                            $order->getFeeTransport();
-                            if ($shop['email']) {
-                                \common\models\mail\SendEmail::sendMail([
-                                    'email' => $shop['email'],
-                                    'title' => 'Đơn hàng mới tại OCOP',
-                                    'content' => $this->renderAjax('email_shop', [
-                                        'orderShop' => $order
-                                    ])
-                                ]);
-                            }
-                            if ($address['email']) {
-                                \common\models\mail\SendEmail::sendMail([
-                                    'email' => $address['email'],
-                                    'title' => 'Tạo đơn hàng thành công tại OCOP',
-                                    'content' => $this->renderAjax('email_user', [
-                                        'orderShop' => $order
-                                    ])
-                                ]);
-                            }
-                            $siteinfo = \common\components\ClaLid::getSiteinfo();
-                            $email_manager = $siteinfo->email_rif;
-                            if ($email_manager) {
-                                \common\models\mail\SendEmail::sendMail([
-                                    'email' => $email_manager,
-                                    'title' => 'Tạo đơn hàng thành công tại OCOP',
-                                    'content' => $this->renderAjax('email_manager', [
-                                        'orderShop' => $order,
-                                        'address' => $address,
-                                        'shop' => $shop,
-                                        'items' => $items
-                                    ])
-                                ]);
-                            }
-                            $dataos = [
-                                'order_id' => $order->id,
-                                'type' => $order->transport_type,
-                                'time' => time(),
-                                'status' => 1,
-                                'content' => Yii::t('app', 'created_order'),
-                            ];
-                            \common\models\order\OrderShopHistory::saveData($dataos);
-                            $tran->remove($shop_id);
-                            $ship_total += $order->shipfee;
-                        }
+            $model->status = Order::ORDER_WAITING_PROCESS;
+            if ($model->save()) {
+                $data_change = [];
+                foreach ($data as $key => $product) {
+                    $price = $product['price'];
+                    if (isset($product['var_id']) && $product['var_id']) { //Nếu là biến thể
+                        $product_attr_varable = ProductVariables::getVarable(['id' => $product['var_id']]);
+                        $price = $product_attr_varable['price'];
                     }
-                    $shoppingcart->removeAll();
-                    if ($ship_total) {
-                        $model->shipfee = $ship_total > 0 ? $ship_total : 0;
-                        $model->order_total += $ship_total;
-                        $model->save();
-                    }
-                    // payment
-                    $model->id = time();
-                    $claPayment = new ClaPayment(['order' => $model]);
-                    $claPayment->pay();
-                    $url_success = Url::to(['/product/shoppingcart/success', 'id' => $model->id, 'key' => $model->key]);
-                    $this->redirect($url_success);
+                    $model_item = new OrderItem();
+                    $model_item->order_id = $model->id;
+                    $model_item->product_id = $product['id'];
+                    $model_item->code = $product['code'];
+                    $model_item->price = $price;
+                    $model_item->quantity = $product['quantity'];
+                    $model_item->name = $product['name'];
+                    $model_item->avatar_path = $product['avatar_path'];
+                    $model_item->avatar_name = $product['avatar_name'];
+                    $model_item->weight = $product['weight'];
+                    $model_item->height = $product['height'];
+                    $model_item->width = $product['width'];
+                    $model_item->length = $product['length'];
+                    $model_item->var_id = (isset($product['var_id']) && $product['var_id']) ? $product['var_id'] : '';
+                    $data_change[$key][] = $model_item;
+                    $model_item->save();
+
+
                 }
-            } else {
-                Yii::$app->session->setFlash('error', $model->getErrorAffiliate());
-                // if(\common\components\ClaAll::isAdmin()) {
-                //     print_r($model->getErrorAffiliate());
-                //     die();
-                // }
             }
+            $url_success = Url::to(['/product/shoppingcart/success', 'id' => $model->id, 'key' => $model->key]);
+            return $this->redirect($url_success);
+            Yii::$app->end();
         }
-        $data_change = [];
-        foreach ($dataProcess as $shop_id => $items) {
-            foreach ($items as $product) {
-                $model_item = new OrderItem();
-                $model_item->order_id = $model->id;
-                $model_item->order_shop_id = 0;
-                $model_item->shop_id = $product['shop_id'];
-                $model_item->product_id = $product['id'];
-                $model_item->code = $product['code'];
-                $model_item->price = $product['price'] ? $product['price'] : 0;
-                $model_item->quantity = $product['quantity'];
-                $model_item->name = $product['name'];
-                $model_item->avatar_path = $product['avatar_path'];
-                $model_item->avatar_name = $product['avatar_name'];
-                $model_item->weight = $product['weight'];
-                $model_item->height = $product['height'];
-                $model_item->width = $product['width'];
-                $model_item->length = $product['length'];
-                $model_item->getAffiliate();
-                $data_change[$shop_id][] = $model_item;
-            }
-        }
-        $dataProcess = $data_change;
+
+        $listDistrict = District::dataFromProvinceId(0);
+        $listWard = Ward::dataFromDistrictId(0);
+        $listProvince = Province::optionsProvince();
         //
         return $this->render('checkout', [
             'model' => $model,
             'data' => $data,
-            'dataProcess' => $dataProcess,
             'ordertotal' => $ordertotal,
             'user' => $user,
-            'address' => $address
+            'listProvince' => $listProvince,
+            'listDistrict' => $listDistrict,
+            'listWard' => $listWard
         ]);
     }
 
@@ -366,11 +243,7 @@ class ShoppingcartController extends CController
         //
         $data = $shoppingcart->cartstore;
         $dataProcess = [];
-        if ($data) {
-            foreach ($data as $item) {
-                $dataProcess[$item['shop_id']][] = $item;
-            }
-        }
+
         //
         $ordertotal = $shoppingcart->getOrderTotal();
         //
@@ -472,24 +345,10 @@ class ShoppingcartController extends CController
         $shoppingcart->removeAll();
         $orders = \common\models\order\Order::getOrderByKey($key);
         if ($orders) {
-            if ($orders[0]->payment_method == ClaPayment::PAYMENT_METHOD_QR) {
-                $total = 0;
-                foreach ($orders as $order) {
-                    $total += $order->order_total;
-                }
-                $qrcode = [
-                    'type' => 'order',
-                    'price' => $total,
-                    'data' => [
-                        'order_id' => $key,
-                    ]
-                ];
-                $src = \common\components\ClaQrCode::GenQrCode($qrcode);
-            } else {
-                $src = '';
-            }
+            $order_item = OrderItem::getOrderItem($orders->id);
             return $this->render('success', [
-                'src' => $src,
+                'orders' => $orders,
+                'order_item' => $order_item,
             ]);
         }
     }
@@ -672,54 +531,33 @@ class ShoppingcartController extends CController
         }
     }
 
-    public function actionAddCart($id, $quantity = 1, $ajax = 0)
+    public function actionAddCart($id, $quantity = 1, $ajax = 0, $var_id = 0)
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         //
         $shoppingcart = new Shoppingcart();
         $model = Product::findOne($id);
-        if (!$model->canBuyFor(Yii::$app->user->id)) {
-            if ($ajax) {
-                $products = $shoppingcart->cartstore;
-                $quantity = count($products);
-                $link = \yii\helpers\Url::to(['/product/shoppingcart/index']);
-                $ordertotal = $shoppingcart->getOrderTotal();
-                return $this->renderAjax('ajax', [
-                    'products' => $products,
-                    'quantity' => $quantity,
-                    'link' => $link,
-                    'ordertotal' => $ordertotal,
-                    'message' => 'Sản phẩm không thể thêm vào giỏ hàng'
-                ]);
-            }
-            Yii::$app->session->setFlash('error', 'Bạn không được phép mua sản phẩm này. Vui lòng chọn sản phẩm khác.');
-            return $this->redirect(Yii::$app->request->referrer ?: Yii::$app->homeUrl);
+        $price = $model->price * $quantity;
+        if (isset($var_id) && $var_id) {
+            $product_attr_varable = ProductVariables::getVarable(['id' => $var_id]);
+            $price = $product_attr_varable['price'] * $quantity;
         }
-        // echo $quantity;; die();
-        //
         $data = [
             'id' => $model->id,
             'brand' => $model->brand,
             'name' => $model->name,
             'category_id' => $model->category_id,
             'code' => $model->code . $model->id,
-            'price' => $model->getPrice($quantity),
+            'price' => $price,
             'price_market' => $model->price_market,
             'avatar_path' => $model->avatar_path,
             'avatar_name' => $model->avatar_name,
             'avatar_id' => $model->avatar_id,
-            'shop_id' => $model->shop_id,
             'weight' => $model->weight,
             'height' => $model->height,
             'width' => $model->width,
             'length' => $model->length,
-            // 'sale_buy_shop_coin' => $model->saleCoinBuyCoin($quantity),
-            // 'sale_buy_shop_money' => $model->addCoinBuyMoney($quantity),
-            // 'sale_before_shop' => $model->addCoinBeforeShop($quantity),
-            // 'sale_before_product' => $model->addCoinBeforeProduct($quantity),
-            // 'sale' => $model->moneySale($quantity),
-            // 'user_before_product' => $model->userBeforeProduct(),
-            // 'user_before_shop' => $model->userBeforeShop(),
+            'var_id' => $var_id,
         ];
         $shoppingcart->add($data, [
             'quantity' => $model->getQuatityOrder($quantity)
@@ -727,7 +565,7 @@ class ShoppingcartController extends CController
         if ($ajax) {
             $products = $shoppingcart->cartstore;
             $quantity = count($products);
-            $link = \yii\helpers\Url::to(['/product/shoppingcart/index']);
+            $link = \yii\helpers\Url::to(['/product/shoppingcart/checkout']);
             $ordertotal = $shoppingcart->getOrderTotal();
             return $this->renderAjax('ajax', [
                 'products' => $products,
@@ -781,7 +619,6 @@ class ShoppingcartController extends CController
             'avatar_id' => $model->avatar_id,
             'order' => $price * $quantity,
             'quantity' => $quantity,
-            'shop_id' => $model->shop_id,
             'weight' => $model->weight,
             'height' => $model->height,
             'width' => $model->width,

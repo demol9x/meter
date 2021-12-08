@@ -2,27 +2,25 @@
 
 namespace backend\modules\product\controllers;
 
+use common\models\product\ProductAttributeItem;
+use common\models\product\search\ProductAttributeItemSearch;
 use Yii;
 use common\models\product\ProductAttribute;
-use common\models\product\ProductAttributeOption;
-use common\models\product\search\ProductAttributeSearch;
-use common\components\UploadLib;
-use common\components\ClaHost;
-use common\components\ClaGenerate;
+use common\models\product\ProductAttributeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use common\components\HtmlFormat;
 
 /**
  * ProductAttributeController implements the CRUD actions for ProductAttribute model.
  */
-class ProductAttributeController extends Controller {
-
+class ProductAttributeController extends Controller
+{
     /**
      * @inheritdoc
      */
-    public function behaviors() {
+    public function behaviors()
+    {
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -37,13 +35,14 @@ class ProductAttributeController extends Controller {
      * Lists all ProductAttribute models.
      * @return mixed
      */
-    public function actionIndex() {
+    public function actionIndex()
+    {
         $searchModel = new ProductAttributeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $dataProvider->pagination->pageSize = 100;
+
         return $this->render('index', [
-                    'searchModel' => $searchModel,
-                    'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
 
@@ -52,9 +51,10 @@ class ProductAttributeController extends Controller {
      * @param string $id
      * @return mixed
      */
-    public function actionView($id) {
+    public function actionView($id)
+    {
         return $this->render('view', [
-                    'model' => $this->findModel($id),
+            'model' => $this->findModel($id),
         ]);
     }
 
@@ -63,36 +63,19 @@ class ProductAttributeController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate() {
+    public function actionCreate()
+    {
         $model = new ProductAttribute();
-        $model->sort_order = (int) $model->getMaxOrder() + 2;
+
         if ($model->load(Yii::$app->request->post())) {
-            //
-            $model->code = ($model->code) ? HtmlFormat::parseToAlias($model->code) : HtmlFormat::parseToAlias($model->name);
-            //
-            $model->field_product = $model->generateFieldProduct($model->attribute_set_id, $model->frontend_input, $model->is_system);
-            //
-            $model->field_configurable = $model->generateFieldConfigurable($model->attribute_set_id, $model->is_configurable, $model->frontend_input, $model->is_system);
-            //
-            // upload avatar
-            if ($model->avatar) {
-                $avatar = Yii::$app->session[$model->avatar];
-                if ($avatar) {
-                    $model->avatar_path = $avatar['baseUrl'];
-                    $model->avatar_name = $avatar['name'];
-                }
-                unset(Yii::$app->session[$model->avatar]);
-            }
             if ($model->save()) {
-                $options = Yii::$app->request->post('ProductAttributeOption');
-                $this->saveAttributeOption($model, $options);
                 return $this->redirect(['index']);
             }
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
         }
-        //
-        return $this->render('create', [
-                    'model' => $model,
-        ]);
     }
 
     /**
@@ -101,36 +84,19 @@ class ProductAttributeController extends Controller {
      * @param string $id
      * @return mixed
      */
-    public function actionUpdate($id) {
+    public function actionUpdate($id)
+    {
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post())) {
-            //
-            $model->code = ($model->code) ? HtmlFormat::parseToAlias($model->code) : HtmlFormat::parseToAlias($model->name);
-            //
-            if ((int) $model->is_configurable && !(int) $model->field_configurable) {
-                $model->field_configurable = $model->generateFieldConfigurable($model->attribute_set_id, $model->is_configurable, $model->frontend_input);
-            }
-            //
-            // upload avatar
-            if ($model->avatar) {
-                $avatar = Yii::$app->session[$model->avatar];
-                if ($avatar) {
-                    $model->avatar_path = $avatar['baseUrl'];
-                    $model->avatar_name = $avatar['name'];
-                }
-                unset(Yii::$app->session[$model->avatar]);
-            }
             if ($model->save()) {
-                $options = Yii::$app->request->post('ProductAttributeOption');
-                $this->saveAttributeOption($model, $options);
                 return $this->redirect(['index']);
             }
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+            ]);
         }
-        //
-        return $this->render('update', [
-                    'model' => $model,
-        ]);
     }
 
     /**
@@ -139,7 +105,8 @@ class ProductAttributeController extends Controller {
      * @param string $id
      * @return mixed
      */
-    public function actionDelete($id) {
+    public function actionDelete($id)
+    {
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
@@ -152,7 +119,8 @@ class ProductAttributeController extends Controller {
      * @return ProductAttribute the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id) {
+    protected function findModel($id)
+    {
         if (($model = ProductAttribute::findOne($id)) !== null) {
             return $model;
         } else {
@@ -160,89 +128,76 @@ class ProductAttributeController extends Controller {
         }
     }
 
-    public function saveAttributeOption($attribute, $options_post, $files = null) {
-        if (count($options_post)) {
-            $default_value = isset($options_post['default_value']) ? $options_post['default_value'] : null;
-            foreach ($options_post as $key => $oplist) {
-                if ($key == 'new') {
-                    foreach ($oplist as $key1 => $opitem) {
-                        if ($opitem['value']) {
-                            $modelOp = new ProductAttributeOption();
-                            $modelOp->attribute_id = $attribute->id;
-                            $modelOp->value = trim($opitem['value']);
-                            $modelOp->sort_order = $opitem['sort_order'];
-                            $modelOp->ext = $opitem['ext'];
-                            $modelOp->code_app = $opitem['code_app'];
-                            if ($modelOp->save()) {
-                                $modelOp->index_key = ($attribute->frontend_input == 'multiselect') ? $modelOp->generateKeyMulti($modelOp->attribute_id) : $modelOp->id;
-                                $modelOp->save();
-                                if ($default_value == 'n-' . $key1) {
-                                    $default_value = $modelOp->index_key;
-                                }
-                            }
-                        }
-                    }
-                } else if ($key == 'update') {
-                    foreach ($oplist as $key1 => $opitem) {
-                        if ($opitem['value']) {
-                            $modelOp = ProductAttributeOption::findOne($key1);
-                            if ($modelOp) {
-                                $modelOp->value = trim($opitem['value']);
-                                $modelOp->sort_order = $opitem['sort_order'];
-                                $modelOp->ext = $opitem['ext'];
-                                $modelOp->code_app = $opitem['code_app'];
-                                if ($modelOp->save()) {
-                                    if ($default_value == 'u-' . $key1) {
-                                        $default_value = $modelOp->index_key;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                } else if ($key == 'delete') {
-                    foreach ($oplist as $key1 => $opitem) {
-                        $modelOp = ProductAttributeOption::findOne($key1);
-                        $modelOp->delete();
-                    }
-                }
-            }
-            if (is_numeric($default_value) && $default_value != $attribute->default_value) {
-                $attribute->default_value = $default_value;
-                $attribute->save();
-            }
-        }
-    }
-    
-    public function beforeAction($action) {
-        $this->enableCsrfValidation = false;
-        return parent::beforeAction($action);
-    }
-    
-    /**
-     * upload file
-     */
-    public function actionUploadfile() {
-        if (isset($_FILES['file'])) {
-            $file = $_FILES['file'];
-            if ($file['size'] > 1024 * 1000) {
-                Yii::$app->end();
-            }
-            $up = new UploadLib($file);
-            $up->setPath(array('attribute', date('Y_m_d', time())));
-            $up->uploadImage();
-            $return = array();
-            $response = $up->getResponse(true);
-            $return = array('status' => $up->getStatus(), 'data' => $response, 'host' => ClaHost::getImageHost(), 'size' => '');
-            if ($up->getStatus() == '200') {
-                $keycode = ClaGenerate::getUniqueCode();
-                $return['data']['realurl'] = ClaHost::getImageHost() . $response['baseUrl'] . 's100_100/' . $response['name'];
-                $return['data']['avatar'] = $keycode;
-                Yii::$app->session[$keycode] = $response;
-            }
-            echo json_encode($return);
-            Yii::$app->end();
-        }
-        //
+    public function actionAdd($id)
+    {
+        $searchModel = new ProductAttributeItemSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
+        $attr = ProductAttribute::findOne($id);
+        return $this->render('add', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'data' => $attr,
+        ]);
     }
 
+    public function actionCreateItem($id)
+    {
+        $model = new ProductAttributeItem();
+        $data = ProductAttribute::findOne($id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            $model->attribute_id = $id;
+            if($data->display_type == 2){
+                if(!$model->value_option){
+                    $model->addError('value_option','Giá trị tùy chọn cho bộ thuộc tính hiện tại không được bỏ trống');
+                    return $this->render('item/create', [
+                        'model' => $model,
+                        'data' => $data,
+                    ]);
+                }
+            }
+            if ($model->save()) {
+                return $this->redirect(['add', 'id' => $id]);
+            }
+        } else {
+            return $this->render('item/create', [
+                'model' => $model,
+                'data' => $data,
+            ]);
+        }
+    }
+
+    public function actionUpdateItem($id)
+    {
+        $model = ProductAttributeItem::findOne($id);
+        $data = ProductAttribute::findOne($model->attribute_id);
+
+        if ($model->load(Yii::$app->request->post())) {
+            if($data->display_type == 2){
+                if(!$model->value_option){
+                    $model->addError('value_option','Giá trị tùy chọn cho bộ thuộc tính hiện tại không được bỏ trống');
+                    return $this->render('item/create', [
+                        'model' => $model,
+                        'data' => $data,
+                    ]);
+                }
+            }
+            if ($model->save()) {
+                return $this->redirect(['add', 'id' => $model->attribute_id]);
+            }
+        } else {
+            return $this->render('item/create', [
+                'model' => $model,
+                'data' => $data,
+            ]);
+        }
+    }
+
+    public function actionDeleteItem($id)
+    {
+        $model = ProductAttributeItem::findOne($id);
+        if ($model->delete()) {
+            return $this->redirect(['add', 'id' => $model->attribute_id]);
+        }
+    }
 }

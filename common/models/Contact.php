@@ -28,8 +28,8 @@ class Contact extends \yii\db\ActiveRecord {
             [['name', 'email', 'phone', 'subject', 'body'], 'required'],
             // email has to be a valid email address
             ['email', 'email'],
-
-            [['phone', 'address', 'body', 'type', 'order', 'created_at'], 'safe'],
+            [['phone'],'string', 'min' => 10, 'max' => 11],
+            [['address', 'body', 'type', 'order', 'created_at'], 'safe'],
         ];
     }
 
@@ -55,20 +55,20 @@ class Contact extends \yii\db\ActiveRecord {
      * @param string $email the target email address
      * @return bool whether the email was sent
      */
-    public function sendEmail($email) {
-        // return Yii::$app->mailer->compose()
-        //                 ->setTo($email)
-        //                 ->setFrom([$this->email => $this->name])
-        //                 ->setSubject('Liên hệ')
-        //                 ->setTextBody($this->body)
-        //                 ->send();
-        return 1;
-    }
+//    public function sendEmail($email) {
+//         return Yii::$app->mailer->compose()
+//                         ->setTo($email)
+//                         ->setFrom([$this->email => $this->name])
+//                         ->setSubject('Liên hệ')
+//                         ->setTextBody($this->body)
+//                         ->send();
+//        return 1;
+//    }
 
     public function beforeSave($insert) {
         if (parent::beforeSave($insert)) {
             if($this->isNewRecord) {
-                \common\models\NotificationAdmin::addNotifaction('mail_contact');
+
             }
             return true;
         } else {

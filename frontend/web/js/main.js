@@ -34,9 +34,15 @@ $(document).ready(function () {
   $(window).scroll(function (event) {
     var pos_body = $("html,body").scrollTop();
     if (pos_body > 300) {
-      $(".backtotop").addClass("show");
+      $(".backtotop").addClass("show_1");
     } else {
-      $(".backtotop").removeClass("show");
+      $(".backtotop").removeClass("show_1");
+    }
+    var height = $("html,body").scrollTop();
+    if (height > 0) {
+      $(".site51_head_col12_meter").addClass("show");
+    } else {
+      $(".site51_head_col12_meter").removeClass("show");
     }
   });
   $(".backtotop").click(function () {
@@ -48,7 +54,7 @@ $(document).ready(function () {
 // slide tin tuc mobile
 $(window).ready(function () {
   var width = $(window).width();
-  if (width <= 1200) {
+  if (width <= 768) {
     $(".slide-tin").slick({
       cssEase: "cubic-bezier(0.77, 0, 0.18, 1)",
       slidesToShow: 3,
@@ -86,6 +92,47 @@ $(window).ready(function () {
         },
       ],
     });
+    $(".item-list-hot-deal").slick({
+      slidesToShow: 8,
+      slidesToScroll: 1,
+      arrows: false,
+      autoplay: true,
+      dots: false,
+      adaptiveHeight: true,
+      infinite: true,
+      useTransform: true,
+      speed: 1000,
+      vertical: true,
+      focusOnSelect: true,
+
+      responsive: [
+        {
+          breakpoint: 1200,
+          settings: {
+            slidesToShow: 4,
+            vertical: false,
+            focusOnSelect: false,
+          },
+        },
+        {
+          breakpoint: 1000,
+          settings: {
+            slidesToShow: 3,
+            vertical: false,
+            focusOnSelect: false,
+          },
+        },
+        {
+          breakpoint: 550,
+          settings: {
+            slidesToShow: 2,
+            slidesToScroll: 1,
+            vertical: false,
+            focusOnSelect: false,
+          },
+        },
+      ],
+    });
   } else {
     // location.reload();
   }
@@ -116,25 +163,6 @@ $(document).ready(function () {
     fade: true,
     cssEase: "linear",
   });
-
-  $(document).ready(function () {
-    $(".slide_detail_on").slick({
-      slidesToShow: 1,
-      slidesToScroll: 1,
-      arrows: false,
-      autoplay: true,
-      dots: false,
-      adaptiveHeight: true,
-      infinite: true,
-      useTransform: true,
-      speed: 1000,
-      cssEase: "cubic-bezier(0.77, 0, 0.18, 1)",
-      asNavFor: ".slide_detail_in",
-      fade: true,
-      cssEase: "linear",
-    });
-  });
-
   $(".item-list-sp").slick({
     slidesToShow: 5,
     slidesToScroll: 1,
@@ -145,7 +173,7 @@ $(document).ready(function () {
     infinite: true,
     useTransform: true,
     speed: 1000,
-
+    variableWidth: true,
     responsive: [
       {
         breakpoint: 1200,
@@ -171,47 +199,7 @@ $(document).ready(function () {
     ],
   });
 
-  $(".item-list-hot-deal").slick({
-    slidesToShow: 8,
-    slidesToScroll: 1,
-    arrows: false,
-    autoplay: true,
-    dots: false,
-    adaptiveHeight: true,
-    infinite: true,
-    useTransform: true,
-    speed: 1000,
-    vertical: true,
-    focusOnSelect: true,
 
-    responsive: [
-      {
-        breakpoint: 1200,
-        settings: {
-          slidesToShow: 4,
-          vertical: false,
-          focusOnSelect: false,
-        },
-      },
-      {
-        breakpoint: 1000,
-        settings: {
-          slidesToShow: 3,
-          vertical: false,
-          focusOnSelect: false,
-        },
-      },
-      {
-        breakpoint: 550,
-        settings: {
-          slidesToShow: 2,
-          slidesToScroll: 1,
-          vertical: false,
-          focusOnSelect: false,
-        },
-      },
-    ],
-  });
 
   $(".slide_detail_in").slick({
     cssEase: "cubic-bezier(0.77, 0, 0.18, 1)",
@@ -349,7 +337,14 @@ $(document).ready(function() {
   });
 });
 
-
+$("#scrooll_app").click(function () {
+  $("html, body").animate(
+      {
+        scrollTop: $("#banner_qc_mobile").offset().top,
+      },
+      1500
+  );
+});
 
 $("#scroll_load_1").click(function () {
   $("html, body").animate(
@@ -402,12 +397,12 @@ $(document).ready(function () {
   });
 });
 
-$(".detail_button").click(function () {
-  $("#popup_goithau").addClass("active");
-});
+
 $("#popup_close_goithau").click(function () {
   $("#popup_goithau").removeClass("active");
+  $(".site51_popup_col12_popupgoithau").removeClass("active")
 });
+
 
 // $( document ).ready(function() {
 //   // Get the modal

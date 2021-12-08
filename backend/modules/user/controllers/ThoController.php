@@ -5,6 +5,7 @@ namespace backend\modules\user\controllers;
 use Yii;
 use common\models\user\Tho;
 use common\models\user\ThoSearch;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -104,6 +105,25 @@ class ThoController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    public function actionUpdateHot($user_id){
+        $model = Tho::findOne($user_id);
+        if($model->is_hot ==  0){
+            $model->is_hot = 1;
+        }else{
+            $model->is_hot = 0;
+        }
+        if ($model->save()) {
+            return \yii\helpers\Json::encode(array(
+                'code' => 200,
+                'html' => '<i class="fa fa-times" aria-hidden="true"></i>',
+                'title' => Yii::t('app', 'click_to_on'),
+                'link' => Url::to(['/user/tho/update-hot', 'user_id' => $user_id])
+            ));
+        } else {
+            return \yii\helpers\Json::encode(array('code' => 400));
+        }
     }
 
     /**

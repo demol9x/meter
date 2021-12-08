@@ -6,15 +6,23 @@ use yii\helpers\Html;
 /* @var $model common\models\product\ProductAttribute */
 
 $this->title = 'Cập nhật thuộc tính: ' . $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Quản lý thuộc tính', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $this->title];
+$this->params['breadcrumbs'][] = ['label' => 'Bộ thuộc tính sản phẩm', 'url' => ['index']];
 ?>
-<div class="product-attribute-update">
-
-    <!--<h1><?= Html::encode($this->title) ?></h1>-->
-
-    <?= $this->render('_form', [
-        'model' => $model,
-    ]) ?>
-
+<div class="product-attribute-index">
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x_panel">
+                <div class="x_title">
+                    <h2><?= Html::encode($this->title) ?></h2>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="x_content">
+                    <?= $this->render('_form', [
+                        'model' => $model,
+                    ]) ?>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
